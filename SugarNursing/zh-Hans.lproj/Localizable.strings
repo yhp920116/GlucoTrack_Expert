@@ -1,0 +1,18 @@
+/* 
+  Localizable.strings
+  SugarNursing
+
+  Created by Dan on 14-11-5.
+  Copyright (c) 2014年 Tisson. All rights reserved.
+*/
+
+
+/* Left Menu */
+"Home" = "主页";
+"Test Result" = "检测结果";
+"Control Effect" = "控糖成效";
+"Member Log" = "康复日志";
+"My Tips" = "我的提醒";
+"Member Center" = "个人中心";
+"Service Center" = "我的客服";
+"Log Out" = "退出登录";

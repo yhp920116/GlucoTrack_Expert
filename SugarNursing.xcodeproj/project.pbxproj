@@ -7,14 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1847DA780B1F9C304A08AC6C /* libPods-SugarNursing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD6636C7BFC777050BC1B07 /* libPods-SugarNursing.a */; };
+		3716F02A1A13448800BE3841 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3716F0291A13448800BE3841 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		3749B5181A09C50D0031D00C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3749B5171A09C50D0031D00C /* main.m */; };
 		3749B51B1A09C50D0031D00C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3749B51A1A09C50D0031D00C /* AppDelegate.m */; };
 		3749B51E1A09C50D0031D00C /* SugarNursing.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3749B51C1A09C50D0031D00C /* SugarNursing.xcdatamodeld */; };
-		3749B5211A09C50D0031D00C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3749B5201A09C50D0031D00C /* ViewController.m */; };
 		3749B5241A09C50D0031D00C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3749B5221A09C50D0031D00C /* Main.storyboard */; };
 		3749B5261A09C50D0031D00C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3749B5251A09C50D0031D00C /* Images.xcassets */; };
 		3749B5291A09C50D0031D00C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3749B5271A09C50D0031D00C /* LaunchScreen.xib */; };
 		3749B5351A09C50D0031D00C /* SugarNursingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3749B5341A09C50D0031D00C /* SugarNursingTests.m */; };
+		3749B5541A09CFD30031D00C /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3749B5531A09CFD30031D00C /* RootViewController.m */; };
+		3749B5571A09D0870031D00C /* LeftMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3749B5561A09D0870031D00C /* LeftMenuController.m */; };
+		3749B55A1A09D0950031D00C /* RightMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3749B5591A09D0950031D00C /* RightMenuController.m */; };
+		3749B55D1A09D0D60031D00C /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3749B55C1A09D0D60031D00C /* ContentViewController.m */; };
+		3749B5611A09D9920031D00C /* LeftMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3749B5601A09D9920031D00C /* LeftMenuCell.m */; };
+		3749B5641A09DAFA0031D00C /* MemberInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3749B5631A09DAFA0031D00C /* MemberInfoCell.m */; };
+		3749B57F1A0A11700031D00C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3749B5811A0A11700031D00C /* Localizable.strings */; };
+		3749B5851A0A1A340031D00C /* MemberCenter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3749B5841A0A1A340031D00C /* MemberCenter.storyboard */; };
+		3749B5971A0A2C670031D00C /* MemberCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3749B5961A0A2C670031D00C /* MemberCenterController.m */; };
+		3761FA511A10B75E00F31D2F /* TestTracker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3761FA501A10B75E00F31D2F /* TestTracker.storyboard */; };
+		3761FA571A10BCC700F31D2F /* TestTrackerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3761FA561A10BCC700F31D2F /* TestTrackerViewController.m */; };
+		37AC34BD1A0B11300037029A /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37AC34BC1A0B11300037029A /* Login.storyboard */; };
+		37AC34C01A0B14AE0037029A /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC34BF1A0B14AE0037029A /* LoginViewController.m */; };
+		37AC34C31A0B52420037029A /* AppDelegate+UserLogInOut.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC34C21A0B52420037029A /* AppDelegate+UserLogInOut.m */; };
+		37EDEA141A0A79C7009EB54D /* UIStoryboard+Storyboards.m in Sources */ = {isa = PBXBuildFile; fileRef = 37EDEA131A0A79C7009EB54D /* UIStoryboard+Storyboards.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,20 +44,51 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1945A488E5BA9FC742F2D0A5 /* Pods-SugarNursing.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SugarNursing.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SugarNursing/Pods-SugarNursing.debug.xcconfig"; sourceTree = "<group>"; };
+		3716F0291A13448800BE3841 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3749B5121A09C50D0031D00C /* SugarNursing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SugarNursing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3749B5161A09C50D0031D00C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3749B5171A09C50D0031D00C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3749B5191A09C50D0031D00C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3749B51A1A09C50D0031D00C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3749B51D1A09C50D0031D00C /* SugarNursing.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SugarNursing.xcdatamodel; sourceTree = "<group>"; };
-		3749B51F1A09C50D0031D00C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		3749B5201A09C50D0031D00C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		3749B5231A09C50D0031D00C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3749B5251A09C50D0031D00C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3749B5281A09C50D0031D00C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		3749B52E1A09C50D0031D00C /* SugarNursingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SugarNursingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3749B5331A09C50D0031D00C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3749B5341A09C50D0031D00C /* SugarNursingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SugarNursingTests.m; sourceTree = "<group>"; };
+		3749B5521A09CFD30031D00C /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		3749B5531A09CFD30031D00C /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		3749B5551A09D0870031D00C /* LeftMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuController.h; sourceTree = "<group>"; };
+		3749B5561A09D0870031D00C /* LeftMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuController.m; sourceTree = "<group>"; };
+		3749B5581A09D0950031D00C /* RightMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightMenuController.h; sourceTree = "<group>"; };
+		3749B5591A09D0950031D00C /* RightMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightMenuController.m; sourceTree = "<group>"; };
+		3749B55B1A09D0D60031D00C /* ContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentViewController.h; sourceTree = "<group>"; };
+		3749B55C1A09D0D60031D00C /* ContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentViewController.m; sourceTree = "<group>"; };
+		3749B55F1A09D9920031D00C /* LeftMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuCell.h; sourceTree = "<group>"; };
+		3749B5601A09D9920031D00C /* LeftMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuCell.m; sourceTree = "<group>"; };
+		3749B5621A09DAFA0031D00C /* MemberInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberInfoCell.h; sourceTree = "<group>"; };
+		3749B5631A09DAFA0031D00C /* MemberInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberInfoCell.m; sourceTree = "<group>"; };
+		3749B5801A0A11700031D00C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3749B5841A0A1A340031D00C /* MemberCenter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MemberCenter.storyboard; sourceTree = "<group>"; };
+		3749B5951A0A2C670031D00C /* MemberCenterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberCenterController.h; sourceTree = "<group>"; };
+		3749B5961A0A2C670031D00C /* MemberCenterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberCenterController.m; sourceTree = "<group>"; };
+		3761FA501A10B75E00F31D2F /* TestTracker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TestTracker.storyboard; sourceTree = "<group>"; };
+		3761FA551A10BCC700F31D2F /* TestTrackerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTrackerViewController.h; sourceTree = "<group>"; };
+		3761FA561A10BCC700F31D2F /* TestTrackerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTrackerViewController.m; sourceTree = "<group>"; };
+		37AC34BC1A0B11300037029A /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		37AC34BE1A0B14AE0037029A /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		37AC34BF1A0B14AE0037029A /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		37AC34C11A0B52420037029A /* AppDelegate+UserLogInOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+UserLogInOut.h"; sourceTree = "<group>"; };
+		37AC34C21A0B52420037029A /* AppDelegate+UserLogInOut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+UserLogInOut.m"; sourceTree = "<group>"; };
+		37AC34C41A0B57510037029A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		37AC34C51A0B57510037029A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		37AC34C61A0B57510037029A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		37EDEA121A0A79C7009EB54D /* UIStoryboard+Storyboards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIStoryboard+Storyboards.h"; sourceTree = "<group>"; };
+		37EDEA131A0A79C7009EB54D /* UIStoryboard+Storyboards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIStoryboard+Storyboards.m"; sourceTree = "<group>"; };
+		A3A04497B0D1DB48A9F2F0EF /* Pods-SugarNursing.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SugarNursing.release.xcconfig"; path = "Pods/Target Support Files/Pods-SugarNursing/Pods-SugarNursing.release.xcconfig"; sourceTree = "<group>"; };
+		DAD6636C7BFC777050BC1B07 /* libPods-SugarNursing.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SugarNursing.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +96,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3716F02A1A13448800BE3841 /* UIKit.framework in Frameworks */,
+				1847DA780B1F9C304A08AC6C /* libPods-SugarNursing.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +117,8 @@
 				3749B5141A09C50D0031D00C /* SugarNursing */,
 				3749B5311A09C50D0031D00C /* SugarNursingTests */,
 				3749B5131A09C50D0031D00C /* Products */,
+				CA637DF1D987C2360489E8D5 /* Pods */,
+				48F5CC993F2F9C708BC9826E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,15 +134,16 @@
 		3749B5141A09C50D0031D00C /* SugarNursing */ = {
 			isa = PBXGroup;
 			children = (
-				3749B5191A09C50D0031D00C /* AppDelegate.h */,
-				3749B51A1A09C50D0031D00C /* AppDelegate.m */,
-				3749B51F1A09C50D0031D00C /* ViewController.h */,
-				3749B5201A09C50D0031D00C /* ViewController.m */,
-				3749B5221A09C50D0031D00C /* Main.storyboard */,
-				3749B5251A09C50D0031D00C /* Images.xcassets */,
-				3749B5271A09C50D0031D00C /* LaunchScreen.xib */,
-				3749B51C1A09C50D0031D00C /* SugarNursing.xcdatamodeld */,
+				3749B5401A09C7430031D00C /* AppDelegate */,
+				3749B5451A09C7840031D00C /* General */,
+				3749B5461A09C78E0031D00C /* Helpers */,
+				3749B5441A09C77C0031D00C /* Macro */,
+				3749B5431A09C7700031D00C /* Models */,
+				3749B5491A09C7AE0031D00C /* Resources */,
+				3749B5481A09C7A50031D00C /* Sections */,
+				3749B5831A0A19BA0031D00C /* Storyboards */,
 				3749B5151A09C50D0031D00C /* Supporting Files */,
+				3749B5471A09C7950031D00C /* Vendors */,
 			);
 			path = SugarNursing;
 			sourceTree = "<group>";
@@ -122,6 +174,191 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		3749B5401A09C7430031D00C /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				3749B5191A09C50D0031D00C /* AppDelegate.h */,
+				3749B51A1A09C50D0031D00C /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		3749B5431A09C7700031D00C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3749B51C1A09C50D0031D00C /* SugarNursing.xcdatamodeld */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		3749B5441A09C77C0031D00C /* Macro */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Macro;
+			sourceTree = "<group>";
+		};
+		3749B5451A09C7840031D00C /* General */ = {
+			isa = PBXGroup;
+			children = (
+				3749B55E1A09D9600031D00C /* Cells */,
+			);
+			name = General;
+			sourceTree = "<group>";
+		};
+		3749B5461A09C78E0031D00C /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				37EDEA121A0A79C7009EB54D /* UIStoryboard+Storyboards.h */,
+				37EDEA131A0A79C7009EB54D /* UIStoryboard+Storyboards.m */,
+				37AC34C11A0B52420037029A /* AppDelegate+UserLogInOut.h */,
+				37AC34C21A0B52420037029A /* AppDelegate+UserLogInOut.m */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		3749B5471A09C7950031D00C /* Vendors */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Vendors;
+			sourceTree = "<group>";
+		};
+		3749B5481A09C7A50031D00C /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				3749B54B1A09CB230031D00C /* Login */,
+				3749B54A1A09CB190031D00C /* Main */,
+				3749B54E1A09CD820031D00C /* Member Alert */,
+				3749B5511A09CF3A0031D00C /* Member Effect */,
+				3749B54C1A09CBBE0031D00C /* Member Home */,
+				3749B54D1A09CD3F0031D00C /* Member Log */,
+				3749B5501A09CEFB0031D00C /* Member Test */,
+				3749B54F1A09CDAE0031D00C /* Service Center */,
+			);
+			name = Sections;
+			sourceTree = "<group>";
+		};
+		3749B5491A09C7AE0031D00C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3749B5271A09C50D0031D00C /* LaunchScreen.xib */,
+				3749B5251A09C50D0031D00C /* Images.xcassets */,
+				3749B5811A0A11700031D00C /* Localizable.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		3749B54A1A09CB190031D00C /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				3749B5521A09CFD30031D00C /* RootViewController.h */,
+				3749B5531A09CFD30031D00C /* RootViewController.m */,
+				3749B55B1A09D0D60031D00C /* ContentViewController.h */,
+				3749B55C1A09D0D60031D00C /* ContentViewController.m */,
+				3749B5551A09D0870031D00C /* LeftMenuController.h */,
+				3749B5561A09D0870031D00C /* LeftMenuController.m */,
+				3749B5581A09D0950031D00C /* RightMenuController.h */,
+				3749B5591A09D0950031D00C /* RightMenuController.m */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		3749B54B1A09CB230031D00C /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				37AC34BE1A0B14AE0037029A /* LoginViewController.h */,
+				37AC34BF1A0B14AE0037029A /* LoginViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		3749B54C1A09CBBE0031D00C /* Member Home */ = {
+			isa = PBXGroup;
+			children = (
+				3749B5951A0A2C670031D00C /* MemberCenterController.h */,
+				3749B5961A0A2C670031D00C /* MemberCenterController.m */,
+			);
+			name = "Member Home";
+			sourceTree = "<group>";
+		};
+		3749B54D1A09CD3F0031D00C /* Member Log */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Member Log";
+			sourceTree = "<group>";
+		};
+		3749B54E1A09CD820031D00C /* Member Alert */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Member Alert";
+			sourceTree = "<group>";
+		};
+		3749B54F1A09CDAE0031D00C /* Service Center */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Service Center";
+			sourceTree = "<group>";
+		};
+		3749B5501A09CEFB0031D00C /* Member Test */ = {
+			isa = PBXGroup;
+			children = (
+				3761FA551A10BCC700F31D2F /* TestTrackerViewController.h */,
+				3761FA561A10BCC700F31D2F /* TestTrackerViewController.m */,
+			);
+			name = "Member Test";
+			sourceTree = "<group>";
+		};
+		3749B5511A09CF3A0031D00C /* Member Effect */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Member Effect";
+			sourceTree = "<group>";
+		};
+		3749B55E1A09D9600031D00C /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				3749B55F1A09D9920031D00C /* LeftMenuCell.h */,
+				3749B5601A09D9920031D00C /* LeftMenuCell.m */,
+				3749B5621A09DAFA0031D00C /* MemberInfoCell.h */,
+				3749B5631A09DAFA0031D00C /* MemberInfoCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		3749B5831A0A19BA0031D00C /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				3749B5221A09C50D0031D00C /* Main.storyboard */,
+				3749B5841A0A1A340031D00C /* MemberCenter.storyboard */,
+				37AC34BC1A0B11300037029A /* Login.storyboard */,
+				3761FA501A10B75E00F31D2F /* TestTracker.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		48F5CC993F2F9C708BC9826E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3716F0291A13448800BE3841 /* UIKit.framework */,
+				DAD6636C7BFC777050BC1B07 /* libPods-SugarNursing.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CA637DF1D987C2360489E8D5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1945A488E5BA9FC742F2D0A5 /* Pods-SugarNursing.debug.xcconfig */,
+				A3A04497B0D1DB48A9F2F0EF /* Pods-SugarNursing.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -129,9 +366,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3749B5381A09C50D0031D00C /* Build configuration list for PBXNativeTarget "SugarNursing" */;
 			buildPhases = (
+				D556FD5FAAC82CBA8CBC4AFB /* Check Pods Manifest.lock */,
 				3749B50E1A09C50D0031D00C /* Sources */,
 				3749B50F1A09C50D0031D00C /* Frameworks */,
 				3749B5101A09C50D0031D00C /* Resources */,
+				C866F6CDAF45CBFB25EBB52E /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -171,6 +410,7 @@
 				TargetAttributes = {
 					3749B5111A09C50D0031D00C = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = 9XKC3SNG2H;
 					};
 					3749B52D1A09C50D0031D00C = {
 						CreatedOnToolsVersion = 6.1;
@@ -185,6 +425,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 3749B5091A09C50D0031D00C;
 			productRefGroup = 3749B5131A09C50D0031D00C /* Products */;
@@ -202,8 +443,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3761FA511A10B75E00F31D2F /* TestTracker.storyboard in Resources */,
 				3749B5241A09C50D0031D00C /* Main.storyboard in Resources */,
+				3749B57F1A0A11700031D00C /* Localizable.strings in Resources */,
+				37AC34BD1A0B11300037029A /* Login.storyboard in Resources */,
 				3749B5291A09C50D0031D00C /* LaunchScreen.xib in Resources */,
+				3749B5851A0A1A340031D00C /* MemberCenter.storyboard in Resources */,
 				3749B5261A09C50D0031D00C /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,15 +462,58 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C866F6CDAF45CBFB25EBB52E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SugarNursing/Pods-SugarNursing-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D556FD5FAAC82CBA8CBC4AFB /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3749B50E1A09C50D0031D00C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37AC34C31A0B52420037029A /* AppDelegate+UserLogInOut.m in Sources */,
 				3749B51B1A09C50D0031D00C /* AppDelegate.m in Sources */,
+				3749B5611A09D9920031D00C /* LeftMenuCell.m in Sources */,
+				3749B55D1A09D0D60031D00C /* ContentViewController.m in Sources */,
+				37EDEA141A0A79C7009EB54D /* UIStoryboard+Storyboards.m in Sources */,
+				3749B55A1A09D0950031D00C /* RightMenuController.m in Sources */,
+				3749B5971A0A2C670031D00C /* MemberCenterController.m in Sources */,
+				3749B5571A09D0870031D00C /* LeftMenuController.m in Sources */,
 				3749B5181A09C50D0031D00C /* main.m in Sources */,
-				3749B5211A09C50D0031D00C /* ViewController.m in Sources */,
+				37AC34C01A0B14AE0037029A /* LoginViewController.m in Sources */,
+				3749B5541A09CFD30031D00C /* RootViewController.m in Sources */,
+				3761FA571A10BCC700F31D2F /* TestTrackerViewController.m in Sources */,
 				3749B51E1A09C50D0031D00C /* SugarNursing.xcdatamodeld in Sources */,
+				3749B5641A09DAFA0031D00C /* MemberInfoCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +540,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				3749B5231A09C50D0031D00C /* Base */,
+				37AC34C61A0B57510037029A /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -260,8 +549,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				3749B5281A09C50D0031D00C /* Base */,
+				37AC34C51A0B57510037029A /* zh-Hans */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		3749B5811A0A11700031D00C /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3749B5801A0A11700031D00C /* en */,
+				37AC34C41A0B57510037029A /* zh-Hans */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -301,7 +600,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -337,7 +636,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -347,21 +646,35 @@
 		};
 		3749B5391A09C50D0031D00C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1945A488E5BA9FC742F2D0A5 /* Pods-SugarNursing.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SugarNursing/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		3749B53A1A09C50D0031D00C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3A04497B0D1DB48A9F2F0EF /* Pods-SugarNursing.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SugarNursing/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -418,6 +731,7 @@
 				3749B53A1A09C50D0031D00C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3749B53B1A09C50D0031D00C /* Build configuration list for PBXNativeTarget "SugarNursingTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +740,7 @@
 				3749B53D1A09C50D0031D00C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

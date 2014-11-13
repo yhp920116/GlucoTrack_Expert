@@ -1,22 +1,22 @@
 //
-//  ViewController.m
+//  TestTrackController.m
 //  SugarNursing
 //
-//  Created by Dan on 14-11-5.
+//  Created by Dan on 14-11-10.
 //  Copyright (c) 2014年 Tisson. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "TestTrackController.h"
 
-@interface ViewController ()
+@interface TestTrackController ()
 
 @end
 
-@implementation ViewController
+@implementation TestTrackController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="gna-84-AAb">
+            <objects>
+                <navigationController storyboardIdentifier="MemberCenterNav" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kYW-uc-3mF" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Fe1-6G-ZuB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="oNu-sC-uDp" kind="relationship" relationship="rootViewController" id="N0n-3s-1mo"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dlB-03-Cjg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1356" y="514"/>
+        </scene>
+        <!--Member Center-->
+        <scene sceneID="gC3-2f-sQE">
+            <objects>
+                <viewController storyboardIdentifier="MemberCenter" useStoryboardIdentifierAsRestorationIdentifier="YES" id="oNu-sC-uDp" customClass="MemberCenterController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FoJ-F5-oiB"/>
+                        <viewControllerLayoutGuide type="bottom" id="mpr-Jw-IH7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eDL-DM-MXq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="5cZ-HJ-k9f">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MemberCenterCell" id="48d-GD-Ksl">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="48d-GD-Ksl" id="hoE-Dv-Qy3">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="5cZ-HJ-k9f" firstAttribute="leading" secondItem="eDL-DM-MXq" secondAttribute="leading" id="4dA-7Q-28z"/>
+                            <constraint firstItem="5cZ-HJ-k9f" firstAttribute="top" secondItem="eDL-DM-MXq" secondAttribute="top" id="qoO-6T-C3h"/>
+                            <constraint firstAttribute="trailing" secondItem="5cZ-HJ-k9f" secondAttribute="trailing" id="wLe-0h-4LQ"/>
+                            <constraint firstAttribute="bottom" secondItem="5cZ-HJ-k9f" secondAttribute="bottom" id="x0H-zj-YqV"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Member Center" id="Q2N-W1-rSw">
+                        <barButtonItem key="leftBarButtonItem" title="Menu" id="7Zu-bE-PSV">
+                            <connections>
+                                <action selector="presentLeftMenuViewController:" destination="oNu-sC-uDp" id="PUz-Cg-e9P"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G6i-6j-u41" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-564" y="514"/>
+        </scene>
+    </scenes>
+</document>

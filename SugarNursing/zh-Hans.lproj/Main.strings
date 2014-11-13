@@ -1,0 +1,12 @@
+
+/* Class = "IBUIBarButtonItem"; title = "Menu"; ObjectID = "Nrf-iu-eTm"; */
+"Nrf-iu-eTm.title" = "菜单";
+
+/* Class = "IBUILabel"; text = "Home"; ObjectID = "mA9-sO-DUJ"; */
+"mA9-sO-DUJ.text" = "主页";
+
+/* Class = "IBUINavigationItem"; title = "SugarNursing"; ObjectID = "vW1-BX-PxY"; */
+"vW1-BX-PxY.title" = "糖护士";
+
+/* Class = "IBUILabel"; text = "奔跑的小羊"; ObjectID = "vhN-wJ-hGg"; */
+"vhN-wJ-hGg.text" = "奔跑的小羊";
