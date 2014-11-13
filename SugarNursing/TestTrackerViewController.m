@@ -39,7 +39,7 @@
 
 - (NSInteger)getRandomInteger
 {
-    NSInteger i1 = (int)(arc4random() % 10000);
+    NSInteger i1 = (int)(arc4random() % 100);
     return i1;
 }
 
@@ -89,12 +89,12 @@
 
 - (CGFloat)hyperValueForLineGraph:(BEMSimpleLineGraphView *)graph
 {
-    return 5000;
+    return 80;
 }
 
 - (CGFloat)hypoValueForLineGraph:(BEMSimpleLineGraphView *)graph
 {
-    return 100;
+    return 20;
 }
 
 #pragma mark - trackerChart Delegate
