@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1847DA780B1F9C304A08AC6C /* libPods-SugarNursing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD6636C7BFC777050BC1B07 /* libPods-SugarNursing.a */; };
 		371628BC1A15DD4C0043EED2 /* UIViewController+Notifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 371628BB1A15DD4C0043EED2 /* UIViewController+Notifications.m */; };
+		371628BF1A15FF860043EED2 /* VerificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 371628BE1A15FF860043EED2 /* VerificationViewController.m */; };
 		3716F02A1A13448800BE3841 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3716F0291A13448800BE3841 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		3749B5181A09C50D0031D00C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3749B5171A09C50D0031D00C /* main.m */; };
 		3749B51B1A09C50D0031D00C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3749B51A1A09C50D0031D00C /* AppDelegate.m */; };
@@ -48,6 +49,8 @@
 		1945A488E5BA9FC742F2D0A5 /* Pods-SugarNursing.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SugarNursing.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SugarNursing/Pods-SugarNursing.debug.xcconfig"; sourceTree = "<group>"; };
 		371628BA1A15DD4C0043EED2 /* UIViewController+Notifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Notifications.h"; sourceTree = "<group>"; };
 		371628BB1A15DD4C0043EED2 /* UIViewController+Notifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Notifications.m"; sourceTree = "<group>"; };
+		371628BD1A15FF860043EED2 /* VerificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerificationViewController.h; sourceTree = "<group>"; };
+		371628BE1A15FF860043EED2 /* VerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerificationViewController.m; sourceTree = "<group>"; };
 		3716F0291A13448800BE3841 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3749B5121A09C50D0031D00C /* SugarNursing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SugarNursing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3749B5161A09C50D0031D00C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -274,6 +277,8 @@
 			children = (
 				37AC34BE1A0B14AE0037029A /* LoginViewController.h */,
 				37AC34BF1A0B14AE0037029A /* LoginViewController.m */,
+				371628BD1A15FF860043EED2 /* VerificationViewController.h */,
+				371628BE1A15FF860043EED2 /* VerificationViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -514,6 +519,7 @@
 				3749B55A1A09D0950031D00C /* RightMenuController.m in Sources */,
 				3749B5971A0A2C670031D00C /* MemberCenterController.m in Sources */,
 				3749B5571A09D0870031D00C /* LeftMenuController.m in Sources */,
+				371628BF1A15FF860043EED2 /* VerificationViewController.m in Sources */,
 				3749B5181A09C50D0031D00C /* main.m in Sources */,
 				37AC34C01A0B14AE0037029A /* LoginViewController.m in Sources */,
 				3749B5541A09CFD30031D00C /* RootViewController.m in Sources */,

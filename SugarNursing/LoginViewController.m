@@ -47,7 +47,6 @@
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     CGFloat kbHeight = kbSize.height;
     CGFloat currHeight = self.view.bounds.size.height/2-100;
-    NSLog(@"currHeight = %f",currHeight);
     
     if (kbHeight > currHeight) {
         self.loginViewYCons.constant = -(kbHeight-currHeight);
@@ -67,6 +66,8 @@
     }];
 }
 
+#pragma mark - userAction
+
 - (IBAction)userRegist:(id)sender
 {
     
@@ -82,6 +83,32 @@
     } completionBlock:^{
         [AppDelegate userLogIn];
     }];
+}
+
+#pragma mark - textfieldDelegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    switch (textField.tag) {
+        case 11:
+            self.userFieldBG.image = [UIImage imageNamed:@"003"];
+            break;
+        case 12:
+            self.pwdFieldBG.image = [UIImage imageNamed:@"003"];
+            break;
+    }
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    switch (textField.tag) {
+        case 11:
+            self.userFieldBG.image = [UIImage imageNamed:@"004"];
+            break;
+        case 12:
+            self.pwdFieldBG.image = [UIImage imageNamed:@"004"];
+            break;
+    }
 }
 
 #pragma mark - dismissKeyboard

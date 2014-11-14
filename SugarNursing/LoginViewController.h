@@ -11,6 +11,10 @@
 @interface LoginViewController : UIViewController<UITextFieldDelegate>
 
 
+@property (weak, nonatomic) IBOutlet UIImageView *userFieldBG;
+@property (weak, nonatomic) IBOutlet UIImageView *pwdFieldBG;
+
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *loginViewYCons;
 
 
