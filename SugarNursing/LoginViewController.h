@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : UIViewController<UITextFieldDelegate>
 
 
 - (IBAction)userRegist:(id)sender;
 - (IBAction)userLogin:(id)sender;
+- (IBAction)dismissKeyboard:(id)sender;
+
 
 @end

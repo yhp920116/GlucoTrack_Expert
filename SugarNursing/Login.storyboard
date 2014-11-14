@@ -65,6 +65,9 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="WKs-6o-KVY" id="yfC-9u-62J"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5Lx-xV-aQF">
                                         <rect key="frame" x="47" y="67" width="503" height="19"/>
@@ -72,6 +75,9 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="WKs-6o-KVY" id="4Es-8L-vII"/>
+                                        </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7r8-PJ-13F">
                                         <rect key="frame" x="372" y="130" width="168" height="30"/>
@@ -121,6 +127,7 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="0qY-G1-tcm" secondAttribute="trailing" constant="20" id="Dqc-O9-yVQ"/>
                             <constraint firstItem="KMT-IU-bUz" firstAttribute="bottom" secondItem="X5O-v2-ild" secondAttribute="top" id="DyY-8n-cQC"/>
@@ -135,10 +142,18 @@
                             <constraint firstItem="hfH-Vk-chf" firstAttribute="leading" secondItem="hd6-eF-uR3" secondAttribute="leading" id="fPQ-aV-ydd"/>
                             <constraint firstItem="KMT-IU-bUz" firstAttribute="top" secondItem="hd6-eF-uR3" secondAttribute="top" id="pAd-ak-dhs"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="BCz-li-Qce" appends="YES" id="4kA-pb-deh"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="JyK-0a-GZz"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wmi-1H-RGM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="BCz-li-Qce">
+                    <connections>
+                        <action selector="dismissKeyboard:" destination="WKs-6o-KVY" id="tT5-0e-MNm"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="879" y="387"/>
         </scene>

@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "AppDelegate+UserLogInOut.h"
 #import <MBProgressHUD.h>
+#import "UIViewController+Notifications.h"
 
 @interface LoginViewController (){
     MBProgressHUD *hud;
@@ -24,6 +25,30 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+#pragma mark - KeyboardNotification
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self registerForKeyboardNotification:@selector(keyboardWillShow:) :@selector(keyboardWillHide:)];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self removeKeyboardNotification];
+}
+
+- (void)keyboardWillShow:(NSNotification *)aNotification
+{
+    
+}
+
+- (void)keyboardWillHide:(NSNotification *)aNotification
+{
+    
 }
 
 - (IBAction)userRegist:(id)sender
@@ -43,9 +68,22 @@
     }];
 }
 
-- (void)didReceiveMemoryWarning
+#pragma mark - dismissKeyboard
+- (IBAction)dismissKeyboard:(id)sender
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self.view endEditing:YES];
 }
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    [self userLogin:nil];
+    return YES;
+}
+
 @end
