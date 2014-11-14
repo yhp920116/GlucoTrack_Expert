@@ -43,12 +43,28 @@
 
 - (void)keyboardWillShow:(NSNotification *)aNotification
 {
+    NSDictionary *info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    CGFloat kbHeight = kbSize.height;
+    CGFloat currHeight = self.view.bounds.size.height/2-100;
+    NSLog(@"currHeight = %f",currHeight);
     
+    if (kbHeight > currHeight) {
+        self.loginViewYCons.constant = -(kbHeight-currHeight);
+        [self.view setNeedsUpdateConstraints];
+        
+        [UIView animateWithDuration:0.4 animations:^{
+            [self.view layoutIfNeeded];
+        }];
+    }
 }
 
 - (void)keyboardWillHide:(NSNotification *)aNotification
 {
-    
+    self.loginViewYCons.constant  = 0;
+    [UIView animateWithDuration:0.4 animations:^{
+        [self.view layoutIfNeeded];
+    }];
 }
 
 - (IBAction)userRegist:(id)sender

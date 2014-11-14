@@ -11,6 +11,9 @@
 @interface LoginViewController : UIViewController<UITextFieldDelegate>
 
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *loginViewYCons;
+
+
 - (IBAction)userRegist:(id)sender;
 - (IBAction)userLogin:(id)sender;
 - (IBAction)dismissKeyboard:(id)sender;
