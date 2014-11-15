@@ -19,4 +19,9 @@
     // Do any additional setup after loading the view.
 }
 
+- (IBAction)back:(UIStoryboardSegue *)segue
+{
+    NSLog(@"Hello world");
+}
+
 @end

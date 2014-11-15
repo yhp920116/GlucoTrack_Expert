@@ -1,31 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bbF-Nb-eIt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="yDO-YI-u8g">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
-        <scene sceneID="vmw-B7-1Xf">
-            <objects>
-                <navigationController storyboardIdentifier="LoginNav" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="bbF-Nb-eIt" sceneMemberID="viewController">
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
-                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" translucent="NO" id="cha-5P-w1e">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="BGq-oW-9tk">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
-                    <connections>
-                        <segue destination="WKs-6o-KVY" kind="relationship" relationship="rootViewController" id="QX7-qH-ZSV"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BEK-3Y-K3G" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="174" y="387"/>
-        </scene>
         <!--LoginViewController-->
         <scene sceneID="bmY-0p-Fjt">
             <objects>
@@ -95,7 +75,7 @@
                                         </state>
                                         <connections>
                                             <action selector="userRegist:" destination="WKs-6o-KVY" eventType="touchUpInside" id="xYE-Hh-HQP"/>
-                                            <segue destination="Ahq-Ac-lv9" kind="show" identifier="Regist" id="Aew-zq-tJp"/>
+                                            <segue destination="w2y-wa-vmo" kind="showDetail" id="kop-Se-QLT"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -174,9 +154,9 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="879" y="387"/>
+            <point key="canvasLocation" x="1691" y="387"/>
         </scene>
-        <!--Verification View Controller-->
+        <!--Regist by phone-->
         <scene sceneID="6kv-xk-oZE">
             <objects>
                 <viewController id="Ahq-Ac-lv9" customClass="VerificationViewController" sceneMemberID="viewController">
@@ -188,25 +168,129 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="手机号码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w5i-cs-any">
-                                <rect key="frame" x="34" y="28" width="68" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fIc-pj-BFK">
+                                <rect key="frame" x="0.0" y="84" width="600" height="100"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机号码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YIe-M4-URd">
+                                        <rect key="frame" x="155" y="3" width="56" height="17"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="007" translatesAutoresizingMaskIntoConstraints="NO" id="gDf-Np-aP0" userLabel="mainBG">
+                                        <rect key="frame" x="155" y="40" width="290" height="7"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="006" translatesAutoresizingMaskIntoConstraints="NO" id="E3Z-i3-STc" userLabel="phone">
+                                        <rect key="frame" x="160" y="28" width="10" height="16"/>
+                                    </imageView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Only support for phone in China" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hWh-Pz-cuR">
+                                        <rect key="frame" x="175" y="27" width="270" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6nR-aT-JDo">
+                                        <rect key="frame" x="155" y="67" width="290" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.51260264600000005" blue="0.051294479929999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="Get Verificate Number">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="0FC-zZ-HxP"/>
+                                    <constraint firstItem="6nR-aT-JDo" firstAttribute="leading" secondItem="gDf-Np-aP0" secondAttribute="leading" id="3UB-Po-lZm"/>
+                                    <constraint firstItem="gDf-Np-aP0" firstAttribute="top" secondItem="fIc-pj-BFK" secondAttribute="top" constant="40" id="4AX-mg-ASr"/>
+                                    <constraint firstItem="hWh-Pz-cuR" firstAttribute="trailing" secondItem="gDf-Np-aP0" secondAttribute="trailing" id="6EK-uS-lg0"/>
+                                    <constraint firstItem="hWh-Pz-cuR" firstAttribute="leading" secondItem="E3Z-i3-STc" secondAttribute="trailing" constant="5" id="8yP-Rc-Lcx"/>
+                                    <constraint firstItem="hWh-Pz-cuR" firstAttribute="width" secondItem="gDf-Np-aP0" secondAttribute="width" priority="750" id="CKt-iI-tc1"/>
+                                    <constraint firstItem="E3Z-i3-STc" firstAttribute="leading" secondItem="gDf-Np-aP0" secondAttribute="leading" constant="5" id="Kri-Vj-sXL"/>
+                                    <constraint firstItem="gDf-Np-aP0" firstAttribute="top" secondItem="YIe-M4-URd" secondAttribute="bottom" constant="20" id="Vhv-Be-JeR"/>
+                                    <constraint firstItem="E3Z-i3-STc" firstAttribute="bottom" secondItem="gDf-Np-aP0" secondAttribute="bottom" constant="-3" id="e6L-K6-qTx"/>
+                                    <constraint firstItem="6nR-aT-JDo" firstAttribute="top" secondItem="gDf-Np-aP0" secondAttribute="bottom" constant="20" id="o1s-cU-ehi"/>
+                                    <constraint firstAttribute="centerX" secondItem="gDf-Np-aP0" secondAttribute="centerX" id="occ-Rc-54y"/>
+                                    <constraint firstItem="gDf-Np-aP0" firstAttribute="width" secondItem="6nR-aT-JDo" secondAttribute="width" id="ugI-tj-8be"/>
+                                    <constraint firstItem="hWh-Pz-cuR" firstAttribute="bottom" secondItem="gDf-Np-aP0" secondAttribute="bottom" constant="-3" id="x33-7T-irw"/>
+                                    <constraint firstItem="YIe-M4-URd" firstAttribute="leading" secondItem="gDf-Np-aP0" secondAttribute="leading" id="yAD-ws-WFW"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="fIc-pj-BFK" firstAttribute="leading" secondItem="DWy-g9-gdb" secondAttribute="leading" id="E5O-tq-x7F"/>
+                            <constraint firstItem="fIc-pj-BFK" firstAttribute="top" secondItem="kO0-bb-mRa" secondAttribute="bottom" constant="20" id="HSU-AH-8Bj"/>
+                            <constraint firstAttribute="centerX" secondItem="fIc-pj-BFK" secondAttribute="centerX" id="Pmf-IK-uis"/>
+                            <constraint firstAttribute="trailing" secondItem="fIc-pj-BFK" secondAttribute="trailing" id="SNK-7M-Ny1"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="8Un-J0-7sL" appends="YES" id="9QF-Dw-myS"/>
+                        </connections>
                     </view>
+                    <navigationItem key="navigationItem" title="Regist by phone" id="Jzd-XY-n86">
+                        <barButtonItem key="leftBarButtonItem" image="005" id="ol3-kS-fFH">
+                            <connections>
+                                <segue destination="Mp6-ev-J6F" kind="unwind" unwindAction="back:" id="P3F-dr-Iwn"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="7tl-y3-Wha"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9GE-3G-cOh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Mp6-ev-J6F" userLabel="Exit" sceneMemberID="exit"/>
+                <tapGestureRecognizer id="8Un-J0-7sL">
+                    <connections>
+                        <action selector="dismissKeyboard:" destination="Ahq-Ac-lv9" id="Eiv-Ub-PtL"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1534" y="387"/>
+            <point key="canvasLocation" x="3300" y="387"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="pGj-Zu-rwW">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="w2y-wa-vmo" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DTz-uS-2Xf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Ahq-Ac-lv9" kind="relationship" relationship="rootViewController" id="p42-kR-1Lw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j0k-NU-CHK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2488" y="387"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ykx-E6-jck">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="yDO-YI-u8g" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="S4n-61-rFq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="WKs-6o-KVY" kind="relationship" relationship="rootViewController" id="1cM-48-sqC"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bCM-Q9-op0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="879" y="387"/>
         </scene>
     </scenes>
     <resources>
         <image name="001" width="19" height="21"/>
         <image name="002" width="19" height="21"/>
         <image name="004" width="227" height="7"/>
+        <image name="005" width="12" height="11"/>
+        <image name="006" width="10" height="16"/>
+        <image name="007" width="290" height="7"/>
         <image name="logo" width="64" height="38"/>
     </resources>
 </document>

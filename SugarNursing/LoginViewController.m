@@ -19,8 +19,6 @@
 
 @implementation LoginViewController
 
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -112,10 +110,6 @@
 }
 
 #pragma mark - dismissKeyboard
-- (IBAction)dismissKeyboard:(id)sender
-{
-    [self.view endEditing:YES];
-}
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
@@ -128,5 +122,7 @@
     [self userLogin:nil];
     return YES;
 }
+
+
 
 @end

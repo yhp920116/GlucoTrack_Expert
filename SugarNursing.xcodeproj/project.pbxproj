@@ -29,6 +29,7 @@
 		3749B5971A0A2C670031D00C /* MemberCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3749B5961A0A2C670031D00C /* MemberCenterController.m */; };
 		3761FA511A10B75E00F31D2F /* TestTracker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3761FA501A10B75E00F31D2F /* TestTracker.storyboard */; };
 		3761FA571A10BCC700F31D2F /* TestTrackerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3761FA561A10BCC700F31D2F /* TestTrackerViewController.m */; };
+		378F90711A16698000201353 /* UIViewController+Gestures.m in Sources */ = {isa = PBXBuildFile; fileRef = 378F90701A16698000201353 /* UIViewController+Gestures.m */; };
 		37AC34BD1A0B11300037029A /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37AC34BC1A0B11300037029A /* Login.storyboard */; };
 		37AC34C01A0B14AE0037029A /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC34BF1A0B14AE0037029A /* LoginViewController.m */; };
 		37AC34C31A0B52420037029A /* AppDelegate+UserLogInOut.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC34C21A0B52420037029A /* AppDelegate+UserLogInOut.m */; };
@@ -83,6 +84,8 @@
 		3761FA501A10B75E00F31D2F /* TestTracker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TestTracker.storyboard; sourceTree = "<group>"; };
 		3761FA551A10BCC700F31D2F /* TestTrackerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTrackerViewController.h; sourceTree = "<group>"; };
 		3761FA561A10BCC700F31D2F /* TestTrackerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTrackerViewController.m; sourceTree = "<group>"; };
+		378F906F1A16698000201353 /* UIViewController+Gestures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Gestures.h"; sourceTree = "<group>"; };
+		378F90701A16698000201353 /* UIViewController+Gestures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Gestures.m"; sourceTree = "<group>"; };
 		37AC34BC1A0B11300037029A /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		37AC34BE1A0B14AE0037029A /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		37AC34BF1A0B14AE0037029A /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
@@ -221,6 +224,8 @@
 				37AC34C21A0B52420037029A /* AppDelegate+UserLogInOut.m */,
 				371628BA1A15DD4C0043EED2 /* UIViewController+Notifications.h */,
 				371628BB1A15DD4C0043EED2 /* UIViewController+Notifications.m */,
+				378F906F1A16698000201353 /* UIViewController+Gestures.h */,
+				378F90701A16698000201353 /* UIViewController+Gestures.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -522,6 +527,7 @@
 				371628BF1A15FF860043EED2 /* VerificationViewController.m in Sources */,
 				3749B5181A09C50D0031D00C /* main.m in Sources */,
 				37AC34C01A0B14AE0037029A /* LoginViewController.m in Sources */,
+				378F90711A16698000201353 /* UIViewController+Gestures.m in Sources */,
 				3749B5541A09CFD30031D00C /* RootViewController.m in Sources */,
 				3761FA571A10BCC700F31D2F /* TestTrackerViewController.m in Sources */,
 				3749B51E1A09C50D0031D00C /* SugarNursing.xcdatamodeld in Sources */,

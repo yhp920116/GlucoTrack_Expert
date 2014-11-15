@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIViewController (Notifications)
+@interface UIViewController(Notifications)<UITextFieldDelegate>
 
 - (void)registerForKeyboardNotification:(SEL)keyboarWillShow :(SEL)keyboarWillHide;
 - (void)removeKeyboardNotification;
