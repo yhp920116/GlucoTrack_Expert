@@ -117,9 +117,6 @@
     hud.customView = self.detailView;
     hud.margin = 10;
     hud.mode = MBProgressHUDModeCustomView;
-    hud.dimBackground = YES;
-    hud.color = [UIColor clearColor];
-//    hud.opacity = 1.f;
     hud.delegate = self;
     
     [hud show:YES];

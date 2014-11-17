@@ -107,6 +107,7 @@
     hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:hud];
     hud.labelText = @"Logining..";
+    
     [hud showAnimated:YES whileExecutingBlock:^{
         sleep(2);
     } completionBlock:^{

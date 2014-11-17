@@ -19,6 +19,8 @@
 		2F7B302AAF438AEBED24D0C7 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5E0CF7766DDF23407C8C0E /* UIActivityIndicatorView+AFNetworking.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		331889D5B78221DA5EB36E48 /* AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A39405A9F94C31A75634A58 /* AFNetworking.h */; };
 		36E1B2FBB19A278FF9073AD4 /* UIWebView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 877F256540780FF53192733C /* UIWebView+AFNetworking.h */; };
+		3720AFB11A19D4880011D930 /* MBProgressHUD+Customizing.h in Headers */ = {isa = PBXBuildFile; fileRef = 3720AFAF1A19D4880011D930 /* MBProgressHUD+Customizing.h */; };
+		3720AFB21A19D4880011D930 /* MBProgressHUD+Customizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 3720AFB01A19D4880011D930 /* MBProgressHUD+Customizing.m */; };
 		37316BDD1A146151001ADE2A /* RESideMenu+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 37316BDC1A146151001ADE2A /* RESideMenu+Helper.m */; };
 		386AD7BEB594680F9DF47CC0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B763C14C1D9244AE9DAA262 /* CoreGraphics.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		39B4FC4D65547796422983CA /* Pods-SugarNursing-BEMSimpleLineGraph-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 516A2FD35E2CB08F469069C8 /* Pods-SugarNursing-BEMSimpleLineGraph-dummy.m */; };
@@ -142,6 +144,8 @@
 		2D1B820F5F01EF2E8D53CD7A /* UIRefreshControl+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIRefreshControl+AFNetworking.h"; path = "UIKit+AFNetworking/UIRefreshControl+AFNetworking.h"; sourceTree = "<group>"; };
 		3366110758B61E96E5DF2859 /* BEMLine.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BEMLine.m; path = Classes/BEMLine.m; sourceTree = "<group>"; };
 		3716F0271A1342D700BE3841 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		3720AFAF1A19D4880011D930 /* MBProgressHUD+Customizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Customizing.h"; sourceTree = "<group>"; };
+		3720AFB01A19D4880011D930 /* MBProgressHUD+Customizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Customizing.m"; sourceTree = "<group>"; };
 		37316BDB1A146151001ADE2A /* RESideMenu+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "RESideMenu+Helper.h"; path = "RESideMenu/RESideMenu+Helper.h"; sourceTree = "<group>"; };
 		37316BDC1A146151001ADE2A /* RESideMenu+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "RESideMenu+Helper.m"; path = "RESideMenu/RESideMenu+Helper.m"; sourceTree = "<group>"; };
 		390A64920756D8C3461B0BC6 /* UIViewController+RESideMenu.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+RESideMenu.m"; path = "RESideMenu/UIViewController+RESideMenu.m"; sourceTree = "<group>"; };
@@ -439,6 +443,8 @@
 			children = (
 				BE5A213D9258530BF9DA1679 /* MBProgressHUD.h */,
 				5AAD9EE7DAB6375C0DE46E7E /* MBProgressHUD.m */,
+				3720AFAF1A19D4880011D930 /* MBProgressHUD+Customizing.h */,
+				3720AFB01A19D4880011D930 /* MBProgressHUD+Customizing.m */,
 				DB0AA5FD704AC8622FF65E9E /* Support Files */,
 			);
 			path = MBProgressHUD;
@@ -589,6 +595,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDC1431FE2F54897EE91C80E /* MBProgressHUD.h in Headers */,
+				3720AFB11A19D4880011D930 /* MBProgressHUD+Customizing.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -837,6 +844,7 @@
 			files = (
 				64A74C785482A096B1F37504 /* MBProgressHUD.m in Sources */,
 				F19EA77133585B1B4B40EEF6 /* Pods-SugarNursing-MBProgressHUD-dummy.m in Sources */,
+				3720AFB21A19D4880011D930 /* MBProgressHUD+Customizing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

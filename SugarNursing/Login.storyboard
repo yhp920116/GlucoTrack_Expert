@@ -201,6 +201,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
+                                            <action selector="requestForVerification:" destination="Ahq-Ac-lv9" eventType="touchUpInside" id="FJJ-AX-eJG"/>
                                             <segue destination="xTj-3A-RIg" kind="show" id="eov-9B-jMI"/>
                                         </connections>
                                     </button>
@@ -212,6 +213,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
+                                            <action selector="requestForVerification:" destination="Ahq-Ac-lv9" eventType="touchUpInside" id="g75-4A-uL1"/>
                                             <segue destination="tzV-mt-tfx" kind="show" id="461-xu-Y7C"/>
                                         </connections>
                                     </button>

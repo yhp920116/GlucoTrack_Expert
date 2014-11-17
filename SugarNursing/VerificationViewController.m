@@ -8,6 +8,7 @@
 
 #import "VerificationViewController.h"
 
+
 @interface VerificationViewController ()
 
 @end
@@ -36,6 +37,12 @@
         [self.resetPwdBtn setHidden:NO];
     }
     // Do any additional setup after loading the view.
+}
+
+
+- (IBAction)requestForVerification:(id)sender
+{
+    NSLog(@"requestForVerification...");
 }
 
 - (IBAction)back:(UIStoryboardSegue *)segue

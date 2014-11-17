@@ -105,10 +105,7 @@
     [self.view addSubview:hud];
     
     hud.customView = self.genderPicker;
-    hud.margin = 20;
     hud.mode = MBProgressHUDModeCustomView;
-    hud.dimBackground = YES;
-    hud.color = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.8];
     [hud show:YES];
 }
 
@@ -126,10 +123,7 @@
     [self.view addSubview:hud];
     
     hud.customView = self.datePicker;
-    hud.margin = 20;
     hud.mode = MBProgressHUDModeCustomView;
-    hud.dimBackground = YES;
-    hud.color = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.8];
     [hud show:YES];
 }
 
@@ -148,6 +142,7 @@
 {
     hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:hud];
+        
     hud.labelText = @"loading..";
     
     [hud showAnimated:YES whileExecutingBlock:^{

@@ -6,6 +6,7 @@
 
 #import "MBProgressHUD.h"
 #import <tgmath.h>
+#import "MBProgressHUD+Customizing.h"
 
 
 #if __has_feature(objc_arc)
@@ -199,6 +200,9 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 		
 		taskInProgress = NO;
 		rotationTransform = CGAffineTransformIdentity;
+        
+        // Set Customizing
+        [self customizeHUD];
 		
 		[self setupLabels];
 		[self updateIndicators];
