@@ -31,6 +31,9 @@
 		37AC34C01A0B14AE0037029A /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC34BF1A0B14AE0037029A /* LoginViewController.m */; };
 		37AC34C31A0B52420037029A /* AppDelegate+UserLogInOut.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC34C21A0B52420037029A /* AppDelegate+UserLogInOut.m */; };
 		37EDEA141A0A79C7009EB54D /* UIStoryboard+Storyboards.m in Sources */ = {isa = PBXBuildFile; fileRef = 37EDEA131A0A79C7009EB54D /* UIStoryboard+Storyboards.m */; };
+		3C9A95231A1991C6006F7F73 /* ServiceCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9A95221A1991C6006F7F73 /* ServiceCenterViewController.m */; };
+		3C9A95251A1993C4006F7F73 /* ServiceCenter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C9A95241A1993C4006F7F73 /* ServiceCenter.storyboard */; };
+		3C9A95271A19D1B7006F7F73 /* QQ20141106-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C9A95261A19D1B7006F7F73 /* QQ20141106-1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +90,10 @@
 		37AC34C61A0B57510037029A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		37EDEA121A0A79C7009EB54D /* UIStoryboard+Storyboards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIStoryboard+Storyboards.h"; sourceTree = "<group>"; };
 		37EDEA131A0A79C7009EB54D /* UIStoryboard+Storyboards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIStoryboard+Storyboards.m"; sourceTree = "<group>"; };
+		3C9A95211A1991C6006F7F73 /* ServiceCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceCenterViewController.h; sourceTree = "<group>"; };
+		3C9A95221A1991C6006F7F73 /* ServiceCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceCenterViewController.m; sourceTree = "<group>"; };
+		3C9A95241A1993C4006F7F73 /* ServiceCenter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ServiceCenter.storyboard; sourceTree = "<group>"; };
+		3C9A95261A19D1B7006F7F73 /* QQ20141106-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QQ20141106-1.png"; sourceTree = "<group>"; };
 		A3A04497B0D1DB48A9F2F0EF /* Pods-SugarNursing.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SugarNursing.release.xcconfig"; path = "Pods/Target Support Files/Pods-SugarNursing/Pods-SugarNursing.release.xcconfig"; sourceTree = "<group>"; };
 		DAD6636C7BFC777050BC1B07 /* libPods-SugarNursing.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SugarNursing.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -299,6 +306,9 @@
 		3749B54F1A09CDAE0031D00C /* Service Center */ = {
 			isa = PBXGroup;
 			children = (
+				3C9A95211A1991C6006F7F73 /* ServiceCenterViewController.h */,
+				3C9A95221A1991C6006F7F73 /* ServiceCenterViewController.m */,
+				3C9A95261A19D1B7006F7F73 /* QQ20141106-1.png */,
 			);
 			name = "Service Center";
 			sourceTree = "<group>";
@@ -337,6 +347,7 @@
 				3749B5841A0A1A340031D00C /* MemberCenter.storyboard */,
 				37AC34BC1A0B11300037029A /* Login.storyboard */,
 				3761FA501A10B75E00F31D2F /* TestTracker.storyboard */,
+				3C9A95241A1993C4006F7F73 /* ServiceCenter.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -444,6 +455,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3761FA511A10B75E00F31D2F /* TestTracker.storyboard in Resources */,
+				3C9A95251A1993C4006F7F73 /* ServiceCenter.storyboard in Resources */,
+				3C9A95271A19D1B7006F7F73 /* QQ20141106-1.png in Resources */,
 				3749B5241A09C50D0031D00C /* Main.storyboard in Resources */,
 				3749B57F1A0A11700031D00C /* Localizable.strings in Resources */,
 				37AC34BD1A0B11300037029A /* Login.storyboard in Resources */,
@@ -512,6 +525,7 @@
 				37AC34C01A0B14AE0037029A /* LoginViewController.m in Sources */,
 				3749B5541A09CFD30031D00C /* RootViewController.m in Sources */,
 				3761FA571A10BCC700F31D2F /* TestTrackerViewController.m in Sources */,
+				3C9A95231A1991C6006F7F73 /* ServiceCenterViewController.m in Sources */,
 				3749B51E1A09C50D0031D00C /* SugarNursing.xcdatamodeld in Sources */,
 				3749B5641A09DAFA0031D00C /* MemberInfoCell.m in Sources */,
 			);

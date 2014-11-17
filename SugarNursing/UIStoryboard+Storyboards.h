@@ -14,5 +14,7 @@
 + (UIStoryboard *)memberCenterStoryboard;
 + (UIStoryboard *)loginStoryboard;
 + (UIStoryboard *)testTracker;
++ (UIStoryboard *)serviceCenterStoryboard;
+
 
 @end

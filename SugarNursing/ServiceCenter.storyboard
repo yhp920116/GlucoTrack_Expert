@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="Zl1-qA-wpM">
+            <objects>
+                <navigationController storyboardIdentifier="ServiceCenterNav" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nIH-ew-XNu" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lHB-nw-l0k">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="iQk-t5-4f0" kind="relationship" relationship="rootViewController" id="sT8-S7-4v1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dOx-av-uoI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="656" y="-86"/>
+        </scene>
+        <!--个人中心-->
+        <scene sceneID="CUN-Sh-HAa">
+            <objects>
+                <viewController id="iQk-t5-4f0" customClass="ServiceCenterViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cpu-2u-rc3"/>
+                        <viewControllerLayoutGuide type="bottom" id="K7g-ek-tzj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5ln-iJ-Kfb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="lzQ-la-vFm">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="iQk-t5-4f0" id="beG-oT-G3L"/>
+                                    <outlet property="delegate" destination="iQk-t5-4f0" id="mgu-wb-2TV"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="lzQ-la-vFm" firstAttribute="leading" secondItem="5ln-iJ-Kfb" secondAttribute="leadingMargin" constant="-16" id="4pl-Uf-Q3b"/>
+                            <constraint firstItem="lzQ-la-vFm" firstAttribute="top" secondItem="cpu-2u-rc3" secondAttribute="bottom" id="Kzg-2e-6FX"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="lzQ-la-vFm" secondAttribute="trailing" constant="-16" id="a9i-RS-WXF"/>
+                            <constraint firstItem="K7g-ek-tzj" firstAttribute="top" secondItem="lzQ-la-vFm" secondAttribute="bottom" id="vfe-jA-fpf"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="个人中心" id="6nu-rq-C8W"/>
+                    <connections>
+                        <outlet property="mainTableView" destination="lzQ-la-vFm" id="wFT-5V-HYk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CO6-B4-kAC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1350" y="-86"/>
+        </scene>
+    </scenes>
+</document>
