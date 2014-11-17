@@ -10,7 +10,12 @@
 
 @interface UIViewController(Notifications)<UITextFieldDelegate>
 
+#pragma mark - KeyboardNotification
 - (void)registerForKeyboardNotification:(SEL)keyboarWillShow :(SEL)keyboarWillHide;
 - (void)removeKeyboardNotification;
+
+#pragma mark - DeviceOrientationNotification
+- (void)registerForDeviceOrientationNotification:(SEL)orientationChanged;
+- (void)removeDeviceOrientationNotification;
 
 @end

@@ -10,4 +10,10 @@
 
 @interface VerificationViewController : UIViewController
 
+@property (strong, nonatomic) NSString *labelText;
+
+@property (weak, nonatomic) IBOutlet UILabel *topLabel;
+@property (weak, nonatomic) IBOutlet UIButton *registBtn;
+@property (weak, nonatomic) IBOutlet UIButton *resetPwdBtn;
+
 @end

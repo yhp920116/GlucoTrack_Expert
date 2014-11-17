@@ -22,6 +22,17 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
+- (void)registerForDeviceOrientationNotification:(SEL)orientationChanged
+{
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:orientationChanged name:UIDeviceOrientationDidChangeNotification object:nil];
+}
+
+- (void)removeDeviceOrientationNotification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+}
+
 
 
 @end

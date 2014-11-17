@@ -10,6 +10,8 @@
 #import "AppDelegate+UserLogInOut.h"
 #import <MBProgressHUD.h>
 #import "UIViewController+Notifications.h"
+#import "VerificationViewController.h"
+
 
 @interface LoginViewController (){
     MBProgressHUD *hud;
@@ -23,6 +25,27 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+#pragma mark - PrepareForSegue
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    VerificationViewController *verificationVC= (VerificationViewController *)[[[segue destinationViewController] viewControllers] objectAtIndex:0];
+    
+    if ([segue.identifier isEqualToString:@"Regist"])
+    {
+        verificationVC.title = @"Regist by phone";
+        verificationVC.labelText= @"Input your PhoneNumber to regist";
+
+    }
+    else if ([segue.identifier isEqualToString:@"Reset"])
+    {
+        verificationVC.title = @"Reset your password";
+
+        verificationVC.labelText = @"Input your PhoneNumber to reset";
+    }
+    
 }
 
 #pragma mark - KeyboardNotification
@@ -44,10 +67,18 @@
     NSDictionary *info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     CGFloat kbHeight = kbSize.height;
-    CGFloat currHeight = self.view.bounds.size.height/2-100;
+    CGFloat screenHeight = [[UIScreen mainScreen] bounds].size.height;
     
-    if (kbHeight > currHeight) {
-        self.loginViewYCons.constant = -(kbHeight-currHeight);
+    CGFloat calHeight;
+    if (screenHeight - kbHeight - 200 >= 20) {
+         calHeight = screenHeight/2-100;
+
+    } else {
+        return;
+    }
+    
+    if (kbHeight > calHeight) {
+        self.loginViewYCons.constant = -(kbHeight-calHeight);
         [self.view setNeedsUpdateConstraints];
         
         [UIView animateWithDuration:0.4 animations:^{
@@ -123,6 +154,13 @@
     return YES;
 }
 
+#pragma mark - unwindSegue
+
+- (IBAction)back:(UIStoryboardSegue *)unwindSegue
+{
+//    UIViewController *sourceViewController = unwindSegue.sourceViewController;
+//    [sourceViewController.view endEditing:YES];
+}
 
 
 @end

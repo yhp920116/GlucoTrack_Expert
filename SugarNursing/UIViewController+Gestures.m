@@ -10,6 +10,9 @@
 
 @implementation UIViewController (Gestures)
 
+
+#pragma mark - TapGestures
+
 - (IBAction)dismissKeyboard:(id)sender
 {
     [self.view endEditing:YES];
