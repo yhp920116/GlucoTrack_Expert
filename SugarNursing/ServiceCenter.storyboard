@@ -22,7 +22,7 @@
             </objects>
             <point key="canvasLocation" x="656" y="-86"/>
         </scene>
-        <!--个人中心-->
+        <!--menber Center-->
         <scene sceneID="CUN-Sh-HAa">
             <objects>
                 <viewController id="iQk-t5-4f0" customClass="ServiceCenterViewController" sceneMemberID="viewController">
@@ -51,14 +51,59 @@
                             <constraint firstItem="K7g-ek-tzj" firstAttribute="top" secondItem="lzQ-la-vFm" secondAttribute="bottom" id="vfe-jA-fpf"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="个人中心" id="6nu-rq-C8W"/>
+                    <navigationItem key="navigationItem" title="menber Center" id="6nu-rq-C8W">
+                        <barButtonItem key="leftBarButtonItem" title="Menu" id="Dg3-dD-0Li">
+                            <connections>
+                                <action selector="presentLeftMenuViewController:" destination="iQk-t5-4f0" id="Tn5-DT-l43"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="mainTableView" destination="lzQ-la-vFm" id="wFT-5V-HYk"/>
+                        <segue destination="iZs-Bc-9PV" kind="push" identifier="goUserInfo" id="qNC-F2-vnY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CO6-B4-kAC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1350" y="-86"/>
+        </scene>
+        <!--UserInfoViewController-->
+        <scene sceneID="xOv-13-gb4">
+            <objects>
+                <viewController title="UserInfoViewController" id="iZs-Bc-9PV" customClass="UserInfoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XgN-Oz-vr1"/>
+                        <viewControllerLayoutGuide type="bottom" id="TxZ-Ll-X88"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NmG-Fh-pdG">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="9F6-AG-1Dy">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="iZs-Bc-9PV" id="5TI-36-VaC"/>
+                                    <outlet property="delegate" destination="iZs-Bc-9PV" id="scd-tU-Ey4"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9F6-AG-1Dy" firstAttribute="leading" secondItem="NmG-Fh-pdG" secondAttribute="leadingMargin" constant="-16" id="1EY-nS-vvQ"/>
+                            <constraint firstItem="9F6-AG-1Dy" firstAttribute="top" secondItem="XgN-Oz-vr1" secondAttribute="bottom" id="3tV-Sz-AYI"/>
+                            <constraint firstItem="TxZ-Ll-X88" firstAttribute="top" secondItem="9F6-AG-1Dy" secondAttribute="bottom" id="O4d-Y5-qzX"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9F6-AG-1Dy" secondAttribute="trailing" constant="-16" id="c8Z-T0-nrG"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="UserInfo" id="3iP-WV-SKB"/>
+                    <connections>
+                        <outlet property="mainTableView" destination="9F6-AG-1Dy" id="Isk-xD-JMK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3pP-JW-Pre" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2132" y="-774"/>
         </scene>
     </scenes>
 </document>

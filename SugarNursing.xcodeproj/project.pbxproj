@@ -34,6 +34,7 @@
 		3C9A95231A1991C6006F7F73 /* ServiceCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9A95221A1991C6006F7F73 /* ServiceCenterViewController.m */; };
 		3C9A95251A1993C4006F7F73 /* ServiceCenter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C9A95241A1993C4006F7F73 /* ServiceCenter.storyboard */; };
 		3C9A95271A19D1B7006F7F73 /* QQ20141106-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C9A95261A19D1B7006F7F73 /* QQ20141106-1.png */; };
+		3C9A952A1A19E30F006F7F73 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9A95291A19E30F006F7F73 /* UserInfoViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,8 @@
 		3C9A95221A1991C6006F7F73 /* ServiceCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceCenterViewController.m; sourceTree = "<group>"; };
 		3C9A95241A1993C4006F7F73 /* ServiceCenter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ServiceCenter.storyboard; sourceTree = "<group>"; };
 		3C9A95261A19D1B7006F7F73 /* QQ20141106-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QQ20141106-1.png"; sourceTree = "<group>"; };
+		3C9A95281A19E30F006F7F73 /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
+		3C9A95291A19E30F006F7F73 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
 		A3A04497B0D1DB48A9F2F0EF /* Pods-SugarNursing.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SugarNursing.release.xcconfig"; path = "Pods/Target Support Files/Pods-SugarNursing/Pods-SugarNursing.release.xcconfig"; sourceTree = "<group>"; };
 		DAD6636C7BFC777050BC1B07 /* libPods-SugarNursing.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SugarNursing.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -308,6 +311,8 @@
 			children = (
 				3C9A95211A1991C6006F7F73 /* ServiceCenterViewController.h */,
 				3C9A95221A1991C6006F7F73 /* ServiceCenterViewController.m */,
+				3C9A95281A19E30F006F7F73 /* UserInfoViewController.h */,
+				3C9A95291A19E30F006F7F73 /* UserInfoViewController.m */,
 				3C9A95261A19D1B7006F7F73 /* QQ20141106-1.png */,
 			);
 			name = "Service Center";
@@ -526,6 +531,7 @@
 				3749B5541A09CFD30031D00C /* RootViewController.m in Sources */,
 				3761FA571A10BCC700F31D2F /* TestTrackerViewController.m in Sources */,
 				3C9A95231A1991C6006F7F73 /* ServiceCenterViewController.m in Sources */,
+				3C9A952A1A19E30F006F7F73 /* UserInfoViewController.m in Sources */,
 				3749B51E1A09C50D0031D00C /* SugarNursing.xcdatamodeld in Sources */,
 				3749B5641A09DAFA0031D00C /* MemberInfoCell.m in Sources */,
 			);

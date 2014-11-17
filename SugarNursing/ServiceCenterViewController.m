@@ -7,6 +7,7 @@
 //
 
 #import "ServiceCenterViewController.h"
+#import "AppDelegate+UserLogInOut.h"
 
 static CGFloat kUserInfoCellHeight = 80;
 static CGFloat kUserInfoCellMaginLeft = 20;
@@ -45,19 +46,11 @@ typedef enum{
 - (void)viewWillAppear:(BOOL)animated
 {
     
-    [self.mainTableView setContentOffset:CGPointMake(0, -10)];
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-//    
-//    NSLog(@"%f , %f",self.mainTableView.contentSize.width,self.mainTableView.contentSize.height);
-//    NSLog(@"%f , %f",self.view.frame.origin.y,self.mainTableView.frame.origin.y);
-//    
-//    CGSize size = self.mainTableView.contentSize;
-//    size.height += 30;
-//    
-//    [self.mainTableView setContentSize:size];
     
 }
 
@@ -87,24 +80,8 @@ typedef enum{
     return 4;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    if (section == 0)
-    {
-        return 1;
-    }
-    
-    return 1;
-}
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    if (section == 2)
-    {
-        return 50;
-    }
-    return 20;
-}
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -123,14 +100,17 @@ typedef enum{
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-//    switch (indexPath.row) {
-//        case <#constant#>:
-//            <#statements#>
-//            break;
-//            
-//        default:
-//            break;
-//    }
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    switch (indexPath.section)
+    {
+        case 0:
+            [self performSegueWithIdentifier:@"goUserInfo" sender:nil];
+            break;
+        default:
+            [AppDelegate userLogOut];
+            break;
+    }
     
 }
 
