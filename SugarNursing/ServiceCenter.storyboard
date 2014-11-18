@@ -22,7 +22,7 @@
             </objects>
             <point key="canvasLocation" x="656" y="-86"/>
         </scene>
-        <!--menber Center-->
+        <!--Menber Center-->
         <scene sceneID="CUN-Sh-HAa">
             <objects>
                 <viewController id="iQk-t5-4f0" customClass="ServiceCenterViewController" sceneMemberID="viewController">
@@ -51,7 +51,7 @@
                             <constraint firstItem="K7g-ek-tzj" firstAttribute="top" secondItem="lzQ-la-vFm" secondAttribute="bottom" id="vfe-jA-fpf"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="menber Center" id="6nu-rq-C8W">
+                    <navigationItem key="navigationItem" title="Menber Center" id="6nu-rq-C8W">
                         <barButtonItem key="leftBarButtonItem" title="Menu" id="Dg3-dD-0Li">
                             <connections>
                                 <action selector="presentLeftMenuViewController:" destination="iQk-t5-4f0" id="Tn5-DT-l43"/>
@@ -60,7 +60,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mainTableView" destination="lzQ-la-vFm" id="wFT-5V-HYk"/>
-                        <segue destination="iZs-Bc-9PV" kind="push" identifier="goUserInfo" id="qNC-F2-vnY"/>
+                        <segue destination="iZs-Bc-9PV" kind="show" identifier="goUserInfo" id="qNC-F2-vnY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CO6-B4-kAC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -96,7 +96,13 @@
                             <constraint firstAttribute="trailingMargin" secondItem="9F6-AG-1Dy" secondAttribute="trailing" constant="-16" id="c8Z-T0-nrG"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="UserInfo" id="3iP-WV-SKB"/>
+                    <navigationItem key="navigationItem" title="User Infomation" id="3iP-WV-SKB">
+                        <barButtonItem key="rightBarButtonItem" title="这是笔" id="a7f-hL-gEn">
+                            <connections>
+                                <action selector="editButtonEvent:" destination="iZs-Bc-9PV" id="NVj-6S-I2K"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="mainTableView" destination="9F6-AG-1Dy" id="Isk-xD-JMK"/>
                     </connections>
