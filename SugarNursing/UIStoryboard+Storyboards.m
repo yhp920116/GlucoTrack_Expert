@@ -30,5 +30,9 @@
     return [UIStoryboard storyboardWithName:@"TestTracker" bundle:nil];
 }
 
++ (UIStoryboard *)serviceCenterStoryboard
+{
+    return [UIStoryboard storyboardWithName:@"ServiceCenter" bundle:nil];
+}
 
 @end
