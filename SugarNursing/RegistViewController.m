@@ -57,6 +57,8 @@
 //        [self.scrollView scrollRectToVisible:self.activeField.frame animated:YES];
 //    }
     
+    NSLog(@"%@",self.activeField);
+    
     CGRect textFieldRect = [self.scrollView convertRect:((UIView *)self.activeField).bounds fromView:(UIView *)self.activeField];
     [self.scrollView scrollRectToVisible:textFieldRect animated:YES];
 }
@@ -70,6 +72,7 @@
     }];
 
 }
+
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
@@ -96,7 +99,6 @@
     } completionBlock:^{
         
     }];
-    
 }
 
 - (IBAction)genderPicker:(id)sender

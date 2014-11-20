@@ -1,12 +1,12 @@
 //
-//  ServiceCenterViewController.m
+//  MemberCenterController.m
 //  SugarNursing
 //
 //  Created by Ian on 14-11-17.
 //  Copyright (c) 2014年 Tisson. All rights reserved.
 //
 
-#import "ServiceCenterViewController.h"
+#import "MemberCenterViewController.h"
 #import "AppDelegate+UserLogInOut.h"
 
 static CGFloat kUserInfoCellHeight = 80;
@@ -17,7 +17,7 @@ static CGFloat kUserInfoViewMagin = 10;
 
 
 
-static CGFloat kDefaultCellHeight = 60;
+static CGFloat kDefaultCellHeight = 50;
 static CGFloat kLogoutCellHeight = 45;
 
 
@@ -29,11 +29,11 @@ typedef enum{
 }UserInfoCellViewTag;
 
 
-@interface ServiceCenterViewController ()
+@interface MemberCenterController ()
 
 @end
 
-@implementation ServiceCenterViewController
+@implementation MemberCenterController
 @synthesize mainTableView;
 
 - (void)viewDidLoad
@@ -52,6 +52,11 @@ typedef enum{
 - (void)viewDidAppear:(BOOL)animated
 {
     
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self.mainTableView reloadData];
 }
 
 
@@ -207,7 +212,9 @@ typedef enum{
 - (void)setupUserInfoCell:(UITableViewCell *)cell
 {
     //用户头像
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"QQ20141106-1"]];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"UserImage"]];
+    
+    
     
     [imageView setFrame:CGRectMake(kUserInfoCellMaginLeft,
                                   (kUserInfoCellHeight - kUserInfoCellImageHeightWidth)/2,

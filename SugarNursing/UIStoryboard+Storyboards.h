@@ -11,10 +11,9 @@
 @interface UIStoryboard (Storyboards)
 
 + (UIStoryboard *)mainStoryboard;
-+ (UIStoryboard *)memberCenterStoryboard;
 + (UIStoryboard *)loginStoryboard;
 + (UIStoryboard *)testTracker;
-+ (UIStoryboard *)serviceCenterStoryboard;
++ (UIStoryboard *)memberCenterStoryboard;
 
 
 @end

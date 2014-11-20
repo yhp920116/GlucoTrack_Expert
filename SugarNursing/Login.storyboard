@@ -525,6 +525,24 @@
                         <action selector="dismissKeyboard:" destination="xTj-3A-RIg" id="ZFz-q9-71o"/>
                     </connections>
                 </tapGestureRecognizer>
+                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" id="eKf-KS-qC4">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="162"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="eKf-KS-qC4" secondAttribute="height" multiplier="1:1" id="FIP-ys-Y0T"/>
+                    </constraints>
+                    <date key="date" timeIntervalSinceReferenceDate="437845189.6322">
+                        <!--2014-11-16 15:39:49 +0000-->
+                    </date>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="FIP-ys-Y0T"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="selecteDate:" destination="xTj-3A-RIg" eventType="valueChanged" id="JMc-An-Z6b"/>
+                    </connections>
+                </datePicker>
                 <view contentMode="scaleToFill" id="vl4-BW-fZo">
                     <rect key="frame" x="0.0" y="0.0" width="240" height="120"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -554,24 +572,6 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" id="eKf-KS-qC4">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="162"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="eKf-KS-qC4" secondAttribute="height" multiplier="1:1" id="FIP-ys-Y0T"/>
-                    </constraints>
-                    <date key="date" timeIntervalSinceReferenceDate="437845189.6322">
-                        <!--2014-11-16 15:39:49 +0000-->
-                    </date>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="FIP-ys-Y0T"/>
-                        </mask>
-                    </variation>
-                    <connections>
-                        <action selector="selecteDate:" destination="xTj-3A-RIg" eventType="valueChanged" id="JMc-An-Z6b"/>
-                    </connections>
-                </datePicker>
             </objects>
             <point key="canvasLocation" x="4021" y="0.0"/>
         </scene>

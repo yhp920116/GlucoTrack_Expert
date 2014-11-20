@@ -10,10 +10,9 @@
 #import "LeftMenuCell.h"
 #import "MemberInfoCell.h"
 #import "UIStoryboard+Storyboards.h"
-#import "MemberCenterController.h"
+#import "MemberCenterViewController.h"
 #import "AppDelegate+UserLogInOut.h"
 #import "TestTrackerViewController.h"
-#import "ServiceCenterViewController.h"
 
 @interface LeftMenuController ()
 
@@ -124,8 +123,6 @@
             [self.sideMenuViewController setContentViewController:[[UIStoryboard memberCenterStoryboard] instantiateViewControllerWithIdentifier:@"MemberCenterNav"] animated:YES];
             [self.sideMenuViewController hideMenuViewController];
         case 7:
-            [self.sideMenuViewController setContentViewController:[[UIStoryboard serviceCenterStoryboard] instantiateViewControllerWithIdentifier:@"ServiceCenterNav"] animated:YES];
-            [self.sideMenuViewController hideMenuViewController];
             break;
         case 8:
             [AppDelegate userLogOut];

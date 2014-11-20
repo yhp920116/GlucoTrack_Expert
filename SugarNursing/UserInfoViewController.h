@@ -11,9 +11,21 @@
 @interface UserInfoViewController : UIViewController
 <
 UITableViewDataSource,
-UITableViewDelegate
+UITableViewDelegate,
+UITextFieldDelegate,
+UITextViewDelegate,
+UIPickerViewDataSource,
+UIPickerViewDelegate
 >
 
 @property (weak, nonatomic) IBOutlet UITableView *mainTableView;
+
+@property (strong, nonatomic) IBOutlet UIView *genderPicker;
+
+@property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
+
+
+@property (strong, nonatomic) IBOutlet UIView *departmentsContentView;
+@property (weak, nonatomic) IBOutlet UIPickerView *departmentsPicker;
 
 @end

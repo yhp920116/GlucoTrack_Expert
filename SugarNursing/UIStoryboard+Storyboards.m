@@ -15,10 +15,6 @@
     return [UIStoryboard storyboardWithName:@"Main" bundle:nil];
 }
 
-+ (UIStoryboard *)memberCenterStoryboard
-{
-    return [UIStoryboard storyboardWithName:@"MemberCenter" bundle:nil];
-}
 
 + (UIStoryboard *)loginStoryboard
 {
@@ -30,9 +26,9 @@
     return [UIStoryboard storyboardWithName:@"TestTracker" bundle:nil];
 }
 
-+ (UIStoryboard *)serviceCenterStoryboard
++ (UIStoryboard *)memberCenterStoryboard
 {
-    return [UIStoryboard storyboardWithName:@"ServiceCenter" bundle:nil];
+    return [UIStoryboard storyboardWithName:@"MemberCenter" bundle:nil];
 }
 
 @end
