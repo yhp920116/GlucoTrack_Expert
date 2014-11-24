@@ -22,6 +22,7 @@ PODS:
     - AFNetworking/NSURLSession
   - BEMSimpleLineGraph (3.2)
   - MBProgressHUD (0.9)
+  - REMenu (1.10)
   - RESideMenu (4.0.7)
   - RMDateSelectionViewController (1.4.0)
 
@@ -29,6 +30,7 @@ DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - BEMSimpleLineGraph (~> 3.2)
   - MBProgressHUD (~> 0.8)
+  - REMenu (~> 1.10)
   - RESideMenu (~> 4.0.7)
   - RMDateSelectionViewController (~> 1.4.0)
 
@@ -36,6 +38,7 @@ SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
   BEMSimpleLineGraph: 68e349eb22320d1a21a29e390d0f67772f6f6f44
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
+  REMenu: e3988747d83f9e8f49f244bd3f1fb8b0900e8741
   RESideMenu: a9c1cd2e64e60e1d3166ddac01a83e215a0e4d30
   RMDateSelectionViewController: ba2f61dd237e15551a44c70887d244d78d2f944b
 

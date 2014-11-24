@@ -56,9 +56,7 @@
 //    if (CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
 //        [self.scrollView scrollRectToVisible:self.activeField.frame animated:YES];
 //    }
-    
-    NSLog(@"%@",self.activeField);
-    
+        
     CGRect textFieldRect = [self.scrollView convertRect:((UIView *)self.activeField).bounds fromView:(UIView *)self.activeField];
     [self.scrollView scrollRectToVisible:textFieldRect animated:YES];
 }

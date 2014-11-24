@@ -12,6 +12,7 @@ pod 'MBProgressHUD', '~>0.8'
 pod 'AFNetworking', '~>2.0'
 pod 'BEMSimpleLineGraph', '~>3.2'
 pod 'RMDateSelectionViewController', '~>1.4.0'
+pod 'REMenu', '~>1.10'
 
 
 end
@@ -19,4 +20,3 @@ end
 target 'SugarNursingTests' do
 
 end
-

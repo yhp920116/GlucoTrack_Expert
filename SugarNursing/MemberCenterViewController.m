@@ -1,5 +1,5 @@
 //
-//  MemberCenterController.m
+//  MemberCenterViewController.m
 //  SugarNursing
 //
 //  Created by Ian on 14-11-17.
@@ -29,11 +29,11 @@ typedef enum{
 }UserInfoCellViewTag;
 
 
-@interface MemberCenterController ()
+@interface MemberCenterViewController ()
 
 @end
 
-@implementation MemberCenterController
+@implementation MemberCenterViewController
 @synthesize mainTableView;
 
 - (void)viewDidLoad
@@ -111,6 +111,13 @@ typedef enum{
     {
         case 0:
             [self performSegueWithIdentifier:@"goUserInfo" sender:nil];
+            break;
+        
+        case 1:
+            if (indexPath.row == 0)
+            {
+                [self performSegueWithIdentifier:@"goMyPatients" sender:nil];
+            }
             break;
         default:
             [AppDelegate userLogOut];
@@ -212,7 +219,7 @@ typedef enum{
 - (void)setupUserInfoCell:(UITableViewCell *)cell
 {
     //用户头像
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"UserImage"]];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"001"]];
     
     
     

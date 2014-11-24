@@ -34,9 +34,12 @@
 		37AC34C31A0B52420037029A /* AppDelegate+UserLogInOut.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC34C21A0B52420037029A /* AppDelegate+UserLogInOut.m */; };
 		37C5C4221A18964400365824 /* RegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C5C4211A18964400365824 /* RegistViewController.m */; };
 		37EDEA141A0A79C7009EB54D /* UIStoryboard+Storyboards.m in Sources */ = {isa = PBXBuildFile; fileRef = 37EDEA131A0A79C7009EB54D /* UIStoryboard+Storyboards.m */; };
+		3C7E1A771A1F3DC1002755AD /* SinglePatient_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C7E1A761A1F3DC1002755AD /* SinglePatient_ViewController.m */; };
 		3C9A95231A1991C6006F7F73 /* MemberCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9A95221A1991C6006F7F73 /* MemberCenterViewController.m */; };
 		3C9A95251A1993C4006F7F73 /* MemberCenter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C9A95241A1993C4006F7F73 /* MemberCenter.storyboard */; };
 		3C9A952A1A19E30F006F7F73 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9A95291A19E30F006F7F73 /* UserInfoViewController.m */; };
+		3C9B181B1A1EC8AA00F7DF4D /* MyPatientsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9B181A1A1EC8AA00F7DF4D /* MyPatientsViewController.m */; };
+		3C9B181E1A1ED01A00F7DF4D /* MyPatientsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9B181D1A1ED01A00F7DF4D /* MyPatientsCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,11 +103,17 @@
 		37C5C4211A18964400365824 /* RegistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistViewController.m; sourceTree = "<group>"; };
 		37EDEA121A0A79C7009EB54D /* UIStoryboard+Storyboards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIStoryboard+Storyboards.h"; sourceTree = "<group>"; };
 		37EDEA131A0A79C7009EB54D /* UIStoryboard+Storyboards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIStoryboard+Storyboards.m"; sourceTree = "<group>"; };
+		3C7E1A751A1F3DC1002755AD /* SinglePatient_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglePatient_ViewController.h; sourceTree = "<group>"; };
+		3C7E1A761A1F3DC1002755AD /* SinglePatient_ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePatient_ViewController.m; sourceTree = "<group>"; };
 		3C9A95211A1991C6006F7F73 /* MemberCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberCenterViewController.h; sourceTree = "<group>"; };
 		3C9A95221A1991C6006F7F73 /* MemberCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberCenterViewController.m; sourceTree = "<group>"; };
 		3C9A95241A1993C4006F7F73 /* MemberCenter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MemberCenter.storyboard; sourceTree = "<group>"; };
 		3C9A95281A19E30F006F7F73 /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
 		3C9A95291A19E30F006F7F73 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
+		3C9B18191A1EC8AA00F7DF4D /* MyPatientsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPatientsViewController.h; sourceTree = "<group>"; };
+		3C9B181A1A1EC8AA00F7DF4D /* MyPatientsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPatientsViewController.m; sourceTree = "<group>"; };
+		3C9B181C1A1ED01A00F7DF4D /* MyPatientsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPatientsCell.h; sourceTree = "<group>"; };
+		3C9B181D1A1ED01A00F7DF4D /* MyPatientsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPatientsCell.m; sourceTree = "<group>"; };
 		A3A04497B0D1DB48A9F2F0EF /* Pods-SugarNursing.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SugarNursing.release.xcconfig"; path = "Pods/Target Support Files/Pods-SugarNursing/Pods-SugarNursing.release.xcconfig"; sourceTree = "<group>"; };
 		DAD6636C7BFC777050BC1B07 /* libPods-SugarNursing.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SugarNursing.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -329,6 +338,10 @@
 				3C9A95221A1991C6006F7F73 /* MemberCenterViewController.m */,
 				3C9A95281A19E30F006F7F73 /* UserInfoViewController.h */,
 				3C9A95291A19E30F006F7F73 /* UserInfoViewController.m */,
+				3C9B18191A1EC8AA00F7DF4D /* MyPatientsViewController.h */,
+				3C9B181A1A1EC8AA00F7DF4D /* MyPatientsViewController.m */,
+				3C7E1A751A1F3DC1002755AD /* SinglePatient_ViewController.h */,
+				3C7E1A761A1F3DC1002755AD /* SinglePatient_ViewController.m */,
 			);
 			name = "Member Center";
 			sourceTree = "<group>";
@@ -356,6 +369,8 @@
 				3749B5601A09D9920031D00C /* LeftMenuCell.m */,
 				3749B5621A09DAFA0031D00C /* MemberInfoCell.h */,
 				3749B5631A09DAFA0031D00C /* MemberInfoCell.m */,
+				3C9B181C1A1ED01A00F7DF4D /* MyPatientsCell.h */,
+				3C9B181D1A1ED01A00F7DF4D /* MyPatientsCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -535,8 +550,10 @@
 				3749B5611A09D9920031D00C /* LeftMenuCell.m in Sources */,
 				3749B55D1A09D0D60031D00C /* ContentViewController.m in Sources */,
 				37EDEA141A0A79C7009EB54D /* UIStoryboard+Storyboards.m in Sources */,
+				3C7E1A771A1F3DC1002755AD /* SinglePatient_ViewController.m in Sources */,
 				371628BC1A15DD4C0043EED2 /* UIViewController+Notifications.m in Sources */,
 				3749B55A1A09D0950031D00C /* RightMenuController.m in Sources */,
+				3C9B181E1A1ED01A00F7DF4D /* MyPatientsCell.m in Sources */,
 				3720AFA61A199ADF0011D930 /* ResetPwdViewController.m in Sources */,
 				3749B5571A09D0870031D00C /* LeftMenuController.m in Sources */,
 				371628BF1A15FF860043EED2 /* VerificationViewController.m in Sources */,
@@ -544,6 +561,7 @@
 				37AC34C01A0B14AE0037029A /* LoginViewController.m in Sources */,
 				378F90711A16698000201353 /* UIViewController+Gestures.m in Sources */,
 				3749B5541A09CFD30031D00C /* RootViewController.m in Sources */,
+				3C9B181B1A1EC8AA00F7DF4D /* MyPatientsViewController.m in Sources */,
 				37C5C4221A18964400365824 /* RegistViewController.m in Sources */,
 				3761FA571A10BCC700F31D2F /* TestTrackerViewController.m in Sources */,
 				3C9A95231A1991C6006F7F73 /* MemberCenterViewController.m in Sources */,
@@ -636,7 +654,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -672,7 +690,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -689,7 +707,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SugarNursing/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -706,7 +724,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SugarNursing/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
