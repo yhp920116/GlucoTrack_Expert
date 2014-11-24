@@ -142,7 +142,8 @@ static CGFloat kInfoCellMaginRight = 15;
     }
     else
     {
-        return [[_cellHeightArray objectAtIndex:indexPath.section] floatValue];
+//        return [[_cellHeightArray objectAtIndex:indexPath.section] floatValue];
+        return 310;
     }
 }
 
@@ -163,6 +164,7 @@ static CGFloat kInfoCellMaginRight = 15;
     {
          cell = [self setTitleCellWithIndexPath:indexPath];
         
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
     else
     {
@@ -170,6 +172,18 @@ static CGFloat kInfoCellMaginRight = 15;
 //        UIView *view = [[UIView alloc] initWithFrame:cell.bounds];
 //        [view setBackgroundColor:[UIColor lightGrayColor]];
 //        [cell addSubview:view];
+        
+        
+        static NSString *diseaseIdentifier = @"DiseaseInfoCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:diseaseIdentifier];
+        
+        
+        CALayer *cellLayer = cell.layer;
+        cellLayer.borderColor = [[UIColor lightGrayColor] CGColor];
+        cellLayer.borderWidth = 1.0;
+        [cell setBackgroundColor:UIColorFromRGB(0x78bfff)];
+        
+        return cell;
         
     }
     
@@ -239,7 +253,6 @@ static CGFloat kInfoCellMaginRight = 15;
     
     UITableViewCell *cell = [self.myTableView dequeueReusableCellWithIdentifier:titleIdentifier];
     
-    
     NSDictionary *parameter = [_serverData objectAtIndex:indexPath.section];
     
     NSDictionary *headDic = [parameter objectForKey:@"head"];
@@ -260,17 +273,8 @@ static CGFloat kInfoCellMaginRight = 15;
         
         UILabel *titleLabel = [[UILabel alloc] init];
         [titleLabel setTextAlignment:NSTextAlignmentCenter];
-        [titleLabel setText:title];
         [titleLabel setFont:[UIFont systemFontOfSize:16]];
         [titleLabel setTag:1001];
-        
-        CGSize size = [self sizeWithString:title font:titleLabel.font maxSize:CGSizeMake(CGRectGetWidth(cell.bounds)/4, 30)];
-        
-        [titleLabel setFrame:CGRectMake(CGRectGetWidth(cell.bounds) * 0.1,
-                                        CGRectGetHeight(cell.bounds)/2 - size.height/2,
-                                        size.width,
-                                        size.height)];
-        
         [cell addSubview:titleLabel];
         
         
@@ -278,34 +282,60 @@ static CGFloat kInfoCellMaginRight = 15;
         
         UILabel *detailLabel = [[UILabel alloc] init];
         [detailLabel setTextAlignment:NSTextAlignmentLeft];
-        [detailLabel setText:detailTitle];
         [detailLabel setFont:[UIFont systemFontOfSize:14]];
         [detailLabel setTag:1002];
-        
-        
-        size = [self sizeWithString:detailTitle font:detailLabel.font maxSize:CGSizeMake(CGRectGetWidth(cell.bounds)/3, 30)];
-        [detailLabel setFrame:CGRectMake(titleLabel.frame.origin.x + titleLabel.bounds.size.width + 20,
-                                         CGRectGetHeight(cell.bounds)/2 - size.height/2,
-                                         size.width,
-                                         size.height)];
         [cell addSubview:detailLabel];
         
         
+        
         UIImageView *indicator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"005"]];
-        [indicator setFrame:CGRectMake(CGRectGetWidth(cell.bounds) *0.95,
+        [indicator setFrame:CGRectMake(CGRectGetWidth(cell.bounds) *0.8,
                                        CGRectGetHeight(cell.bounds)/2 - kHeadCellIndicatorViewWidthAndHeight/2,
                                        kHeadCellIndicatorViewWidthAndHeight,
                                        kHeadCellIndicatorViewWidthAndHeight)];
         [indicator setTag:1003];
         [cell addSubview:indicator];
         
+    }
+    
+    
+    UILabel *titleLabel = (UILabel *)[cell viewWithTag:1001];
+    [titleLabel setText:title];
+    
+    CGSize size = [self sizeWithString:title font:titleLabel.font maxSize:CGSizeMake(CGRectGetWidth(cell.bounds)/4, 30)];
+    
+    [titleLabel setFrame:CGRectMake(CGRectGetWidth(cell.bounds) * 0.1,
+                                    CGRectGetHeight(cell.bounds)/2 - size.height/2,
+                                    size.width,
+                                    size.height)];
+    
+    
+    UILabel *detailLabel = (UILabel *)[cell viewWithTag:1002];
+    [detailLabel setText:detailTitle];
+    size = [self sizeWithString:detailTitle font:detailLabel.font maxSize:CGSizeMake(CGRectGetWidth(cell.bounds)/2, 30)];
+    [detailLabel setFrame:CGRectMake(titleLabel.frame.origin.x + titleLabel.bounds.size.width + 20,
+                                     CGRectGetHeight(cell.bounds)/2 - size.height/2,
+                                     size.width,
+                                     size.height)];
+    NSLog(@"%@",detailTitle);
+    NSLog(@"%f",size.width);
+    
+    UIImageView *indicator = (UIImageView *)[cell viewWithTag:1003];
+    BOOL isSelect = [[_selectArray objectAtIndex:indexPath.section] boolValue];
+    if (isSelect)
+    {
+        
         CGAffineTransform rotate = CGAffineTransformMakeRotation(-0.5 * M_PI );
         
         [indicator setTransform:rotate];
     }
-    
-    
-    
+    else
+    {
+        
+        CGAffineTransform rotate = CGAffineTransformMakeRotation(0 * M_PI );
+        
+        [indicator setTransform:rotate];
+    }
     
     
     return cell;
