@@ -72,13 +72,13 @@
     CGFloat calHeight;
     if (screenHeight - kbHeight - 200 >= 20) {
          calHeight = screenHeight/2-100;
-
+        
     } else {
         return;
     }
     
     if (kbHeight > calHeight) {
-        self.loginViewYCons.constant = -(kbHeight-calHeight);
+        self.loginViewYCons.constant = - (kbHeight - calHeight);
         [self.view setNeedsUpdateConstraints];
         
         [UIView animateWithDuration:0.4 animations:^{

@@ -11,7 +11,7 @@
 
 @interface MyPatientsViewController ()
 {
-    NSMutableDictionary *serviceDic;
+    NSArray *_serviceArray;
     NSArray *titleArray;
 }
 
@@ -29,25 +29,41 @@
     [super viewDidLoad];
     
     
-    titleArray = [NSArray arrayWithObjects:@"绑定时间倒序",@"绑定时间顺序",@"年龄从大到小",@"年龄从小到大",@"服务等级从高到低",@"服务等级从低到高",@"只看接管",@"只看托管", nil];
+    titleArray = [NSArray arrayWithObjects:NSLocalizedString(@"The binding time inverted order", nil),
+                  NSLocalizedString(@"The binding time plain sequence", nil),
+                  NSLocalizedString(@"Age from old to young", nil),
+                  NSLocalizedString(@"Age from young to old", nil),
+                  NSLocalizedString(@"Service level from high to low", nil),
+                  NSLocalizedString(@"Service level from low to high", nil),
+                  NSLocalizedString(@"Only takeover", nil),
+                  NSLocalizedString(@"Only Hosting", nil),
+                  nil];
     
-    serviceDic = [NSMutableDictionary dictionary];
     
-    UIImage *image = [UIImage imageNamed:@"001"];
     
-    [serviceDic setObject:[self imageToString:image] forKey:@"image"];
     
-    [serviceDic setObject:@"王小二" forKey:@"name"];
-    [serviceDic setObject:@"64" forKey:@"age"];
-    [serviceDic setObject:@"male" forKey:@"gender"];
-    [serviceDic setObject:@"低" forKey:@"serviceRank"];
-    [serviceDic setObject:@"14/11/9" forKey:@"bindingDate"];
-    [serviceDic setObject:@"接管中~" forKey:@"state"];
+    UIImage *image = [UIImage imageNamed:@"019"];
+    _serviceArray=@[@{@"name":@"思思",@"age":@"35",@"gender":@"女",@"serviceRank":@"低",@"bindingDate":@"1979-02-08",@"state":@"接管中~",@"image":image},
+                      @{@"name":@"王子运",@"age":@"35",@"gender":@"男",@"serviceRank":@"低",@"bindingDate":@"1979-02-08",@"state":@"接管中~",@"image":image},
+                      
+                      @{@"name":@"王诗雅",@"age":@"49",@"gender":@"女",@"serviceRank":@"低",@"bindingDate":@"1979-02-08",@"state":@"接管中~",@"image":image},
+                      
+                      @{@"name":@"李楠钰",@"age":@"28",@"gender":@"男",@"serviceRank":@"低",@"bindingDate":@"1979-02-08",@"state":@"接管中~",@"image":image},
+                      
+                      @{@"name":@"王柄灰",@"age":@"53",@"gender":@"男",@"serviceRank":@"低",@"bindingDate":@"1979-02-08",@"state":@"接管中~",@"image":image},
+                      ];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    [super viewWillAppear:animated];
+    
+    NSIndexPath *indexPath = [self.mainTableView indexPathForSelectedRow];
+    if (indexPath)
+    {
+        [self.mainTableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 
@@ -60,19 +76,20 @@
                                                                     320,
                                                                     40)];
     self.sectionTitleButton.titleLabel.textAlignment = NSTextAlignmentLeft;
-    [self.sectionTitleButton setBackgroundColor:[UIColor colorWithRed:53/255.0
-                                                                green:53/255.0
-                                                                 blue:52/255.0
+    [self.sectionTitleButton setBackgroundColor:[UIColor colorWithRed:44/255.0
+                                                                green:125/255.0
+                                                                 blue:198/255.0
                                                                 alpha:1.0]];
     
-    [self.sectionTitleButton setTitleColor:[UIColor colorWithRed:128/255.0
-                                                          green:126/255.0
-                                                           blue:124/255.0
+    [self.sectionTitleButton setTitleColor:[UIColor colorWithRed:255.0/255.0
+                                                          green:255.0/255.0
+                                                           blue:255.0/255.0
                                                           alpha:1.0]
                                   forState:UIControlStateNormal];
     
     [self.sectionTitleButton addTarget:self action:@selector(toggleMenu) forControlEvents:UIControlEventTouchUpInside];
-    [self.sectionTitleButton setTitle:@"点击选择排序模式" forState:UIControlStateNormal];
+    [self.sectionTitleButton setTitle:NSLocalizedString(@"Click this select mode of sort", nil)
+                             forState:UIControlStateNormal];
     
     return self.sectionTitleButton;
 }
@@ -122,41 +139,40 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return _serviceArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 50;
+    return 40;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    NSString *identifier = @"MyPatientsCell";
+    static NSString *identifier = @"MyPatientsCell";
     MyPatientsCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-    [cell configureCellWithParameter:serviceDic];
-    
+    [self configureCell:cell parameter:_serviceArray[indexPath.row]];
     return cell;
 }
 
-
-
-- (NSString *)imageToString:(UIImage *)image
+- (void)configureCell:(MyPatientsCell *)cell parameter:(NSDictionary *)dic
 {
-    if (image && image != nil)
-    {
-        
-        NSData *data = UIImageJPEGRepresentation(image, 1.0f);
-        NSString *imageString = [data base64Encoding];
-        return imageString;
-    }
     
-    return @"";
+    
+    UIImage *image = [dic objectForKey:@"image"];
+    
+    [cell.patientImageView setImage:image];
+    [cell.nameLabel setText:[dic objectForKey:@"name"]];
+    [cell.genderLabel setText:[dic objectForKey:@"gender"]];
+    [cell.ageLabel setText:[dic objectForKey:@"age"]];
+    [cell.serviceRankLabel setText:[dic objectForKey:@"serviceRank"]];
+    [cell.bindingDateLabel setText:[dic objectForKey:@"bindingDate"]];
+    
+    [cell.stateLabel setText:[dic objectForKey:@"state"]];
 }
-
 
 
 /*

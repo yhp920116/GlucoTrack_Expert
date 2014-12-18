@@ -1,4 +1,4 @@
-//
+    //
 //  VerificationViewController.m
 //  SugarNursing
 //
@@ -45,7 +45,7 @@
     NSLog(@"requestForVerification...");
 }
 
-- (IBAction)back:(UIStoryboardSegue *)segue
+- (IBAction)back:(UIStoryboardSegue *)sender
 {
     
 }

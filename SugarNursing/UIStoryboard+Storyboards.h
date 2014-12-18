@@ -13,7 +13,11 @@
 + (UIStoryboard *)mainStoryboard;
 + (UIStoryboard *)loginStoryboard;
 + (UIStoryboard *)testTracker;
++ (UIStoryboard *)myPatientStoryboard;
++ (UIStoryboard *)myHostingStoryboard;
++ (UIStoryboard *)myTakeoverStoryboard;
++ (UIStoryboard *)myMessageStoryboard;
 + (UIStoryboard *)memberCenterStoryboard;
-
++ (UIStoryboard *)systemSetStoryboard;
 
 @end

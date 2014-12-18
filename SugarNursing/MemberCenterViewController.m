@@ -8,6 +8,7 @@
 
 #import "MemberCenterViewController.h"
 #import "AppDelegate+UserLogInOut.h"
+#import "UIStoryboard+Storyboards.h"
 
 static CGFloat kUserInfoCellHeight = 80;
 static CGFloat kUserInfoCellMaginLeft = 20;
@@ -17,15 +18,16 @@ static CGFloat kUserInfoViewMagin = 10;
 
 
 
-static CGFloat kDefaultCellHeight = 50;
-static CGFloat kLogoutCellHeight = 45;
+static CGFloat kDefaultCellHeight = 44;
+static CGFloat kLogoutCellHeight = 44;
 
 
-typedef enum{
-    UserInfoCellUserImageViewTag = 1001,
-    UserInfoCellUsernameLabelTag,
-    UserInfoCellMajorLabelTag,
-    UserInfoCellRankLabelTag
+typedef enum
+{
+    UserInfoCellItemTagUserImageView = 1001,
+    UserInfoCellItemTagUsernameLabel,
+    UserInfoCellItemTagMajorLabe,
+    UserInfoCellItemTagRankLabel
 }UserInfoCellViewTag;
 
 
@@ -68,12 +70,12 @@ typedef enum{
         case 0:
             return 1;
             break;
+            break;
         case 1:
-            return 2;
+            return 1;
             break;
         case 2:
-            return 3;
-            break;
+            return 2;
         default:
             return 1;
             break;
@@ -112,15 +114,22 @@ typedef enum{
         case 0:
             [self performSegueWithIdentifier:@"goUserInfo" sender:nil];
             break;
-        
         case 1:
+            [self performSegueWithIdentifier:@"goAboutMe" sender:nil];
+            break;
+        case 2:
             if (indexPath.row == 0)
             {
-                [self performSegueWithIdentifier:@"goMyPatients" sender:nil];
+                [self performSegueWithIdentifier:@"goTermsOfService" sender:nil];
+            }
+            else
+            {
+                [self performSegueWithIdentifier:@"goFeedBack" sender:nil];
             }
             break;
-        default:
+        case 3:
             [AppDelegate userLogOut];
+        default:
             break;
     }
     
@@ -152,8 +161,9 @@ typedef enum{
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                                        reuseIdentifier:@"LogoutCell"];
         [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
+        cell.textLabel.font = [UIFont systemFontOfSize:15];
         cell.backgroundColor = [UIColor redColor];
-        cell.textLabel.text = @"退出账号";
+        cell.textLabel.text = NSLocalizedString(@"Log out", nil);
         
         
         return cell;
@@ -171,6 +181,7 @@ typedef enum{
             
             NSString *title = [self titleWithIndexPath:indexPath];
             [cell.textLabel setText:title];
+            cell.textLabel.font = [UIFont systemFontOfSize:15];
         }
         
         if (indexPath.section == 0)
@@ -186,32 +197,19 @@ typedef enum{
 
 - (NSString *)titleWithIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.section)
+    if (indexPath.section == 1) return NSLocalizedString(@"About app", nil);
+    
+    
+    
+    switch (indexPath.row)
     {
-        case 1:
-        
-            switch (indexPath.row){
-                case 0:
-                    return @"我的病人";
-                    break;
-                default:
-                    return @"我的消息";
-                    break;
-            }
-            break;
+        case 0:
+            return NSLocalizedString(@"Terms of service", nil);
         default:
-            switch (indexPath.row) {
-                case 0:
-                    return @"关于糖博士";
-                    break;
-                case 1:
-                    return @"服务条款";
-                default:
-                    return @"意见反馈";
-                    break;
-            }
+            return NSLocalizedString(@"Advice feed back", nil);
             break;
     }
+    
 }
 
 
@@ -219,7 +217,7 @@ typedef enum{
 - (void)setupUserInfoCell:(UITableViewCell *)cell
 {
     //用户头像
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"001"]];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"019"]];
     
     
     
@@ -227,7 +225,7 @@ typedef enum{
                                   (kUserInfoCellHeight - kUserInfoCellImageHeightWidth)/2,
                                   kUserInfoCellImageHeightWidth,
                                    kUserInfoCellImageHeightWidth)];
-    [imageView setTag:UserInfoCellUserImageViewTag];
+    [imageView setTag:UserInfoCellItemTagUserImageView];
     [cell addSubview:imageView];
     
     
@@ -237,28 +235,27 @@ typedef enum{
                                       imageView.frame.origin.y + kUserInfoViewMagin/2,
                                       CGRectGetWidth(self.view.bounds)/1.5,
                                        CGRectGetWidth(imageView.bounds)/3)];
-    [usernameLabel setText:@"为了方便测试使用了比较长的用户名"];
+    [usernameLabel setText:@"王医生"];
     [usernameLabel setFont:[UIFont systemFontOfSize:14]];
-    [usernameLabel setTag:UserInfoCellUsernameLabelTag];
+    [usernameLabel setTag:UserInfoCellItemTagUsernameLabel];
     [cell addSubview:usernameLabel];
     
     
     //专业
     UILabel *majorLabel = [[UILabel alloc] init];
     [majorLabel setFont:[UIFont systemFontOfSize:14]];
-    [majorLabel setText:@"阴阳失调神经失常科"];
+    [majorLabel setText:@"神经科"];
     [majorLabel setNumberOfLines:1];
     CGSize size = [self sizeWithString:majorLabel.text
                                   font:majorLabel.font
                                maxSize:CGSizeMake(CGRectGetWidth(self.view.bounds)/2.5, 20)];
     
-    NSLog(@"%f, %f",size.width,size.height);
     [majorLabel setFrame:CGRectMake(usernameLabel.frame.origin.x,
                                    usernameLabel.frame.origin.y + usernameLabel.frame.size.height + kUserInfoViewMagin/2,
                                    size.width,
                                     size.height)];
     
-    [majorLabel setTag:UserInfoCellMajorLabelTag];
+    [majorLabel setTag:UserInfoCellItemTagMajorLabe];
     [cell addSubview:majorLabel];
     
     
@@ -266,12 +263,12 @@ typedef enum{
     UILabel *rankLabel = [[UILabel alloc] init];
     [rankLabel setFont:[UIFont systemFontOfSize:14]];
     [rankLabel setNumberOfLines:1];
-    [rankLabel setTag:UserInfoCellRankLabelTag];
+    [rankLabel setTag:UserInfoCellItemTagRankLabel];
     [rankLabel setFrame:CGRectMake(majorLabel.frame.origin.x + majorLabel.bounds.size.width + kUserInfoViewMagin/2,
                                   majorLabel.frame.origin.y,
                                   CGRectGetWidth(self.view.bounds)/3,
                                    majorLabel.bounds.size.height)];
-    [rankLabel setText:@"资深高级神级专家"];
+    [rankLabel setText:@"专家"];
     [cell addSubview:rankLabel];
     
 }

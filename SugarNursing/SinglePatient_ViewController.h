@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <BEMSimpleLineGraphView.h>
+#import <MBProgressHUD.h>
 
 typedef enum
 {
@@ -18,9 +20,20 @@ PushDownViewState;
 @interface SinglePatient_ViewController : UIViewController
 <
 UITableViewDataSource,
-UITableViewDelegate
+UITableViewDelegate,
+UITabBarDelegate,
+MBProgressHUDDelegate,
+BEMSimpleLineGraphDataSource,
+BEMSimpleLineGraphDelegate
 >
 
+
+
+@property (weak, nonatomic) IBOutlet BEMSimpleLineGraphView *trackerChart;
+@property (weak, nonatomic) IBOutlet UIView *chartView;
+@property (strong, nonatomic) IBOutlet UIView *detailView;
+
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
+@property (weak, nonatomic) IBOutlet UITabBar *myTabBar;
 
 @end

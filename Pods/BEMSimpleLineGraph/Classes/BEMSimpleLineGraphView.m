@@ -319,15 +319,15 @@
     if (self.enableYAxisLabel) {
         NSDictionary *attributes = @{NSFontAttributeName: self.labelFont};
         if (self.autoScaleYAxis == YES){
-            NSString *maxValueString = [NSString stringWithFormat:@"%i", (int)[self maxValue]];
-            NSString *minValueString = [NSString stringWithFormat:@"%i", (int)[self minValue]];
+            NSString *maxValueString = [NSString stringWithFormat:@"%.1f", (float)[self maxValue]];
+            NSString *minValueString = [NSString stringWithFormat:@"%.1f", (float)[self minValue]];
             
             self.YAxisLabelXOffset = MAX([maxValueString sizeWithAttributes:attributes].width,
                                          [minValueString sizeWithAttributes:attributes].width) + 5;
         }
         else{
             
-            NSString *longestString = [NSString stringWithFormat:@"%i", (int)self.frame.size.height];
+            NSString *longestString = [NSString stringWithFormat:@"%.1f", (float)self.frame.size.height];
             self.YAxisLabelXOffset = [longestString sizeWithAttributes:attributes].width + 5;
         }
     } else self.YAxisLabelXOffset = 0;
@@ -613,7 +613,7 @@
         
     } else {
         
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width*2, self.scrollView.frame.size.height);
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.scrollView.frame.size.height);
         
         NSInteger offset = [self offsetForXAxisWithNumberOfGaps]; // The offset (if possible and necessary) used to shift the Labels on the X-Axis for them to be centered.
         
@@ -722,8 +722,8 @@
     
     if (self.autoScaleYAxis) {
         // Plot according to min-max range
-        NSNumber *minimumValue = [NSNumber numberWithInteger:[self calculateMinimumPointValue].integerValue];
-        NSNumber *maximumValue = [NSNumber numberWithInteger:[self calculateMaximumPointValue].integerValue];
+        NSNumber *minimumValue = [NSNumber numberWithFloat:[self calculateMinimumPointValue].floatValue];
+        NSNumber *maximumValue = [NSNumber numberWithFloat:[self calculateMaximumPointValue].floatValue];
         
         CGFloat numberOfLabels;
         if ([self.delegate respondsToSelector:@selector(numberOfYAxisLabelsOnLineGraph:)]) numberOfLabels = [self.delegate numberOfYAxisLabelsOnLineGraph:self];
@@ -734,17 +734,17 @@
         if (numberOfLabels <= 0) return;
         else if (numberOfLabels == 1) {
             [dotValues removeAllObjects];
-            [dotValues addObject:[NSNumber numberWithInt:(minimumValue.intValue + maximumValue.intValue)/2]];
+            [dotValues addObject:[NSNumber numberWithFloat:(minimumValue.floatValue + maximumValue.floatValue)/2]];
         } else {
             for (int i=1; i<numberOfLabels-1; i++) {
-                [dotValues addObject:[NSNumber numberWithInt:(minimumValue.intValue + ((maximumValue.intValue - minimumValue.intValue)/(numberOfLabels-1))*i)]];
+                [dotValues addObject:[NSNumber numberWithFloat:(minimumValue.floatValue + ((maximumValue.floatValue - minimumValue.floatValue)/(numberOfLabels-1))*i)]];
             }
         }
         
         for (NSNumber *dotValue in dotValues) {
             CGFloat yAxisPosition = [self yPositionForDotValue:dotValue.floatValue];
             UILabel *labelYAxis = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.YAxisLabelXOffset - 5, 15)];
-            labelYAxis.text = dotValue.stringValue;
+            labelYAxis.text = [NSString stringWithFormat:@"%.1f",dotValue.floatValue];
             labelYAxis.textAlignment = NSTextAlignmentRight;
             labelYAxis.font = self.labelFont;
             labelYAxis.textColor = self.colorYaxisLabel;
@@ -832,7 +832,7 @@
     UILabel *permanentPopUpLabel = [[UILabel alloc] init];
     permanentPopUpLabel.textAlignment = 1;
     permanentPopUpLabel.numberOfLines = 0;
-    permanentPopUpLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInteger:circleDot.absoluteValue]];
+    permanentPopUpLabel.text = [NSString stringWithFormat:@"%.1f", circleDot.absoluteValue];
     permanentPopUpLabel.font = self.labelFont;
     permanentPopUpLabel.backgroundColor = [UIColor clearColor];
     [permanentPopUpLabel sizeToFit];
@@ -841,7 +841,7 @@
     permanentPopUpLabel.tag = 3100;
     
     UIView *permanentPopUpView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, permanentPopUpLabel.frame.size.width + 7, permanentPopUpLabel.frame.size.height + 2)];
-    permanentPopUpView.backgroundColor = [UIColor whiteColor];
+    permanentPopUpView.backgroundColor = self.colorBackgroundPopUplabel;
     permanentPopUpView.alpha = 0;
     permanentPopUpView.layer.cornerRadius = 3;
     permanentPopUpView.tag = 3101;

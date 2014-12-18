@@ -14,6 +14,7 @@
 #import "AppDelegate+UserLogInOut.h"
 #import "TestTrackerViewController.h"
 
+
 @interface LeftMenuController ()
 
 @property (nonatomic, strong) NSArray *menuArray;
@@ -29,13 +30,12 @@
     _selectedIndex = -1;
     if (!self.menuArray) {
         self.menuArray  = @[
-                            @[NSLocalizedString(@"Home",),@"IconHome"],
-                            @[NSLocalizedString(@"Test Result",),@"IconCalendar"],
-                            @[NSLocalizedString(@"Control Effect",),@"IconProfile"],
-                            @[NSLocalizedString(@"Member Log",),@"IconCalendar"],
-                            @[NSLocalizedString(@"My Tips",),@"IconSettings"],
-                            @[NSLocalizedString(@"Member Center",),@"IconSettings"],
-                            @[NSLocalizedString(@"Service Center",),@"IconProfile"],
+                            @[NSLocalizedString(@"My Patient",),@"IconMyPatient"],
+                            @[NSLocalizedString(@"My Hosting",),@"IconMyHosting"],
+                            @[NSLocalizedString(@"My Takeover",),@"IconMyTakeover"],
+                            @[NSLocalizedString(@"My Message",),@"IconMyMessage"],
+                            @[NSLocalizedString(@"Member Center",),@"IconMemberCenter"],
+                            @[NSLocalizedString(@"System Set",),@"IconSystemSet"],
                             @[NSLocalizedString(@"Log Out",),@"IconEmpty"],
                             ];
     }
@@ -44,6 +44,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureMenu];
+    
+    
 }
 
 - (void)configureMenu
@@ -102,29 +104,37 @@
 
 - (void)switchToViewControllerAtIndex:(NSInteger)index
 {
-    switch (index) {
+    
+    switch (index)
+    {
         case 0:
             break;
         case 1:
-            [self.sideMenuViewController setContentViewController:[[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"ContentNav"] animated:YES];
+            [self.sideMenuViewController setContentViewController:[[UIStoryboard myPatientStoryboard] instantiateViewControllerWithIdentifier:@"MyPatientNav"] animated:YES];
             [self.sideMenuViewController hideMenuViewController];
+        
             break;
         case 2:
-            [self.sideMenuViewController setContentViewController:[[UIStoryboard testTracker] instantiateViewControllerWithIdentifier:@"TestTrackerNav"] animated:YES];
+            [self.sideMenuViewController setContentViewController:[[UIStoryboard myHostingStoryboard] instantiateViewControllerWithIdentifier:@"MyHostingNav"] animated:YES];
             [self.sideMenuViewController hideMenuViewController];
             break;
         case 3:
+            [self.sideMenuViewController setContentViewController:[[UIStoryboard myTakeoverStoryboard] instantiateViewControllerWithIdentifier:@"MyTakeoverNav"] animated:YES];
+            [self.sideMenuViewController hideMenuViewController];
             break;
         case 4:
+            [self.sideMenuViewController setContentViewController:[[UIStoryboard myMessageStoryboard] instantiateViewControllerWithIdentifier:@"MyMessageNav"] animated:YES];
+            [self.sideMenuViewController hideMenuViewController];
             break;
         case 5:
-            break;
-        case 6:
             [self.sideMenuViewController setContentViewController:[[UIStoryboard memberCenterStoryboard] instantiateViewControllerWithIdentifier:@"MemberCenterNav"] animated:YES];
             [self.sideMenuViewController hideMenuViewController];
-        case 7:
             break;
-        case 8:
+        case 6:
+            [self.sideMenuViewController setContentViewController:[[UIStoryboard systemSetStoryboard] instantiateViewControllerWithIdentifier:@"SystemSetNav"] animated:YES];
+            [self.sideMenuViewController hideMenuViewController];
+            break;
+        case 7:
             [AppDelegate userLogOut];
             break;
         default:

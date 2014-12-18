@@ -250,7 +250,7 @@ typedef enum{
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     
-    if (self.activeView && [self.activeView isFirstResponder])
+    if (self.activeView && [self.activeView isFirstResponder] && scrollView == self.mainTableView)
     {
         [self.activeView resignFirstResponder];
     }
@@ -383,7 +383,7 @@ typedef enum{
         
         switch (indexPath.row)
         {
-            case TableViewCellRowUserImage:   cell = [self setupUserImageCellWithImage:[UIImage imageNamed:@"001"]];   break;
+            case TableViewCellRowUserImage:   cell = [self setupUserImageCellWithImage:[UIImage imageNamed:@"019"]];   break;
             case TableViewCellRowActualName:  cell = [self setupActualNameCellWithLabelText:@"WangBigTiger"];                break;
             case TableViewCellRowGender:      cell = [self setupGenderCellWithLabelText:@"男"];                               break;
             case TableViewCellRowDateOfBirth: cell = [self setupDateOfBirthCellWithLabelText:@"1959-02-12"];                  break;
@@ -903,7 +903,7 @@ typedef enum{
         sleep(2);
         
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"已提交成功,请耐心等待审核";
+        hud.labelText = NSLocalizedString(@"Has been submitted successfully, please wait patiently for a review", nil);
         sleep(1);
         
     } completionBlock:^{
@@ -1229,28 +1229,28 @@ typedef enum{
     {
             
         case 0:
-            return @"头像";
+            return NSLocalizedString(@"Head portrait", nil);
             break;
         case 1:
-            return @"真实姓名";
+            return NSLocalizedString(@"Real name", nil);
             break;
         case 2:
-            return @"性别";
+            return NSLocalizedString(@"Sex", nil);
             break;
         case 3:
-            return @"出生日期";
+            return NSLocalizedString(@"Date of birth", nil);
             break;
         case 4:
-            return @"级别";
+            return NSLocalizedString(@"Level", nil);
             break;
         case 5:
-            return @"科室";
+            return NSLocalizedString(@"Department", nil);
             break;
         case 6:
-            return @"ID";
+            return NSLocalizedString(@"ID", nil);
             break;
         default:
-            return @"擅长领域";
+            return NSLocalizedString(@"Skilled territory", nil);
             break;
     }
 }

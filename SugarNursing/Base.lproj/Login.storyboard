@@ -19,9 +19,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="hfH-Vk-chf">
-                                <rect key="frame" x="268" y="102" width="64" height="38"/>
-                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0qY-G1-tcm" userLabel="Login View">
                                 <rect key="frame" x="60" y="200" width="480" height="200"/>
                                 <subviews>
@@ -103,7 +100,7 @@
                                     <constraint firstItem="5Lx-xV-aQF" firstAttribute="bottom" secondItem="yEO-bu-0Ay" secondAttribute="bottom" constant="-3" id="t0J-J0-Kmc"/>
                                     <constraint firstItem="5Lx-xV-aQF" firstAttribute="width" secondItem="dCN-nj-jsG" secondAttribute="width" id="tks-Qy-Lcq"/>
                                     <constraint firstItem="dCN-nj-jsG" firstAttribute="bottom" secondItem="pUG-2v-jAF" secondAttribute="bottom" constant="-3" id="yFx-JP-okt"/>
-                                    <constraint firstItem="pUG-2v-jAF" firstAttribute="width" relation="lessThanOrEqual" secondItem="dCN-nj-jsG" secondAttribute="width" priority="750" id="yVG-73-bLg"/>
+                                    <constraint firstItem="pUG-2v-jAF" firstAttribute="width" relation="lessThanOrEqual" secondItem="dCN-nj-jsG" secondAttribute="width" priority="750" constant="29" id="yVG-73-bLg"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcT-au-KnB">
@@ -117,6 +114,9 @@
                                     <segue destination="P3d-C3-ovu" kind="show" identifier="Reset" id="jnX-1V-7CT"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="hfH-Vk-chf">
+                                <rect key="frame" x="268" y="102" width="64" height="38"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -124,22 +124,11 @@
                             <constraint firstItem="hfH-Vk-chf" firstAttribute="centerX" secondItem="hd6-eF-uR3" secondAttribute="centerX" id="570-Jy-0dd"/>
                             <constraint firstItem="wcT-au-KnB" firstAttribute="trailing" secondItem="Mts-0o-aHa" secondAttribute="trailing" id="NLA-6p-Wna"/>
                             <constraint firstItem="0qY-G1-tcm" firstAttribute="centerX" secondItem="hd6-eF-uR3" secondAttribute="centerX" id="UNc-YJ-lG3"/>
-                            <constraint firstItem="hfH-Vk-chf" firstAttribute="top" secondItem="hd6-eF-uR3" secondAttribute="top" constant="100" id="Wgt-Sm-25R"/>
                             <constraint firstItem="0qY-G1-tcm" firstAttribute="width" secondItem="hd6-eF-uR3" secondAttribute="width" multiplier="0.8" id="YJ7-FZ-GvU"/>
                             <constraint firstItem="0qY-G1-tcm" firstAttribute="top" secondItem="hfH-Vk-chf" secondAttribute="bottom" constant="60" id="cLF-t4-m04"/>
                             <constraint firstItem="0qY-G1-tcm" firstAttribute="centerY" secondItem="hd6-eF-uR3" secondAttribute="centerY" id="dZs-ph-iHH"/>
                             <constraint firstItem="wcT-au-KnB" firstAttribute="top" secondItem="0qY-G1-tcm" secondAttribute="bottom" constant="10" id="x0S-sy-D2n"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="Wgt-Sm-25R"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=compact">
-                            <mask key="constraints">
-                                <exclude reference="Wgt-Sm-25R"/>
-                            </mask>
-                        </variation>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="BCz-li-Qce" appends="YES" id="4kA-pb-deh"/>
                         </connections>
@@ -152,7 +141,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wmi-1H-RGM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="q5o-jP-Q7o" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer id="BCz-li-Qce">
                     <connections>
                         <action selector="dismissKeyboard:" destination="WKs-6o-KVY" id="tT5-0e-MNm"/>
@@ -164,7 +152,7 @@
         <!--Verification View Controller-->
         <scene sceneID="6kv-xk-oZE">
             <objects>
-                <viewController id="Ahq-Ac-lv9" customClass="VerificationViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Verification" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ahq-Ac-lv9" customClass="VerificationViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kO0-bb-mRa"/>
                         <viewControllerLayoutGuide type="bottom" id="6Vw-kl-ZF1"/>
@@ -255,7 +243,7 @@
                     <navigationItem key="navigationItem" id="Jzd-XY-n86">
                         <barButtonItem key="leftBarButtonItem" image="005" id="ol3-kS-fFH">
                             <connections>
-                                <segue destination="q5o-jP-Q7o" kind="unwind" unwindAction="back:" id="fEx-S7-4hh"/>
+                                <segue destination="Mp6-ev-J6F" kind="unwind" unwindAction="back:" id="3g4-Tf-GDr"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -490,7 +478,7 @@
                     <navigationItem key="navigationItem" title="Regist" id="gaw-aG-fsA">
                         <barButtonItem key="leftBarButtonItem" image="005" id="gGX-ij-xnr">
                             <connections>
-                                <segue destination="Mp6-ev-J6F" kind="unwind" unwindAction="back:" id="VWz-yJ-jeR"/>
+                                <segue destination="KiD-f7-RPq" kind="unwind" unwindAction="back:" id="d4T-GI-2Hm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -520,6 +508,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pOL-tH-q0p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="KiD-f7-RPq" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer id="sTS-J7-KYW">
                     <connections>
                         <action selector="dismissKeyboard:" destination="xTj-3A-RIg" id="ZFz-q9-71o"/>
@@ -690,12 +679,13 @@
                     <navigationItem key="navigationItem" title="Reset" id="hfd-bZ-to7">
                         <barButtonItem key="leftBarButtonItem" image="005" id="5aT-nn-Vde">
                             <connections>
-                                <segue destination="Mp6-ev-J6F" kind="unwind" unwindAction="back:" id="h5g-DY-535"/>
+                                <segue destination="zzO-1c-IUS" kind="unwind" unwindAction="back:" id="HoS-qL-cZH"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aYb-yv-oMa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="zzO-1c-IUS" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer id="ytI-57-irK">
                     <connections>
                         <action selector="dismissKeyboard:" destination="tzV-mt-tfx" id="Sn5-4S-b6o"/>
@@ -713,6 +703,8 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8h8-aW-qKm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="barTintColor" red="0.0" green="0.49019607843137253" blue="0.77647058823529413" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

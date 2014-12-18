@@ -9,10 +9,80 @@
 
 /* Left Menu */
 "Home" = "主页";
-"Test Result" = "检测结果";
-"Control Effect" = "控糖成效";
-"Member Log" = "康复日志";
-"My Tips" = "我的提醒";
+"My Patient" = "我的病人";
+"My Hosting" = "我的托管";
+"My Takeover" = "我的接管";
+"My Message" = "我的消息";
 "Member Center" = "个人中心";
-"Service Center" = "我的客服";
+"System Set" = "系统设置";
 "Log Out" = "退出登录";
+
+/* Home Section */
+
+
+
+/* My Paitent Section */
+"Single Patient" = "单个病人";
+"Control Effect" = "控糖成效";
+"Recovery Log" = "康复日志";
+"Send Suggest" = "发送建议";
+"Click this select mode of sort" = "点击选择排序模式";
+"The binding time inverted order" = "绑定时间倒序";
+"The binding time plain sequence" = "绑定时间顺序";
+"Age from old to young" = "年龄从大到小";
+"Age from young to old" = "年龄从小到大";
+"Service level from high to low" = "服务等级从高到低";
+"Service level from low to high" = "服务等级从低到高";
+"Only takeover" = "只看接管";
+"Only Hosting" = "只看托管";
+
+
+"Read recovery log" = "查看康复日志";
+
+
+/* My Hosting & Takeover  Section */
+"You receive entrust successfully" = "你已成功接收委托";
+"You have refused this entrust" = "你已拒绝委托";
+
+"Choose patients" = "选择病人";
+"Choose doctor" = "选择医生";
+
+"Initiate a commissioned successfully" = "发起托管成功";
+
+
+/* My Message Section */
+
+/* Member Center Section */
+"About app" = "关于糖无忌";
+"Terms of service" = "服务条款";
+"Advice feed back" = "意见反馈";
+
+"Log out" = "退出账号";
+
+"Head portrait" = "头像";
+"Real name" = "真实姓名";
+"Sex" = "性别";
+"Date of birth" = "出生日期";
+"Level" = "级别";
+"Department" = "科室";
+"ID" = "ID";
+"Skilled territory" = "擅长领域";
+
+"Has been submitted successfully, please wait patiently for a review" = "已提交成功,请耐心等待审核";
+
+
+"Your information is under review,and can't edit it" = "您的资料正在审核中,无法进行编辑修改";
+
+
+"Please input your feed back" = "请输入您的反馈";
+
+
+/* System Set Section */
+
+"Glucose unit" = "血糖单位";
+"Reset password" = "重设密码";
+"Reset telephone" = "重新绑定手机号";
+
+
+
+

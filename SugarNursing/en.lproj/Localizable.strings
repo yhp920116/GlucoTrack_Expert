@@ -9,10 +9,80 @@
 
 /* Left Menu */
 "Home" = "Home";
-"Test Result" = "Test Result";
-"Control Effect" = "Control Effect";
-"Member Log" = "Member Log";
-"My Tips" = "My Tips";
+"My Patient" = "My Patient";
+"My Hosting" = "My Hosting";
+"My Takeover" = "My Takeover";
+"My Message" = "My Message";
 "Member Center" = "Member Center";
 "Service Center" = "Service Center";
 "Log Out" = "Log Out";
+
+/* My Patient Section */
+"Single Patient" = "Single Patient";
+"Control Effect" = "Control Effect";
+"Recovery Log" = "Recovery Log";
+"Send Suggest" = "Send Suggest";
+"Click this select mode of sort" = "Click this select mode of sort";
+"The binding time inverted order" = "The binding time inverted order";
+"The binding time plain sequence" = "The binding time plain sequence";
+"Age from old to young" = "Age from old to young";
+"Age from young to old" = "Age from young to old";
+"Service level from high to low" = "Service level from high to low";
+"Service level from low to high" = "Service level from low to high";
+"Only takeover" = "Only takeover";
+"Only Hosting" = "Only Hosting";
+
+
+"Read recovery log" = "Read recovery log";
+
+
+
+
+/* My Hosting & Takeover  Section */
+"You receive entrust successfully" = "You receive entrust successfully";
+"You have refused this entrust" = "You have refused this entrust";
+
+
+"Choose patients" = "Choose patients";
+"Choose doctor" = "Choose doctor";
+
+"Initiate a commissioned successfully" = "Initiate a commissioned successfully";
+
+/* My Message Section */
+
+
+
+/* Member Center Section */
+"About app" = "About app";
+"Terms of service" = "Terms of service";
+"Advice feed back" = "Advice feed back";
+
+"Log out" = "Log out";
+
+
+"Head portrait" = "Head portrait";
+"Real name" = "Real name";
+"Sex" = "Sex";
+"Date of birth" = "Date of birth";
+"Level" = "Level";
+"Department" = "Department";
+"ID" = "ID";
+"Skilled territory" = "Skilled territory";
+
+"Has been submitted successfully, please wait patiently for a review" = "Has been submitted successfully, please wait patiently for a review";
+
+
+"Your information is under review,and can't edit it" = "Your information is under review,and can't edit it";
+
+"Please input your feed back" = "Please input your feed back";
+
+
+
+/* System Set Section */
+
+"Glucose unit" = "Glucose unit";
+"Reset password" = "Reset password";
+"Reset telephone" = "Reset telephone";
+
+
+

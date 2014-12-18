@@ -26,9 +26,35 @@
     return [UIStoryboard storyboardWithName:@"TestTracker" bundle:nil];
 }
 
++ (UIStoryboard *)myPatientStoryboard
+{
+    return [UIStoryboard storyboardWithName:@"MyPatient" bundle:nil];
+}
+
++ (UIStoryboard *)myHostingStoryboard
+{
+    return [UIStoryboard storyboardWithName:@"MyHosting" bundle:nil];
+}
+
++ (UIStoryboard *)myTakeoverStoryboard
+{
+    return [UIStoryboard storyboardWithName:@"MyTakeover" bundle:nil];
+}
+
++ (UIStoryboard *)myMessageStoryboard
+{
+    return [UIStoryboard storyboardWithName:@"MyMessage" bundle:nil];
+}
+
 + (UIStoryboard *)memberCenterStoryboard
 {
     return [UIStoryboard storyboardWithName:@"MemberCenter" bundle:nil];
+}
+
+
++ (UIStoryboard *)systemSetStoryboard
+{
+    return [UIStoryboard storyboardWithName:@"SystemSet" bundle:nil];
 }
 
 @end
