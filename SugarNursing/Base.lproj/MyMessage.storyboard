@@ -27,7 +27,7 @@
             </objects>
             <point key="canvasLocation" x="-443" y="383"/>
         </scene>
-        <!--我的消息-->
+        <!--My Message-->
         <scene sceneID="3az-ta-owE">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="dyv-kY-Zm3" customClass="MyMessageViewController" sceneMemberID="viewController">
@@ -135,8 +135,8 @@
                             <constraint firstItem="wCV-MF-BxA" firstAttribute="leading" secondItem="qSo-oD-QDQ" secondAttribute="leadingMargin" constant="-16" id="qco-bp-Kho"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="我的消息" id="4Ct-Gz-YFe">
-                        <barButtonItem key="leftBarButtonItem" title="菜单" id="AfW-Dy-fS0">
+                    <navigationItem key="navigationItem" title="My Message" id="4Ct-Gz-YFe">
+                        <barButtonItem key="leftBarButtonItem" title="Menu" id="AfW-Dy-fS0">
                             <connections>
                                 <action selector="presentLeftMenuViewController:" destination="dyv-kY-Zm3" id="zG2-DF-gAw"/>
                             </connections>

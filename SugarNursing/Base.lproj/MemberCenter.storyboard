@@ -28,7 +28,7 @@
             </objects>
             <point key="canvasLocation" x="656" y="-86"/>
         </scene>
-        <!--个人中心-->
+        <!--Member Center-->
         <scene sceneID="CUN-Sh-HAa">
             <objects>
                 <viewController id="iQk-t5-4f0" customClass="MemberCenterViewController" sceneMemberID="viewController">
@@ -57,8 +57,8 @@
                             <constraint firstAttribute="trailing" secondItem="lzQ-la-vFm" secondAttribute="trailing" id="waj-3M-9K3"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="个人中心" id="6nu-rq-C8W">
-                        <barButtonItem key="leftBarButtonItem" title="菜单" id="Dg3-dD-0Li">
+                    <navigationItem key="navigationItem" title="Member Center" id="6nu-rq-C8W">
+                        <barButtonItem key="leftBarButtonItem" title="Menu" id="Dg3-dD-0Li">
                             <connections>
                                 <action selector="presentLeftMenuViewController:" destination="iQk-t5-4f0" id="Tn5-DT-l43"/>
                             </connections>
@@ -109,7 +109,7 @@
                             <outletCollection property="gestureRecognizers" destination="6oW-eU-DrC" appends="YES" id="3Hy-1h-mmC"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="个人设置" id="3iP-WV-SKB">
+                    <navigationItem key="navigationItem" title="User Infomation" id="3iP-WV-SKB">
                         <barButtonItem key="rightBarButtonItem" image="Edit" id="a7f-hL-gEn">
                             <connections>
                                 <action selector="editButtonEvent:" destination="iZs-Bc-9PV" id="NVj-6S-I2K"/>
@@ -220,7 +220,7 @@
             </objects>
             <point key="canvasLocation" x="2109" y="-986"/>
         </scene>
-        <!--关于糖博士-->
+        <!--About App-->
         <scene sceneID="ugJ-Zg-tMs">
             <objects>
                 <viewController id="ilj-0B-CiY" sceneMemberID="viewController">
@@ -233,13 +233,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="关于糖博士" id="U3E-6d-PyX"/>
+                    <navigationItem key="navigationItem" title="About App" id="U3E-6d-PyX"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YMu-8P-7oG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2928" y="-406"/>
         </scene>
-        <!--意见反馈-->
+        <!--Advice Feed Back-->
         <scene sceneID="1gF-sD-ydU">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="xI4-hU-OhF" customClass="FeedBackViewController" sceneMemberID="viewController">
@@ -270,7 +270,8 @@
                                     <constraint firstAttribute="height" constant="30" id="bgA-KG-IQd"/>
                                     <constraint firstAttribute="width" constant="90" id="d8P-Hn-qIu"/>
                                 </constraints>
-                                <state key="normal" title="提交反馈">
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="submit">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -288,7 +289,7 @@
                             <outletCollection property="gestureRecognizers" destination="fcI-hM-FYO" appends="YES" id="NNt-nD-nXb"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="意见反馈" id="SNl-tu-aw7"/>
+                    <navigationItem key="navigationItem" title="Advice Feed Back" id="SNl-tu-aw7"/>
                     <connections>
                         <outlet property="myTextView" destination="IIH-2z-LeO" id="9uI-oF-p65"/>
                     </connections>
@@ -302,7 +303,7 @@
             </objects>
             <point key="canvasLocation" x="2109" y="1170"/>
         </scene>
-        <!--服务条款-->
+        <!--Terms Of Service-->
         <scene sceneID="891-29-PJn">
             <objects>
                 <viewController id="hsY-5s-z7L" sceneMemberID="viewController">
@@ -315,7 +316,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="服务条款" id="vzR-DS-cs2"/>
+                    <navigationItem key="navigationItem" title="Terms Of Service" id="vzR-DS-cs2"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1j4-FT-QgB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

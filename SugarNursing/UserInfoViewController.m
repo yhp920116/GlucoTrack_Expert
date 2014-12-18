@@ -338,7 +338,7 @@ typedef enum{
         {
             
             UILabel *label = [[UILabel alloc] init];
-            [label setText:@"  您的资料正在审核中,无法进行编辑修改"];
+            [label setText:NSLocalizedString(@"Your information is under review", nil)];
             [label setFont:[UIFont systemFontOfSize:kDefaultFontSize]];
             [label setTextColor:[UIColor redColor]];
             return label;
@@ -421,7 +421,7 @@ typedef enum{
     if (!cell)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UploadRequestCell"];
-        cell.textLabel.text = @"提交审批";
+        cell.textLabel.text = NSLocalizedString(@"Submit", nil);
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.backgroundColor = [UIColor colorWithRed:2.0f/255.0f green:136.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
         
@@ -873,6 +873,7 @@ typedef enum{
                                     kCellHeight)];
     [titleLabel setText:[self titleWithIndexPath:indexPath]];
     [titleLabel setTextAlignment:NSTextAlignmentRight];
+    [titleLabel setFont:[UIFont systemFontOfSize:14]];
     [cell addSubview:titleLabel];
 }
 
@@ -903,7 +904,7 @@ typedef enum{
         sleep(2);
         
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = NSLocalizedString(@"Has been submitted successfully, please wait patiently for a review", nil);
+        hud.labelText = NSLocalizedString(@"Submitted Successfully", nil);
         sleep(1);
         
     } completionBlock:^{
@@ -1250,7 +1251,7 @@ typedef enum{
             return NSLocalizedString(@"ID", nil);
             break;
         default:
-            return NSLocalizedString(@"Skilled territory", nil);
+            return NSLocalizedString(@"Skill territory", nil);
             break;
     }
 }

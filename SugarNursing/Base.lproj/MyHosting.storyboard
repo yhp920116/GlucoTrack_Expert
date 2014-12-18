@@ -28,7 +28,7 @@
             </objects>
             <point key="canvasLocation" x="752" y="139"/>
         </scene>
-        <!--托管/接管-->
+        <!--Hosting/Takeover-->
         <scene sceneID="DuN-Bc-voQ">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="UdH-2f-yXU" customClass="MyHostingViewController" sceneMemberID="viewController">
@@ -61,7 +61,7 @@
                                                         <constraint firstAttribute="width" constant="130" id="3iW-dT-bQC"/>
                                                         <constraint firstAttribute="height" constant="30" id="LRc-M6-tWo"/>
                                                     </constraints>
-                                                    <state key="normal" title="接受托管">
+                                                    <state key="normal" title="Accept">
                                                         <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -76,7 +76,7 @@
                                                         <constraint firstAttribute="height" constant="30" id="K8T-e1-Ln8"/>
                                                         <constraint firstAttribute="width" constant="130" id="ixm-w2-YhJ"/>
                                                     </constraints>
-                                                    <state key="normal" title="拒绝托管">
+                                                    <state key="normal" title="Refuse">
                                                         <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -114,10 +114,10 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dBb-yV-YxZ">
                                 <rect key="frame" x="16" y="77" width="568" height="29"/>
                                 <segments>
-                                    <segment title="待验证"/>
-                                    <segment title="已被接管"/>
-                                    <segment title="已被拒绝"/>
-                                    <segment title="已过期"/>
+                                    <segment title="Wait For"/>
+                                    <segment title="Confirm"/>
+                                    <segment title="Refuse"/>
+                                    <segment title="Out of date"/>
                                 </segments>
                                 <connections>
                                     <action selector="stateSegmentValueChanged:" destination="UdH-2f-yXU" eventType="valueChanged" id="d0z-I2-Qdo"/>
@@ -127,8 +127,8 @@
                                 <rect key="frame" x="0.0" y="551" width="600" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <items>
-                                    <tabBarItem title="我的托管" image="IconMyHosting" id="zrh-Ed-XwZ"/>
-                                    <tabBarItem title="我的接管" image="IconMyTakeover" id="RtK-YO-Gh3"/>
+                                    <tabBarItem title="My Hosting" image="IconMyHosting" id="zrh-Ed-XwZ"/>
+                                    <tabBarItem title="My Takeover" image="IconMyTakeover" id="RtK-YO-Gh3"/>
                                 </items>
                                 <connections>
                                     <outlet property="delegate" destination="UdH-2f-yXU" id="S3h-Zq-7CP"/>
@@ -155,13 +155,13 @@
                             <constraint firstItem="FyK-3f-fGz" firstAttribute="leading" secondItem="ruL-cQ-WIY" secondAttribute="leading" id="xdh-rb-2LC"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="托管/接管" id="T21-4H-P2d">
-                        <barButtonItem key="leftBarButtonItem" title="菜单" id="R27-Rd-IXH">
+                    <navigationItem key="navigationItem" title="Hosting/Takeover" id="T21-4H-P2d">
+                        <barButtonItem key="leftBarButtonItem" title="Menu" id="R27-Rd-IXH">
                             <connections>
                                 <action selector="presentLeftMenuViewController:" destination="UdH-2f-yXU" id="Q6o-ZH-UXL"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="发起托管" id="FMj-ft-8TQ">
+                        <barButtonItem key="rightBarButtonItem" title="Initiate" id="FMj-ft-8TQ">
                             <connections>
                                 <segue destination="2op-sT-n9b" kind="show" id="5o1-8n-Dx5"/>
                             </connections>
@@ -177,7 +177,7 @@
             </objects>
             <point key="canvasLocation" x="1573" y="132"/>
         </scene>
-        <!--发起托管-->
+        <!--Send Hosting-->
         <scene sceneID="x2c-7J-BkP">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="2op-sT-n9b" customClass="CreateHostingViewController" sceneMemberID="viewController">
@@ -199,44 +199,44 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bl6-dX-FRI">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="托管的病人" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="et4-Ku-Wsp">
-                                                <rect key="frame" x="0.0" y="48" width="107" height="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Patients" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="et4-Ku-Wsp">
+                                                <rect key="frame" x="0.0" y="48" width="120" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="Cqs-IO-vot"/>
-                                                    <constraint firstAttribute="width" constant="107" id="NAy-M3-tZT"/>
+                                                    <constraint firstAttribute="width" constant="120" id="NAy-M3-tZT"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="托管的医生" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yti-la-GRt">
-                                                <rect key="frame" x="0.0" y="108" width="107" height="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Doctor" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yti-la-GRt">
+                                                <rect key="frame" x="0.0" y="108" width="120" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="7EQ-wP-Tny"/>
-                                                    <constraint firstAttribute="width" constant="107" id="AKQ-kN-vNE"/>
+                                                    <constraint firstAttribute="width" constant="120" id="AKQ-kN-vNE"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="托管结束时间" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l6D-Ea-hKx">
-                                                <rect key="frame" x="0.0" y="208" width="107" height="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Finish Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l6D-Ea-hKx">
+                                                <rect key="frame" x="0.0" y="208" width="120" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="8S1-Z1-L0d"/>
-                                                    <constraint firstAttribute="width" constant="107" id="bHv-ds-aQX"/>
+                                                    <constraint firstAttribute="width" constant="120" id="bHv-ds-aQX"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fbB-aI-Hak" userLabel="托管病人按钮">
-                                                <rect key="frame" x="193" y="43" width="100" height="30"/>
+                                                <rect key="frame" x="206" y="43" width="100" height="30"/>
                                                 <color key="backgroundColor" red="0.082352941176470587" green="0.5607843137254902" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="7eg-IY-ULA"/>
                                                     <constraint firstAttribute="width" constant="100" id="R8J-bX-5u3"/>
                                                 </constraints>
-                                                <state key="normal" title="选择">
+                                                <state key="normal" title="Choose">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -245,11 +245,11 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agR-YN-itM" userLabel="开始按钮">
-                                                <rect key="frame" x="115" y="153" width="150" height="15"/>
+                                                <rect key="frame" x="128" y="153" width="150" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="15" id="Ztq-jD-kmB"/>
                                                 </constraints>
-                                                <state key="normal" title="选择">
+                                                <state key="normal" title="Choose">
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -258,7 +258,7 @@
                                                 </connections>
                                             </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="008" translatesAutoresizingMaskIntoConstraints="NO" id="r8h-6P-pXA" userLabel="开始时间日历图标">
-                                                <rect key="frame" x="273" y="151" width="20" height="20"/>
+                                                <rect key="frame" x="286" y="151" width="20" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="20" id="Jcp-PK-ogv"/>
                                                     <constraint firstAttribute="height" constant="20" id="KLJ-5m-zcU"/>
@@ -271,14 +271,14 @@
                                                 </variation>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qRW-ze-Tc3" userLabel="结束按钮">
-                                                <rect key="frame" x="115" y="210" width="150" height="15"/>
+                                                <rect key="frame" x="128" y="210" width="150" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="15" id="Ird-H9-VvK">
                                                         <variation key="heightClass=compact" constant="15"/>
                                                         <variation key="widthClass=compact" constant="15"/>
                                                     </constraint>
                                                 </constraints>
-                                                <state key="normal" title="选择">
+                                                <state key="normal" title="Choose">
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -287,7 +287,7 @@
                                                 </connections>
                                             </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="003" translatesAutoresizingMaskIntoConstraints="NO" id="cYb-xG-igQ" userLabel="结束按钮底部栏">
-                                                <rect key="frame" x="115" y="221" width="150" height="7"/>
+                                                <rect key="frame" x="128" y="221" width="150" height="7"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="7" id="FMG-YA-js7"/>
                                                     <constraint firstAttribute="width" constant="150" id="jWG-2Y-vrY">
@@ -302,7 +302,7 @@
                                                 </variation>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="008" translatesAutoresizingMaskIntoConstraints="NO" id="crN-WH-V8d" userLabel="结束时间日历图标">
-                                                <rect key="frame" x="273" y="208" width="20" height="20"/>
+                                                <rect key="frame" x="286" y="208" width="20" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="20" id="EPT-Bo-Vy2"/>
                                                     <constraint firstAttribute="height" constant="20" id="bmz-Sg-nRN"/>
@@ -314,10 +314,10 @@
                                                     </mask>
                                                 </variation>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="托管开始时间" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ie6-21-Ksq">
-                                                <rect key="frame" x="0.0" y="148" width="107" height="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Initiate Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ie6-21-Ksq">
+                                                <rect key="frame" x="0.0" y="148" width="120" height="20"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="107" id="4Wj-dl-p0D"/>
+                                                    <constraint firstAttribute="width" constant="120" id="4Wj-dl-p0D"/>
                                                     <constraint firstAttribute="height" constant="20" id="Z8V-uZ-Jx4"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -325,7 +325,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="003" translatesAutoresizingMaskIntoConstraints="NO" id="5ks-4Y-YvF" userLabel="开始按钮底部栏">
-                                                <rect key="frame" x="115" y="164" width="150" height="7"/>
+                                                <rect key="frame" x="128" y="164" width="150" height="7"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="150" id="f50-FB-xic"/>
                                                     <constraint firstAttribute="height" constant="7" id="vdX-py-aZU"/>
@@ -336,10 +336,10 @@
                                                     </mask>
                                                 </variation>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="发起托管" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLN-fC-EYp">
-                                                <rect key="frame" x="20" y="0.0" width="90" height="40"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send Hosting" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLN-fC-EYp">
+                                                <rect key="frame" x="10" y="0.0" width="130" height="40"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="90" id="h3l-Ca-OHs"/>
+                                                    <constraint firstAttribute="width" constant="130" id="h3l-Ca-OHs"/>
                                                     <constraint firstAttribute="height" constant="40" id="hWr-kC-lrB"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -349,7 +349,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AhM-eI-8Jr">
                                                 <rect key="frame" x="90" y="258" width="420" height="30"/>
                                                 <color key="backgroundColor" red="1" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal" title="确定发起">
+                                                <state key="normal" title="Confirm Initiate">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -358,13 +358,13 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5T-v4-SAB" userLabel="托管医生按钮">
-                                                <rect key="frame" x="193" y="103" width="100" height="30"/>
+                                                <rect key="frame" x="206" y="103" width="100" height="30"/>
                                                 <color key="backgroundColor" red="0.08235294118" green="0.56078431370000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="9yc-9t-JsK"/>
                                                     <constraint firstAttribute="width" constant="100" id="MZ6-Wt-Epf"/>
                                                 </constraints>
-                                                <state key="normal" title="选择">
+                                                <state key="normal" title="Choose">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -376,7 +376,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="et4-Ku-Wsp" firstAttribute="leading" secondItem="bl6-dX-FRI" secondAttribute="leading" id="12S-nQ-Eif">
-                                                <variation key="widthClass=compact" constant="20"/>
+                                                <variation key="widthClass=compact" constant="10"/>
                                             </constraint>
                                             <constraint firstItem="l6D-Ea-hKx" firstAttribute="top" secondItem="qRW-ze-Tc3" secondAttribute="top" constant="-2" id="29Q-UB-Fn2"/>
                                             <constraint firstItem="fbB-aI-Hak" firstAttribute="centerX" secondItem="K5T-v4-SAB" secondAttribute="centerX" id="8P2-7o-foq"/>
@@ -417,7 +417,7 @@
                                                 <variation key="widthClass=compact" constant="8"/>
                                             </constraint>
                                             <constraint firstItem="AhM-eI-8Jr" firstAttribute="top" secondItem="l6D-Ea-hKx" secondAttribute="bottom" constant="30" id="sbU-CZ-JCx"/>
-                                            <constraint firstItem="fLN-fC-EYp" firstAttribute="leading" secondItem="bl6-dX-FRI" secondAttribute="leading" constant="20" id="tMW-Cq-Kvw"/>
+                                            <constraint firstItem="fLN-fC-EYp" firstAttribute="leading" secondItem="bl6-dX-FRI" secondAttribute="leading" constant="10" id="tMW-Cq-Kvw"/>
                                             <constraint firstItem="et4-Ku-Wsp" firstAttribute="top" secondItem="fLN-fC-EYp" secondAttribute="bottom" constant="8" id="vz2-So-vpZ"/>
                                             <constraint firstItem="Ie6-21-Ksq" firstAttribute="top" secondItem="yti-la-GRt" secondAttribute="bottom" constant="20" id="wZN-sc-JUK">
                                                 <variation key="heightClass=compact" constant="20"/>
@@ -458,9 +458,9 @@
                                                 <include reference="h63-nf-jNm"/>
                                                 <include reference="rub-n6-FHs"/>
                                                 <include reference="zTv-Rf-3Cl"/>
-                                                <include reference="ffX-Jh-dIW"/>
                                                 <include reference="29Q-UB-Fn2"/>
                                                 <include reference="eMM-Fs-LMc"/>
+                                                <include reference="ffX-Jh-dIW"/>
                                                 <include reference="MXP-wt-PM4"/>
                                                 <include reference="g9W-pN-IDT"/>
                                                 <include reference="8RM-9n-dZB"/>
@@ -530,7 +530,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="发起托管" id="i3Q-kq-61t"/>
+                    <navigationItem key="navigationItem" title="Send Hosting" id="i3Q-kq-61t"/>
                     <connections>
                         <outlet property="datePicker" destination="clG-vG-NVT" id="crV-jD-pix"/>
                         <outlet property="personPicker" destination="LAl-KM-3bL" id="ksZ-G6-ypf"/>
@@ -555,30 +555,28 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LAl-KM-3bL">
                     <rect key="frame" x="0.0" y="0.0" width="240" height="300"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择病人" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U60-Qg-bUR">
-                            <rect key="frame" x="8" y="4" width="70" height="25"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Patients" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U60-Qg-bUR">
+                            <rect key="frame" x="5" y="5" width="120" height="20"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="25" id="3L4-td-RFW"/>
-                                <constraint firstAttribute="width" constant="70" id="znS-7H-mOU"/>
+                                <constraint firstAttribute="width" constant="120" id="znS-7H-mOU"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                             <variation key="widthClass=compact">
                                 <mask key="constraints">
-                                    <include reference="3L4-td-RFW"/>
                                     <include reference="znS-7H-mOU"/>
                                 </mask>
                             </variation>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F8N-Hl-4U0">
-                            <rect key="frame" x="165" y="4" width="55" height="25"/>
+                            <rect key="frame" x="160" y="4" width="70" height="25"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="25" id="V9b-ue-Q2a"/>
-                                <constraint firstAttribute="width" constant="55" id="elF-jd-ta2"/>
+                                <constraint firstAttribute="width" constant="70" id="elF-jd-ta2"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <state key="normal" title="全选">
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="Select All">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <variation key="widthClass=compact">
@@ -592,7 +590,7 @@
                             </connections>
                         </button>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fEf-KM-YGa">
-                            <rect key="frame" x="0.0" y="30" width="220" height="236"/>
+                            <rect key="frame" x="0.0" y="30" width="240" height="236"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <prototypes>
                                 <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SelectPersonCell" id="gbq-rM-hhM">
@@ -655,24 +653,11 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vVw-lk-l2Y">
                             <rect key="frame" x="0.0" y="266" width="120" height="34"/>
                             <color key="backgroundColor" red="0.93403477822580649" green="0.23210685483870969" blue="0.30229334677419356" alpha="1" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="Qs2-ek-XD1"/>
-                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            <state key="normal" title="取消">
+                            <state key="normal" title="Cancle">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="Qs2-ek-XD1"/>
-                                </mask>
-                            </variation>
-                            <variation key="widthClass=compact">
-                                <mask key="constraints">
-                                    <include reference="Qs2-ek-XD1"/>
-                                </mask>
-                            </variation>
                             <connections>
                                 <action selector="cancelSelectPersonEvent:" destination="2op-sT-n9b" eventType="touchUpInside" id="kHc-WK-o52"/>
                             </connections>
@@ -680,24 +665,11 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8v6-Lg-mjQ">
                             <rect key="frame" x="120" y="266" width="120" height="34"/>
                             <color key="backgroundColor" red="0.19736013104838709" green="0.56413810483870963" blue="0.90974672379032029" alpha="1" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="Ujv-0u-DJC"/>
-                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            <state key="normal" title="确定">
+                            <state key="normal" title="Confirm">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="Ujv-0u-DJC"/>
-                                </mask>
-                            </variation>
-                            <variation key="widthClass=compact">
-                                <mask key="constraints">
-                                    <include reference="Ujv-0u-DJC"/>
-                                </mask>
-                            </variation>
                             <connections>
                                 <action selector="confirmSelectPersonEvent:" destination="2op-sT-n9b" eventType="touchUpInside" id="ky9-l9-ext"/>
                             </connections>
@@ -705,21 +677,22 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="fEf-KM-YGa" firstAttribute="top" secondItem="F8N-Hl-4U0" secondAttribute="bottom" constant="1" id="81k-ce-eao"/>
-                        <constraint firstItem="8v6-Lg-mjQ" firstAttribute="width" secondItem="LAl-KM-3bL" secondAttribute="width" multiplier="0.5" id="DFO-Sf-EYm"/>
-                        <constraint firstItem="U60-Qg-bUR" firstAttribute="leading" secondItem="LAl-KM-3bL" secondAttribute="leading" constant="8" id="LNw-Df-YQr"/>
-                        <constraint firstAttribute="trailing" secondItem="F8N-Hl-4U0" secondAttribute="trailing" constant="20" id="NjQ-2k-D1C"/>
+                        <constraint firstItem="fEf-KM-YGa" firstAttribute="top" secondItem="U60-Qg-bUR" secondAttribute="bottom" constant="5" id="C4a-X1-7yT"/>
+                        <constraint firstItem="U60-Qg-bUR" firstAttribute="leading" secondItem="LAl-KM-3bL" secondAttribute="leading" constant="5" id="LNw-Df-YQr"/>
+                        <constraint firstAttribute="trailing" secondItem="F8N-Hl-4U0" secondAttribute="trailing" constant="10" id="NjQ-2k-D1C"/>
                         <constraint firstItem="vVw-lk-l2Y" firstAttribute="top" secondItem="fEf-KM-YGa" secondAttribute="bottom" id="S5o-wB-ZO8"/>
                         <constraint firstAttribute="height" constant="300" id="Scq-mG-lfj"/>
                         <constraint firstItem="F8N-Hl-4U0" firstAttribute="top" secondItem="LAl-KM-3bL" secondAttribute="top" constant="4" id="UtV-ix-j9u"/>
                         <constraint firstItem="vVw-lk-l2Y" firstAttribute="leading" secondItem="LAl-KM-3bL" secondAttribute="leading" id="V9O-pz-66W"/>
                         <constraint firstAttribute="bottom" secondItem="vVw-lk-l2Y" secondAttribute="bottom" id="WvP-fJ-m4a"/>
-                        <constraint firstAttribute="trailing" secondItem="fEf-KM-YGa" secondAttribute="trailing" constant="20" id="dEF-0I-Yat"/>
+                        <constraint firstAttribute="trailing" secondItem="fEf-KM-YGa" secondAttribute="trailing" id="dEF-0I-Yat"/>
+                        <constraint firstItem="vVw-lk-l2Y" firstAttribute="width" secondItem="LAl-KM-3bL" secondAttribute="width" multiplier="0.5" id="euV-LK-StV"/>
+                        <constraint firstItem="8v6-Lg-mjQ" firstAttribute="width" secondItem="LAl-KM-3bL" secondAttribute="width" multiplier="0.5" id="fDd-wB-vuI"/>
                         <constraint firstAttribute="bottom" secondItem="8v6-Lg-mjQ" secondAttribute="bottom" id="hy6-Wm-ABr"/>
                         <constraint firstItem="fEf-KM-YGa" firstAttribute="leading" secondItem="LAl-KM-3bL" secondAttribute="leading" id="jwL-Qg-6WH"/>
+                        <constraint firstItem="8v6-Lg-mjQ" firstAttribute="top" secondItem="fEf-KM-YGa" secondAttribute="bottom" id="odj-P1-R02"/>
                         <constraint firstAttribute="width" constant="240" id="ue4-dg-Atr"/>
-                        <constraint firstItem="U60-Qg-bUR" firstAttribute="top" secondItem="LAl-KM-3bL" secondAttribute="top" constant="4" id="vR9-bJ-vWO"/>
-                        <constraint firstItem="vVw-lk-l2Y" firstAttribute="width" secondItem="LAl-KM-3bL" secondAttribute="width" multiplier="0.5" id="xuV-yG-P3f"/>
+                        <constraint firstItem="U60-Qg-bUR" firstAttribute="top" secondItem="LAl-KM-3bL" secondAttribute="top" constant="5" id="vR9-bJ-vWO"/>
                         <constraint firstAttribute="trailing" secondItem="8v6-Lg-mjQ" secondAttribute="trailing" id="zWj-ZO-Khl"/>
                     </constraints>
                     <variation key="widthClass=compact">
@@ -735,16 +708,12 @@
                             <include reference="ue4-dg-Atr"/>
                             <include reference="LNw-Df-YQr"/>
                             <include reference="vR9-bJ-vWO"/>
-                            <include reference="81k-ce-eao"/>
-                            <include reference="dEF-0I-Yat"/>
                             <include reference="jwL-Qg-6WH"/>
                             <include reference="NjQ-2k-D1C"/>
                             <include reference="UtV-ix-j9u"/>
                             <include reference="S5o-wB-ZO8"/>
                             <include reference="V9O-pz-66W"/>
                             <include reference="WvP-fJ-m4a"/>
-                            <include reference="xuV-yG-P3f"/>
-                            <include reference="DFO-Sf-EYm"/>
                             <include reference="hy6-Wm-ABr"/>
                             <include reference="zWj-ZO-Khl"/>
                         </mask>

@@ -43,22 +43,26 @@
 		3C3BF8DD1A3FD33A006B6746 /* MyTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3BF8DC1A3FD33A006B6746 /* MyTextView.m */; };
 		3C3BF8E01A3FD371006B6746 /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3BF8DF1A3FD371006B6746 /* FeedBackViewController.m */; };
 		3C4799D41A243A4900AFB0DD /* MyMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C4799D31A243A4900AFB0DD /* MyMessageViewController.m */; };
-		3C4799D61A243A5B00AFB0DD /* MyMessage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C4799D51A243A5B00AFB0DD /* MyMessage.storyboard */; };
 		3C4799D91A245E0B00AFB0DD /* MyHostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C4799D81A245E0B00AFB0DD /* MyHostingViewController.m */; };
-		3C4799DB1A245E1F00AFB0DD /* MyHosting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C4799DA1A245E1F00AFB0DD /* MyHosting.storyboard */; };
-		3C4799E51A24602300AFB0DD /* MyTakeover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C4799E41A24602300AFB0DD /* MyTakeover.storyboard */; };
 		3C4799E81A24809800AFB0DD /* CreateHostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C4799E71A24809800AFB0DD /* CreateHostingViewController.m */; };
 		3C7E1A771A1F3DC1002755AD /* SinglePatient_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C7E1A761A1F3DC1002755AD /* SinglePatient_ViewController.m */; };
-		3C7E38E91A2DAA3200AEEF2F /* SystemSet.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C7E38E81A2DAA3200AEEF2F /* SystemSet.storyboard */; };
 		3C8629431A2700AE00BBD544 /* SendSuggestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8629421A2700AE00BBD544 /* SendSuggestViewController.m */; };
 		3C8629461A27036900BBD544 /* MsgRecord_Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8629451A27036900BBD544 /* MsgRecord_Cell.m */; };
-		3C9947811A37ED13008EB216 /* ControlEffectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9947801A37ED13008EB216 /* ControlEffectTableViewController.m */; };
 		3C9947841A382CFA008EB216 /* TakeoverStandby_Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9947831A382CFA008EB216 /* TakeoverStandby_Cell.m */; };
 		3C9A95231A1991C6006F7F73 /* MemberCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9A95221A1991C6006F7F73 /* MemberCenterViewController.m */; };
-		3C9A95251A1993C4006F7F73 /* MemberCenter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C9A95241A1993C4006F7F73 /* MemberCenter.storyboard */; };
 		3C9A952A1A19E30F006F7F73 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9A95291A19E30F006F7F73 /* UserInfoViewController.m */; };
 		3C9B181B1A1EC8AA00F7DF4D /* MyPatientsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9B181A1A1EC8AA00F7DF4D /* MyPatientsViewController.m */; };
 		3C9B181E1A1ED01A00F7DF4D /* MyPatientsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9B181D1A1ED01A00F7DF4D /* MyPatientsCell.m */; };
+		3CA3F4E51A43497C00BA85D0 /* EvaluateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA3F4E21A43497C00BA85D0 /* EvaluateCell.m */; };
+		3CA3F4E61A43497C00BA85D0 /* EffectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA3F4E41A43497C00BA85D0 /* EffectCell.m */; };
+		3CA3F4E91A4349DA00BA85D0 /* ControlEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA3F4E81A4349DA00BA85D0 /* ControlEffectViewController.m */; };
+		3CA3F4EC1A434A4F00BA85D0 /* LinesLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA3F4EB1A434A4F00BA85D0 /* LinesLabel.m */; };
+		3CA3F4EF1A434A6300BA85D0 /* CustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA3F4EE1A434A6300BA85D0 /* CustomLabel.m */; };
+		3CA3F4F01A434DE700BA85D0 /* MyHosting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CA3F4F21A434DE700BA85D0 /* MyHosting.storyboard */; };
+		3CA3F4FE1A4355F200BA85D0 /* MyTakeover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CA3F5001A4355F200BA85D0 /* MyTakeover.storyboard */; };
+		3CA3F5041A43561B00BA85D0 /* MyMessage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CA3F5061A43561B00BA85D0 /* MyMessage.storyboard */; };
+		3CA3F5091A43562000BA85D0 /* MemberCenter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CA3F50B1A43562000BA85D0 /* MemberCenter.storyboard */; };
+		3CA3F50E1A43562700BA85D0 /* SystemSet.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CA3F5101A43562700BA85D0 /* SystemSet.storyboard */; };
 		3CA9FFD11A300E6A00C67778 /* MyMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA9FFD01A300E6A00C67778 /* MyMessageCell.m */; };
 		3CB20F941A25B5E500669DF4 /* RecoveryLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CB20F931A25B5E500669DF4 /* RecoveryLogViewController.m */; };
 		3CDCF3191A3E96E800A4C515 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDCF3181A3E96E800A4C515 /* FXBlurView.m */; };
@@ -145,27 +149,20 @@
 		3C3BF8DF1A3FD371006B6746 /* FeedBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackViewController.m; sourceTree = "<group>"; };
 		3C4799D21A243A4900AFB0DD /* MyMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMessageViewController.h; sourceTree = "<group>"; };
 		3C4799D31A243A4900AFB0DD /* MyMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMessageViewController.m; sourceTree = "<group>"; };
-		3C4799D51A243A5B00AFB0DD /* MyMessage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyMessage.storyboard; sourceTree = "<group>"; };
 		3C4799D71A245E0B00AFB0DD /* MyHostingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHostingViewController.h; sourceTree = "<group>"; };
 		3C4799D81A245E0B00AFB0DD /* MyHostingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHostingViewController.m; sourceTree = "<group>"; };
-		3C4799DA1A245E1F00AFB0DD /* MyHosting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyHosting.storyboard; sourceTree = "<group>"; };
-		3C4799E41A24602300AFB0DD /* MyTakeover.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyTakeover.storyboard; sourceTree = "<group>"; };
 		3C4799E61A24809800AFB0DD /* CreateHostingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateHostingViewController.h; sourceTree = "<group>"; };
 		3C4799E71A24809800AFB0DD /* CreateHostingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateHostingViewController.m; sourceTree = "<group>"; };
 		3C7E1A751A1F3DC1002755AD /* SinglePatient_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglePatient_ViewController.h; sourceTree = "<group>"; };
 		3C7E1A761A1F3DC1002755AD /* SinglePatient_ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePatient_ViewController.m; sourceTree = "<group>"; };
-		3C7E38E81A2DAA3200AEEF2F /* SystemSet.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SystemSet.storyboard; sourceTree = "<group>"; };
 		3C8629411A2700AD00BBD544 /* SendSuggestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendSuggestViewController.h; sourceTree = "<group>"; };
 		3C8629421A2700AE00BBD544 /* SendSuggestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendSuggestViewController.m; sourceTree = "<group>"; };
 		3C8629441A27036900BBD544 /* MsgRecord_Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgRecord_Cell.h; sourceTree = "<group>"; };
 		3C8629451A27036900BBD544 /* MsgRecord_Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgRecord_Cell.m; sourceTree = "<group>"; };
-		3C99477F1A37ED13008EB216 /* ControlEffectTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlEffectTableViewController.h; sourceTree = "<group>"; };
-		3C9947801A37ED13008EB216 /* ControlEffectTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlEffectTableViewController.m; sourceTree = "<group>"; };
 		3C9947821A382CFA008EB216 /* TakeoverStandby_Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TakeoverStandby_Cell.h; sourceTree = "<group>"; };
 		3C9947831A382CFA008EB216 /* TakeoverStandby_Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TakeoverStandby_Cell.m; sourceTree = "<group>"; };
 		3C9A95211A1991C6006F7F73 /* MemberCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberCenterViewController.h; sourceTree = "<group>"; };
 		3C9A95221A1991C6006F7F73 /* MemberCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberCenterViewController.m; sourceTree = "<group>"; };
-		3C9A95241A1993C4006F7F73 /* MemberCenter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MemberCenter.storyboard; sourceTree = "<group>"; };
 		3C9A95281A19E30F006F7F73 /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
 		3C9A95291A19E30F006F7F73 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
 		3C9B18191A1EC8AA00F7DF4D /* MyPatientsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPatientsViewController.h; sourceTree = "<group>"; };
@@ -173,6 +170,26 @@
 		3C9B181C1A1ED01A00F7DF4D /* MyPatientsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPatientsCell.h; sourceTree = "<group>"; };
 		3C9B181D1A1ED01A00F7DF4D /* MyPatientsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPatientsCell.m; sourceTree = "<group>"; };
 		3CA3F4E01A43359900BA85D0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MyPatient.strings"; sourceTree = "<group>"; };
+		3CA3F4E11A43497C00BA85D0 /* EvaluateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvaluateCell.h; sourceTree = "<group>"; };
+		3CA3F4E21A43497C00BA85D0 /* EvaluateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluateCell.m; sourceTree = "<group>"; };
+		3CA3F4E31A43497C00BA85D0 /* EffectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectCell.h; sourceTree = "<group>"; };
+		3CA3F4E41A43497C00BA85D0 /* EffectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EffectCell.m; sourceTree = "<group>"; };
+		3CA3F4E71A4349DA00BA85D0 /* ControlEffectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlEffectViewController.h; sourceTree = "<group>"; };
+		3CA3F4E81A4349DA00BA85D0 /* ControlEffectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlEffectViewController.m; sourceTree = "<group>"; };
+		3CA3F4EA1A434A4F00BA85D0 /* LinesLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinesLabel.h; sourceTree = "<group>"; };
+		3CA3F4EB1A434A4F00BA85D0 /* LinesLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinesLabel.m; sourceTree = "<group>"; };
+		3CA3F4ED1A434A6300BA85D0 /* CustomLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomLabel.h; sourceTree = "<group>"; };
+		3CA3F4EE1A434A6300BA85D0 /* CustomLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomLabel.m; sourceTree = "<group>"; };
+		3CA3F4F91A434E5E00BA85D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MyHosting.storyboard; sourceTree = "<group>"; };
+		3CA3F4FD1A434E8200BA85D0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MyHosting.strings"; sourceTree = "<group>"; };
+		3CA3F5011A4355FE00BA85D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MyTakeover.storyboard; sourceTree = "<group>"; };
+		3CA3F5031A43561200BA85D0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MyTakeover.strings"; sourceTree = "<group>"; };
+		3CA3F5051A43561B00BA85D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MyMessage.storyboard; sourceTree = "<group>"; };
+		3CA3F5081A43561D00BA85D0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MyMessage.strings"; sourceTree = "<group>"; };
+		3CA3F50A1A43562000BA85D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MemberCenter.storyboard; sourceTree = "<group>"; };
+		3CA3F50D1A43562200BA85D0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MemberCenter.strings"; sourceTree = "<group>"; };
+		3CA3F50F1A43562700BA85D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SystemSet.storyboard; sourceTree = "<group>"; };
+		3CA3F5121A43562900BA85D0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SystemSet.strings"; sourceTree = "<group>"; };
 		3CA9FFCF1A300E6A00C67778 /* MyMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMessageCell.h; sourceTree = "<group>"; };
 		3CA9FFD01A300E6A00C67778 /* MyMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMessageCell.m; sourceTree = "<group>"; };
 		3CB20F921A25B5E500669DF4 /* RecoveryLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecoveryLogViewController.h; sourceTree = "<group>"; };
@@ -300,6 +317,10 @@
 				3749B55E1A09D9600031D00C /* Cells */,
 				3C3BF8DB1A3FD33A006B6746 /* MyTextView.h */,
 				3C3BF8DC1A3FD33A006B6746 /* MyTextView.m */,
+				3CA3F4EA1A434A4F00BA85D0 /* LinesLabel.h */,
+				3CA3F4EB1A434A4F00BA85D0 /* LinesLabel.m */,
+				3CA3F4ED1A434A6300BA85D0 /* CustomLabel.h */,
+				3CA3F4EE1A434A6300BA85D0 /* CustomLabel.m */,
 			);
 			name = General;
 			sourceTree = "<group>";
@@ -408,10 +429,10 @@
 				3C9B181A1A1EC8AA00F7DF4D /* MyPatientsViewController.m */,
 				3C7E1A751A1F3DC1002755AD /* SinglePatient_ViewController.h */,
 				3C7E1A761A1F3DC1002755AD /* SinglePatient_ViewController.m */,
-				3C99477F1A37ED13008EB216 /* ControlEffectTableViewController.h */,
-				3C9947801A37ED13008EB216 /* ControlEffectTableViewController.m */,
 				3CB20F921A25B5E500669DF4 /* RecoveryLogViewController.h */,
 				3CB20F931A25B5E500669DF4 /* RecoveryLogViewController.m */,
+				3CA3F4E71A4349DA00BA85D0 /* ControlEffectViewController.h */,
+				3CA3F4E81A4349DA00BA85D0 /* ControlEffectViewController.m */,
 				3C8629411A2700AD00BBD544 /* SendSuggestViewController.h */,
 				3C8629421A2700AE00BBD544 /* SendSuggestViewController.m */,
 			);
@@ -468,6 +489,10 @@
 				3CA9FFD01A300E6A00C67778 /* MyMessageCell.m */,
 				3C9947821A382CFA008EB216 /* TakeoverStandby_Cell.h */,
 				3C9947831A382CFA008EB216 /* TakeoverStandby_Cell.m */,
+				3CA3F4E11A43497C00BA85D0 /* EvaluateCell.h */,
+				3CA3F4E21A43497C00BA85D0 /* EvaluateCell.m */,
+				3CA3F4E31A43497C00BA85D0 /* EffectCell.h */,
+				3CA3F4E41A43497C00BA85D0 /* EffectCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -479,11 +504,11 @@
 				3C126F801A2EBD5900772CB3 /* Login.storyboard */,
 				3C126F861A2EC26800772CB3 /* TestTracker.storyboard */,
 				3C126F8B1A2EC2AE00772CB3 /* MyPatient.storyboard */,
-				3C4799DA1A245E1F00AFB0DD /* MyHosting.storyboard */,
-				3C4799E41A24602300AFB0DD /* MyTakeover.storyboard */,
-				3C4799D51A243A5B00AFB0DD /* MyMessage.storyboard */,
-				3C9A95241A1993C4006F7F73 /* MemberCenter.storyboard */,
-				3C7E38E81A2DAA3200AEEF2F /* SystemSet.storyboard */,
+				3CA3F4F21A434DE700BA85D0 /* MyHosting.storyboard */,
+				3CA3F5001A4355F200BA85D0 /* MyTakeover.storyboard */,
+				3CA3F5061A43561B00BA85D0 /* MyMessage.storyboard */,
+				3CA3F50B1A43562000BA85D0 /* MemberCenter.storyboard */,
+				3CA3F5101A43562700BA85D0 /* SystemSet.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -632,18 +657,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C7E38E91A2DAA3200AEEF2F /* SystemSet.storyboard in Resources */,
+				3CA3F50E1A43562700BA85D0 /* SystemSet.storyboard in Resources */,
 				3C126F841A2EC26800772CB3 /* TestTracker.storyboard in Resources */,
-				3C4799DB1A245E1F00AFB0DD /* MyHosting.storyboard in Resources */,
-				3C9A95251A1993C4006F7F73 /* MemberCenter.storyboard in Resources */,
-				3C4799E51A24602300AFB0DD /* MyTakeover.storyboard in Resources */,
+				3CA3F4F01A434DE700BA85D0 /* MyHosting.storyboard in Resources */,
+				3CA3F5091A43562000BA85D0 /* MemberCenter.storyboard in Resources */,
+				3CA3F4FE1A4355F200BA85D0 /* MyTakeover.storyboard in Resources */,
 				3749B5241A09C50D0031D00C /* Main.storyboard in Resources */,
 				3749B57F1A0A11700031D00C /* Localizable.strings in Resources */,
 				3C126F7E1A2EBD5900772CB3 /* Login.storyboard in Resources */,
 				3749B5291A09C50D0031D00C /* LaunchScreen.xib in Resources */,
 				3C126F891A2EC2AE00772CB3 /* MyPatient.storyboard in Resources */,
 				3749B5261A09C50D0031D00C /* Images.xcassets in Resources */,
-				3C4799D61A243A5B00AFB0DD /* MyMessage.storyboard in Resources */,
+				3CA3F5041A43561B00BA85D0 /* MyMessage.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -697,6 +722,7 @@
 				37AC34C31A0B52420037029A /* AppDelegate+UserLogInOut.m in Sources */,
 				3749B51B1A09C50D0031D00C /* AppDelegate.m in Sources */,
 				3749B5611A09D9920031D00C /* LeftMenuCell.m in Sources */,
+				3CA3F4EC1A434A4F00BA85D0 /* LinesLabel.m in Sources */,
 				3749B55D1A09D0D60031D00C /* ContentViewController.m in Sources */,
 				37EDEA141A0A79C7009EB54D /* UIStoryboard+Storyboards.m in Sources */,
 				3CA9FFD11A300E6A00C67778 /* MyMessageCell.m in Sources */,
@@ -707,6 +733,7 @@
 				3C337A6E1A42C77B00CB96DA /* BindPhoneViewController.m in Sources */,
 				371628BC1A15DD4C0043EED2 /* UIViewController+Notifications.m in Sources */,
 				3749B55A1A09D0950031D00C /* RightMenuController.m in Sources */,
+				3CA3F4E91A4349DA00BA85D0 /* ControlEffectViewController.m in Sources */,
 				3C9B181E1A1ED01A00F7DF4D /* MyPatientsCell.m in Sources */,
 				3720AFA61A199ADF0011D930 /* ResetPwdViewController.m in Sources */,
 				3C2AB3331A36AFE300C6B0FD /* SwipeView.m in Sources */,
@@ -715,6 +742,7 @@
 				3749B5571A09D0870031D00C /* LeftMenuController.m in Sources */,
 				371628BF1A15FF860043EED2 /* VerificationViewController.m in Sources */,
 				3CDCF3191A3E96E800A4C515 /* FXBlurView.m in Sources */,
+				3CA3F4EF1A434A6300BA85D0 /* CustomLabel.m in Sources */,
 				3749B5181A09C50D0031D00C /* main.m in Sources */,
 				3CDF18791A3AC47900571AF5 /* SystemSetTableViewController.m in Sources */,
 				3C337A711A42D80E00CB96DA /* InputPhoneViewController.m in Sources */,
@@ -726,10 +754,11 @@
 				3749B5541A09CFD30031D00C /* RootViewController.m in Sources */,
 				3C9B181B1A1EC8AA00F7DF4D /* MyPatientsViewController.m in Sources */,
 				37C5C4221A18964400365824 /* RegistViewController.m in Sources */,
+				3CA3F4E61A43497C00BA85D0 /* EffectCell.m in Sources */,
 				3761FA571A10BCC700F31D2F /* TestTrackerViewController.m in Sources */,
+				3CA3F4E51A43497C00BA85D0 /* EvaluateCell.m in Sources */,
 				3C9A95231A1991C6006F7F73 /* MemberCenterViewController.m in Sources */,
 				3C4799D91A245E0B00AFB0DD /* MyHostingViewController.m in Sources */,
-				3C9947811A37ED13008EB216 /* ControlEffectTableViewController.m in Sources */,
 				3C3BF8E01A3FD371006B6746 /* FeedBackViewController.m in Sources */,
 				3C9A952A1A19E30F006F7F73 /* UserInfoViewController.m in Sources */,
 				3C8629461A27036900BBD544 /* MsgRecord_Cell.m in Sources */,
@@ -809,6 +838,51 @@
 				3CA3F4E01A43359900BA85D0 /* zh-Hans */,
 			);
 			name = MyPatient.storyboard;
+			sourceTree = "<group>";
+		};
+		3CA3F4F21A434DE700BA85D0 /* MyHosting.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3CA3F4F91A434E5E00BA85D0 /* Base */,
+				3CA3F4FD1A434E8200BA85D0 /* zh-Hans */,
+			);
+			name = MyHosting.storyboard;
+			sourceTree = "<group>";
+		};
+		3CA3F5001A4355F200BA85D0 /* MyTakeover.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3CA3F5011A4355FE00BA85D0 /* Base */,
+				3CA3F5031A43561200BA85D0 /* zh-Hans */,
+			);
+			name = MyTakeover.storyboard;
+			sourceTree = "<group>";
+		};
+		3CA3F5061A43561B00BA85D0 /* MyMessage.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3CA3F5051A43561B00BA85D0 /* Base */,
+				3CA3F5081A43561D00BA85D0 /* zh-Hans */,
+			);
+			name = MyMessage.storyboard;
+			sourceTree = "<group>";
+		};
+		3CA3F50B1A43562000BA85D0 /* MemberCenter.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3CA3F50A1A43562000BA85D0 /* Base */,
+				3CA3F50D1A43562200BA85D0 /* zh-Hans */,
+			);
+			name = MemberCenter.storyboard;
+			sourceTree = "<group>";
+		};
+		3CA3F5101A43562700BA85D0 /* SystemSet.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3CA3F50F1A43562700BA85D0 /* Base */,
+				3CA3F5121A43562900BA85D0 /* zh-Hans */,
+			);
+			name = SystemSet.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

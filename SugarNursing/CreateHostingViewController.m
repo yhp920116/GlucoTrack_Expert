@@ -186,7 +186,7 @@ static NSInteger rowCount = 10;
         sleep(2);
         
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = NSLocalizedString(@"Initiate a commissioned successfully", nil);
+        hud.labelText = NSLocalizedString(@"A Commissioned Successfully", nil);
         
         sleep(1);
         

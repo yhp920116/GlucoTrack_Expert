@@ -1,0 +1,90 @@
+
+/* Class = "IBUIButton"; normalTitle = "Confirm"; ObjectID = "3n2-ic-aEJ"; */
+"3n2-ic-aEJ.normalTitle" = "确定";
+
+/* Class = "IBUITabBarItem"; title = "My Takeover"; ObjectID = "87b-Cw-wZc"; */
+"87b-Cw-wZc.title" = "我的接管";
+
+/* Class = "IBUIButton"; normalTitle = "Choose"; ObjectID = "894-ph-8O6"; */
+"894-ph-8O6.normalTitle" = "选择";
+
+/* Class = "IBUITabBarItem"; title = "My Hosting"; ObjectID = "B7F-Zy-V1d"; */
+"B7F-Zy-V1d.title" = "我的托管";
+
+/* Class = "IBUIBarButtonItem"; title = "Initiate"; ObjectID = "BF4-Mi-MPH"; */
+"BF4-Mi-MPH.title" = "发起托管";
+
+/* Class = "IBUINavigationItem"; title = "Hosting/Takeover"; ObjectID = "DaG-ha-cih"; */
+"DaG-ha-cih.title" = "托管/接管";
+
+/* Class = "IBUINavigationItem"; title = "Send Hosting"; ObjectID = "EhI-5Y-k9p"; */
+"EhI-5Y-k9p.title" = "发起托管";
+
+/* Class = "IBUILabel"; text = "Choose Patients"; ObjectID = "GAJ-WP-tFf"; */
+"GAJ-WP-tFf.text" = "选择病人";
+
+/* Class = "IBUIButton"; normalTitle = "Choose"; ObjectID = "GOV-kN-HM8"; */
+"GOV-kN-HM8.normalTitle" = "选择";
+
+/* Class = "IBUIButton"; normalTitle = "Confirm Initiate"; ObjectID = "GTz-kI-N1i"; */
+"GTz-kI-N1i.normalTitle" = "确定发起";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "ITD-jL-hs1"; */
+"ITD-jL-hs1.text" = "Label";
+
+/* Class = "IBUISegmentedControl"; LLD-0L-bG4.segmentTitles[0] = "Wait For"; ObjectID = "LLD-0L-bG4"; */
+"LLD-0L-bG4.segmentTitles[0]" = "待验证";
+
+/* Class = "IBUISegmentedControl"; LLD-0L-bG4.segmentTitles[1] = "Confirm"; ObjectID = "LLD-0L-bG4"; */
+"LLD-0L-bG4.segmentTitles[1]" = "已接管";
+
+/* Class = "IBUISegmentedControl"; LLD-0L-bG4.segmentTitles[2] = "Refuse"; ObjectID = "LLD-0L-bG4"; */
+"LLD-0L-bG4.segmentTitles[2]" = "已拒绝";
+
+/* Class = "IBUISegmentedControl"; LLD-0L-bG4.segmentTitles[3] = "Out of date"; ObjectID = "LLD-0L-bG4"; */
+"LLD-0L-bG4.segmentTitles[3]" = "已过期";
+
+/* Class = "IBUILabel"; text = "Send Hosting"; ObjectID = "OEt-tI-uRw"; */
+"OEt-tI-uRw.text" = "发起托管";
+
+/* Class = "IBUIBarButtonItem"; title = "Menu"; ObjectID = "Pa2-o8-dGV"; */
+"Pa2-o8-dGV.title" = "菜单";
+
+/* Class = "IBUIButton"; normalTitle = "Choose"; ObjectID = "V1e-Pv-H4m"; */
+"V1e-Pv-H4m.normalTitle" = "菜单";
+
+/* Class = "IBUILabel"; text = "Choose Doctor"; ObjectID = "WdX-XU-65c"; */
+"WdX-XU-65c.text" = "选择医生";
+
+/* Class = "IBUILabel"; text = "Finish Time"; ObjectID = "Xc1-Pb-o4E"; */
+"Xc1-Pb-o4E.text" = "托管结束时间";
+
+/* Class = "IBUILabel"; text = "王小虎"; ObjectID = "ZWE-28-kQG"; */
+"ZWE-28-kQG.text" = "王小虎";
+
+/* Class = "IBUILabel"; text = "45岁"; ObjectID = "ZaT-UL-vTd"; */
+"ZaT-UL-vTd.text" = "45岁";
+
+/* Class = "IBUILabel"; text = "Choose Patients"; ObjectID = "aoe-2i-Ahn"; */
+"aoe-2i-Ahn.text" = "选择病人";
+
+/* Class = "IBUILabel"; text = "Initiate Time"; ObjectID = "d0A-OI-dlb"; */
+"d0A-OI-dlb.text" = "托管开始时间";
+
+/* Class = "IBUIButton"; normalTitle = "Choose"; ObjectID = "eBf-Ab-z5l"; */
+"eBf-Ab-z5l.normalTitle" = "选择";
+
+/* Class = "IBUILabel"; text = "男"; ObjectID = "eeY-3P-Ybz"; */
+"eeY-3P-Ybz.text" = "男";
+
+/* Class = "IBUIButton"; normalTitle = "Refuse"; ObjectID = "hkm-lO-Xc5"; */
+"hkm-lO-Xc5.normalTitle" = "拒绝托管";
+
+/* Class = "IBUIButton"; normalTitle = "Select All"; ObjectID = "pc9-iE-497"; */
+"pc9-iE-497.normalTitle" = "全选";
+
+/* Class = "IBUIButton"; normalTitle = "Cancle"; ObjectID = "xKL-uH-Hvm"; */
+"xKL-uH-Hvm.normalTitle" = "取消";
+
+/* Class = "IBUIButton"; normalTitle = "Accept"; ObjectID = "ynZ-HT-xg2"; */
+"ynZ-HT-xg2.normalTitle" = "同意托管";

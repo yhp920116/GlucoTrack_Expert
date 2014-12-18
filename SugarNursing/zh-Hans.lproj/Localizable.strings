@@ -47,7 +47,7 @@
 "Choose patients" = "选择病人";
 "Choose doctor" = "选择医生";
 
-"Initiate a commissioned successfully" = "发起托管成功";
+"A Commissioned Successfully" = "发起托管成功";
 
 
 /* My Message Section */
@@ -66,12 +66,14 @@
 "Level" = "级别";
 "Department" = "科室";
 "ID" = "ID";
-"Skilled territory" = "擅长领域";
+"Skill territory" = "擅长领域";
 
-"Has been submitted successfully, please wait patiently for a review" = "已提交成功,请耐心等待审核";
+"Submit" = "提交审批";
+
+"Submitted Successfully" = "已提交成功,请耐心等待审核";
 
 
-"Your information is under review,and can't edit it" = "您的资料正在审核中,无法进行编辑修改";
+"Your information is under review" = "您的资料正在审核中,无法进行编辑修改";
 
 
 "Please input your feed back" = "请输入您的反馈";

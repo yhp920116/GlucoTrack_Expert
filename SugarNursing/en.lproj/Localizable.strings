@@ -46,7 +46,7 @@
 "Choose patients" = "Choose patients";
 "Choose doctor" = "Choose doctor";
 
-"Initiate a commissioned successfully" = "Initiate a commissioned successfully";
+"A Commissioned Successfully" = "A Commissioned Successfully";
 
 /* My Message Section */
 
@@ -67,12 +67,15 @@
 "Level" = "Level";
 "Department" = "Department";
 "ID" = "ID";
-"Skilled territory" = "Skilled territory";
-
-"Has been submitted successfully, please wait patiently for a review" = "Has been submitted successfully, please wait patiently for a review";
+"Skill territory" = "Skill territory";
 
 
-"Your information is under review,and can't edit it" = "Your information is under review,and can't edit it";
+"Submit" = "Submit";
+
+"Submitted Successfully" = "Submitted Successfully";
+
+
+"Your information is under review" = "   Your information is under review";
 
 "Please input your feed back" = "Please input your feed back";
 
