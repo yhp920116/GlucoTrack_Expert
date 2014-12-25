@@ -17,7 +17,7 @@ This is an iOS control for selecting a date using UIDatePicker in a UIActionShee
 ###CocoaPods
 ```ruby
 platform :ios, '7.0'
-pod "RMDateSelectionViewController", "~> 1.3.0"
+pod "RMDateSelectionViewController", "~> 1.4.0"
 ```
 
 ###Manual
@@ -58,6 +58,7 @@ pod "RMDateSelectionViewController", "~> 1.3.0"
     	
    		[dateSelectionVC show];
 	}
+	```
 
 ###Advanced
 Every RMDateSelectionViewController has a property datePicker. It is available after `show` has been called. With this property you have total control over the UIDatePicker that is shown in the screen.
@@ -101,6 +102,10 @@ Code contributions:
 	* Delegate method when now button is pressed
 	* Cancel delegate method is called when background view is tapped
 * Denis Andrasec
+	* Bugfixes
+* AnthonyMDev
+	* Cancel delegate method should be optional
+* steveoleary
 	* Bugfixes
 
 I want to thank everyone who has contributed code and/or time to this project!

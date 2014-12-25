@@ -28,6 +28,31 @@
 {
     [super viewDidLoad];
     
+    [self initData];
+    
+    [self layoutView];
+    
+    
+    
+}
+
+
+- (void)initData
+{
+    
+    UIImage *image = [UIImage imageNamed:@"019"];
+    
+    _serviceArray=@[@{@"name":@"思思",@"age":@"35",@"gender":@"女",@"serviceRank":@"低",@"bindingDate":@"1979-02-08",@"state":@"接管中~",@"image":image},
+                    @{@"name":@"王子运",@"age":@"35",@"gender":@"男",@"serviceRank":@"低",@"bindingDate":@"1979-02-08",@"state":@"接管中~",@"image":image},
+                    
+                    @{@"name":@"王诗雅",@"age":@"49",@"gender":@"女",@"serviceRank":@"低",@"bindingDate":@"1979-02-08",@"state":@"接管中~",@"image":image},
+                    
+                    @{@"name":@"李楠钰",@"age":@"28",@"gender":@"男",@"serviceRank":@"低",@"bindingDate":@"1979-02-08",@"state":@"接管中~",@"image":image},
+                    
+                    @{@"name":@"王柄灰",@"age":@"53",@"gender":@"男",@"serviceRank":@"低",@"bindingDate":@"1979-02-08",@"state":@"接管中~",@"image":image},
+                    ];
+    
+    
     
     titleArray = [NSArray arrayWithObjects:NSLocalizedString(@"The binding time inverted order", nil),
                   NSLocalizedString(@"The binding time plain sequence", nil),
@@ -38,20 +63,30 @@
                   NSLocalizedString(@"Only takeover", nil),
                   NSLocalizedString(@"Only Hosting", nil),
                   nil];
+}
+
+- (void)layoutView
+{
     
+    self.sectionTitleButton = [[UIButton alloc] initWithFrame:CGRectMake(0,
+                                                                         0,
+                                                                         320,
+                                                                         40)];
+    self.sectionTitleButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+    [self.sectionTitleButton setBackgroundColor:[UIColor colorWithRed:44/255.0
+                                                                green:125/255.0
+                                                                 blue:198/255.0
+                                                                alpha:1.0]];
     
+    [self.sectionTitleButton setTitleColor:[UIColor colorWithRed:255.0/255.0
+                                                           green:255.0/255.0
+                                                            blue:255.0/255.0
+                                                           alpha:1.0]
+                                  forState:UIControlStateNormal];
     
-    
-    UIImage *image = [UIImage imageNamed:@"019"];
-    _serviceArray=@[@{@"name":@"思思",@"age":@"35",@"gender":@"女",@"serviceRank":@"低",@"bindingDate":@"1979-02-08",@"state":@"接管中~",@"image":image},
-                      @{@"name":@"王子运",@"age":@"35",@"gender":@"男",@"serviceRank":@"低",@"bindingDate":@"1979-02-08",@"state":@"接管中~",@"image":image},
-                      
-                      @{@"name":@"王诗雅",@"age":@"49",@"gender":@"女",@"serviceRank":@"低",@"bindingDate":@"1979-02-08",@"state":@"接管中~",@"image":image},
-                      
-                      @{@"name":@"李楠钰",@"age":@"28",@"gender":@"男",@"serviceRank":@"低",@"bindingDate":@"1979-02-08",@"state":@"接管中~",@"image":image},
-                      
-                      @{@"name":@"王柄灰",@"age":@"53",@"gender":@"男",@"serviceRank":@"低",@"bindingDate":@"1979-02-08",@"state":@"接管中~",@"image":image},
-                      ];
+    [self.sectionTitleButton addTarget:self action:@selector(toggleMenu) forControlEvents:UIControlEventTouchUpInside];
+    [self.sectionTitleButton setTitle:NSLocalizedString(@"Click this select mode of sort", nil)
+                             forState:UIControlStateNormal];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -70,26 +105,6 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    
-    self.sectionTitleButton = [[UIButton alloc] initWithFrame:CGRectMake(0,
-                                                                    0,
-                                                                    320,
-                                                                    40)];
-    self.sectionTitleButton.titleLabel.textAlignment = NSTextAlignmentLeft;
-    [self.sectionTitleButton setBackgroundColor:[UIColor colorWithRed:44/255.0
-                                                                green:125/255.0
-                                                                 blue:198/255.0
-                                                                alpha:1.0]];
-    
-    [self.sectionTitleButton setTitleColor:[UIColor colorWithRed:255.0/255.0
-                                                          green:255.0/255.0
-                                                           blue:255.0/255.0
-                                                          alpha:1.0]
-                                  forState:UIControlStateNormal];
-    
-    [self.sectionTitleButton addTarget:self action:@selector(toggleMenu) forControlEvents:UIControlEventTouchUpInside];
-    [self.sectionTitleButton setTitle:NSLocalizedString(@"Click this select mode of sort", nil)
-                             forState:UIControlStateNormal];
     
     return self.sectionTitleButton;
 }
@@ -175,14 +190,10 @@
 }
 
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)back:(UIStoryboardSegue *)sender
+{
+    
 }
-*/
 
 @end

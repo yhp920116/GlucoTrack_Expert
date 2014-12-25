@@ -11,11 +11,11 @@
         <scene sceneID="Zl1-qA-wpM">
             <objects>
                 <navigationController storyboardIdentifier="MemberCenterNav" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nIH-ew-XNu" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lHB-nw-l0k">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="lHB-nw-l0k">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.17254901959999999" green="0.49019607840000001" blue="0.77647058820000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.0" green="0.25098039220000001" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -110,6 +110,11 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" title="User Infomation" id="3iP-WV-SKB">
+                        <barButtonItem key="leftBarButtonItem" image="005" id="jsV-3I-a7P">
+                            <connections>
+                                <segue destination="j1z-Fu-Qw5" kind="unwind" unwindAction="back:" id="gFW-bU-2ry"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="Edit" id="a7f-hL-gEn">
                             <connections>
                                 <action selector="editButtonEvent:" destination="iZs-Bc-9PV" id="NVj-6S-I2K"/>
@@ -125,6 +130,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3pP-JW-Pre" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="j1z-Fu-Qw5" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer cancelsTouchesInView="NO" id="6oW-eU-DrC">
                     <connections>
                         <action selector="dismissKeyboard:" destination="iZs-Bc-9PV" id="e9s-gY-Hzq"/>
@@ -233,9 +239,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="About App" id="U3E-6d-PyX"/>
+                    <navigationItem key="navigationItem" title="About App" id="U3E-6d-PyX">
+                        <barButtonItem key="leftBarButtonItem" image="005" id="kNU-JP-uHA">
+                            <connections>
+                                <segue destination="yip-l8-kCZ" kind="unwind" unwindAction="back:" id="NNf-ji-nfC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YMu-8P-7oG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="yip-l8-kCZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2928" y="-406"/>
         </scene>
@@ -289,12 +302,19 @@
                             <outletCollection property="gestureRecognizers" destination="fcI-hM-FYO" appends="YES" id="NNt-nD-nXb"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="Advice Feed Back" id="SNl-tu-aw7"/>
+                    <navigationItem key="navigationItem" title="Advice Feed Back" id="SNl-tu-aw7">
+                        <barButtonItem key="leftBarButtonItem" image="005" id="7pV-Tq-HJO">
+                            <connections>
+                                <segue destination="fI5-f5-I86" kind="unwind" unwindAction="back:" id="HnL-Aw-mpb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="myTextView" destination="IIH-2z-LeO" id="9uI-oF-p65"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xmo-3L-VZg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="fI5-f5-I86" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer id="fcI-hM-FYO">
                     <connections>
                         <action selector="dismissKeyboard:" destination="xI4-hU-OhF" id="Eft-nw-9FF"/>
@@ -316,14 +336,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Terms Of Service" id="vzR-DS-cs2"/>
+                    <navigationItem key="navigationItem" title="Terms Of Service" id="vzR-DS-cs2">
+                        <barButtonItem key="leftBarButtonItem" image="005" id="L7c-dd-RGs">
+                            <connections>
+                                <segue destination="yoc-Pa-gBG" kind="unwind" unwindAction="back:" id="BlE-bY-eOK"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1j4-FT-QgB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="yoc-Pa-gBG" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2928" y="468"/>
         </scene>
     </scenes>
     <resources>
+        <image name="005" width="12" height="11"/>
         <image name="Edit" width="27" height="22"/>
     </resources>
 </document>

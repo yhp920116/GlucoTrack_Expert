@@ -12,10 +12,6 @@
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-//static CGFloat kHeadCellTitleLabelWidth = 60;
-//static CGFloat kHeadCellTitleLabelHeight = 30;
-//static CGFloat kHeadCellDetailLabelWidth = 200;
-//static CGFloat kHeadCellDetailLabelHeight = 20;
 
 static NSString *infoCellIdentifier = @"DiseaseInfo_Cell";
 
@@ -27,9 +23,6 @@ static CGFloat kHeadCellHeight = 44;
 static CGFloat kHeadCellIndicatorViewWidthAndHeight = 20;
 
 
-//static CGFloat kInfoCellDefaultTitleFontSize = 15;
-//static CGFloat kInfoCellDefaultTitleLabelHeight = 50;
-//static CGFloat kInfoCellInfoLabelMinHeight = 80;
 
 
 
@@ -42,6 +35,11 @@ static CGFloat kHeadCellIndicatorViewWidthAndHeight = 20;
     NSMutableArray *_selectArray;
     NSMutableArray *_cellHeightArray;
 }
+
+@property (weak, nonatomic) IBOutlet UILabel *patientNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *patientGenderLabel;
+@property (weak, nonatomic) IBOutlet UILabel *patientAgeLabel;
+
 
 @property (nonatomic, strong) NSMutableArray *arrayOfXValues;
 @property (nonatomic, strong) NSMutableArray *arrayOfYValues;
@@ -60,7 +58,6 @@ static CGFloat kHeadCellIndicatorViewWidthAndHeight = 20;
     _arrayOfXValues = [[NSMutableArray alloc] init];
     _arrayOfYValues = [[NSMutableArray alloc] init];
     
-    self.myTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     //图表数据源
     [self sendData];
@@ -68,7 +65,6 @@ static CGFloat kHeadCellIndicatorViewWidthAndHeight = 20;
     
     //病例资料列表数据源
     [self setServiceData];
-    
     
     
     
@@ -265,28 +261,33 @@ static CGFloat kHeadCellIndicatorViewWidthAndHeight = 20;
 - (CGFloat)heightForInfoCellWithIndexPath:(NSIndexPath *)indexPath
 {
     
-    static DiseaseInfo_Cell *sizingCell = nil;
+    static DiseaseInfo_Cell *cell = nil;
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-        sizingCell = [self.myTableView dequeueReusableCellWithIdentifier:infoCellIdentifier];
+        cell = [self.myTableView dequeueReusableCellWithIdentifier:infoCellIdentifier];
+        
+        
+        cell.contentView.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.view.bounds) - 2*kTableViewMagin,
+                                                   kInfoCellEstimatedHeight);
+        cell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.view.bounds) - 2*kTableViewMagin,
+                                       kInfoCellEstimatedHeight);
+        
+        
+        [cell.contentView setNeedsLayout];
+        [cell.contentView layoutIfNeeded];
     });
-    [sizingCell configureCellWithDictionary:_serverData[indexPath.section][@"body"]];
-    return [self calculateInfoCellHeightWithCell:sizingCell];
+    [cell configureCellWithDictionary:_serverData[indexPath.section][@"body"]];
+    return [self calculateInfoCellHeightWithCell:cell];
 }
 
-- (CGFloat)calculateInfoCellHeightWithCell:(DiseaseInfo_Cell *)sizingCell
+- (CGFloat)calculateInfoCellHeightWithCell:(DiseaseInfo_Cell *)cell
 {
-    sizingCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.view.bounds) - 2*kTableViewMagin, kInfoCellEstimatedHeight);
     
-    sizingCell.cureConditionLabel.preferredMaxLayoutWidth = [self infoCellParameterLabelPreferredMaxLayoutWidth];
-    sizingCell.hospitalLabel.preferredMaxLayoutWidth = [self infoCellParameterLabelPreferredMaxLayoutWidth];
-    sizingCell.medicalHistoryLabel.preferredMaxLayoutWidth = [self infoCellParameterLabelPreferredMaxLayoutWidth];
-    sizingCell.cureScheme.preferredMaxLayoutWidth = [self infoCellParameterLabelPreferredMaxLayoutWidth];
-    [sizingCell layoutSubviews];
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
     
+    CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     
-    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    NSLog(@"%f",size.height);
     return size.height + 1;
 }
 
@@ -345,12 +346,11 @@ static CGFloat kHeadCellIndicatorViewWidthAndHeight = 20;
     BOOL isSelect = [[_selectArray objectAtIndex:indexPath.section] boolValue];
     if (!isSelect)
     {
+        //展开病状详情
         [_selectArray setObject:[NSNumber numberWithBool:YES] atIndexedSubscript:indexPath.section];
         
-//        [tableView beginUpdates];
         [tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:indexPath.section]]
                          withRowAnimation:UITableViewRowAnimationFade];
-//        [tableView endUpdates];
         
         [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
         
@@ -365,7 +365,7 @@ static CGFloat kHeadCellIndicatorViewWidthAndHeight = 20;
     }
     else
     {
-        
+        //收起病状详情
         [cell setSelected:NO];
         
         [_selectArray setObject:[NSNumber numberWithBool:NO] atIndexedSubscript:indexPath.section];
@@ -414,9 +414,7 @@ static CGFloat kHeadCellIndicatorViewWidthAndHeight = 20;
         cellLayer.borderWidth = 1.0;
         [cell setBackgroundColor:UIColorFromRGB(0x3d8cd3)];
         
-        
-        
-        
+        //病名label初始化
         UILabel *titleLabel = [[UILabel alloc] init];
         [titleLabel setTextAlignment:NSTextAlignmentCenter];
         [titleLabel setTextColor:[UIColor whiteColor]];
@@ -424,9 +422,7 @@ static CGFloat kHeadCellIndicatorViewWidthAndHeight = 20;
         [titleLabel setTag:1001];
         [cell addSubview:titleLabel];
         
-        
-        
-        
+        //确诊时间label初始化
         UILabel *detailLabel = [[UILabel alloc] init];
         [detailLabel setTextAlignment:NSTextAlignmentLeft];
         [detailLabel setTextColor:[UIColor whiteColor]];
@@ -434,12 +430,10 @@ static CGFloat kHeadCellIndicatorViewWidthAndHeight = 20;
         [detailLabel setTag:1002];
         [cell addSubview:detailLabel];
         
-        
-        
+        //指数器imageView初始化
         UIImageView *indicator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Up"]];
         [indicator setTag:1003];
         [cell addSubview:indicator];
-        
     }
     
     
@@ -489,28 +483,6 @@ static CGFloat kHeadCellIndicatorViewWidthAndHeight = 20;
     return cell;
 }
 
-
-//#pragma mark  显示参数的view的最大长度
-//- (CGFloat)parameterViewMaxWidth
-//{
-//    return CGRectGetWidth(self.view.bounds) - 2*kTableViewMagin - kInfoCellMaginLeft - kInfoCellMaginRight;
-//}
-//
-//- (UILabel *)getTitleLabelWithTitle:(NSString *)title pointY:(CGFloat)y
-//{
-//    
-//    UILabel *titleLabel = [[UILabel alloc] init];
-//    [titleLabel setText:title];
-//    [titleLabel setTextColor:[UIColor lightGrayColor]];
-//    [titleLabel setNumberOfLines:0];
-//    [titleLabel setTextAlignment:NSTextAlignmentRight];
-//    [titleLabel setFont:[UIFont systemFontOfSize:kInfoCellDefaultTitleFontSize]];
-//    [titleLabel setFrame:CGRectMake(0,
-//                                    y,
-//                                    kInfoCellMaginLeft - 10,
-//                                    kInfoCellDefaultTitleLabelHeight)];
-//    return titleLabel;
-//}
 
 
 - (CGFloat)infoCellParameterLabelPreferredMaxLayoutWidth

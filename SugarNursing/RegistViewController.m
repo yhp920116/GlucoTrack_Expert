@@ -7,155 +7,256 @@
 //
 
 #import "RegistViewController.h"
-#import "UIViewController+Notifications.h"
 #import "AppDelegate+UserLogInOut.h"
 #import <MBProgressHUD.h>
+#import <SMS_SDK/SMS_SDK.h>
+#import "User.h"
+#import <UIAlertView+AFNetworking.h>
 
-@interface RegistViewController (){
+@interface RegistViewController ()<UIAlertViewDelegate,UIActionSheetDelegate>{
     MBProgressHUD *hud;
+    
+    NSArray *_departmentsArray;
 }
+
 
 @end
 
+
 @implementation RegistViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
-}
-
-#pragma mark - KeyboardNotification
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self registerForKeyboardNotification:@selector(keyboardWillShow:) :@selector(keyboardWillHidden:)];
-}
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self removeKeyboardNotification];
+    [self.view endEditing:YES];
 }
 
-- (void)keyboardWillShow:(NSNotification *)aNotification
-{
-    NSDictionary *info = [aNotification userInfo];
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+- (void)viewDidLoad {
+    [super viewDidLoad];
     
-    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
-    self.scrollView.contentInset = contentInsets;
-    self.scrollView.scrollIndicatorInsets = contentInsets;
-    
-//    CGRect aRect = [[UIScreen mainScreen] bounds];
-//    aRect.size.height -= kbSize.height ;
-//  
-//    if (CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
-//        [self.scrollView scrollRectToVisible:self.activeField.frame animated:YES];
+    self.title = NSLocalizedString(@"Register", nil);
+//    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
+//        self.automaticallyAdjustsScrollViewInsets = NO;
 //    }
-        
-    CGRect textFieldRect = [self.scrollView convertRect:((UIView *)self.activeField).bounds fromView:(UIView *)self.activeField];
-    [self.scrollView scrollRectToVisible:textFieldRect animated:YES];
-}
-
-- (void)keyboardWillHidden:(NSNotification *)aNotification
-{
-    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-    [UIView animateWithDuration:0.25 animations:^{
-        self.scrollView.contentInset = contentInsets;
-        self.scrollView.scrollIndicatorInsets = contentInsets;
-    }];
-
-}
-
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    self.activeField = textField;
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    self.activeField = textField;
+    
+    
+    
+    _departmentsArray = @[@{@"componentTitle":@"内科",@"content":@[@"神经内科",@"呼吸内科",@"心内科",@"肾内科",@"普通内科"]
+                            },
+                          @{@"componentTitle":@"外科",@"content":@[@"皮肤科",@"五官科",@"普通外科"]
+                            }];
 }
 
 #pragma mark - IBAction
 
 - (IBAction)getCodeAgain:(id)sender
 {
-    hud = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:hud];
-    
-    [hud showAnimated:YES whileExecutingBlock:^{
-        sleep(2);
-        hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"A code has send to your phone";
-        sleep(1);
-    } completionBlock:^{
-        
-    }];
+    NSString *confirmInfo = [NSString stringWithFormat:@"%@:%@ %@",NSLocalizedString(@"willsendthecodeto", nil),self.areaCode, self.phoneNumber];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"suretosendphonenumber", nil) message:confirmInfo delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"sure", nil), nil];
+    [alert show];
 }
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (1 == buttonIndex) {
+        [SMS_SDK getVerifyCodeByPhoneNumber:self.phoneNumber AndZone:self.areaCode result:^(enum SMS_GetVerifyCodeResponseState state) {
+            if (1 == state)
+            {
+                //获取验证码成功
+            }
+            else if(0==state)
+            {
+                //获取验证码失败
+                NSString* str=[NSString stringWithFormat:NSLocalizedString(@"codesenderrormsg", nil)];
+                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"codesenderrtitle", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
+                [alert show];
+            }
+            else if (SMS_ResponseStateMaxVerifyCode==state)
+            {
+                NSString* str=[NSString stringWithFormat:NSLocalizedString(@"maxcodemsg", nil)];
+                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"maxcode", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
+                [alert show];
+            }
+            else if(SMS_ResponseStateGetVerifyCodeTooOften==state)
+            {
+                NSString* str=[NSString stringWithFormat:NSLocalizedString(@"codetoooftenmsg", nil)];
+                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"notice", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"sure", nil) otherButtonTitles:nil, nil];
+                [alert show];
+            }
+        }];
+    }
+}
+
+
 
 - (IBAction)genderPicker:(id)sender
 {
-    hud = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:hud];
-    
-    hud.customView = self.genderPicker;
-    hud.mode = MBProgressHUDModeCustomView;
-    [hud show:YES];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"choosegender", nil) delegate:self cancelButtonTitle:nil destructiveButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"male", nil),NSLocalizedString(@"female", nil), nil];
+    [sheet showInView:self.view];
 }
 
-- (IBAction)selectGender:(id)sender
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    UIButton *btn = (UIButton *)sender;
-    [self.genderBtn setTitle:btn.currentTitle forState:UIControlStateNormal];
-    [hud hide:YES afterDelay:0.2];
+    if (buttonIndex != 0) {
+        [self.genderBtn setTitle:[actionSheet buttonTitleAtIndex:buttonIndex] forState:UIControlStateNormal];
+    }
 }
 
 
 - (IBAction)datePicker:(id)sender
 {
-    hud = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:hud];
-    
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.customView = self.datePicker;
     hud.mode = MBProgressHUDModeCustomView;
     [hud show:YES];
 }
 
-- (IBAction)selecteDate:(id)sender
+- (IBAction)didSelectDatePicker:(id)sender
 {
-    NSDate *selectDate = [self.datePicker date];
+    UIDatePicker *datePicker = (UIDatePicker *)sender;
+    NSDate *date = [datePicker date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *selectDateString = [dateFormatter stringFromDate:selectDate];
-    [self.dateBtn setTitle:selectDateString forState:UIControlStateNormal];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
+    NSString *dateString = [dateFormatter stringFromDate:date];
     
-    [hud hide:YES afterDelay:0.2];
+    
+    [self.dateBtn setTitle:dateString forState:UIControlStateNormal];
+    
+    [hud hide:YES afterDelay:0.25];
 }
 
+- (IBAction)departmentPicker:(id)sender
+{
+    hud = [[MBProgressHUD alloc] initWithView:self.view];
+    hud.mode = MBProgressHUDModeCustomView;
+    hud.customView = self.departmentCustomView;
+    
+    [self.view addSubview:hud];
+    [hud show:YES];
+}
+
+
+#pragma mark - UIPickerView DataSource & Delegate
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 2;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    if (component == 0)
+    {
+        return _departmentsArray.count;
+    }
+    else
+    {
+        NSInteger selectRowLeft = [pickerView selectedRowInComponent:0];
+        
+        NSArray *rowArray = [[_departmentsArray objectAtIndex:selectRowLeft] objectForKey:@"content"];
+        return rowArray.count;
+    }
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    
+    if (component == 0)
+    {
+        NSDictionary *department = [_departmentsArray objectAtIndex:row];
+        NSString *componentTitle = [department objectForKey:@"componentTitle"];
+        return componentTitle;
+    }
+    else
+    {
+        NSInteger selectRowLeft = [pickerView selectedRowInComponent:0];
+        NSDictionary *department = [_departmentsArray objectAtIndex:selectRowLeft];
+        NSArray *rowArray = [department objectForKey:@"content"];
+        NSString *title = [rowArray objectAtIndex:row];
+        return title;
+    }
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    
+    if (component == 0)
+    {
+        
+        [self.departmentPicker reloadComponent:1];
+    }
+}
+
+- (IBAction)confirmButtonEvent:(id)sender
+{
+    
+    NSInteger selectComponent = [self.departmentPicker selectedRowInComponent:0];
+    NSInteger selectRow = [self.departmentPicker selectedRowInComponent:1];
+    
+    
+    NSDictionary *department = [_departmentsArray objectAtIndex:selectComponent];
+    NSArray *rowArray = [department objectForKey:@"content"];
+    NSString *title = [rowArray objectAtIndex:selectRow];
+    
+    
+    [self.departmentBtn setTitle:title forState:UIControlStateNormal];
+    
+    
+    [hud hide:YES];
+}
+
+
+- (IBAction)cancelButtonEvent:(id)sender
+{
+    
+    [hud hide:YES];
+}
+
+
+#pragma mark - 注册
 - (IBAction)regist:(id)sender
 {
     hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:hud];
         
-    hud.labelText = @"loading..";
+    hud.labelText = NSLocalizedString(@"Registering...", nil);
+    [hud show:YES];
     
-    [hud showAnimated:YES whileExecutingBlock:^{
-        sleep(2);
-    } completionBlock:^{
-        [AppDelegate userLogIn];
+    GCRegister *regist = [[GCRegister alloc] init];
+    regist.method = @"accountRegist";
+    regist.mobile = self.phoneNumber;
+    regist.password = self.passwordField.text;
+    regist.exptName = self.usernameField.text;
+    regist.sex = self.genderBtn.currentTitle;
+    regist.birthday = [self.dateBtn currentTitle];
+//    regist.departmentId =
+//    regist.zone =
+    regist.appType = @"2";
+    
+    NSURLSessionDataTask *registerTask = [User accountRegistWithGCRegister:regist block:^(NSDictionary *responseData, NSError *error) {
+        
+        
+        if (!error)
+        {
+            
+            if ([[responseData objectForKey:@"ret_code"] isEqualToString:@"0"])
+            {
+                [AppDelegate userLogIn];
+                [hud hide:YES];
+            }
+            else
+            {
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = [responseData objectForKey:@"ret_msg"];
+                [hud hide:YES afterDelay:1.2];
+            }
+            
+        }
+        else [hud hide:YES afterDelay:0.25];
+        
     }];
     
+    [UIAlertView showAlertViewForTaskWithErrorOnCompletion:registerTask delegate:nil];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 @end

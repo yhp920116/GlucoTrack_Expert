@@ -58,7 +58,7 @@
     if (_tabBarSelectIndex == 1 && _takeoverStateSegmentSelectIndex == 0)
     {
         
-        return 120;
+        return 130;
     }
     
     return 90;
@@ -116,7 +116,7 @@
     }];
     
     
-    cell.contentLabel.preferredMaxLayoutWidth = cell.contentLabel.bounds.size.width;
+    cell.contentLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.view.bounds) - 16 - 8;
     [cell layoutSubviews];
     
     return cell;
@@ -176,7 +176,7 @@
     
     hud = [[MBProgressHUD alloc] initWithView:self.view];
     hud.mode = MBProgressHUDModeText;
-    hud.labelText = [NSString stringWithFormat:@"您已成功接受委托,row:%ld",row];
+    hud.labelText = @"您已成功接受委托";
     [self.view addSubview:hud];
     
     [hud showAnimated:YES whileExecutingBlock:^{
@@ -190,12 +190,19 @@
     
     hud = [[MBProgressHUD alloc] initWithView:self.view];
     hud.mode = MBProgressHUDModeText;
-    hud.labelText = [NSString stringWithFormat:@"您已拒绝委托,row:%ld",row];
+    hud.labelText = @"您已拒绝委托";
     [self.view addSubview:hud];
     
     [hud showAnimated:YES whileExecutingBlock:^{
         sleep(2);
     }];
 }
+
+
+- (IBAction)back:(UIStoryboardSegue *)segue
+{
+    
+}
+
 
 @end

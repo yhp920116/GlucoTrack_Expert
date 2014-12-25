@@ -11,11 +11,11 @@
         <scene sceneID="2js-za-QJc">
             <objects>
                 <navigationController storyboardIdentifier="MyHostingNav" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Rdz-K3-Ucl" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HRS-IA-RAL">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="HRS-IA-RAL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.17254901959999999" green="0.49019607840000001" blue="0.77647058820000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.0" green="0.25098039220000001" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -48,14 +48,14 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TakeoverStandby_Cell" rowHeight="120" id="9TO-M7-0Bo" customClass="TakeoverStandby_Cell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TakeoverStandby_Cell" rowHeight="130" id="9TO-M7-0Bo" customClass="TakeoverStandby_Cell">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9TO-M7-0Bo" id="oir-xZ-1Aw">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XS8-gw-ARG">
-                                                    <rect key="frame" x="300" y="84" width="130" height="30"/>
+                                                    <rect key="frame" x="300" y="87" width="130" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="130" id="3iW-dT-bQC"/>
@@ -70,7 +70,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MFc-py-pRp">
-                                                    <rect key="frame" x="170" y="84" width="130" height="30"/>
+                                                    <rect key="frame" x="170" y="87" width="130" height="30"/>
                                                     <color key="backgroundColor" red="1" green="0.100393671" blue="0.31890950709999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="K8T-e1-Ln8"/>
@@ -84,21 +84,23 @@
                                                         <action selector="refuseTakeoverButtonEvent:" destination="9TO-M7-0Bo" eventType="touchUpInside" id="SNf-7c-ae1"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="584" translatesAutoresizingMaskIntoConstraints="NO" id="aIH-Es-fhI">
-                                                    <rect key="frame" x="16" y="25" width="576" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="576" translatesAutoresizingMaskIntoConstraints="NO" id="aIH-Es-fhI">
+                                                    <rect key="frame" x="16" y="13" width="576" height="69"/>
+                                                    <string key="text">医生王大虎于2012年1月1日12:13把病人王小虎（女 45岁）托管给我，预计托管时间:13/12/03至14/12/12ddddddddddddddddddddddddddddddd福克斯的解放路口就是离开房间收到了科技ddd两点上课就分了SD卡解放路口圣诞节了深刻的房间里的开始放假了SD卡分局领导说开房记录的思考几分两点开始减肥</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="aIH-Es-fhI" firstAttribute="leading" secondItem="oir-xZ-1Aw" secondAttribute="leadingMargin" constant="8" id="6Ko-xH-VVZ"/>
-                                                <constraint firstItem="aIH-Es-fhI" firstAttribute="top" secondItem="oir-xZ-1Aw" secondAttribute="topMargin" constant="17" id="Hc1-SD-Z1h"/>
-                                                <constraint firstAttribute="trailing" secondItem="aIH-Es-fhI" secondAttribute="trailing" constant="8" id="IHJ-2K-dzN"/>
+                                                <constraint firstItem="aIH-Es-fhI" firstAttribute="top" secondItem="oir-xZ-1Aw" secondAttribute="topMargin" constant="5" id="Hc1-SD-Z1h"/>
                                                 <constraint firstItem="XS8-gw-ARG" firstAttribute="leading" secondItem="MFc-py-pRp" secondAttribute="trailing" id="IaF-L0-Zx6"/>
+                                                <constraint firstItem="aIH-Es-fhI" firstAttribute="leading" secondItem="oir-xZ-1Aw" secondAttribute="leading" constant="16" id="O1W-5p-cfm"/>
+                                                <constraint firstAttribute="trailing" secondItem="aIH-Es-fhI" secondAttribute="trailing" constant="8" id="a09-Zq-iSt"/>
                                                 <constraint firstAttribute="centerX" secondItem="XS8-gw-ARG" secondAttribute="centerX" constant="-65" id="bd6-U9-sW4"/>
                                                 <constraint firstItem="XS8-gw-ARG" firstAttribute="centerY" secondItem="MFc-py-pRp" secondAttribute="centerY" id="hhj-hq-PgJ"/>
-                                                <constraint firstAttribute="bottom" secondItem="XS8-gw-ARG" secondAttribute="bottom" constant="5" id="ju9-sS-pqm"/>
+                                                <constraint firstAttribute="bottom" secondItem="XS8-gw-ARG" secondAttribute="bottom" constant="12" id="ju9-sS-pqm"/>
+                                                <constraint firstItem="XS8-gw-ARG" firstAttribute="top" secondItem="aIH-Es-fhI" secondAttribute="bottom" constant="5" id="ruf-fg-aVS"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -175,7 +177,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w5d-og-yuC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1573" y="132"/>
+            <point key="canvasLocation" x="1573" y="131"/>
         </scene>
         <!--Send Hosting-->
         <scene sceneID="x2c-7J-BkP">
@@ -530,7 +532,13 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Send Hosting" id="i3Q-kq-61t"/>
+                    <navigationItem key="navigationItem" title="Send Hosting" id="i3Q-kq-61t">
+                        <barButtonItem key="leftBarButtonItem" image="005" id="ZX6-Ia-Lon">
+                            <connections>
+                                <segue destination="ywa-f1-eNC" kind="unwind" unwindAction="back:" id="ZlZ-Fd-6uh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="datePicker" destination="clG-vG-NVT" id="crV-jD-pix"/>
                         <outlet property="personPicker" destination="LAl-KM-3bL" id="ksZ-G6-ypf"/>
@@ -542,6 +550,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BkT-sX-a9l" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="ywa-f1-eNC" userLabel="Exit" sceneMemberID="exit"/>
                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" id="clG-vG-NVT">
                     <rect key="frame" x="-160" y="-81" width="320" height="162"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -593,7 +602,7 @@
                             <rect key="frame" x="0.0" y="30" width="240" height="236"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <prototypes>
-                                <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SelectPersonCell" id="gbq-rM-hhM">
+                                <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SelectPersonCell" id="gbq-rM-hhM">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gbq-rM-hhM" id="eBB-B2-SmM">
@@ -725,6 +734,7 @@
     </scenes>
     <resources>
         <image name="003" width="227" height="7"/>
+        <image name="005" width="12" height="11"/>
         <image name="008" width="12" height="12"/>
         <image name="IconMyHosting" width="34" height="34"/>
         <image name="IconMyTakeover" width="34" height="34"/>

@@ -26,7 +26,7 @@
             [self showActionShip];
             break;
         case 1:
-            [self goVerificationViewWithTitle:@"重设密码"];
+            [self goVerificationViewWithTitle:NSLocalizedString(@"Reset password", nil)];
             break;
         default:
             [self performSegueWithIdentifier:@"goBindPhone" sender:nil];
@@ -44,12 +44,22 @@
     [self.sheet showInView:self.view];
 }
 
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    if (indexPath)
+    {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+}
+
 - (void)goVerificationViewWithTitle:(NSString *)vcTitle
 {
     VerificationViewController *verfication = [[UIStoryboard loginStoryboard] instantiateViewControllerWithIdentifier:@"Verification"];
     
-    verfication.title = vcTitle;
-    verfication.labelText = @"Input your PhoneNumber to regist";
+    verfication.title = NSLocalizedString(@"Reset password", nil);
+    verfication.verifiedType = 1;
     
     if ([NSProcessInfo instancesRespondToSelector:@selector(isOperatingSystemAtLeastVersion:)]) {
         // conditionly check for any version >= iOS 8

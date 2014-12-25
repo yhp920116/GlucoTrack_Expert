@@ -7,7 +7,6 @@
 //
 
 #import "RootViewController.h"
-#import "TestTrackerViewController.h"
 #import "UIStoryboard+Storyboards.h"
 #import "FXBlurView.h"
 
@@ -30,7 +29,6 @@
     self.contentViewController = [[UIStoryboard myPatientStoryboard] instantiateViewControllerWithIdentifier:@"MyPatientNav"];
     self.leftMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LeftMenu"];
     self.rightMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"RightMenu"];
-    
     self.delegate = self;
     
     
@@ -44,15 +42,8 @@
 
 - (void)sideMenu:(RESideMenu *)sideMenu didRecognizePanGesture:(UIPanGestureRecognizer *)recognizer
 {
-    if ([sideMenu.contentViewController isKindOfClass:[UINavigationController class]]) {
-        UINavigationController *nav = (UINavigationController *)sideMenu.contentViewController;
-        
-        if ([[[nav viewControllers] objectAtIndex:0] isKindOfClass:[TestTrackerViewController class]]) {
-            TestTrackerViewController *testTrackerVC = (TestTrackerViewController *)[[nav viewControllers] objectAtIndex:0];
-            testTrackerVC.trackerChart.avoidLayoutSubviews = YES;
-        }
-        
-    }
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

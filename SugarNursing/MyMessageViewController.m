@@ -12,6 +12,7 @@
 @interface MyMessageViewController ()
 {
     NSArray *_serverData;
+    NSInteger _selectIndexRow;
 }
 @end
 
@@ -24,6 +25,18 @@
     _serverData = @[@{@"title":@"审核结果",@"date":@"16:12",@"content":@"您于12/12/01提交的个人资料的修改已经通过审核。",@"image":[UIImage imageNamed:@"103"]},
                     @{@"title":@"系统公告",@"date":@"16:12",@"content":@"一个健康的身体，一份称心的工作，一位知心的爱人，一帮信赖的朋友，一项投入的事业，一种宁静的心境，一份快乐的心情，只是因为：懂得感恩!糖无忌祝您感恩节快乐！",@"image":[UIImage imageNamed:@"100"]}
                     ];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    
+    NSIndexPath *indexPath = [self.myTableView indexPathForSelectedRow];
+    if (indexPath)
+    {
+        [self.myTableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 
@@ -64,11 +77,29 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    
+    _selectIndexRow = indexPath.row;
+    [self performSegueWithIdentifier:@"goMessageInfo" sender:nil];
 }
 
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
+    UIViewController *vc = (UIViewController *)[segue destinationViewController];
+    if (_selectIndexRow == 0)
+    {
+        vc.title = @"审核结果";
+    }
+    else
+    {
+        vc.title = @"系统公告";
+    }
+    
+}
 
+- (IBAction)back:(UIStoryboardSegue *)sender
+{
+    
+}
 
 @end

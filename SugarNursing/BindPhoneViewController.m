@@ -7,10 +7,13 @@
 //
 
 #import "BindPhoneViewController.h"
+#import "UIViewController+Notifications.h"
 
 @interface BindPhoneViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *phoneButtonView;
 @property (weak, nonatomic) IBOutlet UIImageView *passwordButtonView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleYCons;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topYCons;
 
 @end
 
@@ -21,9 +24,45 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    
+    [self registerForKeyboardNotification:@selector(keyBoardWillShow:) :@selector(keyBoardWillHide:)];
+}
+
+- (void)keyBoardWillShow:(NSNotification *)notification
+{
+    
+    CGSize kbSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    CGFloat kbHeight = kbSize.height;
+    
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    
+    if (screenHeight - kbHeight >= 120)
+    {
+        return;
+    }
+    else
+    {
+        self.topYCons.constant = 30;
+        [self.view setNeedsUpdateConstraints];
+        
+        [UIView animateWithDuration:0.4 animations:^{
+            [self.view layoutIfNeeded];
+        }];
+    }
+}
+
+- (void)keyBoardWillHide:(NSNotification *)notaification
+{
+    
+    self.topYCons.constant = 80;
+    [self.view setNeedsUpdateConstraints];
+    
+    [UIView animateWithDuration:0.4 animations:^{
+        [self.view layoutIfNeeded];
+    }];
 }
 
 
@@ -45,13 +84,40 @@
     switch (textField.tag)
     {
         case 101:
-            [self.phoneButtonView setImage:[UIImage imageNamed:@"007"]];
+            [self.phoneButtonView setImage:[UIImage imageNamed:@"004"]];
             break;
         case 102:
-            [self.passwordButtonView setImage:[UIImage imageNamed:@"007"]];
+            [self.passwordButtonView setImage:[UIImage imageNamed:@"004"]];
             break;
     }
 }
+
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    
+    if ([string isEqualToString:@"\n"])
+    {
+        
+        if (textField.tag == 101)
+        {
+            
+            UITextField *tv = (UITextField *)[self.view viewWithTag:102];
+            [tv becomeFirstResponder];
+        }
+        else
+        {
+            [textField resignFirstResponder];
+        }
+        
+        return NO;
+    }
+    
+    return YES;
+}
+
+
+
 - (IBAction)verificationButtonEvent:(id)sender
 {
     [self performSegueWithIdentifier:@"goInputPhone" sender:nil];

@@ -7,15 +7,27 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomLabel.h"
 
 @interface RegistViewController : UIViewController
 
-@property (strong, nonatomic) UITextField *activeField;
+@property (strong, nonatomic) NSString *phoneNumber;
+@property (strong, nonatomic) NSString *areaCode;
 
+@property (weak, nonatomic) IBOutlet CustomLabel *codeField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (weak, nonatomic) IBOutlet UITextField *usernameField;
+
+@property (weak, nonatomic) IBOutlet UIButton *getCodeAginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *genderBtn;
 @property (weak, nonatomic) IBOutlet UIButton *dateBtn;
+@property (weak, nonatomic) IBOutlet UIButton *departmentBtn;
+
+
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
-@property (weak, nonatomic) IBOutlet UIView *genderPicker;
+
+@property (strong, nonatomic) IBOutlet UIView *departmentCustomView;
+@property (weak, nonatomic) IBOutlet UIPickerView *departmentPicker;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollHeight;

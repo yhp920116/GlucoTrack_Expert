@@ -20,6 +20,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *stateLabel;
 
 
-- (void)configureCellWithParameter:(NSDictionary *)parameter;
 
 @end

@@ -56,7 +56,7 @@ static CGFloat cellEstimatedHeight = 200;
     _placeholdLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 6, 300, 20)];
     [_placeholdLabel setFont:[UIFont systemFontOfSize:13]];
     [_placeholdLabel setTextColor:[UIColor lightGrayColor]];
-    [_placeholdLabel setText:@"请输入您的建议"];
+    [_placeholdLabel setText:NSLocalizedString(@"Plese input your advice", nil)];
     [self.serverTextView addSubview:_placeholdLabel];
     
     [[self.serverTextView layer] setBorderColor:[[[UIColor lightGrayColor] colorWithAlphaComponent:0.5] CGColor]];
@@ -109,7 +109,6 @@ static CGFloat cellEstimatedHeight = 200;
 
 - (CGFloat)heightForBasicCellAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%ld",indexPath.row);
     static MsgRecord_Cell *sizingCell = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

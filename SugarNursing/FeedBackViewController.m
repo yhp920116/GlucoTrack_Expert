@@ -22,7 +22,6 @@
     self.myTextView.placeholderColor = [UIColor lightGrayColor];
     [self.myTextView.layer setBorderColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.5].CGColor];
     self.myTextView.layer.borderWidth = 1.0f;
-    NSLog(@"%@",self.myTextView);
 }
 
 

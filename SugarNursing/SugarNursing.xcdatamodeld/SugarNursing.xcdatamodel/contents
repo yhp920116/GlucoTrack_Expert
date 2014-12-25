@@ -1,4 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="13E28" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Patient" syncable="YES">
+        <attribute name="linkManBirthday" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="linkManHeadImageUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="linkManId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="linkManMobilePhone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="linkManRealName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="linkManServLevel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="linkManSex" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="patientStat" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="servStartTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="takeOverDocId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="takeOverDocName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="towDoctorId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="towDoctorName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tubeDoctorId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tubeDoctorName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="UserIdentification" syncable="YES"/>
+    <entity name="UserInfo" syncable="YES">
+        <attribute name="areaId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="areaName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="birthday" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="departmentId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="departmentName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="engName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="expertLevel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="expertLevelName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="exptId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="exptName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="headimageUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hospitalId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hospitalName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="identifyCard" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="intro" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobilePhone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="realName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="registerTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sex" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skilled" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updateTime" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Patient" positionX="-63" positionY="-18" width="128" height="270"/>
+        <element name="UserIdentification" positionX="-54" positionY="108" width="128" height="45"/>
+        <element name="UserInfo" positionX="-36" positionY="117" width="128" height="375"/>
+    </elements>
 </model>

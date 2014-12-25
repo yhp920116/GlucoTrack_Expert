@@ -7,6 +7,12 @@
 */
 
 
+/* hub */
+"loading.." = "载入中..";
+"Login.." = "登录中..";
+"Error" = "错误";
+"Dismiss" = "取消";
+
 /* Left Menu */
 "Home" = "主页";
 "My Patient" = "我的病人";
@@ -17,9 +23,34 @@
 "System Set" = "系统设置";
 "Log Out" = "退出登录";
 
-/* Home Section */
+/* Login Section */
+
+"Register" = "手机注册";
+"Registering..." = "注册中...";
+"Reset" = "重设密码";
+"hongkong" = "香港";
 
 
+"notice"="提示";
+"errorphonenumber"="手机号码非法，请重新填写";
+"sure"="确定";
+
+"willsendthecodeto"="我们将发送验证码短信到这个号码";
+"surephonenumber"="确认手机号码";
+"cancel"="取消";
+
+"codesenderrormsg"="验证码发送失败 请稍后重试";
+"codesenderrtitle"="发送失败";
+
+"maxcodemsg"="请求验证码超上限 请稍后重试";
+"maxcode"="超过上限";
+
+"codetoooftenmsg"="客户端请求发送短信验证过于频繁";
+
+"countrychoose"="选择国家或地区";
+"choosegender"="选择性别";
+"female"="女";
+"male"="男";
 
 /* My Paitent Section */
 "Single Patient" = "单个病人";
@@ -38,6 +69,8 @@
 
 
 "Read recovery log" = "查看康复日志";
+
+"Plese input your advice" = "请输入您的建议";
 
 
 /* My Hosting & Takeover  Section */
@@ -73,7 +106,7 @@
 "Submitted Successfully" = "已提交成功,请耐心等待审核";
 
 
-"Your information is under review" = "您的资料正在审核中,无法进行编辑修改";
+"Your information is under review" = "   您的资料正在审核中,无法进行编辑修改";
 
 
 "Please input your feed back" = "请输入您的反馈";
@@ -85,6 +118,9 @@
 "Reset password" = "重设密码";
 "Reset telephone" = "重新绑定手机号";
 
+"Verification code has been sent" = "验证码已发送";
+
+"Authentication is successful" = "验证成功";
 
 
 

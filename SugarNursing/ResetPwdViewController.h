@@ -10,4 +10,8 @@
 
 @interface ResetPwdViewController : UIViewController
 
+
+@property (strong, nonatomic) NSString *areaCode;
+@property (strong, nonatomic) NSString *phoneNumber;
+
 @end

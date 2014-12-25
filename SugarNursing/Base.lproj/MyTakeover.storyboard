@@ -11,11 +11,11 @@
         <scene sceneID="bkc-MZ-Q5l">
             <objects>
                 <navigationController storyboardIdentifier="MyTakeoverNav" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2NG-CE-z0C" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0kz-LW-S55">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="0kz-LW-S55">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.17254901959999999" green="0.49019607840000001" blue="0.77647058820000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.0" green="0.25098039220000001" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -370,7 +370,13 @@
                             <constraint firstItem="W3W-6O-rTe" firstAttribute="width" secondItem="oXd-mE-VEJ" secondAttribute="width" id="xdQ-vP-sr5"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Send Hosting" id="EhI-5Y-k9p"/>
+                    <navigationItem key="navigationItem" title="Send Hosting" id="EhI-5Y-k9p">
+                        <barButtonItem key="leftBarButtonItem" image="005" id="zxV-aO-cER">
+                            <connections>
+                                <segue destination="urC-P6-0SR" kind="unwind" unwindAction="back:" id="aa2-X1-dHU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="datePicker" destination="YTd-7y-wkV" id="ge5-W6-i2u"/>
                         <outlet property="personPicker" destination="M84-b6-gak" id="VJm-wE-Lyu"/>
@@ -382,6 +388,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x3z-7c-ln5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="urC-P6-0SR" userLabel="Exit" sceneMemberID="exit"/>
                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" id="YTd-7y-wkV">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="162"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -556,14 +563,14 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TakeoverStandby_Cell" rowHeight="120" id="Lwa-7o-re0" customClass="TakeoverStandby_Cell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TakeoverStandby_Cell" rowHeight="130" id="Lwa-7o-re0" customClass="TakeoverStandby_Cell">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lwa-7o-re0" id="M0M-39-35h">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ynZ-HT-xg2">
-                                                    <rect key="frame" x="300" y="84" width="130" height="30"/>
+                                                    <rect key="frame" x="300" y="87" width="130" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="130" id="RHy-kg-qUf"/>
@@ -578,7 +585,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hkm-lO-Xc5">
-                                                    <rect key="frame" x="170" y="84" width="130" height="30"/>
+                                                    <rect key="frame" x="170" y="87" width="130" height="30"/>
                                                     <color key="backgroundColor" red="1" green="0.100393671" blue="0.31890950709999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="EuW-eY-kKU"/>
@@ -593,7 +600,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="584" translatesAutoresizingMaskIntoConstraints="NO" id="ITD-jL-hs1">
-                                                    <rect key="frame" x="16" y="25" width="576" height="17"/>
+                                                    <rect key="frame" x="16" y="13" width="576" height="69"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -603,9 +610,10 @@
                                                 <constraint firstAttribute="trailing" secondItem="ITD-jL-hs1" secondAttribute="trailing" constant="8" id="0VI-Ck-pTA"/>
                                                 <constraint firstAttribute="centerX" secondItem="ynZ-HT-xg2" secondAttribute="centerX" constant="-65" id="7E1-Cn-9Pv"/>
                                                 <constraint firstItem="ITD-jL-hs1" firstAttribute="leading" secondItem="M0M-39-35h" secondAttribute="leadingMargin" constant="8" id="Cnq-bg-Gw8"/>
+                                                <constraint firstItem="ynZ-HT-xg2" firstAttribute="top" secondItem="ITD-jL-hs1" secondAttribute="bottom" constant="5" id="PMS-yh-dm8"/>
                                                 <constraint firstItem="ynZ-HT-xg2" firstAttribute="leading" secondItem="hkm-lO-Xc5" secondAttribute="trailing" id="RKd-gE-tkF"/>
-                                                <constraint firstAttribute="bottom" secondItem="ynZ-HT-xg2" secondAttribute="bottom" constant="5" id="TIc-CE-brQ"/>
-                                                <constraint firstItem="ITD-jL-hs1" firstAttribute="top" secondItem="M0M-39-35h" secondAttribute="topMargin" constant="17" id="ywO-5b-frT"/>
+                                                <constraint firstAttribute="bottom" secondItem="ynZ-HT-xg2" secondAttribute="bottom" constant="12" id="TIc-CE-brQ"/>
+                                                <constraint firstItem="ITD-jL-hs1" firstAttribute="top" secondItem="M0M-39-35h" secondAttribute="topMargin" constant="5" id="ywO-5b-frT"/>
                                                 <constraint firstItem="ynZ-HT-xg2" firstAttribute="centerY" secondItem="hkm-lO-Xc5" secondAttribute="centerY" id="zSS-yp-gJ8"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -688,6 +696,7 @@
     </scenes>
     <resources>
         <image name="003" width="227" height="7"/>
+        <image name="005" width="12" height="11"/>
         <image name="008" width="12" height="12"/>
         <image name="tabBarHosting_normal" width="30" height="30"/>
         <image name="tabBarTakeover_normal" width="30" height="30"/>

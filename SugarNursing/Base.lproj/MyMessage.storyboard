@@ -10,11 +10,11 @@
         <scene sceneID="nM2-Ma-YGh">
             <objects>
                 <navigationController storyboardIdentifier="MyMessageNav" useStoryboardIdentifierAsRestorationIdentifier="YES" id="s1D-Iv-dEc" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uRJ-J4-TFK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="uRJ-J4-TFK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.17254901959999999" green="0.49019607840000001" blue="0.77647058820000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.0" green="0.25098039220000001" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -144,14 +144,99 @@
                     </navigationItem>
                     <connections>
                         <outlet property="myTableView" destination="wCV-MF-BxA" id="WZc-Lx-9s6"/>
+                        <segue destination="HQk-ei-YCW" kind="show" identifier="goMessageInfo" id="jg6-PE-fd0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fZG-zG-EDP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="333" y="383"/>
         </scene>
+        <!--系统公告-->
+        <scene sceneID="a8j-gL-Fs6">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="HQk-ei-YCW" customClass="MessageInfoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="M0X-Y5-10h"/>
+                        <viewControllerLayoutGuide type="bottom" id="jrc-Ur-53m"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4Ws-jQ-gnf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="tAC-9h-0Sf">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MsgInfo_Cell" rowHeight="100" id="env-J8-BKN" customClass="MsgInfo_Cell">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="env-J8-BKN" id="kk0-l3-zpB">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2014-12-25 13:24" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XaK-V2-Cnp">
+                                                    <rect key="frame" x="242" y="8" width="116" height="17"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="17" id="4eh-fT-ZVz"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  我的公告内容我是公告内容我的公告内容我是公告内容我的公告内容我是公告内容我的公告内容我是公告内容我的公告内容我是公告内容我的公" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="580" translatesAutoresizingMaskIntoConstraints="NO" id="XoR-Pd-J0g">
+                                                    <rect key="frame" x="10" y="37" width="580" height="43"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="XoR-Pd-J0g" secondAttribute="trailing" constant="10" id="9Mm-Xo-qm4"/>
+                                                <constraint firstItem="XoR-Pd-J0g" firstAttribute="leading" secondItem="kk0-l3-zpB" secondAttribute="leading" constant="10" id="AgV-Dd-pal"/>
+                                                <constraint firstAttribute="bottom" secondItem="XoR-Pd-J0g" secondAttribute="bottom" constant="20" id="IW5-n5-QVb"/>
+                                                <constraint firstItem="XoR-Pd-J0g" firstAttribute="top" secondItem="XaK-V2-Cnp" secondAttribute="bottom" constant="12" id="Z5s-N3-GWd"/>
+                                                <constraint firstItem="XaK-V2-Cnp" firstAttribute="top" secondItem="kk0-l3-zpB" secondAttribute="topMargin" id="inq-yv-P7z"/>
+                                                <constraint firstAttribute="centerX" secondItem="XaK-V2-Cnp" secondAttribute="centerX" id="jIh-yW-D8C"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="contentLabel" destination="XoR-Pd-J0g" id="YCi-0g-yg5"/>
+                                            <outlet property="dateLabel" destination="XaK-V2-Cnp" id="Oqc-CI-oJQ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="HQk-ei-YCW" id="xHt-RA-K79"/>
+                                    <outlet property="delegate" destination="HQk-ei-YCW" id="hdL-Ot-lv2"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="tAC-9h-0Sf" firstAttribute="leading" secondItem="4Ws-jQ-gnf" secondAttribute="leading" id="J80-48-rtI"/>
+                            <constraint firstItem="tAC-9h-0Sf" firstAttribute="top" secondItem="M0X-Y5-10h" secondAttribute="bottom" id="jwL-ux-TJu"/>
+                            <constraint firstItem="jrc-Ur-53m" firstAttribute="top" secondItem="tAC-9h-0Sf" secondAttribute="bottom" id="kyC-yq-GNW"/>
+                            <constraint firstAttribute="trailing" secondItem="tAC-9h-0Sf" secondAttribute="trailing" id="vQg-5g-g1X"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="系统公告" id="eNh-tx-q4h">
+                        <barButtonItem key="leftBarButtonItem" image="005" id="WsC-cz-xWG">
+                            <connections>
+                                <segue destination="pAj-kg-Ow5" kind="unwind" unwindAction="back:" id="bSU-J9-qWJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="myTableView" destination="tAC-9h-0Sf" id="SU3-tq-79T"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M3V-hV-aYf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="pAj-kg-Ow5" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1045" y="380"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="005" width="12" height="11"/>
         <image name="100" width="60" height="60"/>
     </resources>
 </document>

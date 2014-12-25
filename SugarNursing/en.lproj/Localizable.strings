@@ -7,6 +7,14 @@
 */
 
 
+
+
+/* hub */
+"loading.." = "loading..";
+"Login.." = "Login..";
+"Error" = "Error";
+"Dismiss" = "Dismiss";
+
 /* Left Menu */
 "Home" = "Home";
 "My Patient" = "My Patient";
@@ -16,6 +24,34 @@
 "Member Center" = "Member Center";
 "Service Center" = "Service Center";
 "Log Out" = "Log Out";
+
+
+/* Login Section */
+"Register" = "Register";
+"Registering..." = "Registering...";
+"Reset" = "Reset";
+"hongkong" = "HongKong";
+
+"notice"="Notice";
+"errorphonenumber"="Phone number is invalid";
+"sure"="Sure";
+
+"willsendthecodeto"="We will send the code to the phone";
+"surephonenumber"="Make sure the number";
+"cancel"="Cancel";
+
+"codesenderrormsg"="The code send fail try again later";
+"codesenderrtitle"="Send Fail";
+
+"maxcodemsg"="The code is up the max limit";
+"maxcode"="Up max limit";
+
+"codetoooftenmsg"="The request is too often";
+
+"countrychoose"="Choose the country";
+"choosegender"="Choose gender";
+"female"="Female";
+"male"="Male";
 
 /* My Patient Section */
 "Single Patient" = "Single Patient";
@@ -36,7 +72,7 @@
 "Read recovery log" = "Read recovery log";
 
 
-
+"Plese input your advice" = "Plese input your advice";
 
 /* My Hosting & Takeover  Section */
 "You receive entrust successfully" = "You receive entrust successfully";
@@ -87,5 +123,6 @@
 "Reset password" = "Reset password";
 "Reset telephone" = "Reset telephone";
 
+"Verification code has been sent" = "Verification code has been sent";
 
-
+"Authentication is successful" = "Authentication is successful";

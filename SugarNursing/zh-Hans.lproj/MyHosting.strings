@@ -24,7 +24,7 @@
 "K5T-v4-SAB.normalTitle" = "选择";
 
 /* Class = "IBUIButton"; normalTitle = "Refuse"; ObjectID = "MFc-py-pRp"; */
-"MFc-py-pRp.normalTitle" = "拒绝";
+"MFc-py-pRp.normalTitle" = "拒绝接管";
 
 /* Class = "IBUIBarButtonItem"; title = "Menu"; ObjectID = "R27-Rd-IXH"; */
 "R27-Rd-IXH.title" = "菜单";

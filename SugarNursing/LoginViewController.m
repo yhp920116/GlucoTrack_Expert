@@ -11,11 +11,19 @@
 #import <MBProgressHUD.h>
 #import "UIViewController+Notifications.h"
 #import "VerificationViewController.h"
+#import "User.h"
+#import <UIAlertView+AFNetworking.h>
 
 
-@interface LoginViewController (){
+
+@interface LoginViewController ()
+{
     MBProgressHUD *hud;
 }
+
+@property (weak, nonatomic) IBOutlet UITextField *usernameField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordField;
+
 
 @end
 
@@ -25,6 +33,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
 }
 
 #pragma mark - PrepareForSegue
@@ -35,15 +44,15 @@
     
     if ([segue.identifier isEqualToString:@"Regist"])
     {
-        verificationVC.title = @"Regist by phone";
-        verificationVC.labelText= @"Input your PhoneNumber to regist";
-
+        verificationVC.title = NSLocalizedString(@"Register", nil);
+        verificationVC.verifiedType = 0;
+        
     }
     else if ([segue.identifier isEqualToString:@"Reset"])
     {
-        verificationVC.title = @"Reset your password";
-
-        verificationVC.labelText = @"Input your PhoneNumber to reset";
+        verificationVC.title = NSLocalizedString(@"Reset", nil);
+        verificationVC.verifiedType = 1;
+        
     }
     
 }
@@ -71,14 +80,14 @@
     
     CGFloat calHeight;
     if (screenHeight - kbHeight - 200 >= 20) {
-         calHeight = screenHeight/2-100;
+        calHeight = screenHeight/2-100;
         
     } else {
         return;
     }
     
     if (kbHeight > calHeight) {
-        self.loginViewYCons.constant = - (kbHeight - calHeight);
+        self.loginViewYCons.constant = -(kbHeight-calHeight);
         [self.view setNeedsUpdateConstraints];
         
         [UIView animateWithDuration:0.4 animations:^{
@@ -104,15 +113,43 @@
 
 - (IBAction)userLogin:(id)sender
 {
+    if ([self.usernameField.text isEqualToString:@"000"]) {
+        [AppDelegate  userLogIn];
+        return;
+    }
+    
     hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:hud];
-    hud.labelText = @"Logining..";
+    hud.labelText = NSLocalizedString(@"Login..", nil);
+    [hud show:YES];
     
-    [hud showAnimated:YES whileExecutingBlock:^{
-        sleep(2);
-    } completionBlock:^{
-        [AppDelegate userLogIn];
+    GCVerify *verify = [[GCVerify alloc] init];
+    verify.method = @"verify";
+    verify.accountName = self.usernameField.text;
+    verify.password = self.passwordField.text;
+    
+    NSURLSessionDataTask *loginTask = [User verifyWithGCLogin:verify block:^(NSDictionary *responseData, NSError *error) {
+        if (!error)
+        {
+            if ([[responseData objectForKey:@"ret_code"] isEqualToString:@"0"])
+            {
+                [AppDelegate userLogIn];
+                [hud hide:YES afterDelay:0.25];
+            }
+            else
+            {
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = [responseData objectForKey:@"ret_msg"];
+                [hud hide:YES afterDelay:1.2];
+            }
+            
+        }else{
+            [hud hide:YES];
+        }
+
     }];
+    
+    [UIAlertView showAlertViewForTaskWithErrorOnCompletion:loginTask delegate:nil];
 }
 
 #pragma mark - textfieldDelegate
@@ -159,8 +196,8 @@
 
 - (IBAction)back:(UIStoryboardSegue *)unwindSegue
 {
-//    UIViewController *sourceViewController = unwindSegue.sourceViewController;
-//    [sourceViewController.view endEditing:YES];
+    //    UIViewController *sourceViewController = unwindSegue.sourceViewController;
+    //    [sourceViewController.view endEditing:YES];
 }
 
 

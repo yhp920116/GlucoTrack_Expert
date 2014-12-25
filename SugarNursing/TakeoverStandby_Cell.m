@@ -26,7 +26,9 @@
 
 - (void)layoutSubviews
 {
+    [super layoutSubviews];
     
+    self.contentLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.contentLabel.bounds);
 }
 
 - (void)configureCellWithContent:(NSString *)contentString acceptBlock:(void(^)(TakeoverStandby_Cell *cell))block1 refuseBlock:(void(^)(TakeoverStandby_Cell *cell))block2

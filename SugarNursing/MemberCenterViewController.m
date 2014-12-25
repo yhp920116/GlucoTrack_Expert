@@ -162,7 +162,7 @@ typedef enum
                                                        reuseIdentifier:@"LogoutCell"];
         [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
         cell.textLabel.font = [UIFont systemFontOfSize:15];
-        cell.backgroundColor = [UIColor redColor];
+        cell.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:128.0/255.0 blue:0.0/255.0 alpha:1];
         cell.textLabel.text = NSLocalizedString(@"Log out", nil);
         
         
@@ -184,10 +184,6 @@ typedef enum
             cell.textLabel.font = [UIFont systemFontOfSize:15];
         }
         
-        if (indexPath.section == 0)
-        {
-            NSLog(@"%@",cell);
-        }
         
         return cell;
     }
@@ -285,5 +281,12 @@ typedef enum
                                            context:nil].size;
     return textSize;
 }
+
+
+- (IBAction)back:(UIStoryboardSegue *)segue
+{
+    
+}
+
 
 @end

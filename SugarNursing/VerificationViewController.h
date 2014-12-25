@@ -2,18 +2,26 @@
 //  VerificationViewController.h
 //  SugarNursing
 //
-//  Created by Dan on 14-11-14.
+//  Created by Dan on 14-12-16.
 //  Copyright (c) 2014年 Tisson. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomLabel.h"
 
-@interface VerificationViewController : UIViewController
 
-@property (strong, nonatomic) NSString *labelText;
+typedef NS_ENUM(NSInteger, VerifiedType) {
+    VerifiedTypeRegister = 0,
+    VerifiedTypeReset = 1,
+};
 
-@property (weak, nonatomic) IBOutlet UILabel *topLabel;
-@property (weak, nonatomic) IBOutlet UIButton *registBtn;
-@property (weak, nonatomic) IBOutlet UIButton *resetPwdBtn;
+@interface VerificationViewController : UITableViewController
+
+@property (assign, nonatomic) VerifiedType verifiedType;
+@property (weak, nonatomic) IBOutlet CustomLabel *countryLabel;
+@property (weak, nonatomic) IBOutlet UILabel *areaCodeLabel;
+@property (weak, nonatomic) IBOutlet UITextField *phoneField;
+@property (weak, nonatomic) IBOutlet UIButton *verifiedLabel;
+
 
 @end

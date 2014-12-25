@@ -8,9 +8,12 @@
 
 #import "RecoveryLogViewController.h"
 #import <MBProgressHUD.h>
+#import "RecoveryLog_Cell.h"
 
 
-static NSString *recoveryCellIdentifier = @"RecoveryLogCell";
+static CGFloat kEstimateCellHeight = 100.0;
+
+static NSString *identifier = @"RecoveryLog_Cell";
 
 
 typedef enum{
@@ -25,6 +28,7 @@ typedef enum{
     
     NSArray *_serverArray;
 }
+@property (weak, nonatomic) IBOutlet UIView *filtrateView;
 
 @end
 
@@ -42,10 +46,11 @@ typedef enum{
                       @{@"date":@"18:30",@"title":@"晚餐",@"content":@[@"共摄入266大卡",@"主食 米饭 100克 116大卡",@"黄瓜炒蛋 200克 150大卡"]},
                       @{@"date":@"21:30",@"title":@"服药",@"content":@[@"降糖药 格列齐特 不服药/口服 80毫克"]}
                       ];
-    _serverArray = [NSArray arrayWithArray:data];
     
-    self.myTableView.tableFooterView = nil;
+    _serverArray = [NSArray arrayWithArray:data];
 }
+
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -53,84 +58,55 @@ typedef enum{
     return _serverArray.count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return kEstimateCellHeight;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    NSArray *contentArray = [[_serverArray objectAtIndex:indexPath.row] objectForKey:@"content"];
-    return contentArray.count * 18 + 20;
+    return [self heightForRecoveryLogCellWithIndexPath:indexPath];
 }
+
+- (CGFloat)heightForRecoveryLogCellWithIndexPath:(NSIndexPath *)indexPath
+{
+    static RecoveryLog_Cell *calCell = nil;
+    static dispatch_once_t one;
+    dispatch_once(&one, ^{
+        calCell = [self.myTableView dequeueReusableCellWithIdentifier:identifier];
+        
+        calCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.view.bounds), kEstimateCellHeight);
+        calCell.contentView.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.view.bounds), kEstimateCellHeight);
+        
+        [calCell.contentView setNeedsLayout];
+        [calCell.contentView layoutIfNeeded];
+    });
+    
+    [calCell configureCell:_serverArray[indexPath.row]];
+    
+    return [self calculateCellHeightWithCell:calCell];
+}
+
+- (CGFloat)calculateCellHeightWithCell:(RecoveryLog_Cell *)calCell
+{
+    
+    [calCell setNeedsLayout];
+    [calCell layoutIfNeeded];
+    
+    CGSize size = [calCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    
+    return size.height + 1;
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    RecoveryLog_Cell *cell = (RecoveryLog_Cell *)[self.myTableView dequeueReusableCellWithIdentifier:identifier];
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:recoveryCellIdentifier];
-    
-    if (!cell)
-    {
-        cell = [self configureRecoveryLogCell];
-    }
-    
-    [self setupRecoveryCell:cell indexPath:indexPath];
-    
+    [cell configureCell:_serverArray[indexPath.row]];
     return cell;
 }
 
-
-- (UITableViewCell *)configureRecoveryLogCell
-{
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                                   reuseIdentifier:recoveryCellIdentifier];
-    
-    UILabel *dateLabel = [[UILabel alloc] init];
-    [dateLabel setFrame:CGRectMake(10,
-                                   2,
-                                   50,
-                                   40)];
-    [dateLabel setFont:[UIFont systemFontOfSize:14]];
-    [dateLabel setTag:RecoveryCellItemTagDateLabel];
-    [cell addSubview:dateLabel];
-    
-    UILabel *titleLabel = [[UILabel alloc] init];
-    [titleLabel setFrame:CGRectMake(dateLabel.frame.origin.x + dateLabel.frame.size.width + 5,
-                                  dateLabel.frame.origin.y,
-                                  80,
-                                  40)];
-    [titleLabel setFont:[UIFont systemFontOfSize:14]];
-    [titleLabel setTag:RecoveryCellItemTagTitleLabel];
-    [cell addSubview:titleLabel];
-    
-    
-    UILabel *detailLabel = [[UILabel alloc] init];
-    [detailLabel setTag:RecoveryCellItemTagDetailLabel];
-    [detailLabel setFont:[UIFont systemFontOfSize:13]];
-    [cell addSubview:detailLabel];
-    
-    return cell;
-}
-
-
-- (void)setupRecoveryCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath
-{
-    NSDictionary *dataDic = _serverArray[indexPath.row];
-    
-    UILabel *dateLabel = (UILabel *)[cell viewWithTag:RecoveryCellItemTagDateLabel];
-    dateLabel.text = [dataDic objectForKey:@"date"];
-    
-    UILabel *titleLabel = (UILabel *)[cell viewWithTag:RecoveryCellItemTagTitleLabel];
-    titleLabel.text = [dataDic objectForKey:@"title"];
-    
-    NSArray *contentArray = [dataDic objectForKey:@"content"];
-    UILabel *detailLabel = (UILabel *)[cell viewWithTag:RecoveryCellItemTagDetailLabel];
-    detailLabel.numberOfLines = contentArray.count;
-    detailLabel.text = [contentArray componentsJoinedByString:@"\n"];
-    
-    CGFloat maxLength = CGRectGetWidth(self.view.bounds) - titleLabel.frame.origin.x - titleLabel.frame.size.width -20;
-    
-    [detailLabel setFrame:CGRectMake(titleLabel.frame.origin.x + titleLabel.frame.size.width +10,
-                                    titleLabel.frame.origin.y + 10,
-                                    maxLength,
-                                    contentArray.count * 18)];
-}
 
 - (IBAction)selectDateButtonEvent:(id)sender
 {
@@ -149,18 +125,52 @@ typedef enum{
     [hud hide:YES];
 }
 
-
-#pragma mark  -  根据string计算label大小
-- (CGSize)sizeWithString:(NSString*)string font:(UIFont *)font maxSize:(CGSize)maxSize
+- (IBAction)filtrateButtonEvent:(id)sender
 {
-    NSDictionary *attribute = @{NSFontAttributeName: font};
     
-    CGSize textSize = [string boundingRectWithSize:maxSize
-                                           options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                        attributes:attribute
-                                           context:nil].size;
-    return textSize;
+    hud = [[MBProgressHUD alloc] initWithView:self.view];
+    hud.mode = MBProgressHUDModeCustomView;
+    hud.customView = self.filtrateView;
+    [self.view addSubview:hud];
+    
+    [hud show:YES];
 }
 
+
+
+- (IBAction)selectFiltrateListButton:(UIButton *)sender
+{
+    
+    if ([sender.currentImage isEqual:[UIImage imageNamed:@"CheckBoxY"]])
+    {
+        sender.imageView.image = [UIImage imageNamed:@"CheckBoxN"];
+        [sender setImage:[UIImage imageNamed:@"CheckBoxN"]
+                forState:UIControlStateNormal];
+    }
+    else
+    {
+        [sender setImage:[UIImage imageNamed:@"CheckBoxY"]
+                forState:UIControlStateNormal];
+    }
+}
+
+- (IBAction)selectFiltrateListBottomButton:(id)sender
+{
+    UIButton *button = (UIButton *)sender;
+    if (button.tag == 1)    //取消
+    {
+        [hud hide:YES];
+    }
+    else    //确定
+    {
+        [hud hide:YES];
+    }
+}
+
+
+- (IBAction)back:(UIStoryboardSegue *)sender
+{
+    
+}
 
 @end

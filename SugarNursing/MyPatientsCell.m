@@ -15,11 +15,6 @@
 }
 
 
-- (void)configureCellWithParameter:(NSDictionary *)parameter
-{
-    
-}
-
 
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -192,6 +192,7 @@ static NSInteger rowCount = 10;
         
     } completionBlock:^{
         
+        [self.navigationController popViewControllerAnimated:YES];
     }];
 }
 
@@ -213,6 +214,7 @@ static NSInteger rowCount = 10;
 {
     static NSString *identifier = @"SelectPersonCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    
     if (self.isSelectPatient)
     {
         
@@ -264,16 +266,20 @@ static NSInteger rowCount = 10;
 - (BOOL)judgeCellIsSelectWithIndex:(NSIndexPath *)indexPath
 {
     
-    for (NSNumber *selectRowNum in _selectRowArray)
-    {
-        NSInteger selectRow = [selectRowNum integerValue];
-        if (selectRow == indexPath.row)
-        {
-            return YES;
-        }
-    }
+    __block BOOL isSelect = NO;
+    __block NSIndexPath *index = indexPath;
     
-    return NO;
+    [_selectRowArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSNumber *number = (NSNumber *)obj;
+        NSInteger selectRow = [number integerValue];
+        if (selectRow == index.row)
+        {
+            isSelect = YES;
+        }
+    }];
+    
+    
+    return isSelect;
 }
 
 

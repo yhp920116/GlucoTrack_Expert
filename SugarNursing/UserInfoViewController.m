@@ -57,10 +57,16 @@ typedef enum{
 
 
 @interface UserInfoViewController ()
+<
+UIActionSheetDelegate,
+UIImagePickerControllerDelegate,
+UINavigationControllerDelegate
+>
 {
     MBProgressHUD *hud;
     
-    NSMutableArray *departmentsArray;
+    NSArray *_departmentsArray;
+    
     
     
     CGSize territoryTextViewSize;
@@ -71,6 +77,7 @@ typedef enum{
 @property (nonatomic, assign) BOOL editing;
 
 @property (nonatomic, strong) UIView *activeView;
+@property (nonatomic, strong) UIActionSheet *sheet;
 
 @end
 
@@ -83,30 +90,38 @@ typedef enum{
     
     
     
-    departmentsArray = [NSMutableArray array];
+    _departmentsArray = [NSMutableArray array];
+    _departmentsArray = @[@{@"componentTitle":@"内科",@"content":@[@"神经内科",@"呼吸内科",@"心内科",@"肾内科",@"普通内科"]
+                            },
+                          @{@"componentTitle":@"外科",@"content":@[@"皮肤科",@"五官科",@"普通外科"]
+                            }];
     
-    NSMutableDictionary *componentDic = [NSMutableDictionary dictionary];
-    [componentDic setObject:@"内科" forKey:@"componentTitle"];
-    
-    NSMutableArray *rowArray = [NSMutableArray array];
-    [rowArray addObject:@"神经内科"];
-    [rowArray addObject:@"呼吸内科"];
-    [rowArray addObject:@"心内科"];
-    [rowArray addObject:@"肾内科"];
-    [rowArray addObject:@"普通内科"];
-    [componentDic setObject:rowArray forKey:@"content"];
-    [departmentsArray addObject:componentDic];
-    
-    componentDic = [NSMutableDictionary dictionary];
-    [componentDic setObject:@"外科" forKey:@"componentTitle"];
-    
-    rowArray = [NSMutableArray array];
-    [rowArray addObject:@"皮肤科"];
-    [rowArray addObject:@"五官科"];
-    [rowArray addObject:@"普通外科"];
-    
-    [componentDic setObject:rowArray forKey:@"content"];
-    [departmentsArray addObject:componentDic];
+//    NSMutableDictionary *componentDic = [NSMutableDictionary dictionary];
+//    
+//    
+//    
+//    
+//    [componentDic setObject:@"内科" forKey:@"componentTitle"];
+//    
+//    NSMutableArray *rowArray = [NSMutableArray array];
+//    [rowArray addObject:@"神经内科"];
+//    [rowArray addObject:@"呼吸内科"];
+//    [rowArray addObject:@"心内科"];
+//    [rowArray addObject:@"肾内科"];
+//    [rowArray addObject:@"普通内科"];
+//    [componentDic setObject:rowArray forKey:@"content"];
+//    [_departmentsArray addObject:componentDic];
+//    
+//    componentDic = [NSMutableDictionary dictionary];
+//    [componentDic setObject:@"外科" forKey:@"componentTitle"];
+//    
+//    rowArray = [NSMutableArray array];
+//    [rowArray addObject:@"皮肤科"];
+//    [rowArray addObject:@"五官科"];
+//    [rowArray addObject:@"普通外科"];
+//    
+//    [componentDic setObject:rowArray forKey:@"content"];
+//    [_departmentsArray addObject:componentDic];
     
     
     
@@ -176,13 +191,13 @@ typedef enum{
 {
     if (component == 0)
     {
-        return departmentsArray.count;
+        return _departmentsArray.count;
     }
     else
     {
         NSInteger selectRowLeft = [pickerView selectedRowInComponent:0];
         
-        NSArray *rowArray = [[departmentsArray objectAtIndex:selectRowLeft] objectForKey:@"content"];
+        NSArray *rowArray = [[_departmentsArray objectAtIndex:selectRowLeft] objectForKey:@"content"];
         return rowArray.count;
     }
 }
@@ -192,14 +207,14 @@ typedef enum{
     
     if (component == 0)
     {
-        NSDictionary *department = [departmentsArray objectAtIndex:row];
+        NSDictionary *department = [_departmentsArray objectAtIndex:row];
         NSString *componentTitle = [department objectForKey:@"componentTitle"];
         return componentTitle;
     }
     else
     {
         NSInteger selectRowLeft = [pickerView selectedRowInComponent:0];
-        NSDictionary *department = [departmentsArray objectAtIndex:selectRowLeft];
+        NSDictionary *department = [_departmentsArray objectAtIndex:selectRowLeft];
         NSArray *rowArray = [department objectForKey:@"content"];
         NSString *title = [rowArray objectAtIndex:row];
         return title;
@@ -223,7 +238,7 @@ typedef enum{
     NSInteger selectRow = [self.departmentsPicker selectedRowInComponent:1];
     
     
-    NSDictionary *department = [departmentsArray objectAtIndex:selectComponent];
+    NSDictionary *department = [_departmentsArray objectAtIndex:selectComponent];
     NSArray *rowArray = [department objectForKey:@"content"];
     NSString *title = [rowArray objectAtIndex:selectRow];
     
@@ -276,6 +291,7 @@ typedef enum{
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    
     if (self.editing)
     {
         return 2;
@@ -284,8 +300,6 @@ typedef enum{
     {
         return 1;
     }
-    
-//    return self.editing ? 2 : 1;
 }
 
 
@@ -361,6 +375,7 @@ typedef enum{
                 case TableViewCellRowGender:        [self selectActualNameCellEvent];    break;
                 case TableViewCellRowDateOfBirth:   [self selectDateOfBirthCellEvent];   break;
                 case TableViewCellRowDepartments:   [self selectDepartmentsCellEvent];   break;
+                case TableViewCellRowUserImage:     [self selectUserImageCellEvent];     break;
                 default:
                     break;
             }
@@ -861,8 +876,7 @@ typedef enum{
                                size.height)];
 }
 
-
-#pragma mark - 设置标题label
+#pragma mark 设置标题label
 - (void)setTitleItemWithCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath
 {
     
@@ -877,7 +891,7 @@ typedef enum{
     [cell addSubview:titleLabel];
 }
 
-#pragma mark - 设置透明指示器
+#pragma mark 设置透明指示器
 - (void)setLucencyIndicatorWithCell:(UITableViewCell *)cell
 {
     
@@ -893,26 +907,77 @@ typedef enum{
 
 #pragma mark - Cell点击事件
 
-#pragma mark 提交审批
-- (void)selectUploadRequestCellEvent
+
+#pragma mark 用户头像
+- (void)selectUserImageCellEvent
 {
     
-    hud = [[MBProgressHUD alloc] init];
-    [self.view addSubview:hud];
     
-    [hud showAnimated:YES whileExecutingBlock:^{
-        sleep(2);
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
         
-        hud.mode = MBProgressHUDModeText;
-        hud.labelText = NSLocalizedString(@"Submitted Successfully", nil);
-        sleep(1);
+        self.sheet = [[UIActionSheet alloc] initWithTitle:@"选择图片"
+                                                 delegate:self
+                                        cancelButtonTitle:nil
+                                   destructiveButtonTitle:@"取消"
+                                        otherButtonTitles:@"拍照",@"从相册选取",nil];
+        self.sheet.tag = 101;
+    }
+    else
+    {
+        self.sheet = [[UIActionSheet alloc] initWithTitle:@"选择图片"
+                                                 delegate:self
+                                        cancelButtonTitle:nil
+                                   destructiveButtonTitle:@"取消"
+                                        otherButtonTitles:@"从相册选取",nil];
+        self.sheet.tag = 102;
+    }
+    
+    self.sheet.delegate = self;
+    [self.sheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    
+    if (self.sheet.tag == 101)
+    {
         
-    } completionBlock:^{
-        isChecking = YES;
-        self.editing = NO;
-        [self.mainTableView reloadData];
-        
-    }];
+        switch (buttonIndex)
+        {
+            case 0:
+                return;
+            case 1:
+                picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                break;
+            default:
+                picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                break;
+        }
+    }
+    else
+    {
+        if (buttonIndex == 0)
+        {
+            return;
+        }
+        else
+        {
+            
+            picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        }
+    }
+    
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -982,6 +1047,29 @@ typedef enum{
 
 
 
+#pragma mark 提交审批
+- (void)selectUploadRequestCellEvent
+{
+    
+    hud = [[MBProgressHUD alloc] init];
+    [self.view addSubview:hud];
+    
+    [hud showAnimated:YES whileExecutingBlock:^{
+        sleep(2);
+        
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = NSLocalizedString(@"Submitted Successfully", nil);
+        sleep(1);
+        
+    } completionBlock:^{
+        isChecking = YES;
+        self.editing = NO;
+        [self.mainTableView reloadData];
+        
+    }];
+}
+
+
 
 #pragma mark - 编辑按钮事件
 - (IBAction)editButtonEvent:(id)sender
@@ -1047,20 +1135,21 @@ typedef enum{
         
         switch (i)
         {
-            case TableViewCellRowUserImage:   [self normalCellAnimationBegin:i];      break;
             case TableViewCellRowGender:      [self normalCellAnimationBegin:i];      break;
             case TableViewCellRowDateOfBirth: [self normalCellAnimationBegin:i];      break;
             case TableViewCellRowDepartments: [self normalCellAnimationBegin:i];      break;
             case TableViewCellRowTerritory:   [self territoryCellAnimationBegin];     break;
             case TableViewCellRowActualName:  [self actualNameCellAnimationBegin];    break;
-            case TableViewCellRowRank:        break;
-            case TableViewCellRowID:          break;
+            case TableViewCellRowRank:        [self normalCellAnimationBegin:i];      break;
+            case TableViewCellRowID:          [self normalCellAnimationBegin:i];      break;
+            case TableViewCellRowUserImage:   break;
             default:    break;
         }
     }
 }
 
 
+//
 - (void)normalCellAnimationBegin:(NSInteger)row
 {
     
@@ -1085,8 +1174,10 @@ typedef enum{
             [label setTextAlignment:NSTextAlignmentRight];
             
             [UIView animateWithDuration:kAnimationDurantion/2 animations:^{
-                
-                [label setTextColor:[UIColor blackColor]];
+                if (row != TableViewCellRowRank && row != TableViewCellRowID)
+                {
+                    [label setTextColor:[UIColor blackColor]];
+                }
                 
                 //label显现
                 CGRect rect = label.frame;
