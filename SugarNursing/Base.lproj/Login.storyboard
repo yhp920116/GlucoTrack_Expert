@@ -764,6 +764,7 @@
                     </view>
                     <connections>
                         <outlet property="codeField" destination="MoL-Nl-X0q" id="x5L-iI-3ls"/>
+                        <outlet property="codeTextField" destination="6eo-Pd-Vtl" id="adk-Ka-G0I"/>
                         <outlet property="dateBtn" destination="Hlw-O5-Mo1" id="huC-4d-F4H"/>
                         <outlet property="datePicker" destination="hkf-Lx-IRK" id="BJc-yO-Ri7"/>
                         <outlet property="departmentBtn" destination="NCf-sz-6x3" id="7x5-tA-YN5"/>
@@ -775,6 +776,7 @@
                         <outlet property="scrollHeight" destination="2UY-UG-zfW" id="AYo-aC-1Qf"/>
                         <outlet property="scrollView" destination="Zes-wD-QH5" id="Hzr-aY-Tlr"/>
                         <outlet property="usernameField" destination="INx-6B-tHt" id="d9e-BC-veA"/>
+                        <segue destination="SuY-48-Uz2" kind="show" identifier="goRegistComplete" id="TWu-qr-n6N"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="znd-BH-bBb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -842,6 +844,56 @@
                 </view>
             </objects>
             <point key="canvasLocation" x="4833" y="0.0"/>
+        </scene>
+        <!--Regist Complete-->
+        <scene sceneID="cNf-5U-eim">
+            <objects>
+                <viewController id="SuY-48-Uz2" customClass="RegistCompleteViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xUK-Tm-O1v"/>
+                        <viewControllerLayoutGuide type="bottom" id="NbP-d8-Kqd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4M1-OI-uhk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="    您的注册请求已收到，我们在审核后会把结果下发到您的手机，请注意查收短信。" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="560" translatesAutoresizingMaskIntoConstraints="NO" id="i57-2F-6H5">
+                                <rect key="frame" x="20" y="94" width="560" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3hL-DY-lPc">
+                                <rect key="frame" x="240" y="177" width="120" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="PMu-ac-OSe"/>
+                                    <constraint firstAttribute="width" constant="120" id="SiF-vt-WA3"/>
+                                </constraints>
+                                <state key="normal" title="返回登陆页面">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="backLoginViewButtonEvent:" destination="SuY-48-Uz2" eventType="touchUpInside" id="k9K-ee-rat"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="i57-2F-6H5" firstAttribute="top" secondItem="xUK-Tm-O1v" secondAttribute="bottom" constant="30" id="8Qw-bv-UiB"/>
+                            <constraint firstAttribute="trailing" secondItem="i57-2F-6H5" secondAttribute="trailing" constant="20" id="EYk-ti-oPb"/>
+                            <constraint firstItem="i57-2F-6H5" firstAttribute="leading" secondItem="4M1-OI-uhk" secondAttribute="leading" constant="20" id="WyM-m4-MY7"/>
+                            <constraint firstAttribute="centerX" secondItem="3hL-DY-lPc" secondAttribute="centerX" id="ivn-Uj-Qwf"/>
+                            <constraint firstAttribute="centerX" secondItem="i57-2F-6H5" secondAttribute="centerX" id="lWm-OL-RBF"/>
+                            <constraint firstItem="3hL-DY-lPc" firstAttribute="top" secondItem="i57-2F-6H5" secondAttribute="bottom" constant="44" id="nWQ-P3-c8L"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Regist Complete" id="Dus-pv-xHY"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pwU-B7-2oE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5538" y="0.0"/>
         </scene>
     </scenes>
     <resources>

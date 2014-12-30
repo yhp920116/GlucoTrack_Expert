@@ -102,7 +102,6 @@ typedef enum{
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     RecoveryLog_Cell *cell = (RecoveryLog_Cell *)[self.myTableView dequeueReusableCellWithIdentifier:identifier];
-    
     [cell configureCell:_serverArray[indexPath.row]];
     return cell;
 }

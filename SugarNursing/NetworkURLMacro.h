@@ -14,7 +14,7 @@
 #define TIMEOUT_INTERVAL_FORREQUEST 5
 
 static NSString * const GCHttpBaseURLString = @"http://192.168.1.6:8080/lcp-laop/";
-static NSString *const GCHttpOfficialURLString = @"http://172.16.24.72:8083/lcp-laop/";
+static NSString * const GCHttpOfficialURLString = @"http://172.16.24.72:8083/lcp-laop/";
 
 
 // Login URL
@@ -23,17 +23,19 @@ static NSString *const GCHttpOfficialURLString = @"http://172.16.24.72:8083/lcp-
 //#define GC_USER_GETINFO_URL @"rest/laop/linkMan/account"
 
 #define GC_EXPERT_REGISTER_URL @"rest/laop/expert/account"
-#define GC_EXPERT_VERIFY_URL @"rest/expert/account"
+#define GC_EXPERT_VERIFY_URL @"rest/laop/expert/account"
 #define GC_EXPERT_USERINFO_URL @"rest/expert/account"
 #define GC_EXPERT_ACCOUNTEDIT_URL @"rest/expert/account"
 #define GC_EXPERT_INFOEDIT_URL @"rest/expert/account"
-#define GC_EXPERT_GETPATIENT_URL @"rest/expert/patient"
-#define GC_EXPERT_SENDSUGGEST_URL @"rest/expert/suggest"
+#define GC_EXPERT_GETPATIENT_URL @"rest/laop/expert/patient"
+#define GC_EXPERT_SENDSUGGEST_URL @"rest/laop/expert/suggest"
+
+#define GC_EXPERT_GETTRUSTEENSHIP_URL @"rest/laop/expert/trusteeship"
 
 
 #define GC_COMMON_RESETPASSWORD_URL @"rest/common/account"
 #define GC_COMMON_UPLOADFILE_URL @"rest/common/upload"
-#define GC_COMMON_GETDEPARTMENT_URL @"rest/common/hospital"
+#define GC_COMMON_GETDEPARTMENT_URL @"rest/laop/common/hospital"
 #define GC_COMMON_GETMSGCOUNT_URL @"rest/common/massage"
 #define GC_COMMON_GETVERSION_URL @"rest/common/version"
 #define GC_COMMON_ISMEMBER_URL @"rest/common/account"

@@ -58,8 +58,8 @@
 "Recovery Log" = "康复日志";
 "Send Suggest" = "发送建议";
 "Click this select mode of sort" = "点击选择排序模式";
-"The binding time inverted order" = "绑定时间倒序";
-"The binding time plain sequence" = "绑定时间顺序";
+"The binding time descending" = "绑定时间倒序";
+"The binding time ascending" = "绑定时间顺序";
 "Age from old to young" = "年龄从大到小";
 "Age from young to old" = "年龄从小到大";
 "Service level from high to low" = "服务等级从高到低";

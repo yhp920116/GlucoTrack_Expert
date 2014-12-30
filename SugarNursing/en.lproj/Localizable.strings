@@ -59,8 +59,8 @@
 "Recovery Log" = "Recovery Log";
 "Send Suggest" = "Send Suggest";
 "Click this select mode of sort" = "Click this select mode of sort";
-"The binding time inverted order" = "The binding time inverted order";
-"The binding time plain sequence" = "The binding time plain sequence";
+"The binding time descending" = "The binding time descending";
+"The binding time ascending" = "The binding time ascending";
 "Age from old to young" = "Age from old to young";
 "Age from young to old" = "Age from young to old";
 "Service level from high to low" = "Service level from high to low";

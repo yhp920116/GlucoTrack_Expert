@@ -40,7 +40,7 @@
                                              delegate:self
                                     cancelButtonTitle:nil
                                destructiveButtonTitle:@"取消"
-                                    otherButtonTitles:@"单位1",@"单位2",@"单位3",nil];
+                                    otherButtonTitles:@"mmol/L",@"mg/dL",nil];
     [self.sheet showInView:self.view];
 }
 

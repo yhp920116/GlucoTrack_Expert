@@ -20,7 +20,8 @@
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
         configuration.timeoutIntervalForRequest = TIMEOUT_INTERVAL_FORREQUEST;
         
-        _shareClient = [[GCHttpClient alloc] initWithBaseURL:[NSURL URLWithString:GCHttpOfficialURLString] sessionConfiguration:configuration];
+        _shareClient = [[GCHttpClient alloc] initWithBaseURL:[NSURL URLWithString:GCHttpOfficialURLString]
+                                        sessionConfiguration:configuration];
         _shareClient.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain", nil];
     
     });

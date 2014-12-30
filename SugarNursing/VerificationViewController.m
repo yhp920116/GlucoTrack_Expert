@@ -54,7 +54,8 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat height = 0;
-    switch (indexPath.row) {
+    switch (indexPath.row)
+    {
         case 0:
         case 2:
         case 3:
@@ -97,7 +98,9 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 1) {
+    
+    if (buttonIndex == 1)
+    {
         hud = [[MBProgressHUD alloc] initWithView:self.view];
         [self.view addSubview:hud];
         
@@ -105,10 +108,13 @@
         [hud show:YES];
         
         
-        [SMS_SDK getVerifyCodeByPhoneNumber:self.phoneField.text AndZone:self.countryAndAreaCode.areaCode result:^(enum SMS_GetVerifyCodeResponseState state) {
+        [SMS_SDK getVerifyCodeByPhoneNumber:self.phoneField.text AndZone:self.countryAndAreaCode.areaCode result:^(enum SMS_GetVerifyCodeResponseState state)
+        {
             [hud hide:YES];
-            if (1 == state) {
-                switch (self.verifiedType) {
+            if (1 == state)
+            {
+                switch (self.verifiedType)
+                {
                     case 0:
                         [self performSegueWithIdentifier:@"Register" sender:nil];
                         break;

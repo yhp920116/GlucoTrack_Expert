@@ -11,9 +11,13 @@
 #import <MBProgressHUD.h>
 #import "UIViewController+Notifications.h"
 #import "VerificationViewController.h"
-#import "User.h"
+#import "GCRequest.h"
 #import <UIAlertView+AFNetworking.h>
-
+#import "NSString+MD5.h"
+#import "User.h"
+#import "CoreDataStack.h"
+#import "NSManagedObject+Finders.h"
+#import "NSManagedObject+Savers.h"
 
 
 @interface LoginViewController ()
@@ -65,6 +69,13 @@
     [self registerForKeyboardNotification:@selector(keyboardWillShow:) :@selector(keyboardWillHide:)];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    self.usernameField.text = @"18033313933";
+    self.passwordField.text = @"123456";
+}
+
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -113,26 +124,46 @@
 
 - (IBAction)userLogin:(id)sender
 {
-    if ([self.usernameField.text isEqualToString:@"000"]) {
-        [AppDelegate  userLogIn];
-        return;
-    }
     
     hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:hud];
     hud.labelText = NSLocalizedString(@"Login..", nil);
     [hud show:YES];
     
-    GCVerify *verify = [[GCVerify alloc] init];
-    verify.method = @"verify";
-    verify.accountName = self.usernameField.text;
-    verify.password = self.passwordField.text;
     
-    NSURLSessionDataTask *loginTask = [User verifyWithGCLogin:verify block:^(NSDictionary *responseData, NSError *error) {
+    NSDictionary *parameters = @{@"method":@"verify",
+                                 @"accountName":self.usernameField.text,
+                                 @"password":self.passwordField.text};
+    
+    NSURLSessionDataTask *loginTask = [GCRequest verifyWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
         if (!error)
         {
+            
             if ([[responseData objectForKey:@"ret_code"] isEqualToString:@"0"])
             {
+                // 这里对获取到的会话标识、会话标识Token和用户标识等进行数据持久化
+                
+                NSMutableDictionary *responseDic = [responseData mutableCopy];
+                [responseDic setValue:[self.passwordField.text md5] forKey:@"password"];
+                [responseDic setValue:self.usernameField.text forKey:@"username"];
+                
+                NSArray *userObjects = [User findAllInContext:[CoreDataStack sharedCoreDataStack].context];
+                
+                // 这里的user是一个单例，有且只有一个用户数据，标识当前的用户
+                User *user;
+                
+                if ([userObjects count]== 0) {
+                    user = [User createEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+                    
+                }else{
+                    user = userObjects[0];
+                }
+                
+                [user updateCoreDataForData:responseDic withKeyPath:nil];
+                [[CoreDataStack sharedCoreDataStack] saveContext];
+                
+                
+                
                 [AppDelegate userLogIn];
                 [hud hide:YES afterDelay:0.25];
             }

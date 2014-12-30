@@ -12,7 +12,7 @@
 
 - (void)customSetup
 {
-    self.font = [UIFont systemFontOfSize:16.0f];
+    self.font = [UIFont systemFontOfSize:14.0f];
 }
 
 - (id)initWithFrame:(CGRect)frame

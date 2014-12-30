@@ -1,17 +1,18 @@
 //
-//  MyHostingViewController.m
+//  MyTakeoverViewController.m
 //  SugarNursing
 //
-//  Created by Ian on 14-11-25.
+//  Created by Ian on 14-12-30.
 //  Copyright (c) 2014年 Tisson. All rights reserved.
 //
 
-#import "MyHostingViewController.h"
+#import "MyTakeoverViewController.h"
 #import "TakeoverStandby_Cell.h"
 #import <MBProgressHUD.h>
 #import "UIStoryboard+Storyboards.h"
 
-@interface MyHostingViewController ()
+
+@interface MyTakeoverViewController ()
 {
     MBProgressHUD *hud;
     
@@ -27,27 +28,27 @@
 
 @end
 
-@implementation MyHostingViewController
+@implementation MyTakeoverViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     _hostingTitleArray = @[@"于2014年8月15日12:13把病人王小月（女 27岁）托管给医生李四段，预计托管时间:2014年8月18日至2014年8月28日",
-                   @"于14/08/15 12:13把病人王小月（女 27岁）托管给医生李四段，预计托管时间:14/08/18至14/08/28",
-                   @"医生王大虎于12/01/01 12:13拒绝接管病人王小虎（女 45岁）",
-                   @"于12/01/01 12:13把病人王小虎（女 45岁）托管给医生王大虎，预计托管时间:13/12/03至14/12/12"];
+                           @"于14/08/15 12:13把病人王小月（女 27岁）托管给医生李四段，预计托管时间:14/08/18至14/08/28",
+                           @"医生王大虎于12/01/01 12:13拒绝接管病人王小虎（女 45岁）",
+                           @"于12/01/01 12:13把病人王小虎（女 45岁）托管给医生王大虎，预计托管时间:13/12/03至14/12/12"];
     _takeoverTitleArray = @[@"医生王大虎于2012年1月1日12:13把病人王小虎（女 45岁）托管给我，预计托管时间:13/12/03至14/12/12",
-                           @"于12/01/01 12:13接管医生王大虎的病人王小虎（女 45岁），接管时间:13/12/03至14/12/12",
-                           @"于12/01/01 12:13拒绝医生王大虎的病人王小虎（女 45岁）",
-                           @"医生王大虎于12/01/01 12:13把病人王小虎（女 45岁）托管给我，预计托管时间:13/12/03至14/12/12"];
-    _currentTitleArray = _hostingTitleArray;
+                            @"于12/01/01 12:13接管医生王大虎的病人王小虎（女 45岁），接管时间:13/12/03至14/12/12",
+                            @"于12/01/01 12:13拒绝医生王大虎的病人王小虎（女 45岁）",
+                            @"医生王大虎于12/01/01 12:13把病人王小虎（女 45岁）托管给我，预计托管时间:13/12/03至14/12/12"];
+    _currentTitleArray = _takeoverTitleArray;
     _currentTitle = [_currentTitleArray objectAtIndex:0];
     
     
-    
-    
-    [self.myTabBar setSelectedItem:self.myTabBar.items[0]];
+    _takeoverStateSegmentSelectIndex = 0;
+    _tabBarSelectIndex = 1;
+    [self.myTabBar setSelectedItem:self.myTabBar.items[1]];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -117,13 +118,13 @@
     TakeoverStandby_Cell *cell = [self.myTableView dequeueReusableCellWithIdentifier:standyIdentifier];
     [cell configureCellWithContent:_takeoverTitleArray[0]
                        acceptBlock:^(TakeoverStandby_Cell *cell) {
-        
-        [self acceptTakeoverWithRow:[self.myTableView indexPathForCell:cell].row];
-    }
+                           
+                           [self acceptTakeoverWithRow:[self.myTableView indexPathForCell:cell].row];
+                       }
                        refuseBlock:^(TakeoverStandby_Cell *cell) {
-        
-        [self refuseTakeoverWithRow:[self.myTableView indexPathForCell:cell].row];
-    }];
+                           
+                           [self refuseTakeoverWithRow:[self.myTableView indexPathForCell:cell].row];
+                       }];
     
     
     cell.contentLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.view.bounds) - 16 - 8;
@@ -216,3 +217,4 @@
 
 
 @end
+

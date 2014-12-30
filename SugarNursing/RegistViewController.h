@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet CustomLabel *codeField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
+@property (weak, nonatomic) IBOutlet UITextField *codeTextField;
 
 @property (weak, nonatomic) IBOutlet UIButton *getCodeAginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *genderBtn;

@@ -13,7 +13,6 @@
 		3720AFA61A199ADF0011D930 /* ResetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3720AFA51A199ADF0011D930 /* ResetPwdViewController.m */; };
 		3749B5181A09C50D0031D00C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3749B5171A09C50D0031D00C /* main.m */; };
 		3749B51B1A09C50D0031D00C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3749B51A1A09C50D0031D00C /* AppDelegate.m */; };
-		3749B51E1A09C50D0031D00C /* SugarNursing.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3749B51C1A09C50D0031D00C /* SugarNursing.xcdatamodeld */; };
 		3749B5241A09C50D0031D00C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3749B5221A09C50D0031D00C /* Main.storyboard */; };
 		3749B5261A09C50D0031D00C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3749B5251A09C50D0031D00C /* Images.xcassets */; };
 		3749B5291A09C50D0031D00C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3749B5271A09C50D0031D00C /* LaunchScreen.xib */; };
@@ -39,7 +38,6 @@
 		3C1C613A1A4A976F00440731 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1C61361A4A976F00440731 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		3C1C613F1A4AB8B900440731 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C1C61411A4AB8B900440731 /* Login.storyboard */; };
 		3C1C614B1A4ABA1300440731 /* GCHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1C61481A4ABA1300440731 /* GCHttpClient.m */; };
-		3C1C614C1A4ABA1300440731 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1C614A1A4ABA1300440731 /* User.m */; };
 		3C1C614F1A4ABAA100440731 /* VerificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1C614E1A4ABAA100440731 /* VerificationViewController.m */; };
 		3C1C61511A4ABACB00440731 /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C1C61501A4ABACB00440731 /* SMS_SDK.framework */; };
 		3C1C61541A4ABAFA00440731 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1C61531A4ABAFA00440731 /* NSString+MD5.m */; };
@@ -83,6 +81,19 @@
 		3C9B181B1A1EC8AA00F7DF4D /* MyPatientsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9B181A1A1EC8AA00F7DF4D /* MyPatientsViewController.m */; };
 		3C9B181E1A1ED01A00F7DF4D /* MyPatientsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9B181D1A1ED01A00F7DF4D /* MyPatientsCell.m */; };
 		3C9DDF671A47B68600F3BC6A /* libUMessage_Sdk_1.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C9DDF651A47B68600F3BC6A /* libUMessage_Sdk_1.1.0.a */; };
+		3CA2E8A81A5138B300B2F5EF /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA2E8A51A5138B300B2F5EF /* EGORefreshTableHeaderView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3CA2E8A91A5138B300B2F5EF /* EGORefreshTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA2E8A71A5138B300B2F5EF /* EGORefreshTableFooterView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3CA2E8AB1A51456D00B2F5EF /* country.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CA2E8AA1A51456D00B2F5EF /* country.plist */; };
+		3CA2E8AE1A5237DE00B2F5EF /* RegistCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA2E8AD1A5237DE00B2F5EF /* RegistCompleteViewController.m */; };
+		3CA2E8B41A527F2700B2F5EF /* NSString+ParseData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA2E8B31A527F2700B2F5EF /* NSString+ParseData.m */; };
+		3CA2E8B71A527FB200B2F5EF /* GCRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA2E8B61A527FB200B2F5EF /* GCRequest.m */; };
+		3CA2E8BE1A5292D600B2F5EF /* NSManagedObject+Finders.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA2E8B91A5292D600B2F5EF /* NSManagedObject+Finders.m */; };
+		3CA2E8BF1A5292D600B2F5EF /* NSManagedObject+Savers.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA2E8BB1A5292D600B2F5EF /* NSManagedObject+Savers.m */; };
+		3CA2E8C01A5292D600B2F5EF /* NSDictionary+LowerCaseKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA2E8BD1A5292D600B2F5EF /* NSDictionary+LowerCaseKey.m */; };
+		3CA2E8C61A52984D00B2F5EF /* GlucoCare.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3CA2E8C41A52984D00B2F5EF /* GlucoCare.xcdatamodeld */; };
+		3CA2E8CC1A529FA700B2F5EF /* NSString+UserCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA2E8CB1A529FA700B2F5EF /* NSString+UserCommon.m */; };
+		3CA2E8CF1A52A00A00B2F5EF /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA2E8CE1A52A00A00B2F5EF /* User.m */; };
+		3CA2E8D21A52BAA900B2F5EF /* MyTakeoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA2E8D11A52BAA900B2F5EF /* MyTakeoverViewController.m */; };
 		3CA3F4E51A43497C00BA85D0 /* EvaluateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA3F4E21A43497C00BA85D0 /* EvaluateCell.m */; };
 		3CA3F4E61A43497C00BA85D0 /* EffectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA3F4E41A43497C00BA85D0 /* EffectCell.m */; };
 		3CA3F4E91A4349DA00BA85D0 /* ControlEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA3F4E81A4349DA00BA85D0 /* ControlEffectViewController.m */; };
@@ -123,7 +134,6 @@
 		3749B5171A09C50D0031D00C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3749B5191A09C50D0031D00C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3749B51A1A09C50D0031D00C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		3749B51D1A09C50D0031D00C /* SugarNursing.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SugarNursing.xcdatamodel; sourceTree = "<group>"; };
 		3749B5231A09C50D0031D00C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3749B5251A09C50D0031D00C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3749B5281A09C50D0031D00C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -175,8 +185,6 @@
 		3C1C61461A4ABA0700440731 /* NetworkURLMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkURLMacro.h; sourceTree = "<group>"; };
 		3C1C61471A4ABA1300440731 /* GCHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCHttpClient.h; sourceTree = "<group>"; };
 		3C1C61481A4ABA1300440731 /* GCHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCHttpClient.m; sourceTree = "<group>"; };
-		3C1C61491A4ABA1300440731 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		3C1C614A1A4ABA1300440731 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		3C1C614D1A4ABAA100440731 /* VerificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerificationViewController.h; sourceTree = "<group>"; };
 		3C1C614E1A4ABAA100440731 /* VerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerificationViewController.m; sourceTree = "<group>"; };
 		3C1C61501A4ABACB00440731 /* SMS_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SMS_SDK.framework; sourceTree = "<group>"; };
@@ -259,6 +267,31 @@
 		3C9B181D1A1ED01A00F7DF4D /* MyPatientsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPatientsCell.m; sourceTree = "<group>"; };
 		3C9DDF651A47B68600F3BC6A /* libUMessage_Sdk_1.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.1.0.a; sourceTree = "<group>"; };
 		3C9DDF661A47B68600F3BC6A /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
+		3CA2E8A31A5138B300B2F5EF /* NSObject_refreshPublic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObject_refreshPublic.h; sourceTree = "<group>"; };
+		3CA2E8A41A5138B300B2F5EF /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
+		3CA2E8A51A5138B300B2F5EF /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
+		3CA2E8A61A5138B300B2F5EF /* EGORefreshTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableFooterView.h; sourceTree = "<group>"; };
+		3CA2E8A71A5138B300B2F5EF /* EGORefreshTableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableFooterView.m; sourceTree = "<group>"; };
+		3CA2E8AA1A51456D00B2F5EF /* country.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = country.plist; sourceTree = "<group>"; };
+		3CA2E8AC1A5237DE00B2F5EF /* RegistCompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistCompleteViewController.h; sourceTree = "<group>"; };
+		3CA2E8AD1A5237DE00B2F5EF /* RegistCompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistCompleteViewController.m; sourceTree = "<group>"; };
+		3CA2E8B21A527F2700B2F5EF /* NSString+ParseData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ParseData.h"; sourceTree = "<group>"; };
+		3CA2E8B31A527F2700B2F5EF /* NSString+ParseData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ParseData.m"; sourceTree = "<group>"; };
+		3CA2E8B51A527FB200B2F5EF /* GCRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCRequest.h; sourceTree = "<group>"; };
+		3CA2E8B61A527FB200B2F5EF /* GCRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCRequest.m; sourceTree = "<group>"; };
+		3CA2E8B81A5292D600B2F5EF /* NSManagedObject+Finders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+Finders.h"; sourceTree = "<group>"; };
+		3CA2E8B91A5292D600B2F5EF /* NSManagedObject+Finders.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+Finders.m"; sourceTree = "<group>"; };
+		3CA2E8BA1A5292D600B2F5EF /* NSManagedObject+Savers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+Savers.h"; sourceTree = "<group>"; };
+		3CA2E8BB1A5292D600B2F5EF /* NSManagedObject+Savers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+Savers.m"; sourceTree = "<group>"; };
+		3CA2E8BC1A5292D600B2F5EF /* NSDictionary+LowerCaseKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+LowerCaseKey.h"; sourceTree = "<group>"; };
+		3CA2E8BD1A5292D600B2F5EF /* NSDictionary+LowerCaseKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+LowerCaseKey.m"; sourceTree = "<group>"; };
+		3CA2E8C51A52984D00B2F5EF /* GlucoCare.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GlucoCare.xcdatamodel; sourceTree = "<group>"; };
+		3CA2E8CA1A529FA700B2F5EF /* NSString+UserCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UserCommon.h"; sourceTree = "<group>"; };
+		3CA2E8CB1A529FA700B2F5EF /* NSString+UserCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UserCommon.m"; sourceTree = "<group>"; };
+		3CA2E8CD1A52A00A00B2F5EF /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		3CA2E8CE1A52A00A00B2F5EF /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		3CA2E8D01A52BAA900B2F5EF /* MyTakeoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTakeoverViewController.h; sourceTree = "<group>"; };
+		3CA2E8D11A52BAA900B2F5EF /* MyTakeoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTakeoverViewController.m; sourceTree = "<group>"; };
 		3CA3F4E11A43497C00BA85D0 /* EvaluateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvaluateCell.h; sourceTree = "<group>"; };
 		3CA3F4E21A43497C00BA85D0 /* EvaluateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluateCell.m; sourceTree = "<group>"; };
 		3CA3F4E31A43497C00BA85D0 /* EffectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectCell.h; sourceTree = "<group>"; };
@@ -363,6 +396,7 @@
 		3749B5151A09C50D0031D00C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3CA2E8AA1A51456D00B2F5EF /* country.plist */,
 				3749B5161A09C50D0031D00C /* Info.plist */,
 				3749B5171A09C50D0031D00C /* main.m */,
 			);
@@ -398,7 +432,9 @@
 		3749B5431A09C7700031D00C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3749B51C1A09C50D0031D00C /* SugarNursing.xcdatamodeld */,
+				3CA2E8C41A52984D00B2F5EF /* GlucoCare.xcdatamodeld */,
+				3CA2E8CD1A52A00A00B2F5EF /* User.h */,
+				3CA2E8CE1A52A00A00B2F5EF /* User.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -436,10 +472,20 @@
 				3C1C61601A4ABE5600440731 /* NSDictionary-DeepMutableCopy.m */,
 				3C1C61521A4ABAFA00440731 /* NSString+MD5.h */,
 				3C1C61531A4ABAFA00440731 /* NSString+MD5.m */,
+				3CA2E8CA1A529FA700B2F5EF /* NSString+UserCommon.h */,
+				3CA2E8CB1A529FA700B2F5EF /* NSString+UserCommon.m */,
 				3C1C61551A4ABB0700440731 /* UserInfo.h */,
 				3C1C61561A4ABB0700440731 /* UserInfo.m */,
 				3C97506A1A4C0D0D006BD35B /* NSString+Signatrue.h */,
 				3C97506B1A4C0D0D006BD35B /* NSString+Signatrue.m */,
+				3CA2E8B21A527F2700B2F5EF /* NSString+ParseData.h */,
+				3CA2E8B31A527F2700B2F5EF /* NSString+ParseData.m */,
+				3CA2E8B81A5292D600B2F5EF /* NSManagedObject+Finders.h */,
+				3CA2E8B91A5292D600B2F5EF /* NSManagedObject+Finders.m */,
+				3CA2E8BA1A5292D600B2F5EF /* NSManagedObject+Savers.h */,
+				3CA2E8BB1A5292D600B2F5EF /* NSManagedObject+Savers.m */,
+				3CA2E8BC1A5292D600B2F5EF /* NSDictionary+LowerCaseKey.h */,
+				3CA2E8BD1A5292D600B2F5EF /* NSDictionary+LowerCaseKey.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -447,6 +493,7 @@
 		3749B5471A09C7950031D00C /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				3CA2E8A21A51384D00B2F5EF /* EGORefreshView */,
 				3C1C61501A4ABACB00440731 /* SMS_SDK.framework */,
 				3C1C616C1A4AC35000440731 /* UMSocial_Sdk_4.2.1 */,
 				3C1C612E1A4A973900440731 /* TPKeyBoardAvoiding */,
@@ -508,6 +555,8 @@
 				3C1C615A1A4ABCFF00440731 /* AreaNameAndCodeViewController.m */,
 				3C1C615C1A4ABD3900440731 /* RegistViewController.h */,
 				3C1C615D1A4ABD3900440731 /* RegistViewController.m */,
+				3CA2E8AC1A5237DE00B2F5EF /* RegistCompleteViewController.h */,
+				3CA2E8AD1A5237DE00B2F5EF /* RegistCompleteViewController.m */,
 				3720AFA41A199ADF0011D930 /* ResetPwdViewController.h */,
 				3720AFA51A199ADF0011D930 /* ResetPwdViewController.m */,
 			);
@@ -560,6 +609,8 @@
 			children = (
 				3C4799D71A245E0B00AFB0DD /* MyHostingViewController.h */,
 				3C4799D81A245E0B00AFB0DD /* MyHostingViewController.m */,
+				3CA2E8D01A52BAA900B2F5EF /* MyTakeoverViewController.h */,
+				3CA2E8D11A52BAA900B2F5EF /* MyTakeoverViewController.m */,
 				3C4799E61A24809800AFB0DD /* CreateHostingViewController.h */,
 				3C4799E71A24809800AFB0DD /* CreateHostingViewController.m */,
 			);
@@ -735,13 +786,25 @@
 			path = UMessage_Sdk_1.1.0;
 			sourceTree = "<group>";
 		};
+		3CA2E8A21A51384D00B2F5EF /* EGORefreshView */ = {
+			isa = PBXGroup;
+			children = (
+				3CA2E8A31A5138B300B2F5EF /* NSObject_refreshPublic.h */,
+				3CA2E8A41A5138B300B2F5EF /* EGORefreshTableHeaderView.h */,
+				3CA2E8A51A5138B300B2F5EF /* EGORefreshTableHeaderView.m */,
+				3CA2E8A61A5138B300B2F5EF /* EGORefreshTableFooterView.h */,
+				3CA2E8A71A5138B300B2F5EF /* EGORefreshTableFooterView.m */,
+			);
+			name = EGORefreshView;
+			sourceTree = "<group>";
+		};
 		3CA537331A4C7C9B00332AB2 /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				3C1C61471A4ABA1300440731 /* GCHttpClient.h */,
 				3C1C61481A4ABA1300440731 /* GCHttpClient.m */,
-				3C1C61491A4ABA1300440731 /* User.h */,
-				3C1C614A1A4ABA1300440731 /* User.m */,
+				3CA2E8B51A527FB200B2F5EF /* GCRequest.h */,
+				3CA2E8B61A527FB200B2F5EF /* GCRequest.m */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -882,6 +945,7 @@
 				3CA3F4FE1A4355F200BA85D0 /* MyTakeover.storyboard in Resources */,
 				3749B5241A09C50D0031D00C /* Main.storyboard in Resources */,
 				3C1C618C1A4AC35000440731 /* UMShareEditViewController.xib in Resources */,
+				3CA2E8AB1A51456D00B2F5EF /* country.plist in Resources */,
 				3749B57F1A0A11700031D00C /* Localizable.strings in Resources */,
 				3749B5291A09C50D0031D00C /* LaunchScreen.xib in Resources */,
 				3C1C61891A4AC35000440731 /* UMSCommentDetailController.xib in Resources */,
@@ -942,11 +1006,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CA2E8BE1A5292D600B2F5EF /* NSManagedObject+Finders.m in Sources */,
 				37AC34C31A0B52420037029A /* AppDelegate+UserLogInOut.m in Sources */,
 				3C1C612A1A4A653700440731 /* MessageInfoViewController.m in Sources */,
-				3C1C614C1A4ABA1300440731 /* User.m in Sources */,
 				3749B51B1A09C50D0031D00C /* AppDelegate.m in Sources */,
 				3749B5611A09D9920031D00C /* LeftMenuCell.m in Sources */,
+				3CA2E8BF1A5292D600B2F5EF /* NSManagedObject+Savers.m in Sources */,
 				3CA3F4EC1A434A4F00BA85D0 /* LinesLabel.m in Sources */,
 				3749B55D1A09D0D60031D00C /* ContentViewController.m in Sources */,
 				3C1C61371A4A976F00440731 /* TPKeyboardAvoidingCollectionView.m in Sources */,
@@ -962,17 +1027,22 @@
 				371628BC1A15DD4C0043EED2 /* UIViewController+Notifications.m in Sources */,
 				3749B55A1A09D0950031D00C /* RightMenuController.m in Sources */,
 				3CA3F4E91A4349DA00BA85D0 /* ControlEffectViewController.m in Sources */,
+				3CA2E8CC1A529FA700B2F5EF /* NSString+UserCommon.m in Sources */,
 				3C9B181E1A1ED01A00F7DF4D /* MyPatientsCell.m in Sources */,
+				3CA2E8B71A527FB200B2F5EF /* GCRequest.m in Sources */,
 				3C1C614F1A4ABAA100440731 /* VerificationViewController.m in Sources */,
+				3CA2E8AE1A5237DE00B2F5EF /* RegistCompleteViewController.m in Sources */,
 				3720AFA61A199ADF0011D930 /* ResetPwdViewController.m in Sources */,
 				3C2AB3331A36AFE300C6B0FD /* SwipeView.m in Sources */,
 				3CB20F941A25B5E500669DF4 /* RecoveryLogViewController.m in Sources */,
+				3CA2E8D21A52BAA900B2F5EF /* MyTakeoverViewController.m in Sources */,
 				3CFD623F1A3844C70007C504 /* DiseaseInfo_Cell.m in Sources */,
 				3749B5571A09D0870031D00C /* LeftMenuController.m in Sources */,
 				3C1C615B1A4ABCFF00440731 /* AreaNameAndCodeViewController.m in Sources */,
 				3CDCF3191A3E96E800A4C515 /* FXBlurView.m in Sources */,
 				3CA3F4EF1A434A6300BA85D0 /* CustomLabel.m in Sources */,
 				3749B5181A09C50D0031D00C /* main.m in Sources */,
+				3CA2E8CF1A52A00A00B2F5EF /* User.m in Sources */,
 				3C1C613A1A4A976F00440731 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				3CDF18791A3AC47900571AF5 /* SystemSetTableViewController.m in Sources */,
 				3C337A711A42D80E00CB96DA /* InputPhoneViewController.m in Sources */,
@@ -980,6 +1050,7 @@
 				3CA537371A4C7CB700332AB2 /* CoreDataStack.m in Sources */,
 				378F90711A16698000201353 /* UIViewController+Gestures.m in Sources */,
 				3C337A741A42DCCF00CB96DA /* InputNumberViewController.m in Sources */,
+				3CA2E8B41A527F2700B2F5EF /* NSString+ParseData.m in Sources */,
 				3C9947841A382CFA008EB216 /* TakeoverStandby_Cell.m in Sources */,
 				3C1C61541A4ABAFA00440731 /* NSString+MD5.m in Sources */,
 				3C8629431A2700AE00BBD544 /* SendSuggestViewController.m in Sources */,
@@ -993,11 +1064,14 @@
 				3C4799D91A245E0B00AFB0DD /* MyHostingViewController.m in Sources */,
 				3C1C61571A4ABB0700440731 /* UserInfo.m in Sources */,
 				3C3BF8E01A3FD371006B6746 /* FeedBackViewController.m in Sources */,
+				3CA2E8A81A5138B300B2F5EF /* EGORefreshTableHeaderView.m in Sources */,
 				3C1C615E1A4ABD3900440731 /* RegistViewController.m in Sources */,
+				3CA2E8C61A52984D00B2F5EF /* GlucoCare.xcdatamodeld in Sources */,
 				3C97506C1A4C0D0D006BD35B /* NSString+Signatrue.m in Sources */,
+				3CA2E8A91A5138B300B2F5EF /* EGORefreshTableFooterView.m in Sources */,
 				3C9A952A1A19E30F006F7F73 /* UserInfoViewController.m in Sources */,
 				3C8629461A27036900BBD544 /* MsgRecord_Cell.m in Sources */,
-				3749B51E1A09C50D0031D00C /* SugarNursing.xcdatamodeld in Sources */,
+				3CA2E8C01A5292D600B2F5EF /* NSDictionary+LowerCaseKey.m in Sources */,
 				3C1C61611A4ABE5600440731 /* NSDictionary-DeepMutableCopy.m in Sources */,
 				3749B5641A09DAFA0031D00C /* MemberInfoCell.m in Sources */,
 				3C1C614B1A4ABA1300440731 /* GCHttpClient.m in Sources */,
@@ -1329,13 +1403,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		3749B51C1A09C50D0031D00C /* SugarNursing.xcdatamodeld */ = {
+		3CA2E8C41A52984D00B2F5EF /* GlucoCare.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				3749B51D1A09C50D0031D00C /* SugarNursing.xcdatamodel */,
+				3CA2E8C51A52984D00B2F5EF /* GlucoCare.xcdatamodel */,
 			);
-			currentVersion = 3749B51D1A09C50D0031D00C /* SugarNursing.xcdatamodel */;
-			path = SugarNursing.xcdatamodeld;
+			currentVersion = 3CA2E8C51A52984D00B2F5EF /* GlucoCare.xcdatamodel */;
+			path = GlucoCare.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

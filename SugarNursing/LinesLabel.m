@@ -22,14 +22,14 @@
     }
 }
 
-//- (CGSize)intrinsicContentSize
-//{
-//    CGSize size = [super intrinsicContentSize];
-//    
-//    if (self.numberOfLines == 0) {
-//        size.height += 1;
-//    }
-//    return size;
-//}
+- (CGSize)intrinsicContentSize
+{
+    CGSize size = [super intrinsicContentSize];
+    
+    if (self.numberOfLines == 0) {
+        size.height += 1;
+    }
+    return size;
+}
 
 @end

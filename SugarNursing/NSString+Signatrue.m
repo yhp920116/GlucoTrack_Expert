@@ -8,28 +8,58 @@
 
 #import "NSString+Signatrue.h"
 #import "NSString+MD5.h"
+#import "NSString+UserCommon.h"
+#import "User.h"
+#import "NSManagedObject+Finders.h"
+#import "CoreDataStack.h"
 
 @implementation NSString (Signatrue)
 
 
 + (NSString *)generateSigWithParameters:(NSDictionary *)parameters
 {
-    NSMutableArray *allKeys = [[parameters allKeys] mutableCopy];
-    [allKeys removeObject:@"method"];
-    [allKeys removeObject:@"sign"];
-    [allKeys removeObject:@"sessionId"];
+    NSMutableArray *keys = [[parameters allKeys] mutableCopy];
+    NSMutableArray *keysToRemove = [@[] mutableCopy];
     
-    NSArray *sortedKeys = [allKeys sortedArrayUsingSelector:@selector(compare:)];
+    for (NSString *key in keys) {
+        if ([key isEqualToString:@"method"]) {
+            [keysToRemove addObject:key];
+        }
+        if ([key isEqualToString:@"sign"]) {
+            [keysToRemove addObject:key];
+        }
+        if ([key isEqualToString:@"sessionId"]) {
+            [keysToRemove addObject:key];
+        }
+        if ([[parameters objectForKey:key] isEqualToString:@""]) {
+            [keysToRemove addObject:key];
+        }
+    }
+    
+    [keys removeObjectsInArray:keysToRemove];
+    
+    
+    // SortedArray
+    NSArray *sortedKeys = [keys sortedArrayUsingSelector:@selector(compare:)];
+    
+    
     __block NSString *joinString = @"";
     [sortedKeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSString *akey = (NSString *)obj;
-        NSString *keyAndValue = [obj stringByAppendingString:[parameters valueForKey:akey]];
+        NSString *keyAndValue = [akey stringByAppendingString:[parameters objectForKey:akey]];
         joinString = [joinString stringByAppendingString:keyAndValue];
     }];
     
     
-    NSString *sessionToken = @"";
-    joinString = [joinString stringByAppendingString:sessionToken];
+    NSArray *fetchArray = [User findAllInContext:[CoreDataStack sharedCoreDataStack].context];
+    if (fetchArray.count == 0)
+    {
+        return nil;
+    }
+    User *user = fetchArray[0];
+    
+    
+    joinString = [joinString stringByAppendingString:user.sessiontoken];
     
     return [joinString md5];
 }

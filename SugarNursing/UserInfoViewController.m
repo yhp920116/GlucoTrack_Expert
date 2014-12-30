@@ -9,6 +9,8 @@
 #import "UserInfoViewController.h"
 #import "UIViewController+Notifications.h"
 #import <MBProgressHUD.h>
+#import "GCRequest.h"
+
 
 
 static CGFloat kDefaultCellParameterLeftMagin = 100;
@@ -96,43 +98,28 @@ UINavigationControllerDelegate
                           @{@"componentTitle":@"外科",@"content":@[@"皮肤科",@"五官科",@"普通外科"]
                             }];
     
-//    NSMutableDictionary *componentDic = [NSMutableDictionary dictionary];
-//    
-//    
-//    
-//    
-//    [componentDic setObject:@"内科" forKey:@"componentTitle"];
-//    
-//    NSMutableArray *rowArray = [NSMutableArray array];
-//    [rowArray addObject:@"神经内科"];
-//    [rowArray addObject:@"呼吸内科"];
-//    [rowArray addObject:@"心内科"];
-//    [rowArray addObject:@"肾内科"];
-//    [rowArray addObject:@"普通内科"];
-//    [componentDic setObject:rowArray forKey:@"content"];
-//    [_departmentsArray addObject:componentDic];
-//    
-//    componentDic = [NSMutableDictionary dictionary];
-//    [componentDic setObject:@"外科" forKey:@"componentTitle"];
-//    
-//    rowArray = [NSMutableArray array];
-//    [rowArray addObject:@"皮肤科"];
-//    [rowArray addObject:@"五官科"];
-//    [rowArray addObject:@"普通外科"];
-//    
-//    [componentDic setObject:rowArray forKey:@"content"];
-//    [_departmentsArray addObject:componentDic];
     
-    
-    
-    
-//    isChecking = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     
     self.automaticallyAdjustsScrollViewInsets = NO;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    
+    NSDictionary *parameters = @{@"method":@"getDepartmentInfoList",
+                                 @"departmentId":@"1",
+                                 @"type":@"3"};
+    
+    NSURLSessionDataTask *task = [GCRequest getDepartmentInfoListWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+        
+        NSLog(@"%@",responseData);
+        
+    }];
+    
 }
 
 
@@ -555,7 +542,6 @@ UINavigationControllerDelegate
     else
     {
         [bottomView setImage:[UIImage imageNamed:@"004"]];
-        NSLog(@"%@",bottomView);
     }
     
     return cell;
@@ -1212,7 +1198,6 @@ UINavigationControllerDelegate
         UIImageView *textViewBottomView = (UIImageView *)[cell viewWithTag:TableViewCellBaseItemTagSecondView];
         [textViewBottomView setImage:[UIImage imageNamed:@"003"]];
         textViewBottomView.alpha = 0;
-        NSLog(@"%@",textViewBottomView);
         
         
         [UIView animateWithDuration:kAnimationDurantion/2 animations:^{

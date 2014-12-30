@@ -84,15 +84,15 @@ static CGFloat kHeadCellIndicatorViewWidthAndHeight = 20;
     _serverData = [NSMutableArray array];
     _cellHeightArray = [NSMutableArray array];
     
-    _serverData = [NSMutableArray arrayWithArray:@[@{@"head":@{@"title":@"病毒性肝炎",
-                                                               @"detailTitle":@"2004-01-02确诊",
-                                                               @"date":@"11-10"},
-                                                     @"body":@{@"hospital":@"广州xx医院",
-                                                               @"cureCondition":@"治疗中",
-                                                               @"medicalHistory":@"患者2009年8月因妇科炎症服用“金刚藤胶囊”（每日3次、每次4片）共3天抗感染治疗，服药第3天开始出现乏力、食欲减退、眼黄、尿黄，伴有低热，于当地医院住院，查甲、乙、丙、丁、戊型肝炎标志物均阴性，考虑“药物性肝损伤、肝硬化”，给予保肝、退黄药物治疗，效果不佳，黄疸上升，总胆红素最高时66μmol/L，PTA 34％，行两次人工肝治疗后肝功好转，总胆红素下降至55μmol/L，病情好转出院。出院后继续口服保肝药物，并服用中药汤药（具体成分不详）辅助治疗，仍有眼黄、尿黄，监测肝功仍异常，总胆红素>10μmol/L。为进一步诊治于2009年12月15日收住我院。发病以来患者精神、食欲较差，睡眠一般，大便正常，尿色黄，体重无明显变化。",
-                                                               @"cureScheme":@"无"
-                                                             }
-                                                     }]];
+    _serverData = [@[@{@"head":@{@"title":@"病毒性肝炎",
+                                 @"detailTitle":@"2004-01-02确诊",
+                                 @"date":@"11-10"},
+                       @"body":@{@"hospital":@"广州xx医院",
+                                 @"cureCondition":@"治疗中",
+                                 @"medicalHistory":@"患者2009年8月因妇科炎症服用“金刚藤胶囊”（每日3次、每次4片）共3天抗感染治疗，服药第3天开始出现乏力、食欲减退、眼黄、尿黄，伴有低热，于当地医院住院，查甲、乙、丙、丁、戊型肝炎标志物均阴性，考虑“药物性肝损伤、肝硬化”，给予保肝、退黄药物治疗，效果不佳，黄疸上升，总胆红素最高时66μmol/L，PTA 34％，行两次人工肝治疗后肝功好转，总胆红素下降至55μmol/L，病情好转出院。出院后继续口服保肝药物，并服用中药汤药（具体成分不详）辅助治疗，仍有眼黄、尿黄，监测肝功仍异常，总胆红素>10μmol/L。为进一步诊治于2009年12月15日收住我院。发病以来患者精神、食欲较差，睡眠一般，大便正常，尿色黄，体重无明显变化。",
+                                 @"cureScheme":@"无"
+                                 }
+                       }] mutableCopy];
     
     _sectionCound = _serverData.count;
     
@@ -249,7 +249,7 @@ static CGFloat kHeadCellIndicatorViewWidthAndHeight = 20;
 {
     if (indexPath.row == 0)
     {
-        return 44;
+        return kHeadCellHeight;
     }
     else
     {
@@ -267,14 +267,14 @@ static CGFloat kHeadCellIndicatorViewWidthAndHeight = 20;
         cell = [self.myTableView dequeueReusableCellWithIdentifier:infoCellIdentifier];
         
         
-        cell.contentView.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.view.bounds) - 2*kTableViewMagin,
+        cell.contentView.bounds = CGRectMake(0.0f, 0.0f, [self tableViewWidth],
                                                    kInfoCellEstimatedHeight);
-        cell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.view.bounds) - 2*kTableViewMagin,
+        cell.bounds = CGRectMake(0.0f, 0.0f, [self tableViewWidth],
                                        kInfoCellEstimatedHeight);
         
         
-        [cell.contentView setNeedsLayout];
-        [cell.contentView layoutIfNeeded];
+//        [cell.contentView setNeedsLayout];
+//        [cell.contentView layoutIfNeeded];
     });
     [cell configureCellWithDictionary:_serverData[indexPath.section][@"body"]];
     return [self calculateInfoCellHeightWithCell:cell];
@@ -287,8 +287,7 @@ static CGFloat kHeadCellIndicatorViewWidthAndHeight = 20;
     [cell layoutIfNeeded];
     
     CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    
-    return size.height + 1;
+    return size.height;
 }
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -301,24 +300,15 @@ static CGFloat kHeadCellIndicatorViewWidthAndHeight = 20;
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    
     UITableViewCell *cell;
     
     if (indexPath.row == 0)
     {
          cell = [self setTitleCellWithIndexPath:indexPath];
-        
     }
     else
     {
         DiseaseInfo_Cell *cell = [tableView dequeueReusableCellWithIdentifier:infoCellIdentifier];
-        
-        cell.cureConditionLabel.preferredMaxLayoutWidth = [self infoCellParameterLabelPreferredMaxLayoutWidth];
-        cell.hospitalLabel.preferredMaxLayoutWidth = [self infoCellParameterLabelPreferredMaxLayoutWidth];
-        cell.medicalHistoryLabel.preferredMaxLayoutWidth = [self infoCellParameterLabelPreferredMaxLayoutWidth];
-        cell.cureScheme.preferredMaxLayoutWidth = [self infoCellParameterLabelPreferredMaxLayoutWidth];
-        [cell layoutSubviews];
-        
         
         [cell configureCellWithDictionary:[_serverData[indexPath.section] objectForKey:@"body"]];
         
@@ -483,7 +473,10 @@ static CGFloat kHeadCellIndicatorViewWidthAndHeight = 20;
     return cell;
 }
 
-
+- (CGFloat)tableViewWidth
+{
+    return CGRectGetWidth(self.view.bounds) - 2*kTableViewMagin;
+}
 
 - (CGFloat)infoCellParameterLabelPreferredMaxLayoutWidth
 {

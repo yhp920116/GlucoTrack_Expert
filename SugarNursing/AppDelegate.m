@@ -42,7 +42,7 @@
     
     // customeAppearence
     [UMSocialData setAppKey:@"5462ed6bfd98c52863000031"];
-    [SMS_SDK registerApp:@"4bc788449b7a" withSecret:@"cf02d6c762855c993b8bab4bee12e504"];
+    [SMS_SDK registerApp:@"4bc7dcfbb5c7" withSecret:@"436a10835b93caa9d00f6c9d8361339b"];
     
     
     

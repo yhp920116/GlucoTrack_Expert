@@ -546,7 +546,7 @@
         <!--Hosting/Takeover-->
         <scene sceneID="p0g-go-VuH">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="O4l-V8-2OQ" customClass="MyHostingViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="O4l-V8-2OQ" customClass="MyTakeoverViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="K1E-PR-lUL"/>
                         <viewControllerLayoutGuide type="bottom" id="EaX-pP-nUg"/>

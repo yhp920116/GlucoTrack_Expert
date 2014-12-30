@@ -287,7 +287,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DiseaseInfo_Cell" rowHeight="300" id="Va0-Z1-iFu" customClass="DiseaseInfo_Cell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DiseaseInfo_Cell" rowHeight="136" id="Va0-Z1-iFu" customClass="DiseaseInfo_Cell">
                                         <rect key="frame" x="0.0" y="0.0" width="570" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Va0-Z1-iFu" id="5KU-qC-iwq">
@@ -313,13 +313,13 @@
                                                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="广州xx医院" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="283" translatesAutoresizingMaskIntoConstraints="NO" id="gON-6g-Kpi">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="广州xx医院" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="283" translatesAutoresizingMaskIntoConstraints="NO" id="gON-6g-Kpi" customClass="LinesLabel">
                                                     <rect key="frame" x="85" y="18" width="465" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="治疗中" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="275" translatesAutoresizingMaskIntoConstraints="NO" id="s9y-XZ-XgZ">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="治疗中" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="275" translatesAutoresizingMaskIntoConstraints="NO" id="s9y-XZ-XgZ" customClass="LinesLabel">
                                                     <rect key="frame" x="85" y="48" width="465" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -335,7 +335,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="患者2009年8月因妇科炎症服用“金刚藤胶囊”色黄，体重无明显变化。" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="465" translatesAutoresizingMaskIntoConstraints="NO" id="Nqc-w5-heL">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="患者2009年8月因妇科炎症服用“金刚藤胶囊”色黄，体重无明显变化。" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="465" translatesAutoresizingMaskIntoConstraints="NO" id="Nqc-w5-heL" customClass="LinesLabel">
                                                     <rect key="frame" x="85" y="78" width="465" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -351,10 +351,9 @@
                                                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="无" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="245" translatesAutoresizingMaskIntoConstraints="NO" id="1O4-fM-ogM">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="无" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="245" translatesAutoresizingMaskIntoConstraints="NO" id="1O4-fM-ogM" customClass="LinesLabel">
                                                     <rect key="frame" x="85" y="108" width="465" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -364,11 +363,11 @@
                                                 <constraint firstItem="s9y-XZ-XgZ" firstAttribute="leading" secondItem="WYC-ZJ-gDk" secondAttribute="trailing" constant="15" id="35e-XZ-3Nq"/>
                                                 <constraint firstAttribute="trailing" secondItem="Nqc-w5-heL" secondAttribute="trailing" constant="20" id="3Bj-fj-5g1"/>
                                                 <constraint firstAttribute="trailing" secondItem="s9y-XZ-XgZ" secondAttribute="trailing" constant="20" id="5ZZ-RU-cfM"/>
+                                                <constraint firstAttribute="bottom" secondItem="1O4-fM-ogM" secondAttribute="bottom" constant="10" id="605-7r-OXe"/>
                                                 <constraint firstItem="s9y-XZ-XgZ" firstAttribute="top" secondItem="gON-6g-Kpi" secondAttribute="bottom" constant="13" id="Cpl-r8-PTe"/>
                                                 <constraint firstItem="rAC-DT-IZw" firstAttribute="leading" secondItem="5KU-qC-iwq" secondAttribute="leading" id="DJh-2t-MG5"/>
                                                 <constraint firstItem="gON-6g-Kpi" firstAttribute="leading" secondItem="Om3-i2-9YC" secondAttribute="trailing" constant="15" id="MCl-Yn-zIT"/>
                                                 <constraint firstAttribute="trailing" secondItem="1O4-fM-ogM" secondAttribute="trailing" constant="20" id="PFd-tl-VcO"/>
-                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="1O4-fM-ogM" secondAttribute="bottom" constant="5" id="bPo-je-tFh"/>
                                                 <constraint firstItem="1O4-fM-ogM" firstAttribute="top" secondItem="rAC-DT-IZw" secondAttribute="top" constant="5" id="hLS-IZ-sEZ"/>
                                                 <constraint firstItem="WYC-ZJ-gDk" firstAttribute="leading" secondItem="5KU-qC-iwq" secondAttribute="leading" id="kTT-Ur-zhS"/>
                                                 <constraint firstItem="PyE-eh-R6c" firstAttribute="leading" secondItem="5KU-qC-iwq" secondAttribute="leading" id="o5d-PX-hBO"/>
@@ -383,10 +382,10 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="cureConditionLabel" destination="s9y-XZ-XgZ" id="qjn-jr-EYn"/>
-                                            <outlet property="cureScheme" destination="1O4-fM-ogM" id="dW8-0Q-N6N"/>
-                                            <outlet property="hospitalLabel" destination="gON-6g-Kpi" id="4CP-oZ-omf"/>
-                                            <outlet property="medicalHistoryLabel" destination="Nqc-w5-heL" id="LV6-vn-iVq"/>
+                                            <outlet property="cureConditionLabel" destination="s9y-XZ-XgZ" id="z1j-5U-6X8"/>
+                                            <outlet property="cureScheme" destination="1O4-fM-ogM" id="94U-Qm-4kH"/>
+                                            <outlet property="hospitalLabel" destination="gON-6g-Kpi" id="hoI-uF-oPa"/>
+                                            <outlet property="medicalHistoryLabel" destination="Nqc-w5-heL" id="6Ve-47-PP5"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

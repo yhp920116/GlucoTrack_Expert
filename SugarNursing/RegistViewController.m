@@ -10,7 +10,7 @@
 #import "AppDelegate+UserLogInOut.h"
 #import <MBProgressHUD.h>
 #import <SMS_SDK/SMS_SDK.h>
-#import "User.h"
+#import "GCRequest.h"
 #import <UIAlertView+AFNetworking.h>
 
 @interface RegistViewController ()<UIAlertViewDelegate,UIActionSheetDelegate>{
@@ -215,24 +215,28 @@
 #pragma mark - 注册
 - (IBAction)regist:(id)sender
 {
+    
     hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:hud];
         
     hud.labelText = NSLocalizedString(@"Registering...", nil);
     [hud show:YES];
     
-    GCRegister *regist = [[GCRegister alloc] init];
-    regist.method = @"accountRegist";
-    regist.mobile = self.phoneNumber;
-    regist.password = self.passwordField.text;
-    regist.exptName = self.usernameField.text;
-    regist.sex = self.genderBtn.currentTitle;
-    regist.birthday = [self.dateBtn currentTitle];
-//    regist.departmentId =
-//    regist.zone =
-    regist.appType = @"2";
     
-    NSURLSessionDataTask *registerTask = [User accountRegistWithGCRegister:regist block:^(NSDictionary *responseData, NSError *error) {
+    
+    NSDictionary *parameters = @{@"captcha":self.codeTextField.text,
+                                 @"method":@"accountRegist",
+                                 @"mobile":self.phoneNumber,
+                                 @"password":self.passwordField.text,
+                                 @"exptName":self.usernameField.text,
+                                 @"sex":self.genderBtn.currentTitle,
+                                 @"birthday":self.dateBtn.currentTitle,
+                                 @"departmentId":@"123",
+                                 @"appType":@"2",
+                                 @"zone":self.areaCode};
+    
+    
+    NSURLSessionDataTask *registerTask = [GCRequest accountRegistWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
         
         
         if (!error)
@@ -240,7 +244,7 @@
             
             if ([[responseData objectForKey:@"ret_code"] isEqualToString:@"0"])
             {
-                [AppDelegate userLogIn];
+                [self performSegueWithIdentifier:@"goRegistComplete" sender:nil];
                 [hud hide:YES];
             }
             else
