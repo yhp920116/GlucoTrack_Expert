@@ -9,14 +9,14 @@
 
 
 #if __has_feature(objc_modules)
-    // We recommend enabling Objective-C Modules in your project Build Settings for numerous benefits over regular #imports
-    @import Foundation;
-    @import UIKit;
-    @import CoreGraphics;
+// We recommend enabling Objective-C Modules in your project Build Settings for numerous benefits over regular #imports
+@import Foundation;
+@import UIKit;
+@import CoreGraphics;
 #else
-    #import <Foundation/Foundation.h>
-    #import <UIKit/UIKit.h>
-    #import <CoreGraphics/CoreGraphics.h>
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import <CoreGraphics/CoreGraphics.h>
 #endif
 
 /// The type of animation used to display the graph
@@ -51,13 +51,19 @@ typedef NS_ENUM(NSInteger, BEMLineAnimation) {
 @property (assign, nonatomic) CGPoint P3;
 
 /// All of the Y-axis values for the points
-@property (nonatomic, strong) NSArray *arrayOfPoints;
+@property (nonatomic, strong) NSArray *arrayOfYPoints;
+
+/// All of the X-axis value for the points
+@property (nonatomic, strong) NSArray *arrayOfXPoints;
 
 /// All of the X-Axis coordinates used to draw vertical lines through
 @property (nonatomic, strong) NSArray *arrayOfVerticalRefrenceLinePoints;
 
 /// All of the Y-Axis coordinates used to draw horizontal lines through
 @property (nonatomic, strong) NSArray *arrayOfHorizontalRefrenceLinePoints;
+
+/// All of the Average Y-Axis coordinates used to draw horizontal lines through
+@property (nonatomic, strong) NSArray *arrayOfAverageRefrenceLinePoints;
 
 /// All of the point values
 @property (nonatomic, strong) NSArray *arrayOfValues;

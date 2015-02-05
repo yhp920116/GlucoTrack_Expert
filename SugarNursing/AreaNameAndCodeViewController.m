@@ -173,8 +173,11 @@ sectionForSectionIndexTitle:(NSString *)title
     NSString *areaCode = [[areaNameCodeString substringFromIndex:range.location] stringByReplacingOccurrencesOfString:@"+" withString:@""];
     NSString *areaName = [areaNameCodeString substringToIndex:range.location];
     
-    self.countryAndAreaCode.countryName = areaName;
-    self.countryAndAreaCode.areaCode = areaCode;
+    if (self.block)
+    {
+        self.block(areaName,areaCode);
+    }
+    
     
     [self.navigationController popViewControllerAnimated:YES];
 }

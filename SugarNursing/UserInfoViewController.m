@@ -9,9 +9,14 @@
 #import "UserInfoViewController.h"
 #import "UIViewController+Notifications.h"
 #import <MBProgressHUD.h>
-#import "GCRequest.h"
-
-
+#import "CustomLabel.h"
+#import "Department.h"
+#import "NSManagedObject+Savers.h"
+#import "UtilsMacro.h"
+#import "MyTextView.h"
+#import "NSDictionary+Configure.h"
+#import "ThumbnailImageView.h"
+#import "NSString+ParseData.h"
 
 static CGFloat kDefaultCellParameterLeftMagin = 100;
 static CGFloat kDefaultCellParameterRightMagin = 40;
@@ -21,41 +26,47 @@ static CGFloat kTerritoryCellTextViewMagin = 10;
 
 
 static CGFloat kDefaultCellUserImageLengthOfSize = 40;    //用户图片宽高
-static CGFloat kLucencyIndicatorLengthOfSize = 35;   //指示器宽高 (<40)
 
-static CGFloat kCellHeight = 60;
-static CGFloat kUploadCellHeight = 40;
-static CGFloat kRowCount = 8;
-
-
-static CGFloat kDefaultFontSize = 14;
-
+static CGFloat kCellHeight = 50;
+static CGFloat kRowCount = 10;
 
 static CGFloat kAnimationDurantion = 1;
 
+static CGFloat kTerritoryMinHeight = 70;
+
+static NSString *identifier_gender = @"GenderCell";
+static NSString *identifier_actualName = @"ActualNameCell";
+static NSString *identifier_date = @"DateOfBirthCell";
+static NSString *identifier_hospital = @"HospitalCell";
+static NSString *identifier_rank = @"RankCell";
+static NSString *identifier_id = @"IDCell";
+static NSString *identifier_department = @"DepartmentsCell";
+static NSString *identifier_userImage = @"UserImageCell";
+static NSString *identifier_center = @"ServiceCenterCell";
+static NSString *identifier_territory = @"TerritoryCell";
 
 
-static NSString *territoryString = @"数量的会计法律上的了开发速度就两款发动机是肯定就发了多少份简历看多久了罚款就是的浪费就是的离开房间多少了开发交流的刷卡缴费空房间是懒得发空间撒地方OK给两点开始放假快乐事登记法律的快速减肥了看到手111111111机福利的康师傅付额几个可就是登陆卖场内开始登陆界面呢";
 
 
 typedef enum {
     TableViewCellBaseItemTagTitleLabel = 20001,
     TableViewCellBaseItemTagUserView,
-    TableViewCellBaseItemTagIndicator,
     TableViewCellBaseItemTagSecondView
 }TableViewCellBaseItemTag;
 
 
-typedef enum{
+typedef NS_ENUM(NSInteger, TableViewCellRow){
     TableViewCellRowUserImage = 0,
-    TableViewCellRowActualName,
-    TableViewCellRowGender,
-    TableViewCellRowDateOfBirth,
-    TableViewCellRowRank,
-    TableViewCellRowDepartments,
-    TableViewCellRowID,
-    TableViewCellRowTerritory
-}TableViewCellRow;
+    TableViewCellRowActualName = 1,
+    TableViewCellRowGender = 2,
+    TableViewCellRowDateOfBirth = 3,
+    TableViewCellRowRank = 4,
+    TableViewCellRowDepartments = 5,
+    TableViewCellRowHospital = 6,
+    TableViewCellRowID = 7,
+    TableViewCellRowServiceCenter = 8,
+    TableViewCellRowTerritory = 9
+};
 
 
 @interface UserInfoViewController ()
@@ -67,20 +78,39 @@ UINavigationControllerDelegate
 {
     MBProgressHUD *hud;
     
-    NSArray *_departmentsArray;
     
+    NSArray *_departCom0Array;
+    NSArray *_departCom1Array;
+    Department *_selectDepart;
     
     
     CGSize territoryTextViewSize;
     BOOL isChecking;
     
+    
+    NSMutableDictionary *_parameters;
 }
+
+@property (nonatomic, strong) ThumbnailImageView *userHeadImageView;
+@property (nonatomic, strong) UITextField *userNameTextField;
+@property (nonatomic, strong) UITextField *userHospitalTextField;
+@property (nonatomic, strong) CustomLabel *userSexLabel;
+@property (nonatomic, strong) CustomLabel *userBirthdayLabel;
+@property (nonatomic, strong) CustomLabel *userLevelLabel;
+@property (nonatomic, strong) CustomLabel *userDepartmentLabel;
+@property (nonatomic, strong) CustomLabel *userIdLabel;
+@property (nonatomic, strong) CustomLabel *userCenterLabel;
+@property (nonatomic, strong) MyTextView *userSkilledTextView;
 
 @property (nonatomic, assign) BOOL editing;
 
 @property (nonatomic, strong) UIView *activeView;
 @property (nonatomic, strong) UIActionSheet *sheet;
+@property (nonatomic, strong) TemporaryInfo *info;
 
+
+@property (strong, nonatomic) NSString *thumbnailURLString;
+@property (strong, nonatomic) UIImage *thumbnailImage;
 @end
 
 @implementation UserInfoViewController
@@ -90,15 +120,42 @@ UINavigationControllerDelegate
 {
     [super viewDidLoad];
     
+    [self initSubview];
+    [self setupNavigationBarRightItemWithType:0];
+    
+    if ([LoadedLog needReloadedByKey:@"userInfo"])
+    {
+        [self requestUserInfo];
+    }
     
     
-    _departmentsArray = [NSMutableArray array];
-    _departmentsArray = @[@{@"componentTitle":@"内科",@"content":@[@"神经内科",@"呼吸内科",@"心内科",@"肾内科",@"普通内科"]
-                            },
-                          @{@"componentTitle":@"外科",@"content":@[@"皮肤科",@"五官科",@"普通外科"]
-                            }];
     
-    
+    if ([[UserInfo shareInfo].stat isEqualToString:@"S0W"])
+    {
+        isChecking = YES;
+        NSArray *objects = [TemporaryInfo findAllInContext:[CoreDataStack sharedCoreDataStack].context];
+        if (objects && objects.count >0)
+        {
+            self.info = objects[0];
+        }
+        else
+        {
+            NSDictionary *infoDic = [NSDictionary configureByModel:[UserInfo shareInfo]];
+            self.info = [TemporaryInfo createEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+            [self.info updateCoreDataForData:infoDic withKeyPath:nil];
+        }
+    }
+    else
+    {
+        [TemporaryInfo deleteAllEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+        
+        NSDictionary *infoDic = [NSDictionary configureByModel:[UserInfo shareInfo]];
+        self.info = [TemporaryInfo createEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+        [self.info updateCoreDataForData:infoDic withKeyPath:nil];
+        
+        [self.mainTableView reloadData];
+        [self setupNavigationBarRightItemWithType:1];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -110,15 +167,112 @@ UINavigationControllerDelegate
 - (void)viewDidAppear:(BOOL)animated
 {
     
-    NSDictionary *parameters = @{@"method":@"getDepartmentInfoList",
-                                 @"departmentId":@"1",
-                                 @"type":@"3"};
     
-    NSURLSessionDataTask *task = [GCRequest getDepartmentInfoListWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+}
+
+- (void)initSubview
+{
+    self.userSexLabel = [[CustomLabel alloc] init];
+    self.userIdLabel = [[CustomLabel alloc] init];
+    self.userDepartmentLabel = [[CustomLabel alloc] init];
+    self.userCenterLabel = [[CustomLabel alloc] init];
+    self.userBirthdayLabel = [[CustomLabel alloc] init];
+    self.userLevelLabel = [[CustomLabel alloc] init];
+    self.userNameTextField = [[UITextField alloc] init];
+    self.userHospitalTextField = [[UITextField alloc] init];
+    self.userSkilledTextView = [[MyTextView alloc] init];
+    self.userHeadImageView = [[ThumbnailImageView alloc] init];
+}
+
+
+- (void)setupNavigationBarRightItemWithType:(NSInteger)type
+{
+    if (type == 0)
+    {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+    else if (type == 1)
+    {
+        self.navigationItem.rightBarButtonItem = nil;
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Edit"]
+                                                                 style:UIBarButtonItemStyleBordered
+                                                                target:self
+                                                                action:@selector(editButtonEvent:)];
+        self.navigationItem.rightBarButtonItem = item;
+    }
+    else
+    {
+        self.navigationItem.rightBarButtonItem = nil;
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Save", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(selectUploadRequestCellEvent)];
+        self.navigationItem.rightBarButtonItem = item;
+    }
+}
+
+
+- (void)requestUserInfo
+{
+    
+    
+    NSDictionary *parameters = @{@"method":@"getPersonalInfo",
+                                 @"sign":@"sign",
+                                 @"sessionId":[NSString sessionID],
+                                 @"exptId":[NSString exptId]};
+    
+    NSURLSessionDataTask *task = [GCRequest getPersonalInfoWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
         
-        NSLog(@"%@",responseData);
         
+        if (!error)
+        {
+            if ([responseData[@"ret_code"] isEqualToString:@"0"])
+            {
+                
+                UserInfo *info = [UserInfo shareInfo];
+                
+                responseData = [responseData[@"expert"] mutableCopy];
+                
+                [responseData sexFormattingToUserForKey:@"sex"];
+                [responseData expertLevelFormattingToUserForKey:@"expertLevel"];
+                
+                [responseData dateFormattingToUserForKey:@"birthday"];
+                
+                [info updateCoreDataForData:responseData withKeyPath:nil];
+                
+                
+                if (![info.stat isEqualToString:@"S0W"])
+                {
+                    isChecking = NO;
+                    NSDictionary *infoDic = [NSDictionary configureByModel:info];
+                    [self.info updateCoreDataForData:infoDic withKeyPath:nil];
+                }
+                else
+                {
+                    isChecking = YES;
+                }
+                [[CoreDataStack sharedCoreDataStack] saveContext];
+                
+                
+                [LoadedLog shareLoadedLog].userInfo = [NSString stringWithDateFormatting:GC_FORMATTER_SECOND date:[NSDate date]];
+                
+                [self.mainTableView reloadData];
+                
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadLeftMenu" object:nil];
+                
+            }
+            else
+            {
+                
+            }
+        }
+        else
+        {
+            
+        }
+        
+        [[CoreDataStack sharedCoreDataStack] saveContext];
     }];
+    
+    [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:self];
     
 }
 
@@ -160,11 +314,21 @@ UINavigationControllerDelegate
     self.activeView = textField;
 }
 
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    
+}
+
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
     self.activeView = textView;
     return YES;
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    
 }
 
 
@@ -176,16 +340,14 @@ UINavigationControllerDelegate
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
+    
     if (component == 0)
     {
-        return _departmentsArray.count;
+        return _departCom0Array.count;
     }
     else
     {
-        NSInteger selectRowLeft = [pickerView selectedRowInComponent:0];
-        
-        NSArray *rowArray = [[_departmentsArray objectAtIndex:selectRowLeft] objectForKey:@"content"];
-        return rowArray.count;
+        return _departCom1Array.count;
     }
 }
 
@@ -194,19 +356,28 @@ UINavigationControllerDelegate
     
     if (component == 0)
     {
-        NSDictionary *department = [_departmentsArray objectAtIndex:row];
-        NSString *componentTitle = [department objectForKey:@"componentTitle"];
-        return componentTitle;
+        
+        Department *department = _departCom0Array[row];
+        
+        [self.departmentsPicker selectRow:0 inComponent:1 animated:YES];
+        return department.departmentName;
     }
     else
     {
-        NSInteger selectRowLeft = [pickerView selectedRowInComponent:0];
-        NSDictionary *department = [_departmentsArray objectAtIndex:selectRowLeft];
-        NSArray *rowArray = [department objectForKey:@"content"];
-        NSString *title = [rowArray objectAtIndex:row];
-        return title;
+        Department *department;
+        
+        if (row < _departCom1Array.count)
+        {
+            department = _departCom1Array[row];
+        }
+        
+        
+        return department.departmentName;
     }
 }
+
+
+
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
@@ -214,39 +385,32 @@ UINavigationControllerDelegate
     if (component == 0)
     {
         
+        if (row >= _departCom0Array.count)
+        {
+            return;
+        }
+        
+        
+        Department *department = _departCom0Array[row];
+        NSString *parentId = department.departmentId;
+        
+        _departCom1Array = [Department findAllWithPredicate:[NSPredicate predicateWithFormat:@"parentId = %@",parentId]
+                                                  inContext:[CoreDataStack sharedCoreDataStack].context];
+        
+        [pickerView selectRow:0 inComponent:1 animated:NO];
         [self.departmentsPicker reloadComponent:1];
     }
-}
-
-- (IBAction)confirmButtonEvent:(id)sender
-{
-    
-    NSInteger selectComponent = [self.departmentsPicker selectedRowInComponent:0];
-    NSInteger selectRow = [self.departmentsPicker selectedRowInComponent:1];
-    
-    
-    NSDictionary *department = [_departmentsArray objectAtIndex:selectComponent];
-    NSArray *rowArray = [department objectForKey:@"content"];
-    NSString *title = [rowArray objectAtIndex:selectRow];
-    
-    
-    if (title && title.length > 0)
+    else
     {
-        UITableViewCell *cell = [self.mainTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:TableViewCellRowDepartments
-                                                                                             inSection:0]];
-        UILabel *label = (UILabel *)[cell viewWithTag:TableViewCellBaseItemTagUserView];
-        [label setText:title];
+        
+        if (row >= _departCom1Array.count)
+        {
+            return;
+        }
+        
     }
-    
-    [hud hide:YES];
 }
 
-
-- (IBAction)cancelButtonEvent:(id)sender
-{
-    
-    [hud hide:YES];
-}
 
 #pragma mark - UITableView Delegate & DataSource
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
@@ -260,60 +424,42 @@ UINavigationControllerDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0)
-    {
-        
-        return kRowCount;
-    }
-    else
-    {
-        if (self.editing)
-        {
-            return 1;
-        }
-    }
-    
-    return 0;
+    return kRowCount;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    
-    if (self.editing)
-    {
-        return 2;
-    }
-    else
-    {
-        return 1;
-    }
+    return 1;
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0)
+    
+    if (indexPath.row == TableViewCellRowTerritory)
     {
+        //            NSInteger fontSize = [[[NSUserDefaults standardUserDefaults] objectForKey:@"USER_FONSIZE"] integerValue];
+        territoryTextViewSize = [self sizeWithString:self.info.skilled
+                                                font:[UIFont systemFontOfSize:12]
+                                             maxSize:CGSizeMake(CGRectGetWidth(self.view.bounds) - kDefaultCellParameterLeftMagin - kDefaultCellParameterRightMagin/2, 0)];
         
-        if (indexPath.row == TableViewCellRowTerritory)
+        if (territoryTextViewSize.height < kTerritoryMinHeight)
         {
-            
-            territoryTextViewSize = [self sizeWithString:territoryString
-                                                    font:[UIFont systemFontOfSize:kDefaultFontSize]
-                                                 maxSize:CGSizeMake(CGRectGetWidth(self.view.bounds) - kDefaultCellParameterLeftMagin - kDefaultCellParameterRightMagin/2, 0)];
-            
-            return territoryTextViewSize.height + kTerritoryCellTextViewMagin *2  +20;
+            territoryTextViewSize.height = kTerritoryMinHeight;
+            territoryTextViewSize.width =CGRectGetWidth(self.view.bounds) - kDefaultCellParameterLeftMagin - kDefaultCellParameterRightMagin/2;
         }
         
-        return kCellHeight;
+        CGFloat terrytoryHeight = territoryTextViewSize.height + kTerritoryCellTextViewMagin*2;
+        
+        
+        return terrytoryHeight + 20;
     }
     else
     {
         
-        return kUploadCellHeight;
+        return kCellHeight;
     }
     
-    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -338,9 +484,8 @@ UINavigationControllerDelegate
         if (isChecking)
         {
             
-            UILabel *label = [[UILabel alloc] init];
+            CustomLabel *label = [[CustomLabel alloc] init];
             [label setText:NSLocalizedString(@"Your information is under review", nil)];
-            [label setFont:[UIFont systemFontOfSize:kDefaultFontSize]];
             [label setTextColor:[UIColor redColor]];
             return label;
         }
@@ -351,6 +496,7 @@ UINavigationControllerDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.section == 0)
     {
@@ -359,10 +505,13 @@ UINavigationControllerDelegate
         {
             switch (indexPath.row)
             {
-                case TableViewCellRowGender:        [self selectActualNameCellEvent];    break;
+                case TableViewCellRowGender:        [self selectGenderCellEvent];    break;
                 case TableViewCellRowDateOfBirth:   [self selectDateOfBirthCellEvent];   break;
                 case TableViewCellRowDepartments:   [self selectDepartmentsCellEvent];   break;
                 case TableViewCellRowUserImage:     [self selectUserImageCellEvent];     break;
+                case TableViewCellRowActualName:    [self.userNameTextField becomeFirstResponder];   break;
+                case TableViewCellRowHospital:      [self.userHospitalTextField becomeFirstResponder]; break;
+                case TableViewCellRowTerritory:     [self.userSkilledTextView becomeFirstResponder]; break;
                 default:
                     break;
             }
@@ -380,33 +529,46 @@ UINavigationControllerDelegate
     
     UITableViewCell *cell;
     
-    if (indexPath.section == 0)
+    switch (indexPath.row)
     {
-        
-        switch (indexPath.row)
-        {
-            case TableViewCellRowUserImage:   cell = [self setupUserImageCellWithImage:[UIImage imageNamed:@"019"]];   break;
-            case TableViewCellRowActualName:  cell = [self setupActualNameCellWithLabelText:@"WangBigTiger"];                break;
-            case TableViewCellRowGender:      cell = [self setupGenderCellWithLabelText:@"男"];                               break;
-            case TableViewCellRowDateOfBirth: cell = [self setupDateOfBirthCellWithLabelText:@"1959-02-12"];                  break;
-            case TableViewCellRowRank:        cell = [self setupRankCellWithLabelText:@"专家"];                                break;
-            case TableViewCellRowDepartments: cell = [self setupDepartmentsCellWithLabelText:@"内分泌科"];                     break;
-            case TableViewCellRowID:          cell = [self setupIDCellWithLabelText:@"12345678901"];                          break;
-            default:                          cell = [self setupTerritoryCellWithLabelText:territoryString];                  break;
+        case TableViewCellRowUserImage:   cell = [self setupUserImageCell];                                        break;
+        case TableViewCellRowActualName:
+            cell = [self configureTextFieldCellWithText:self.info.exptName indexPath:indexPath];
+            break;
+        case TableViewCellRowHospital:
+            cell = [self configureTextFieldCellWithText:self.info.hospital indexPath:indexPath];
+            break;
+        case TableViewCellRowGender:
+            cell = [self configureLabelCellWithLabelText:self.info.sex indexPath:indexPath];
+            break;
+        case TableViewCellRowDateOfBirth:
+            cell = [self configureLabelCellWithLabelText:self.info.birthday indexPath:indexPath];
+            break;
+        case TableViewCellRowRank:
+            cell = [self configureLabelCellWithLabelText:self.info.expertLevel indexPath:indexPath];
+            break;
+        case TableViewCellRowID:
+            cell = [self configureLabelCellWithLabelText:self.info.exptId indexPath:indexPath];
+            break;
+        case TableViewCellRowTerritory:
+            cell = [self setupTerritoryCellWithLabelText:self.info.skilled];
+            break;
+            
+        case TableViewCellRowDepartments: {
+            NSString *departName = [Department getDepartmentNameByID:self.info.departmentId];
+            cell = [self configureLabelCellWithLabelText:departName indexPath:indexPath];
         }
-        
-        //添加标题
-        [self setTitleItemWithCell:cell indexPath:indexPath];
-    }
-    else
-    {
-        
-        if (self.editing)
-        {
-            cell = [self setupUploadRequestCell];
+            break;
+            
+        case TableViewCellRowServiceCenter:{
+            NSString *centerName = [ServCenter getCenterNameByID:self.info.centerId];
+            cell=[self configureLabelCellWithLabelText:centerName indexPath:indexPath];
         }
+            break;
+            
+        default:
+            break;
     }
-    
     
     
     return cell;
@@ -414,80 +576,142 @@ UINavigationControllerDelegate
 
 #pragma mark - 自定义Cell创建
 
-#pragma mark 提交审批cell
-- (UITableViewCell *)setupUploadRequestCell
+
+#pragma mark 头像cell
+- (UITableViewCell *)setupUserImageCell
 {
-    
-    UITableViewCell *cell = [self.mainTableView dequeueReusableCellWithIdentifier:@"UploadRequestCell"];
+        UITableViewCell *cell = [self.mainTableView dequeueReusableCellWithIdentifier:identifier_userImage];
     
     if (!cell)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UploadRequestCell"];
-        cell.textLabel.text = NSLocalizedString(@"Submit", nil);
-        cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.backgroundColor = [UIColor colorWithRed:2.0f/255.0f green:136.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier_userImage];
         
+        
+        [self.userHeadImageView setImageWithURL:[NSURL URLWithString:self.info.headimageUrl]
+                               placeholderImage:nil];
+        [self.userHeadImageView setTag:TableViewCellBaseItemTagUserView];
+        
+        
+        [cell addSubview:self.userHeadImageView];
+        
+        [self.userHeadImageView setFrame:
+         CGRectMake(CGRectGetWidth(self.view.bounds) - kDefaultCellParameterRightMagin - kDefaultCellUserImageLengthOfSize,
+                    (kCellHeight - kDefaultCellUserImageLengthOfSize)/2,
+                    kDefaultCellUserImageLengthOfSize,
+                    kDefaultCellUserImageLengthOfSize)];
+        
+        self.userHeadImageView.layer.borderWidth = 3.0f;
+        self.userHeadImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.userHeadImageView.layer.cornerRadius = self.userHeadImageView.frame.size.width/2;
+        self.userHeadImageView.clipsToBounds = YES;
+        
+        [self setTitleItemWithCell:cell indexPath:[NSIndexPath indexPathForRow:TableViewCellRowUserImage inSection:0]];
     }
+    
     
     return cell;
 }
 
-#pragma mark 头像cell
-- (UITableViewCell *)setupUserImageCellWithImage:(UIImage *)image
+
+#pragma mark 普通label Cell
+- (UITableViewCell *)configureLabelCellWithLabelText:(NSString *)labelText indexPath:(NSIndexPath *)indexPath
 {
+    NSString *identifier;
+    UILabel *label;
     
-    static NSString *identifier = @"UserImageCell";
+    switch (indexPath.row)
+    {
+        case TableViewCellRowGender:
+            identifier = identifier_gender;
+            label = self.userSexLabel;
+            break;
+        case TableViewCellRowDateOfBirth:
+            identifier = identifier_date;
+            label = self.userBirthdayLabel;
+            break;
+        case TableViewCellRowRank:
+            identifier = identifier_rank;
+            label = self.userLevelLabel;
+            break;
+        case TableViewCellRowDepartments:
+            identifier = identifier_department;
+            label = self.userDepartmentLabel;
+            break;
+        case TableViewCellRowID:
+            identifier = identifier_id;
+            label = self.userIdLabel;
+            break;
+        case TableViewCellRowServiceCenter:
+            identifier = identifier_center;
+            label = self.userCenterLabel;
+            break;
+        default:
+            break;
+    }
+    
+    
     UITableViewCell *cell = [self.mainTableView dequeueReusableCellWithIdentifier:identifier];
+    [label setText:labelText];
     
     if (!cell)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-        [imageView setTag:TableViewCellBaseItemTagUserView];
-        [cell addSubview:imageView];
+        [label setTag:TableViewCellBaseItemTagUserView];
+        label.textAlignment = NSTextAlignmentLeft;
+        [label setTextColor:[UIColor lightGrayColor]];
+        [cell addSubview:label];
         
         
-        UIImageView *indicator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"005"]];
-        [indicator setTag:TableViewCellBaseItemTagIndicator];
-        [cell addSubview:indicator];
+        [label setFrame:CGRectMake(kDefaultCellParameterLeftMagin*1.5,
+                                   kCellHeight/4,
+                                   CGRectGetWidth(self.view.bounds)-kDefaultCellParameterLeftMagin*1.5,
+                                   kCellHeight/2)];
+        
+        
+        
+        //添加标题
+        [self setTitleItemWithCell:cell indexPath:indexPath];
     }
     
-    
-    UIImageView *imageView = (UIImageView *)[cell viewWithTag:TableViewCellBaseItemTagUserView];
-    [imageView setFrame:
-     CGRectMake(CGRectGetWidth(self.view.bounds) - kDefaultCellParameterRightMagin - kDefaultCellUserImageLengthOfSize,
-                (kCellHeight - kDefaultCellUserImageLengthOfSize)/2,
-                kDefaultCellUserImageLengthOfSize,
-                kDefaultCellUserImageLengthOfSize)];
-    
-    
-    [self setLucencyIndicatorWithCell:cell];
-    
-    
-    
-    UIView *indicator = [cell viewWithTag:TableViewCellBaseItemTagIndicator];
     if (self.editing)
     {
-        indicator.alpha = 1;
+        if (indexPath.row != TableViewCellRowID && indexPath.row != TableViewCellRowServiceCenter && indexPath.row != TableViewCellRowRank)
+        {
+            [label setTextColor:[UIColor orangeColor]];
+        }
+        else
+        {
+            [label setTextColor:[UIColor lightGrayColor]];
+        }
     }
     else
     {
-        indicator.alpha = 0;
+        [label setTextColor:[UIColor lightGrayColor]];
     }
-    
     
     return cell;
 }
 
-
-
-#pragma mark 真实姓名cell
-- (UITableViewCell *)setupActualNameCellWithLabelText:(NSString *)labelText
+#pragma mark 普通TextField Cell
+- (UITableViewCell *)configureTextFieldCellWithText:(NSString *)text indexPath:(NSIndexPath *)indexPath
 {
-    static NSString *identifier = @"ActualNameCell";
+    
+    NSString *identifier;
+    UITextField *textField;
+    
+    if (indexPath.row == TableViewCellRowActualName)
+    {
+        identifier = identifier_actualName;
+        textField = self.userNameTextField;
+    }
+    else if (indexPath.row == TableViewCellRowHospital)
+    {
+        identifier = identifier_hospital;
+        textField = self.userHospitalTextField;
+    }
+    
     UITableViewCell *cell = [self.mainTableView dequeueReusableCellWithIdentifier:identifier];
     
     if (!cell)
@@ -495,400 +719,117 @@ UINavigationControllerDelegate
         
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        UITextField *textField = [[UITextField alloc] init];
         textField.delegate = self;
         textField.userInteractionEnabled = NO;
-        [textField setFont:[UIFont systemFontOfSize:kDefaultFontSize]];
-        [textField setText:labelText];
+        textField.font = [UIFont systemFontOfSize:14];
         [textField setTextColor:[UIColor lightGrayColor]];
+        [textField setText:text];
         
         
-        [textField setFrame:CGRectMake(kDefaultCellParameterLeftMagin,
-                                       kCellHeight /4,
-                                       CGRectGetWidth(self.view.bounds)/2,
-                                       kCellHeight /2)];
+        [textField setFrame:CGRectMake(kDefaultCellParameterLeftMagin*1.5,
+                                                    kCellHeight/4,
+                                                    CGRectGetWidth(self.view.bounds)/2,
+                                                    kCellHeight/2)];
+        
         
         [textField setTag:TableViewCellBaseItemTagUserView];
         [cell addSubview:textField];
         
         
-        
-        CGRect rect = textField.frame;
-        UIImageView *textFieldBottomView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"004"]];
-        [textFieldBottomView setFrame:CGRectMake(rect.origin.x - 5,
-                                                 rect.origin.y + rect.size.height - 10,
-                                                 rect.size.width,
-                                                 7)];
-        textFieldBottomView.tag = TableViewCellBaseItemTagSecondView;
-        
-        [cell addSubview:textFieldBottomView];
+        //添加标题
+        [self setTitleItemWithCell:cell indexPath:indexPath];
     }
     
-    UITextField *textField = (UITextField *)[cell viewWithTag:TableViewCellBaseItemTagUserView];
-    [textField setTextColor:[UIColor lightGrayColor]];
-    [textField setUserInteractionEnabled:NO];
-    
-    UIImageView *bottomView = (UIImageView *)[cell viewWithTag:TableViewCellBaseItemTagSecondView];
     if (self.editing)
     {
-        
-        [textField setTextColor:[UIColor blackColor]];
-        [textField setUserInteractionEnabled:YES];
-        
-        [bottomView setImage:[UIImage imageNamed:@"003"]];
+        textField.textColor = [UIColor orangeColor];
     }
     else
     {
-        [bottomView setImage:[UIImage imageNamed:@"004"]];
+        textField.textColor = [UIColor lightGrayColor];
     }
     
     return cell;
 }
 
 
-#pragma mark 性别cell
-- (UITableViewCell *)setupGenderCellWithLabelText:(NSString *)labelText
-{
-    static NSString *identifier = @"GenderCell";
-    UITableViewCell *cell = [self.mainTableView dequeueReusableCellWithIdentifier:identifier];
-    
-    if (!cell)
-    {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        
-        
-        UILabel *label = [[UILabel alloc] init];
-        [label setTag:TableViewCellBaseItemTagUserView];
-        [label setFont:[UIFont systemFontOfSize:kDefaultFontSize]];
-        label.numberOfLines = 1;
-        [cell addSubview:label];
-        
-        
-        UIImageView *indicator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"005"]];
-        [indicator setTag:TableViewCellBaseItemTagIndicator];
-        [cell addSubview:indicator];
-    }
-    
-    
-    [self setupDefaulCell:cell labelText:labelText];
-    [self setLucencyIndicatorWithCell:cell];
-    
-    
-    if (self.editing)
-    {
-        
-        UILabel *label = (UILabel *)[cell viewWithTag:TableViewCellBaseItemTagUserView];
-        
-        
-        [label setTextAlignment:NSTextAlignmentRight];
-        
-        
-        [label setTextColor:[UIColor blackColor]];
-        
-        CGRect rect = label.frame;
-        rect.origin.x = CGRectGetWidth(self.view.bounds) - kDefaultCellParameterRightMagin - rect.size.width;
-        [label setFrame:rect];
-        label.alpha = 1;
-        
-        UIView *indicatorView = [cell viewWithTag:TableViewCellBaseItemTagIndicator];
-        indicatorView.alpha = 1;
-    }
-    
-    return cell;
-}
-
-#pragma mark 出生日期cell
-- (UITableViewCell *)setupDateOfBirthCellWithLabelText:(NSString *)labelText
-{
-    
-    static NSString *identifier = @"DateOfBirthCell";
-    UITableViewCell *cell = [self.mainTableView dequeueReusableCellWithIdentifier:identifier];
-    
-    if (!cell)
-    {
-        
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        
-        
-        UILabel *label = [[UILabel alloc] init];
-        [label setTag:TableViewCellBaseItemTagUserView];
-        [label setFont:[UIFont systemFontOfSize:kDefaultFontSize]];
-        label.numberOfLines = 1;
-        [label setTextAlignment:NSTextAlignmentLeft];
-        [cell addSubview:label];
-        
-        
-        UIImageView *indicator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"005"]];
-        [indicator setTag:TableViewCellBaseItemTagIndicator];
-        indicator.alpha = 0;
-        [cell addSubview:indicator];
-    }
-    
-    
-    [self setupDefaulCell:cell labelText:labelText];
-    [self setLucencyIndicatorWithCell:cell];
-    
-    
-    if (self.editing)
-    {
-        
-        UILabel *label = (UILabel *)[cell viewWithTag:TableViewCellBaseItemTagUserView];
-        
-        
-        [label setTextAlignment:NSTextAlignmentRight];
-        
-        
-        [label setTextColor:[UIColor blackColor]];
-        
-        CGRect rect = label.frame;
-        rect.origin.x = CGRectGetWidth(self.view.bounds) - kDefaultCellParameterRightMagin - rect.size.width;
-        [label setFrame:rect];
-        label.alpha = 1;
-        
-        UIView *indicatorView = [cell viewWithTag:TableViewCellBaseItemTagIndicator];
-        indicatorView.alpha = 1;
-    }
-    
-    return cell;
-}
-
-#pragma mark 科室cell
-- (UITableViewCell *)setupDepartmentsCellWithLabelText:(NSString *)labelText
-{
-    static NSString *identifier = @"DepartmentsCell";
-    UITableViewCell *cell = [self.mainTableView dequeueReusableCellWithIdentifier:identifier];
-    
-    if (!cell)
-    {
-        
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        
-        UILabel *label = [[UILabel alloc] init];
-        [label setTag:TableViewCellBaseItemTagUserView];
-        [label setFont:[UIFont systemFontOfSize:kDefaultFontSize]];
-        label.numberOfLines = 1;
-        [label setTextAlignment:NSTextAlignmentLeft];
-        [cell addSubview:label];
-        
-        
-        UIImageView *indicator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"005"]];
-        [indicator setTag:TableViewCellBaseItemTagIndicator];
-        indicator.alpha = 0;
-        [cell addSubview:indicator];
-    }
-    
-    [self setupDefaulCell:cell labelText:labelText];
-    [self setLucencyIndicatorWithCell:cell];
-    
-    
-    if (self.editing)
-    {
-        
-        UILabel *label = (UILabel *)[cell viewWithTag:TableViewCellBaseItemTagUserView];
-        
-        
-        [label setTextAlignment:NSTextAlignmentRight];
-        
-        
-        [label setTextColor:[UIColor blackColor]];
-        
-        CGRect rect = label.frame;
-        rect.origin.x = CGRectGetWidth(self.view.bounds) - kDefaultCellParameterRightMagin - rect.size.width;
-        [label setFrame:rect];
-        label.alpha = 1;
-        
-        UIView *indicatorView = [cell viewWithTag:TableViewCellBaseItemTagIndicator];
-        indicatorView.alpha = 1;
-    }
-    
-    return cell;
-}
-
-
-
-#pragma mark  级别cell
-- (UITableViewCell *)setupRankCellWithLabelText:(NSString *)labelText
-{
-    static NSString *identifier = @"RankCell";
-    UITableViewCell *cell = [self.mainTableView dequeueReusableCellWithIdentifier:identifier];
-    
-    if (!cell)
-    {
-        
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        UILabel *label = [[UILabel alloc] init];
-        [label setFont:[UIFont systemFontOfSize:kDefaultFontSize]];
-        [label setText:labelText];
-        [label setTextColor:[UIColor lightGrayColor]];
-        
-        CGSize size = [self sizeWithString:label.text
-                                      font:label.font
-                                   maxSize:CGSizeMake(CGRectGetWidth(self.view.bounds)/2, kCellHeight)];
-        
-        
-        [label setFrame:CGRectMake(kDefaultCellParameterLeftMagin,
-                                   (kCellHeight - size.height)/2,
-                                   size.width,
-                                   size.height)];
-        label.numberOfLines = 1;
-        [label setTextAlignment:NSTextAlignmentRight];
-        
-        [label setTag:TableViewCellBaseItemTagUserView];
-        [cell addSubview:label];
-    }
-    
-    return cell;
-}
-
-
-#pragma mark  ID cell
-- (UITableViewCell *)setupIDCellWithLabelText:(NSString *)labelText
-{
-    static NSString *identifier = @"IDCell";
-    UITableViewCell *cell = [self.mainTableView dequeueReusableCellWithIdentifier:identifier];
-    
-    if (!cell)
-    {
-        
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        UILabel *label = [[UILabel alloc] init];
-        [label setFont:[UIFont systemFontOfSize:kDefaultFontSize]];
-        [label setText:labelText];
-        [label setTextColor:[UIColor lightGrayColor]];
-        
-        CGSize size = [self sizeWithString:label.text
-                                      font:label.font
-                                   maxSize:CGSizeMake(CGRectGetWidth(self.view.bounds)/2, kCellHeight)];
-        
-        
-        [label setFrame:CGRectMake(kDefaultCellParameterLeftMagin,
-                                   (kCellHeight - size.height)/2,
-                                   size.width,
-                                   size.height)];
-        label.numberOfLines = 1;
-        [label setTextAlignment:NSTextAlignmentRight];
-        
-        [label setTag:TableViewCellBaseItemTagUserView];
-        [cell addSubview:label];
-    }
-    
-    return cell;
-}
 
 #pragma mark  擅长领域cell
 - (UITableViewCell *)setupTerritoryCellWithLabelText:(NSString *)labelText
 {
-    static NSString *identifier = @"TerritoryCell";
-    UITableViewCell *cell = [self.mainTableView dequeueReusableCellWithIdentifier:identifier];
+    UITableViewCell *cell = [self.mainTableView dequeueReusableCellWithIdentifier:identifier_territory];
     
     if (!cell)
     {
         
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier_territory];
         
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        UITextView *textView = [[UITextView alloc] init];
-        textView.delegate = self;
-        [textView setFont:[UIFont systemFontOfSize:kDefaultFontSize]];
-        [textView setTag:TableViewCellBaseItemTagUserView];
-        [textView setText:labelText];
-        [cell addSubview:textView];
+        self.userSkilledTextView = [[MyTextView alloc] init];
+        self.userSkilledTextView.textColor = [UIColor lightGrayColor];
+        self.userSkilledTextView.userInteractionEnabled = NO;
+        self.userSkilledTextView.delegate = self;
+        [self.userSkilledTextView setTag:TableViewCellBaseItemTagUserView];
+        [self.userSkilledTextView setText:labelText];
+        //        NSInteger fonSize = [[[NSUserDefaults standardUserDefaults] objectForKey:@"USER_FONSIZE"] integerValue];
+        [self.userSkilledTextView setFont:[UIFont systemFontOfSize:14]];
+        [cell addSubview:self.userSkilledTextView];
         
-        self.activeView = textView;
+        self.activeView = self.userSkilledTextView;
+        
+        
+        
+        territoryTextViewSize = [self sizeWithString:labelText
+                                                font:self.userSkilledTextView.font
+                                             maxSize:CGSizeMake(CGRectGetWidth(self.view.bounds) - kDefaultCellParameterLeftMagin - kDefaultCellParameterRightMagin/2, 0)];
+        
+        if (territoryTextViewSize.height < kTerritoryMinHeight)
+        {
+            territoryTextViewSize.height = kTerritoryMinHeight;
+            territoryTextViewSize.width  = CGRectGetWidth(self.view.bounds) - kDefaultCellParameterLeftMagin*1.5 - kDefaultCellParameterRightMagin/2;
+        }
+        
+        [self.userSkilledTextView setFrame:CGRectMake(kDefaultCellParameterLeftMagin*1.5-5,   //-5以使得和上下左对齐
+                                                      kTerritoryCellTextViewMagin,
+                                                      territoryTextViewSize.width,
+                                                      territoryTextViewSize.height + 20)];
+        
+        
+        //添加标题
+        [self setTitleItemWithCell:cell indexPath:[NSIndexPath indexPathForRow:TableViewCellRowTerritory inSection:0]];
     }
     
-    UITextView *textView = (UITextView *)[cell viewWithTag:TableViewCellBaseItemTagUserView];
     
-    territoryTextViewSize = [self sizeWithString:territoryString
-                                            font:[UIFont systemFontOfSize:kDefaultFontSize]
-                                         maxSize:CGSizeMake(CGRectGetWidth(self.view.bounds) - kDefaultCellParameterLeftMagin - kDefaultCellParameterRightMagin/2, 0)];
-    
-    [textView setFrame:CGRectMake(kDefaultCellParameterLeftMagin,
-                                  kTerritoryCellTextViewMagin,
-                                  territoryTextViewSize.width,
-                                  territoryTextViewSize.height + 10)];
     if (self.editing)
     {
-        
-        
-        textView.textColor = [UIColor blackColor];
-        textView.userInteractionEnabled = YES;
+        self.userSkilledTextView.textColor = [UIColor orangeColor];
+        self.userSkilledTextView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+        self.userSkilledTextView.layer.borderWidth = 1.0;
     }
     else
     {
-        [textView setTextColor:[UIColor lightGrayColor]];
-        textView.userInteractionEnabled = NO;
+        self.userSkilledTextView.textColor = [UIColor lightGrayColor];
     }
-    
+
     
     return cell;
 }
 
-
-#pragma mark 设置默认cell的label
-- (void)setupDefaulCell:(UITableViewCell *)cell labelText:(NSString *)labelText
-{
-    UILabel *label = (UILabel *)[cell viewWithTag:TableViewCellBaseItemTagUserView];
-    [label setText:labelText];
-    [label setTextColor:[UIColor lightGrayColor]];
-    [label setTextAlignment:NSTextAlignmentLeft];
-    
-    CGSize size = [self sizeWithString:label.text
-                                  font:label.font
-                               maxSize:CGSizeMake(CGRectGetWidth(self.view.bounds)/2, kCellHeight)];
-    
-    
-    [label setFrame:CGRectMake(kDefaultCellParameterLeftMagin,
-                               (kCellHeight - size.height)/2,
-                               CGRectGetWidth(self.view.bounds)/2,
-                               size.height)];
-}
 
 #pragma mark 设置标题label
 - (void)setTitleItemWithCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath
 {
     
-    UILabel *titleLabel = [[UILabel alloc] init];
+    CustomLabel *titleLabel = [[CustomLabel alloc] init];
     [titleLabel setFrame:CGRectMake(0,
                                     0,
                                     kDefaultCellParameterLeftMagin - kTitleLabelRightMagin,
                                     kCellHeight)];
     [titleLabel setText:[self titleWithIndexPath:indexPath]];
     [titleLabel setTextAlignment:NSTextAlignmentRight];
-    [titleLabel setFont:[UIFont systemFontOfSize:14]];
     [cell addSubview:titleLabel];
 }
-
-#pragma mark 设置透明指示器
-- (void)setLucencyIndicatorWithCell:(UITableViewCell *)cell
-{
-    
-    UIImageView *imageView = (UIImageView *)[cell viewWithTag:TableViewCellBaseItemTagIndicator];
-    [imageView setFrame:CGRectMake(CGRectGetWidth(self.view.bounds) - kDefaultCellParameterRightMagin + (kDefaultCellParameterRightMagin - kLucencyIndicatorLengthOfSize)/2,
-                                   (kCellHeight - kLucencyIndicatorLengthOfSize)/2,
-                                   kLucencyIndicatorLengthOfSize,
-                                   kLucencyIndicatorLengthOfSize)];
-    [imageView setAlpha:0];
-}
-
 
 
 #pragma mark - Cell点击事件
@@ -897,7 +838,6 @@ UINavigationControllerDelegate
 #pragma mark 用户头像
 - (void)selectUserImageCellEvent
 {
-    
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
     {
@@ -963,13 +903,26 @@ UINavigationControllerDelegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    
+    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+    if ([mediaType isEqualToString:@"public.image"]) {
+        self.thumbnailImage = [info objectForKey:UIImagePickerControllerEditedImage];
+    }
+    
+    
+    
+    [self uploadThumbnailToServer];
+    
+    
     [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    
 }
 
 
 
-#pragma mark 真实姓名
-- (void)selectActualNameCellEvent
+#pragma mark 性别
+- (void)selectGenderCellEvent
 {
     
     hud = [[MBProgressHUD alloc] initWithView:self.view];
@@ -983,10 +936,8 @@ UINavigationControllerDelegate
 - (IBAction)selectGender:(UIButton *)sender
 {
     
-    UITableViewCell *cell = [self.mainTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:TableViewCellRowGender
-                                                                                         inSection:0]];
-    UILabel *genderLabel = (UILabel *)[cell viewWithTag:TableViewCellBaseItemTagUserView];
-    [genderLabel setText:sender.currentTitle];
+    [self.userSexLabel setText:sender.currentTitle];
+    
     [hud hide:YES];
 }
 
@@ -997,25 +948,46 @@ UINavigationControllerDelegate
     hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:hud];
     [hud setMode:MBProgressHUDModeCustomView];
-    hud.customView = self.datePicker;
+    hud.customView = self.datePickerView;
+    hud.margin = 0;
     [hud show:YES];
 }
 
-- (IBAction)selectDate:(UIDatePicker *)sender
+- (IBAction)datePickerViewButtonEvnet:(UIButton *)sender
 {
-    
-    NSDate *date = [sender date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
-    NSString *dateString = [dateFormatter stringFromDate:date];
-    
-    
-    UITableViewCell *cell = [self.mainTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:TableViewCellRowDateOfBirth
-                                                                                         inSection:0]];
-    UILabel *dateLabel = (UILabel *)[cell viewWithTag:TableViewCellBaseItemTagUserView];
-    [dateLabel setText:dateString];
-    
-    [hud hide:YES];
+    if (sender.tag == 0)
+    {
+        [hud hide:YES];
+    }
+    else
+    {
+        
+        NSDate *date = [self.datePicker date];
+        
+        NSTimeInterval interval = [date timeIntervalSinceNow];
+
+        if (interval >= 0)
+        {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Warm prompt", nil)
+                                                            message:NSLocalizedString(@"Can't be late for today", nil)
+                                                           delegate:self
+                                                  cancelButtonTitle:NSLocalizedString(@"Confirm", nil)
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
+        else
+        {
+            
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"YYYY-MM-dd"];
+            NSString *dateString = [dateFormatter stringFromDate:date];
+            
+            [self.userBirthdayLabel setText:dateString];
+            
+            [hud hide:YES];
+        }
+    }
 }
 
 
@@ -1023,38 +995,136 @@ UINavigationControllerDelegate
 - (void)selectDepartmentsCellEvent
 {
     
-    hud = [[MBProgressHUD alloc] init];
-    [self.view addSubview:hud];
+    NSDictionary *parameters = @{@"method":@"getDepartmentInfoList",
+                                 @"departmentId":@"1",
+                                 @"type":@"3"};
     
-    hud.mode = MBProgressHUDModeCustomView;
-    hud.customView = self.departmentsContentView;
-    [hud show:YES];
+    NSArray *departObjects = [Department findAllInContext:[CoreDataStack sharedCoreDataStack].context];
+    
+    
+    if (departObjects.count <= 0)
+    {
+        
+        hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        hud.labelText = NSLocalizedString(@"Loading Department Parameters", nil);
+        [self.navigationController.view addSubview:hud];
+        [hud show:YES];
+        
+
+        [GCRequest getDepartmentInfoListWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+            if (!error)
+            {
+                NSString *ret_code = responseData[@"ret_code"];
+                if ([ret_code isEqualToString:@"0"])
+                {
+                    
+                    [hud hide:YES];
+                    
+                    
+                    [departObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                        Department *entity = (Department *)obj;
+                        [entity deleteEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+                    }];
+                    
+                    
+                    for (NSDictionary *departDic in responseData[@"departmentList"])
+                    {
+                        
+                        Department *department = [Department createEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+                        
+                        [department updateCoreDataForData:departDic withKeyPath:nil];
+                        
+                    }
+                    
+                    [[CoreDataStack sharedCoreDataStack] saveContext];
+                    
+                    [self configureDepartmentPickerDataSource];
+                    
+                    hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+                    [self.navigationController.view addSubview:hud];
+                    
+                    hud.mode = MBProgressHUDModeCustomView;
+                    hud.customView = self.departmentPickerView;
+                    hud.margin = 0;
+                    [hud show:YES];
+                }
+                else
+                {
+                    
+                    hud.mode = MBProgressHUDModeText;
+                    hud.labelText = [NSString localizedMsgFromRet_code:responseData[@"ret_code"] withHUD:YES];
+                    [hud hide:YES afterDelay:1.2];
+                }
+            }
+            else
+            {
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = [error localizedDescription];
+                [hud hide:YES afterDelay:HUD_TIME_DELAY];
+
+            }
+            
+        }];
+        
+    }
+    else
+    {
+        [self configureDepartmentPickerDataSource];
+        
+        hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        [self.navigationController.view addSubview:hud];
+        
+        hud.mode = MBProgressHUDModeCustomView;
+        hud.customView = self.departmentPickerView;
+        hud.margin = 0;
+        [hud show:YES];
+        
+    }
+}
+
+- (void)configureDepartmentPickerDataSource
+{
+    _departCom0Array = [NSArray arrayWithArray:[Department findAllWithPredicate:[NSPredicate predicateWithFormat:@"parentId = %@",@"1"]
+                                                                      inContext:[CoreDataStack sharedCoreDataStack].context]];
+    Department *depart = _departCom0Array[0];
+    _departCom1Array = [NSArray arrayWithArray:[Department findAllWithPredicate:[NSPredicate predicateWithFormat:@"parentId = %@",depart.departmentId]
+                                                                      inContext:[CoreDataStack sharedCoreDataStack].context]];
 }
 
 
-
-#pragma mark 提交审批
-- (void)selectUploadRequestCellEvent
+- (IBAction)confirmButtonEvent:(id)sender
 {
     
-    hud = [[MBProgressHUD alloc] init];
-    [self.view addSubview:hud];
+    Department *department = _departCom0Array[[self.departmentsPicker selectedRowInComponent:0]];
+    NSString *parentId = department.departmentId;
     
-    [hud showAnimated:YES whileExecutingBlock:^{
-        sleep(2);
-        
-        hud.mode = MBProgressHUDModeText;
-        hud.labelText = NSLocalizedString(@"Submitted Successfully", nil);
-        sleep(1);
-        
-    } completionBlock:^{
-        isChecking = YES;
-        self.editing = NO;
-        [self.mainTableView reloadData];
-        
-    }];
+    NSArray *objects = [Department findAllWithPredicate:[NSPredicate predicateWithFormat:@"parentId = %@",parentId]
+                                              inContext:[CoreDataStack sharedCoreDataStack].context];
+    department = objects[[self.departmentsPicker selectedRowInComponent:1]];
+    
+    
+    
+    NSString *title = department.departmentName;
+    
+    
+    if (title && title.length > 0)
+    {
+        UITableViewCell *cell = [self.mainTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:TableViewCellRowDepartments
+                                                                                             inSection:0]];
+        UILabel *label = (UILabel *)[cell viewWithTag:TableViewCellBaseItemTagUserView];
+        [label setText:title];
+    }
+    
+    
+    [hud hide:YES];
 }
 
+
+- (IBAction)cancelButtonEvent:(id)sender
+{
+    
+    [hud hide:YES];
+}
 
 
 #pragma mark - 编辑按钮事件
@@ -1065,7 +1135,9 @@ UINavigationControllerDelegate
     {
         
         self.editing = YES;
+        [self setupNavigationBarRightItemWithType:2];
     }
+    
 }
 
 
@@ -1084,33 +1156,33 @@ UINavigationControllerDelegate
             
             [self registerForKeyboardNotification:@selector(keyBoardWillShow:) :@selector(keyBoardWillHide:)];
             
-            [self insertUploadRequestCell];
+            self.userNameTextField.userInteractionEnabled = YES;
             
-            UITableViewCell *cell = [self.mainTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:TableViewCellRowActualName
-                                                                                                 inSection:0]];
-            UITextField *textField = (UITextField *)[cell viewWithTag:TableViewCellBaseItemTagUserView];
-            textField.userInteractionEnabled = YES;
+            self.userHospitalTextField.userInteractionEnabled = YES;
             
+            self.userSkilledTextView.userInteractionEnabled = YES;
+        }
+        else
+        {
+            self.userNameTextField.textColor = [UIColor lightGrayColor];
+            self.userSexLabel.textColor = [UIColor lightGrayColor];
+            self.userBirthdayLabel.textColor = [UIColor lightGrayColor];
+            self.userLevelLabel.textColor = [UIColor lightGrayColor];
+            self.userDepartmentLabel.textColor = [UIColor lightGrayColor];
+            self.userHospitalTextField.textColor = [UIColor lightGrayColor];
+            self.userIdLabel.textColor = [UIColor lightGrayColor];
+            self.userCenterLabel.textColor = [UIColor lightGrayColor];
+            self.userSkilledTextView.textColor = [UIColor lightGrayColor];
             
-            cell = [self.mainTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:TableViewCellRowTerritory
-                                                                                inSection:0]];
-            UITextView *textView = (UITextView *)[cell viewWithTag:TableViewCellBaseItemTagUserView];
-            textView.userInteractionEnabled = YES;
+            [self removeKeyboardNotification];
+            self.userNameTextField.userInteractionEnabled = NO;
+            self.userHospitalTextField.userInteractionEnabled = NO;
+            self.userSkilledTextView.userInteractionEnabled = NO;
         }
     }
 }
 
 
-
-#pragma mark - 插入提交审批按钮
-- (void)insertUploadRequestCell
-{
-    [self.mainTableView beginUpdates];
-    [self.mainTableView insertSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self.mainTableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]]
-                              withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self.mainTableView endUpdates];
-}
 
 #pragma mark - 编辑状态动画
 - (void)editingStateAnimation
@@ -1121,14 +1193,15 @@ UINavigationControllerDelegate
         
         switch (i)
         {
-            case TableViewCellRowGender:      [self normalCellAnimationBegin:i];      break;
-            case TableViewCellRowDateOfBirth: [self normalCellAnimationBegin:i];      break;
-            case TableViewCellRowDepartments: [self normalCellAnimationBegin:i];      break;
-            case TableViewCellRowTerritory:   [self territoryCellAnimationBegin];     break;
-            case TableViewCellRowActualName:  [self actualNameCellAnimationBegin];    break;
-            case TableViewCellRowRank:        [self normalCellAnimationBegin:i];      break;
-            case TableViewCellRowID:          [self normalCellAnimationBegin:i];      break;
-            case TableViewCellRowUserImage:   break;
+            case TableViewCellRowGender:      [self beginAnimationForLabelCellWithRow:i];      break;
+            case TableViewCellRowDateOfBirth: [self beginAnimationForLabelCellWithRow:i];      break;
+            case TableViewCellRowDepartments: [self beginAnimationForLabelCellWithRow:i];      break;
+            case TableViewCellRowRank:        [self beginAnimationForLabelCellWithRow:i];      break;
+            case TableViewCellRowID:          [self beginAnimationForLabelCellWithRow:i];      break;
+            case TableViewCellRowServiceCenter: [self beginAnimationForLabelCellWithRow:i];    break;
+            case TableViewCellRowTerritory:   [self territoryCellAnimationBegin];              break;
+            case TableViewCellRowActualName:  [self beginAnimationForTextFieldCellWithRow:i];  break;
+            case TableViewCellRowHospital:    [self beginAnimationForTextFieldCellWithRow:i];  break;
             default:    break;
         }
     }
@@ -1136,7 +1209,7 @@ UINavigationControllerDelegate
 
 
 //
-- (void)normalCellAnimationBegin:(NSInteger)row
+- (void)beginAnimationForLabelCellWithRow:(NSInteger)row
 {
     
     UITableViewCell *cell = [self.mainTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
@@ -1151,151 +1224,59 @@ UINavigationControllerDelegate
         [UIView animateWithDuration:kAnimationDurantion/2 animations:^{
             
             //label隐藏
-            CGRect rect = label.frame;
-            rect.origin.x = CGRectGetWidth(self.view.bounds)/2;
-            [label setFrame:rect];
-            
             label.alpha = 0;
         } completion:^(BOOL finished) {
-            [label setTextAlignment:NSTextAlignmentRight];
             
             [UIView animateWithDuration:kAnimationDurantion/2 animations:^{
-                if (row != TableViewCellRowRank && row != TableViewCellRowID)
+                if (row != TableViewCellRowRank && row != TableViewCellRowID && row != TableViewCellRowServiceCenter)
                 {
-                    [label setTextColor:[UIColor blackColor]];
+                    [label setTextColor:[[UIColor colorWithRed:255.0/255.0 green:128.0/255.0 blue:0.0/255.0 alpha:1] colorWithAlphaComponent:1.0]];
                 }
                 
                 //label显现
-                CGRect rect = label.frame;
-                rect.origin.x = CGRectGetWidth(self.view.bounds) - kDefaultCellParameterRightMagin - rect.size.width;
-                [label setFrame:rect];
                 label.alpha = 1;
             }];
         }];
     }
     
-    
-    //指示器显现
-    UIView *indicatorView = [cell viewWithTag:TableViewCellBaseItemTagIndicator];
-    [UIView animateWithDuration:kAnimationDurantion/2 animations:^{
-        indicatorView.alpha = 1;
-        
-    }];
-    
 }
 
-- (void)actualNameCellAnimationBegin
+- (void)beginAnimationForTextFieldCellWithRow:(NSInteger )row
 {
-    
-    UITableViewCell *cell = [self.mainTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:TableViewCellRowActualName inSection:0]];
+    UITableViewCell *cell = [self.mainTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
     UIView *userView = [cell viewWithTag:TableViewCellBaseItemTagUserView];
     
     if ([userView isKindOfClass:[UITextField class]])
     {
-        UITextField *userNameTextField = (UITextField *)userView;
-        
-        
-        UIImageView *textViewBottomView = (UIImageView *)[cell viewWithTag:TableViewCellBaseItemTagSecondView];
-        [textViewBottomView setImage:[UIImage imageNamed:@"003"]];
-        textViewBottomView.alpha = 0;
-        
+        UITextField *textField = (UITextField *)userView;
         
         [UIView animateWithDuration:kAnimationDurantion/2 animations:^{
-            
-            userNameTextField.alpha = 0;
+            textField.alpha = 0;
         } completion:^(BOOL finished) {
             
-            [userNameTextField setTextColor:[UIColor blackColor]];
+            [textField setTextColor:[UIColor orangeColor]];
             
-            [UIView animateWithDuration:kAnimationDurantion animations:^{
-                textViewBottomView.alpha = 1;
-                userNameTextField.alpha = 1;
+            [UIView animateWithDuration:kAnimationDurantion/2 animations:^{
+                textField.alpha = 1;
             }];
         }];
-        
-        
     }
 }
 
 - (void)territoryCellAnimationBegin
 {
     
-    UITableViewCell *cell = [self.mainTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:TableViewCellRowTerritory inSection:0]];
-    UITextView *userView = (UITextView *)[cell viewWithTag:TableViewCellBaseItemTagUserView];
-    
     
     [UIView animateWithDuration:kAnimationDurantion/2 animations:^{
-        userView.alpha = 0;
+        self.userSkilledTextView.alpha = 0;
     }completion:^(BOOL finished) {
         [UIView animateWithDuration:kAnimationDurantion/2 animations:^{
-            
-            userView.textColor = [UIColor blackColor];
-            userView.alpha = 1;
+            self.userSkilledTextView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+            self.userSkilledTextView.layer.borderWidth = 1.0;
+            self.userSkilledTextView.textColor = [UIColor orangeColor];
+            self.userSkilledTextView.alpha = 1;
         }];
     }];
-    
-    
-    
-//    if ([userView isKindOfClass:[UITextView class]])
-//    {
-//        UITextView *textView = (UITextView *)userView;
-//        
-//        
-//        
-//        UIGraphicsBeginImageContext(cell.frame.size);
-//        UIBezierPath *path = [UIBezierPath bezierPath];
-//        
-//        path.lineWidth = 1.0;
-//        
-//        CAShapeLayer *layer = [CAShapeLayer layer];
-//        layer.lineWidth = 1.0;
-//        layer.strokeColor = [[UIColor lightGrayColor] CGColor];
-//        
-//        [cell.layer addSublayer:layer];
-//        
-//        
-//        CGPoint upleftPoint  = CGPointMake(textView.frame.origin.x, textView.frame.origin.y);
-//        
-//        CGPoint upRightPoint = CGPointMake(textView.frame.origin.x + textView.frame.size.width,
-//                                           textView.frame.origin.y);
-//        
-//        CGPoint bottomLeftPoint = CGPointMake(textView.frame.origin.x,
-//                                              textView.frame.origin.y + textView.frame.size.height);
-//        
-//        CGPoint bottomRightPoint = CGPointMake(textView.frame.origin.x + textView.frame.size.width,
-//                                               textView.frame.origin.y + textView.frame.size.height);
-//        
-//        
-//        [path moveToPoint:upleftPoint];
-//        
-//        [path addLineToPoint:upRightPoint];
-//        
-//        [path moveToPoint:upRightPoint];
-//        
-//        [path addLineToPoint:bottomRightPoint];
-//        
-//        [path moveToPoint:bottomRightPoint];
-//        
-//        [path addLineToPoint:bottomLeftPoint];
-//        
-//        [path moveToPoint:bottomLeftPoint];
-//        
-//        [path addLineToPoint:upleftPoint];
-//        
-//        
-//        layer.path = path.CGPath;
-//        
-//        
-//        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-//        animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-//        animation.duration = 1;
-//        animation.fromValue = @(0);
-//        animation.toValue = @(1);
-//        
-//        [layer addAnimation:animation forKey:@"strokeEndAnimation"];
-//        
-//        UIGraphicsEndImageContext();
-//    }
 }
 
 #pragma mark - 获取标题
@@ -1305,29 +1286,38 @@ UINavigationControllerDelegate
     switch (indexPath.row)
     {
             
-        case 0:
+        case TableViewCellRowUserImage:
             return NSLocalizedString(@"Head portrait", nil);
             break;
-        case 1:
+        case TableViewCellRowActualName:
             return NSLocalizedString(@"Real name", nil);
             break;
-        case 2:
+        case TableViewCellRowGender:
             return NSLocalizedString(@"Sex", nil);
             break;
-        case 3:
+        case TableViewCellRowDateOfBirth:
             return NSLocalizedString(@"Date of birth", nil);
             break;
-        case 4:
+        case TableViewCellRowHospital:
+            return NSLocalizedString(@"Hospital", nil);
+            break;
+        case TableViewCellRowRank:
             return NSLocalizedString(@"Level", nil);
             break;
-        case 5:
+        case TableViewCellRowDepartments:
             return NSLocalizedString(@"Department", nil);
             break;
-        case 6:
+        case TableViewCellRowID:
             return NSLocalizedString(@"ID", nil);
             break;
-        default:
+        case TableViewCellRowServiceCenter:
+            return NSLocalizedString(@"Service Center", nil);
+            break;
+        case 9:
             return NSLocalizedString(@"Skill territory", nil);
+            break;
+        default:
+            return @"";
             break;
     }
 }
@@ -1344,6 +1334,157 @@ UINavigationControllerDelegate
                                            context:nil].size;
     return textSize;
 }
+
+
+
+#pragma mark - 提交审批
+- (void)selectUploadRequestCellEvent
+{
+    
+    [self updateDataToServer];
+    
+    
+    [self.mainTableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]
+                                      animated:YES];
+}
+
+
+
+#pragma mark - update & upload
+- (void)updateDataToCoreData
+{
+    
+    self.info.headimageUrl = !self.thumbnailURLString ? self.info.headimageUrl : self.thumbnailURLString;
+    self.info.exptName = self.userNameTextField.text;
+    self.info.birthday = self.userBirthdayLabel.text;
+    self.info.sex = self.userSexLabel.text;
+    self.info.hospital = self.userHospitalTextField.text;
+    self.info.skilled = self.userSkilledTextView.text;
+    self.info.departmentId = [Department getDepartmentIdByName:self.userDepartmentLabel.text];
+    self.info.exptId = self.userIdLabel.text;
+    self.info.expertLevel = self.userLevelLabel.text;
+    self.info.centerId = [ServCenter getCenterIdByName:self.userCenterLabel.text];
+    self.info.stat = @"S0W";
+    
+    UserInfo *info = [UserInfo shareInfo];
+    info.stat = @"S0W";
+    
+    [[CoreDataStack sharedCoreDataStack] saveContext];
+}
+
+- (void)uploadThumbnailToServer
+{
+    
+    hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:hud];
+    hud.labelText = NSLocalizedString(@"Thumbnail uploading", nil);
+    [hud show:YES];
+    
+    NSData *imageData = UIImageJPEGRepresentation(self.thumbnailImage, 0.5);
+    NSDictionary *parameters = @{@"method": @"uploadFile",
+                                 @"fileType": @"2"};
+
+    [GCRequest userUploadFileWithParameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:imageData name:@"file" fileName:@"thumbnail.jpg" mimeType:@"image/jpeg"];
+        
+        
+    } withBlock:^(NSDictionary *responseData, NSError *error){
+        
+        if (!error) {
+            if ([[responseData valueForKey:@"ret_code"] isEqualToString:@"0"])
+            {
+                
+                // 保存用户图片URL
+                self.thumbnailURLString = [NSString parseDictionary:responseData forKeyPath:@"fileUrl"];
+                
+                [self.userHeadImageView setImageWithURL:[NSURL URLWithString:self.thumbnailURLString]
+                                       placeholderImage:nil];
+                
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = NSLocalizedString(@"Upload Successful,save to change", nil);
+                [hud hide:YES afterDelay:HUD_TIME_DELAY];
+            }
+            else
+            {
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = [NSString localizedMsgFromRet_code:responseData[@"ret_code"] withHUD:YES];
+                [hud hide:YES afterDelay:1.2];
+            }
+        }
+        else
+        {
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = [error localizedDescription];
+            [hud hide:YES afterDelay:HUD_TIME_DELAY];
+        }
+    }];
+}
+
+- (void)updateDataToServer
+{
+    
+    hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:hud];
+    hud.labelText = NSLocalizedString(@"Saving Data", nil);
+    [hud show:YES];
+    
+    
+    
+    NSDictionary *parameters = @{@"method":@"expertInfoEdit",
+                                 @"sign":@"sign",
+                                 @"sessionId":[NSString sessionID],
+                                 @"exptId":[NSString exptId],
+                                 @"birthday":self.userBirthdayLabel.text,
+                                 @"departmentId":[Department getDepartmentIdByName:self.userDepartmentLabel.text],
+                                 @"headimageUrl":!self.thumbnailURLString ? self.info.headimageUrl : self.thumbnailURLString,
+                                 @"exptName":self.userNameTextField.text,
+                                 @"sex":self.userSexLabel.text,
+                                 @"skilled":self.userSkilledTextView.text,
+                                 @"hospital":self.userHospitalTextField.text
+                                 };
+    
+
+    [GCRequest expertInfoEditWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+        
+        if (!error)
+        {
+            
+            if ([responseData[@"ret_code"] isEqualToString:@"0"])
+            {
+                
+                [self updateDataToCoreData];
+                
+                
+                isChecking = YES;
+                self.editing = NO;
+                
+                [self.mainTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                                          atScrollPosition:UITableViewScrollPositionTop
+                                                  animated:NO];
+                [self.mainTableView reloadData];
+                [self setupNavigationBarRightItemWithType:0];
+                
+                
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = NSLocalizedString(@"Data Updated", nil);
+                [hud hide:YES afterDelay:HUD_TIME_DELAY];
+            }
+            else
+            {
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = [NSString localizedMsgFromRet_code:responseData[@"ret_code"] withHUD:YES];
+                [hud hide:YES afterDelay:1.2];
+            }
+        }
+        else
+        {
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = [error localizedDescription];
+            [hud hide:YES afterDelay:HUD_TIME_DELAY];
+        }
+    }];
+}
+
 
 
 @end

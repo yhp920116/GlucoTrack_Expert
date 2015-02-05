@@ -14,20 +14,23 @@
 /* Class = "IBUIButton"; normalTitle = "Binding Telephone"; ObjectID = "B7i-jf-sqK"; */
 "B7i-jf-sqK.normalTitle" = "绑定手机";
 
-/* Class = "IBUILabel"; text = "Reset Password"; ObjectID = "Cru-R5-1oW"; */
-"Cru-R5-1oW.text" = "重设密码";
-
 /* Class = "IBUIButton"; normalTitle = "Verify"; ObjectID = "GOv-P8-1Nx"; */
 "GOv-P8-1Nx.normalTitle" = "发送验证";
 
 /* Class = "IBUINavigationItem"; title = "Reset Telephone"; ObjectID = "HeK-QF-jrw"; */
 "HeK-QF-jrw.title" = "重新绑定手机";
 
+/* Class = "IBUILabel"; text = "Font Size"; ObjectID = "N9Z-c2-QMN"; */
+"N9Z-c2-QMN.text" = "字体大小";
+
 /* Class = "IBUILabel"; text = "Gluco Unit"; ObjectID = "Q9D-st-3nY"; */
 "Q9D-st-3nY.text" = "血糖单位";
 
 /* Class = "IBUINavigationItem"; title = "System Set"; ObjectID = "VOX-h6-JeG"; */
 "VOX-h6-JeG.title" = "系统设置";
+
+/* Class = "IBUILabel"; text = "Reset Password"; ObjectID = "VnD-8u-oVE"; */
+"VnD-8u-oVE.text" = "重设密码";
 
 /* Class = "IBUITextField"; placeholder = "Input The Verification Code"; ObjectID = "dbs-vE-lwr"; */
 "dbs-vE-lwr.placeholder" = "输入您收到的验证码";
@@ -47,11 +50,11 @@
 /* Class = "IBUIButton"; normalTitle = "Get Verification Code"; ObjectID = "p1U-qS-Nhd"; */
 "p1U-qS-Nhd.normalTitle" = "获取验证码";
 
+/* Class = "IBUILabel"; text = "Reset Telephone"; ObjectID = "qjb-sN-cHc"; */
+"qjb-sN-cHc.text" = "重新绑定手机";
+
 /* Class = "IBUINavigationItem"; title = "Reset Telephone"; ObjectID = "r0K-0I-oDT"; */
 "r0K-0I-oDT.title" = "重新绑定手机";
-
-/* Class = "IBUILabel"; text = "Reset Telephone"; ObjectID = "vxu-oG-wXm"; */
-"vxu-oG-wXm.text" = "重新绑定手机";
 
 /* Class = "IBUIButton"; normalTitle = "Verification"; ObjectID = "zFz-6g-v0p"; */
 "zFz-6g-v0p.normalTitle" = "验证";

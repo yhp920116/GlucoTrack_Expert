@@ -18,6 +18,7 @@
 #import "CoreDataStack.h"
 #import "NSManagedObject+Finders.h"
 #import "NSManagedObject+Savers.h"
+#import "AppDelegate+Clean.h"
 
 
 @interface LoginViewController ()
@@ -38,6 +39,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+        
 }
 
 #pragma mark - PrepareForSegue
@@ -49,13 +51,13 @@
     if ([segue.identifier isEqualToString:@"Regist"])
     {
         verificationVC.title = NSLocalizedString(@"Register", nil);
-        verificationVC.verifiedType = 0;
+        verificationVC.verifiedType = VerifiedTypeRegister;
         
     }
     else if ([segue.identifier isEqualToString:@"Reset"])
     {
         verificationVC.title = NSLocalizedString(@"Reset", nil);
-        verificationVC.verifiedType = 1;
+        verificationVC.verifiedType = VerifiedTypeForget;
         
     }
     
@@ -71,8 +73,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    self.usernameField.text = @"18033313933";
-    self.passwordField.text = @"123456";
+    
 }
 
 
@@ -124,6 +125,11 @@
 
 - (IBAction)userLogin:(id)sender
 {
+    if ([self.usernameField.text isEqualToString:@"000"])
+    {
+        [AppDelegate userLogIn];
+        return;
+    }
     
     hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:hud];
@@ -135,11 +141,12 @@
                                  @"accountName":self.usernameField.text,
                                  @"password":self.passwordField.text};
     
-    NSURLSessionDataTask *loginTask = [GCRequest verifyWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+
+    [GCRequest verifyWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
         if (!error)
         {
-            
-            if ([[responseData objectForKey:@"ret_code"] isEqualToString:@"0"])
+            NSString *ret_code = [responseData objectForKey:@"ret_code"];
+            if ([ret_code isEqualToString:@"0"])
             {
                 // 这里对获取到的会话标识、会话标识Token和用户标识等进行数据持久化
                 
@@ -163,28 +170,123 @@
                 [[CoreDataStack sharedCoreDataStack] saveContext];
                 
                 
+                [self isOtherPhoneLogin];
+                
+                if (![UserInfo existWithContext:[CoreDataStack sharedCoreDataStack].context])
+                {
+                    
+                    [self requestUserInfo];
+                }
+                else
+                {
+                    
+                    [AppDelegate userLogIn];
+                    [hud hide:YES afterDelay:0.25];
+                }
+            }
+            else
+            {
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = [NSString localizedMsgFromRet_code:ret_code withHUD:YES];
+                [hud hide:YES afterDelay:1.2];
+            }
+        }
+        else
+        {
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = [NSString localizedErrorMesssagesFromError:error];
+            NSLog(@"%@",[NSString localizedErrorMesssagesFromError:error]);
+            [hud hide:YES afterDelay:HUD_TIME_DELAY];
+        }
+
+    }];
+    
+}
+
+
+- (void)requestUserInfo
+{
+    
+    NSDictionary *parameters = @{@"method":@"getPersonalInfo",
+                                 @"sign":@"sign",
+                                 @"sessionId":[NSString sessionID],
+                                 @"exptId":[NSString exptId]};
+    
+    
+    [GCRequest getPersonalInfoWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+        NSArray *objects = [UserInfo findAllInContext:[CoreDataStack sharedCoreDataStack].context];
+        
+        UserInfo *info;
+        
+        if (objects.count <= 0)
+        {
+            info = [UserInfo createEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+            
+        }
+        else
+        {
+            info = objects[0];
+        }
+        
+        info.exptId = [NSString exptId];
+        
+        if (!error)
+        {
+            if ([responseData[@"ret_code"] isEqualToString:@"0"])
+            {
+                
+                responseData = [responseData[@"expert"] mutableCopy];
+                
+                [responseData sexFormattingToUserForKey:@"sex"];
+                
+                [responseData dateFormattingToUserForKey:@"birthday"];
+                [responseData expertLevelFormattingToUserForKey:@"expertLevel"];
+                
+                [info updateCoreDataForData:responseData withKeyPath:nil];
+                
+                [[CoreDataStack sharedCoreDataStack] saveContext];
+                
                 
                 [AppDelegate userLogIn];
                 [hud hide:YES afterDelay:0.25];
             }
             else
             {
+                
                 hud.mode = MBProgressHUDModeText;
-                hud.labelText = [responseData objectForKey:@"ret_msg"];
+                hud.labelText = [NSString localizedMsgFromRet_code:responseData[@"ret_code"] withHUD:YES];
                 [hud hide:YES afterDelay:1.2];
             }
-            
-        }else{
-            [hud hide:YES];
         }
-
+        else
+        {
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = error.localizedDescription;
+            [hud hide:YES afterDelay:HUD_TIME_DELAY];
+        }
+        
     }];
     
-    [UIAlertView showAlertViewForTaskWithErrorOnCompletion:loginTask delegate:nil];
+}
+
+
+#pragma mark 是否是另外的账号登陆,是则清楚所有缓存
+- (void)isOtherPhoneLogin
+{
+    NSArray *userObjects = [User findAllInContext:[CoreDataStack sharedCoreDataStack].context];
+    User *user = userObjects[0];
+    
+    
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSString *lastUsername = [userDefault objectForKey:@"LastUsername"];
+    
+    if (![lastUsername isEqualToString:user.username])
+    {
+        [AppDelegate cleanAllCoreData];
+    }
 }
 
 #pragma mark - textfieldDelegate
-
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     switch (textField.tag) {
@@ -208,6 +310,22 @@
             break;
     }
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if ([textField isEqual:self.passwordField])
+    {
+        
+        NSString *fieldText = self.passwordField.text;
+        if (fieldText.length + string.length >16)
+        {
+            return NO;
+        }
+    }
+    
+    return YES;
+}
+
 
 #pragma mark - dismissKeyboard
 

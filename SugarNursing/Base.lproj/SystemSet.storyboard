@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--System Set-->
@@ -17,47 +16,13 @@
                         <sections>
                             <tableViewSection id="EUS-hO-Xtt">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="51" id="bPX-mY-Ldo">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bPX-mY-Ldo" id="HS1-Sz-re1">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mmol/L" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08g-ch-cWC">
-                                                    <rect key="frame" x="467" y="10" width="100" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="K8O-nE-HqB"/>
-                                                        <constraint firstAttribute="width" constant="100" id="UgR-AW-3uU"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gluco Unit" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q9D-st-3nY">
-                                                    <rect key="frame" x="15" y="10" width="100" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="FcY-bA-qKd"/>
-                                                        <constraint firstAttribute="width" constant="100" id="a0u-dt-sbT"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="08g-ch-cWC" secondAttribute="centerY" id="5Q0-mk-Hyy"/>
-                                                <constraint firstAttribute="centerY" secondItem="Q9D-st-3nY" secondAttribute="centerY" id="MgK-nV-WRN"/>
-                                                <constraint firstItem="Q9D-st-3nY" firstAttribute="leading" secondItem="HS1-Sz-re1" secondAttribute="leadingMargin" constant="7" id="jys-GF-Jtb"/>
-                                                <constraint firstAttribute="trailing" secondItem="08g-ch-cWC" secondAttribute="trailing" id="qqQ-Z6-nRx"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Cru-R5-1oW" rowHeight="50" style="IBUITableViewCellStyleDefault" id="OKd-3A-dfc">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="50" id="OKd-3A-dfc">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OKd-3A-dfc" id="rcf-1P-hai">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Reset Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Cru-R5-1oW">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" text="Reset Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VnD-8u-oVE" customClass="CustomLabel">
+                                                    <rect key="frame" x="15" y="0.0" width="550" height="49"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -65,13 +30,13 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="vxu-oG-wXm" rowHeight="50" style="IBUITableViewCellStyleDefault" id="gVd-eM-BIm">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="50" id="gVd-eM-BIm">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gVd-eM-BIm" id="giO-ik-PQg">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Reset Telephone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vxu-oG-wXm">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" text="Reset Telephone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qjb-sN-cHc" customClass="CustomLabel">
+                                                    <rect key="frame" x="15" y="0.0" width="550" height="49"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -117,6 +82,20 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bdW-3I-Q3X">
                                 <rect key="frame" x="0.0" y="64" width="600" height="250"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="006" translatesAutoresizingMaskIntoConstraints="NO" id="DZI-kc-xgm">
+                                        <rect key="frame" x="162" y="62" width="12" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="IuD-JR-Uak"/>
+                                            <constraint firstAttribute="width" constant="12" id="cMw-jT-haT"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="002" translatesAutoresizingMaskIntoConstraints="NO" id="IVz-Z6-bqc">
+                                        <rect key="frame" x="160" y="108" width="19" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="19" id="0b1-o0-9IQ"/>
+                                            <constraint firstAttribute="height" constant="21" id="6Jg-mU-g44"/>
+                                        </constraints>
+                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset Telephone By Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKT-Bk-6mI">
                                         <rect key="frame" x="155" y="20" width="240" height="20"/>
                                         <constraints>
@@ -131,13 +110,6 @@
                                         <rect key="frame" x="155" y="80" width="290" height="7"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="290" id="erc-u1-Vdo"/>
-                                        </constraints>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="006" translatesAutoresizingMaskIntoConstraints="NO" id="DZI-kc-xgm">
-                                        <rect key="frame" x="162" y="62" width="12" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="IuD-JR-Uak"/>
-                                            <constraint firstAttribute="width" constant="12" id="cMw-jT-haT"/>
                                         </constraints>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Input Your Former Telephone Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9a6-sS-XAh">
@@ -156,13 +128,6 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="7" id="Cr0-C9-KQt"/>
                                             <constraint firstAttribute="width" constant="290" id="u5K-2W-YdK"/>
-                                        </constraints>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="002" translatesAutoresizingMaskIntoConstraints="NO" id="IVz-Z6-bqc">
-                                        <rect key="frame" x="160" y="108" width="19" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="19" id="0b1-o0-9IQ"/>
-                                            <constraint firstAttribute="height" constant="21" id="6Jg-mU-g44"/>
                                         </constraints>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Input Your Former Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mvg-0d-Yvo">
@@ -226,22 +191,17 @@
                             <outletCollection property="gestureRecognizers" destination="YBV-px-vVc" appends="YES" id="w9E-mK-csE"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="Reset Telephone" id="HeK-QF-jrw">
-                        <barButtonItem key="leftBarButtonItem" image="005" id="3pg-bD-bOn">
-                            <connections>
-                                <segue destination="o4k-Cd-7RV" kind="unwind" unwindAction="back:" id="BCM-IP-QAh"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Reset Telephone" id="HeK-QF-jrw"/>
                     <connections>
                         <outlet property="passwordButtonView" destination="TUG-wN-Nup" id="MjJ-e9-oqo"/>
+                        <outlet property="passwordTextField" destination="mvg-0d-Yvo" id="lSo-AS-hrC"/>
                         <outlet property="phoneButtonView" destination="Vy2-08-AzI" id="OxA-cT-fXA"/>
+                        <outlet property="phoneTextField" destination="9a6-sS-XAh" id="Lbj-C3-DMT"/>
                         <outlet property="topYCons" destination="g1i-27-Cb0" id="6gQ-e3-giM"/>
                         <segue destination="OKz-Xe-FFo" kind="show" identifier="goInputPhone" id="h8X-ep-Vk7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vq1-hi-hlz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="o4k-Cd-7RV" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer id="YBV-px-vVc">
                     <connections>
                         <action selector="dismissKeyboard:" destination="Gk2-gt-4R8" id="tre-ha-Rd6"/>
@@ -332,21 +292,14 @@
                         </connections>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Reset Telephone" id="e1U-TU-K0G">
-                        <barButtonItem key="leftBarButtonItem" image="005" id="RYR-de-rpD">
-                            <connections>
-                                <segue destination="uUu-wx-8qX" kind="unwind" unwindAction="back:" id="EXI-TZ-eKJ"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Reset Telephone" id="e1U-TU-K0G"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="phoneButtonView" destination="U4X-ZL-pHr" id="USq-Ur-uoB"/>
-                        <segue destination="wHd-6f-ABi" kind="show" identifier="inputVerificationNum" id="jNt-LC-0qi"/>
+                        <outlet property="phoneField" destination="5Xs-7G-LlS" id="fGf-NK-LTF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pif-eB-MP6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="uUu-wx-8qX" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer id="J0j-rR-clX">
                     <connections>
                         <action selector="dismissKeyboard:" destination="OKz-Xe-FFo" id="cZr-1P-fLe"/>
@@ -354,126 +307,6 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2841" y="-12"/>
-        </scene>
-        <!--Reset Telephone-->
-        <scene sceneID="j7X-HB-lBG">
-            <objects>
-                <viewController id="wHd-6f-ABi" customClass="InputNumberViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="JFl-hB-a1u"/>
-                        <viewControllerLayoutGuide type="bottom" id="rji-xa-fNN"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="cac-TI-Y84">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verification Code" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="44g-Qz-cdc">
-                                <rect key="frame" x="150" y="79" width="150" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="sbP-ib-OpN"/>
-                                    <constraint firstAttribute="height" constant="20" id="uqw-sb-6Xd"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="007" translatesAutoresizingMaskIntoConstraints="NO" id="852-Cq-LWx">
-                                <rect key="frame" x="150" y="139" width="230" height="7"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="230" id="BUs-PE-fh0"/>
-                                </constraints>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="006" translatesAutoresizingMaskIntoConstraints="NO" id="0rF-3P-1Nh">
-                                <rect key="frame" x="157" y="121" width="12" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="Pv6-74-bRk"/>
-                                    <constraint firstAttribute="width" constant="12" id="a1e-Ie-M7f"/>
-                                </constraints>
-                            </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Input The Verification Code" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dbs-vE-lwr">
-                                <rect key="frame" x="181" y="119" width="198" height="27"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="27" id="7zh-eU-q9n"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="wHd-6f-ABi" id="no7-pn-jPB"/>
-                                </connections>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GOv-P8-1Nx">
-                                <rect key="frame" x="390" y="121" width="60" height="25"/>
-                                <color key="backgroundColor" red="0.17254901959999999" green="0.49019607840000001" blue="0.77647058820000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="3LA-dU-pKb"/>
-                                    <constraint firstAttribute="width" constant="60" id="fuu-AB-XHd"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="Verify">
-                                    <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="sendVerificationButtonEvent:" destination="wHd-6f-ABi" eventType="touchUpInside" id="hX9-ym-daT"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B7i-jf-sqK">
-                                <rect key="frame" x="150" y="169" width="300" height="32"/>
-                                <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="u21-Sx-mN5"/>
-                                </constraints>
-                                <state key="normal" title="Binding Telephone">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="bindPhoneButtonEvent:" destination="wHd-6f-ABi" eventType="touchUpInside" id="ecY-Qq-RXy"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="852-Cq-LWx" firstAttribute="top" secondItem="44g-Qz-cdc" secondAttribute="bottom" constant="40" id="1Fp-WY-I6w"/>
-                            <constraint firstItem="852-Cq-LWx" firstAttribute="bottom" secondItem="dbs-vE-lwr" secondAttribute="bottom" id="CmK-Fx-J8a"/>
-                            <constraint firstItem="852-Cq-LWx" firstAttribute="bottom" secondItem="0rF-3P-1Nh" secondAttribute="bottom" constant="5" id="DiE-Ud-k1A"/>
-                            <constraint firstItem="852-Cq-LWx" firstAttribute="leading" secondItem="0rF-3P-1Nh" secondAttribute="leading" constant="-7" id="ICs-Cn-9EN"/>
-                            <constraint firstItem="dbs-vE-lwr" firstAttribute="leading" secondItem="0rF-3P-1Nh" secondAttribute="trailing" constant="12" id="M2r-qO-rsf"/>
-                            <constraint firstItem="B7i-jf-sqK" firstAttribute="top" secondItem="852-Cq-LWx" secondAttribute="bottom" constant="23" id="Rpj-qt-aVt"/>
-                            <constraint firstAttribute="centerX" secondItem="B7i-jf-sqK" secondAttribute="centerX" id="SIy-SP-6DM"/>
-                            <constraint firstItem="GOv-P8-1Nx" firstAttribute="leading" secondItem="852-Cq-LWx" secondAttribute="trailing" constant="10" id="Vaw-Vp-apb"/>
-                            <constraint firstItem="GOv-P8-1Nx" firstAttribute="trailing" secondItem="B7i-jf-sqK" secondAttribute="trailing" id="ZFM-zm-par"/>
-                            <constraint firstItem="44g-Qz-cdc" firstAttribute="top" secondItem="JFl-hB-a1u" secondAttribute="bottom" constant="15" id="bYI-Bi-ieD"/>
-                            <constraint firstItem="852-Cq-LWx" firstAttribute="leading" secondItem="B7i-jf-sqK" secondAttribute="leading" id="c5t-UQ-zVz"/>
-                            <constraint firstItem="GOv-P8-1Nx" firstAttribute="bottom" secondItem="852-Cq-LWx" secondAttribute="bottom" id="fy6-q8-Oh1"/>
-                            <constraint firstItem="852-Cq-LWx" firstAttribute="centerX" secondItem="44g-Qz-cdc" secondAttribute="centerX" constant="40" id="hsC-B5-bAn"/>
-                            <constraint firstItem="852-Cq-LWx" firstAttribute="trailing" secondItem="dbs-vE-lwr" secondAttribute="trailing" constant="1" id="t28-6l-w89"/>
-                        </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="1eq-5c-uGX" appends="YES" id="3IQ-ib-eiq"/>
-                        </connections>
-                    </view>
-                    <navigationItem key="navigationItem" title="Reset Telephone" id="r0K-0I-oDT">
-                        <barButtonItem key="leftBarButtonItem" image="005" id="stX-Jn-P0r">
-                            <connections>
-                                <segue destination="zSg-pq-xyg" kind="unwind" unwindAction="back:" id="1jf-1b-OJp"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="numberBottonView" destination="852-Cq-LWx" id="pLu-GX-Rwe"/>
-                        <outlet property="sendVerificationButton" destination="GOv-P8-1Nx" id="d5Q-sl-z5B"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZbQ-Bs-BCw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="zSg-pq-xyg" userLabel="Exit" sceneMemberID="exit"/>
-                <tapGestureRecognizer id="1eq-5c-uGX">
-                    <connections>
-                        <action selector="dismissKeyboard:" destination="wHd-6f-ABi" id="8AT-bD-2b1"/>
-                    </connections>
-                </tapGestureRecognizer>
-            </objects>
-            <point key="canvasLocation" x="3578" y="-12"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ybY-vv-1m3">
@@ -483,7 +316,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.0" green="0.25098039220000001" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.17254901959999999" green="0.49019607840000001" blue="0.77647058820000003" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -500,7 +333,6 @@
     <resources>
         <image name="002" width="19" height="21"/>
         <image name="004" width="227" height="7"/>
-        <image name="005" width="12" height="11"/>
         <image name="006" width="10" height="16"/>
         <image name="007" width="290" height="7"/>
     </resources>

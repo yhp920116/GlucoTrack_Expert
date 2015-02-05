@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UtilsMacro.h"
 
 @interface ControlEffectViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
 
-@property (strong, nonatomic) NSMutableArray *dataArray;
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) IBOutlet UIPickerView *pickerView;
-
+@property (assign, nonatomic) BOOL isMyPatient;
+@property (strong, nonatomic) NSString *linkManId;
 
 @end

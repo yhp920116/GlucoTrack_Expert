@@ -17,16 +17,6 @@
     self.contentLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.contentLabel.frame);
 }
 
-- (void)configureCell:(NSDictionary *)dic
-{
-    
-    self.titleLabel.text = dic[@"title"];
-    self.dateLabel.text  = dic[@"date"];
-    
-    NSArray *stringArray = dic[@"content"];
-    NSString *contentString = [stringArray componentsJoinedByString:@"\n"];
-    self.contentLabel.text = contentString;
-    
-}
+
 
 @end

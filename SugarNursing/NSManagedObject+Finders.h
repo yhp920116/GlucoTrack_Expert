@@ -11,7 +11,12 @@
 @interface NSManagedObject (Finders)
 
 + (instancetype)createEntityInContext:(NSManagedObjectContext *)context;
+
 - (BOOL)deleteEntityInContext:(NSManagedObjectContext *)context;
+
++ (BOOL)deleteEntityInContext:(NSManagedObjectContext *)context predicate:(NSPredicate *)predica;
+
++ (BOOL)deleteAllEntityInContext:(NSManagedObjectContext *)context;
 
 + (NSArray *) findAllInContext:(NSManagedObjectContext *)context;
 
@@ -25,4 +30,8 @@
 
 + (NSFetchedResultsController *)fetchController:(NSFetchRequest *)request delegate:(id<NSFetchedResultsControllerDelegate>)delegate useFileCache:(BOOL)useFileCache groupedBy:(NSString *)groupKeyPath inContext:(NSManagedObjectContext *)context;
 
++ (BOOL)existWithContext:(NSManagedObjectContext *)context;
+
+
+- (NSArray *)findAllByPredicate:(NSPredicate *)predicate context:(NSManagedObjectContext *)context;
 @end

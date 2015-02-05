@@ -7,10 +7,7 @@
 //
 
 #import "GCRequest.h"
-#import "GCHttpClient.h"
-#import "NSString+MD5.h"
-#import "UtilsMacro.h"
-#import <objc/runtime.h>
+
 
 
 @implementation GCRequest
@@ -32,8 +29,7 @@
                                      success:^(NSURLSessionDataTask *task, id responseObject) {
                                          
                                          DDLogDebug(@"Verify resoponseData:%@",responseObject);
-                                         responseObject = [(NSDictionary *)responseObject keysLowercased];
-                                         
+                                                                                  
                                          if (block) {
                                              block(responseObject, nil);
                                          }
@@ -62,18 +58,10 @@
     [parameters setValue:[[NSString parseDictionary:parameters forKeyPath:@"password"] md5] forKey:@"password"];
     
     // Sex
-    if ([[NSString parseDictionary:parameters forKeyPath:@"sex"] isEqualToString:@"female"]){
-        [parameters setValue:@"00" forKey:@"sex"];
-    }else{
-        [parameters setValue:@"01" forKey:@"sex"];
-    }
+    [(NSDictionary *)parameters sexFormattingToServerForKey:@"sex"];
     
     //birthday
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
-    NSDate *date = [dateFormatter dateFromString:[NSString parseDictionary:parameters forKeyPath:@"birthday"]];
-    [dateFormatter setDateFormat:@"YYYYMMdd"];
-    [parameters setValue:[dateFormatter stringFromDate:date] forKey:@"birthday"];
+    [(NSDictionary *)parameters dateFormattingToServerForKey:@"birthday"];
     
     
     return [[GCHttpClient sharedClient] POST:GC_EXPERT_REGISTER_URL
@@ -82,7 +70,37 @@
                                          
                                          DDLogDebug(@"Account Register resoponseData:%@",responseObject);
                                          
-                                         responseObject = [(NSDictionary *)responseObject keysLowercased];
+                                                                                  
+                                         if (block) {
+                                             block(responseObject,nil);
+                                         }
+                                     }
+                                     failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                         
+                                         DDLogDebug(@"Request Error: %@ %@",[error localizedFailureReason], NSStringFromSelector(_cmd));
+                                         
+                                         if (block) {
+                                             block(nil,error);
+                                         }
+                                     }];
+}
+
+
+#pragma mark GetCaptcha
++ (NSURLSessionDataTask *)getCaptchaWithParameters:(id)parameters block:(void (^) (NSDictionary *responseData, NSError *error))block
+{
+    
+    DDLogInfo(@"Running %@ %@",[self class],NSStringFromSelector(_cmd));
+    DDLogInfo(@"Requesting for URL:%@",[NSURL URLWithString:GC_COMMON_GETCAPTCHA_URL relativeToURL:[GCHttpClient sharedClient].baseURL]);
+    
+    
+    
+    return [[GCHttpClient sharedClient] POST:GC_COMMON_GETCAPTCHA_URL
+                                  parameters:parameters
+                                     success:^(NSURLSessionDataTask *task, id responseObject) {
+                                         
+                                         DDLogDebug(@"Account Register resoponseData:%@",responseObject);
+                                         
                                          
                                          if (block) {
                                              block(responseObject,nil);
@@ -98,6 +116,8 @@
                                      }];
 }
 
+
+
 #pragma mark GetPersonalInfo
 + (NSURLSessionDataTask *)getPersonalInfoWithParameters:(id)parameters block:(void (^)(NSDictionary *, NSError *))block
 {
@@ -108,13 +128,18 @@
     
     parameters = [parameters mutableCopy];
     
+    [self signValueFor:parameters];
+    
+    
     return [[GCHttpClient sharedClient] POST:GC_EXPERT_USERINFO_URL
                                   parameters:parameters
                                      success:^(NSURLSessionDataTask *task, id responseObject) {
                                          
                                          DDLogDebug(@"Get Personal Info resoponseData:%@",responseObject);
                                          
-                                         responseObject = [(NSDictionary *)responseObject keysLowercased];
+                                         LoadedLog *log = [LoadedLog shareLoadedLog];
+                                         log.userInfo = [NSString stringWithDateFormatting:GC_FORMATTER_SECOND date:[NSDate date]];
+                                         [[CoreDataStack sharedCoreDataStack] saveContext];
                                          
                                          if (block) {
                                              block(responseObject, nil);
@@ -141,14 +166,14 @@
     
     parameters = [parameters mutableCopy];
     
+    [self signValueFor:parameters];
     
     return [[GCHttpClient sharedClient] POST:GC_EXPERT_ACCOUNTEDIT_URL
                                   parameters:parameters
                                      success:^(NSURLSessionDataTask *task, id responseObject) {
                                          
                                          DDLogDebug(@"Account Edit resoponseData:%@",responseObject);
-                                         responseObject = [(NSDictionary *)responseObject keysLowercased];
-                                         
+                                                                                  
                                          if (block)
                                          {
                                              block(responseObject,nil);
@@ -177,20 +202,15 @@
     
     parameters = [parameters mutableCopy];
     
-    
     // Sex
-    if ([[NSString parseDictionary:parameters forKeyPath:@"sex"] isEqualToString:@"female"]){
-        [parameters setValue:@"00" forKey:@"sex"];
-    }else{
-        [parameters setValue:@"01" forKey:@"sex"];
-    }
+    [(NSDictionary *)parameters sexFormattingToServerForKey:@"sex"];
     
     //birthday
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
-    NSDate *date = [dateFormatter dateFromString:[NSString parseDictionary:parameters forKeyPath:@"birthday"]];
-    [dateFormatter setDateFormat:@"YYYYMMdd"];
-    [parameters setValue:[dateFormatter stringFromDate:date] forKey:@"birthday"];
+    [(NSDictionary *)parameters dateFormattingToServerForKey:@"birthday"];
+    
+    
+    [self signValueFor:parameters];
+    
     
     
     return [[GCHttpClient sharedClient] POST:GC_EXPERT_INFOEDIT_URL
@@ -198,8 +218,7 @@
                                      success:^(NSURLSessionDataTask *task, id responseObject) {
                                          
                                          DDLogDebug(@"Expert Info Edit resoponseData:%@",responseObject);
-                                         responseObject = [(NSDictionary *)responseObject keysLowercased];
-                                         
+                                                                                  
                                          block(responseObject,nil);
                                      }
                                      failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -229,8 +248,7 @@
                                      success:^(NSURLSessionDataTask *task, id responseObject) {
                                          
                                          DDLogDebug(@"Reset Password resoponseData:%@",responseObject);
-                                         responseObject = [(NSDictionary *)responseObject keysLowercased];
-                                         
+                                                                                  
                                          if (block)
                                          {
                                              block(responseObject, nil);
@@ -246,7 +264,7 @@
 
 
 #pragma mark UploadFile
-+ (NSURLSessionDataTask *)uploadFileWithParameters:(id)parameters block:(void (^)(NSDictionary *, NSError *))block
++ (NSURLSessionDataTask *)userUploadFileWithParameters:(id)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))bodyBlock withBlock:(void (^)(NSDictionary *, NSError *))block
 {
     
     DDLogInfo(@"Running %@ %@",[self class],NSStringFromSelector(_cmd));
@@ -254,14 +272,11 @@
                                               relativeToURL:[GCHttpClient sharedClient].baseURL]);
     
     parameters = [parameters mutableCopy];
-
     
-    return [[GCHttpClient sharedClient] POST:GC_COMMON_UPLOADFILE_URL
-                                  parameters:parameters
-                                     success:^(NSURLSessionDataTask *task, id responseObject) {
+    return [[GCHttpClient sharedClient] POST:GC_COMMON_UPLOADFILE_URL parameters:parameters constructingBodyWithBlock:bodyBlock success:^(NSURLSessionDataTask *task, id responseObject) {
+        
                                          
-                                         DDLogDebug(@"uploadFile resoponseData:%@",responseObject);
-                                         responseObject = [(NSDictionary *)responseObject keysLowercased];
+                                         DDLogDebug(@"Reset Password resoponseData:%@",responseObject);
                                          
                                          if (block)
                                          {
@@ -272,13 +287,9 @@
                                          
                                          DDLogDebug(@"Request Error: %@ %@",[error localizedFailureReason], NSStringFromSelector(_cmd));
                                          
-                                         if (block)
-                                         {
-                                             block(nil, error);
-                                         }
+                                         block(nil, error);
                                      }];
 }
-
 
 #pragma mark GetDepartment
 + (NSURLSessionDataTask *)getDepartmentInfoListWithParameters:(id)parameters block:(void (^)(NSDictionary *, NSError *))block
@@ -296,7 +307,12 @@
                                      success:^(NSURLSessionDataTask *task, id responseObject) {
                                          
                                          DDLogDebug(@"Get Department resoponseData:%@",responseObject);
-                                         responseObject = [(NSDictionary *)responseObject keysLowercased];
+                                         
+                                         
+                                         LoadedLog *log = [LoadedLog shareLoadedLog];
+                                         log.department = [NSString stringWithDateFormatting:GC_FORMATTER_SECOND date:[NSDate date]];
+                                         [[CoreDataStack sharedCoreDataStack] saveContext];
+                                         
                                          
                                          if (block)
                                          {
@@ -331,8 +347,7 @@
                                      success:^(NSURLSessionDataTask *task, id responseObject) {
                                          
                                          DDLogDebug(@"Get Message Count resoponseData:%@",responseObject);
-                                         responseObject = [(NSDictionary *)responseObject keysLowercased];
-                                         
+                                                                                  
                                          if (block)
                                          {
                                              block(responseObject, nil);
@@ -365,8 +380,7 @@
                                      success:^(NSURLSessionDataTask *task, id responseObject) {
                                          
                                          DDLogDebug(@"Get Last Version resoponseData:%@",responseObject);
-                                         responseObject = [(NSDictionary *)responseObject keysLowercased];
-                                         
+                                                                                  
                                          if (block)
                                          {
                                              block(responseObject, nil);
@@ -399,8 +413,7 @@
                                      success:^(NSURLSessionDataTask *task, id responseObject) {
                                          
                                          DDLogDebug(@"Is Member resoponseData:%@",responseObject);
-                                         responseObject = [(NSDictionary *)responseObject keysLowercased];
-                                         
+                                                                                  
                                          if (block)
                                          {
                                              block(responseObject, nil);
@@ -428,15 +441,15 @@
                                               relativeToURL:[GCHttpClient sharedClient].baseURL]);
     
     parameters = [parameters mutableCopy];
-
+    
+    [self signValueFor:parameters];
     
     return [[GCHttpClient sharedClient] POST:GC_EXPERT_SENDSUGGEST_URL
                                   parameters:parameters
                                      success:^(NSURLSessionDataTask *task, id responseObject) {
                                          
                                          DDLogDebug(@"Send Doctor Suggest resoponseData:%@",responseObject);
-                                         responseObject = [(NSDictionary *)responseObject keysLowercased];
-                                         
+                                                                                  
                                          if (block)
                                          {
                                              block(responseObject, nil);
@@ -452,6 +465,86 @@
                                          }
                                      }];
 }
+
+
+
+#pragma mark GetDoctorSuggests
++ (NSURLSessionDataTask *)getDoctorSuggestsWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block
+{
+    
+    DDLogInfo(@"Running %@ %@",[self class],NSStringFromSelector(_cmd));
+    DDLogInfo(@"Requesting for URL:%@",[NSURL URLWithString:GC_USER_GETDOCTORSUGGESTS_URL
+                                              relativeToURL:[GCHttpClient sharedClient].baseURL]);
+    
+    parameters = [parameters mutableCopy];
+    
+    [self signValueFor:parameters];
+    
+    
+    return [[GCHttpClient sharedClient] POST:GC_USER_GETDOCTORSUGGESTS_URL
+                                  parameters:parameters
+                                     success:^(NSURLSessionDataTask *task, id responseObject) {
+                                         
+                                         DDLogDebug(@"GetDoctorSuggests resoponseData:%@",responseObject);
+                                         
+                                         if (block)
+                                         {
+                                             block(responseObject, nil);
+                                         }
+                                     }
+                                     failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                         
+                                         DDLogDebug(@"Request Error: %@ %@",[error localizedFailureReason], NSStringFromSelector(_cmd));
+                                         
+                                         if (block)
+                                         {
+                                             block(nil, error);
+                                         }
+                                     }];
+    
+}
+
+
+#pragma mark QueryPatientList
++ (NSURLSessionDataTask *)queryPatientListWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block
+{
+    
+    DDLogInfo(@"Running %@ %@",[self class],NSStringFromSelector(_cmd));
+    DDLogInfo(@"Requesting for URL:%@",[NSURL URLWithString:GC_EXPERT_QUERYPATIENT_URL
+                                              relativeToURL:[GCHttpClient sharedClient].baseURL]);
+    
+    parameters = [parameters mutableCopy];
+    
+    [self signValueFor:parameters];
+    
+    return [[GCHttpClient sharedClient] POST:GC_EXPERT_QUERYPATIENT_URL
+                                  parameters:parameters
+                                     success:^(NSURLSessionDataTask *task, id responseObject) {
+                                         
+                                         DDLogDebug(@"GetPatientList resoponseData:%@",responseObject);
+                                         
+                                         
+                                         LoadedLog *log = [LoadedLog shareLoadedLog];
+                                         log.patient = [NSString stringWithDateFormatting:GC_FORMATTER_SECOND date:[NSDate date]];
+                                         [[CoreDataStack sharedCoreDataStack] saveContext];
+                                         
+                                                                                  
+                                         if (block)
+                                         {
+                                             block(responseObject, nil);
+                                         }
+                                     }
+                                     failure:^(NSURLSessionDataTask *task, NSError *error){
+                                         
+                                         DDLogDebug(@"Request Error: %@ %@",[error localizedFailureReason], NSStringFromSelector(_cmd));
+                                         
+                                         if (block)
+                                         {
+                                             block(nil, error);
+                                         }
+                                     }];
+}
+
 
 
 #pragma mark GetPatientList
@@ -470,8 +563,13 @@
                                   parameters:parameters
                                      success:^(NSURLSessionDataTask *task, id responseObject) {
                                          
-                                         DDLogDebug(@"Get Patient List resoponseData:%@",responseObject);
-                                         responseObject = [(NSDictionary *)responseObject keysLowercased];
+                                         DDLogDebug(@"GetPatientList resoponseData:%@",responseObject);
+                                         
+                                         
+                                         LoadedLog *log = [LoadedLog shareLoadedLog];
+                                         log.trusPatient = [NSString stringWithDateFormatting:GC_FORMATTER_SECOND date:[NSDate date]];
+                                         [[CoreDataStack sharedCoreDataStack] saveContext];
+                                         
                                          
                                          if (block)
                                          {
@@ -490,6 +588,561 @@
 }
 
 
+#pragma mark GetMediRecordList
++ (NSURLSessionDataTask *)getMediRecordListWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block
+{
+    DDLogInfo(@"Running %@ %@",[self class],NSStringFromSelector(_cmd));
+    DDLogInfo(@"Requesting for URL:%@",[NSURL URLWithString:GC_USER_GETMEDIRECORD_URL
+                                              relativeToURL:[GCHttpClient sharedClient].baseURL]);
+    
+    parameters = [parameters mutableCopy];
+    
+    [self signValueFor:parameters];
+    
+    return [[GCHttpClient sharedClient] POST:GC_USER_GETMEDIRECORD_URL
+                                  parameters:parameters
+                                     success:^(NSURLSessionDataTask *task, id responseObject) {
+                                         
+                                         DDLogDebug(@"GetMediRecordList resoponseData:%@",responseObject);
+                                         
+                                         if (block)
+                                         {
+                                             block(responseObject, nil);
+                                         }
+                                     }
+                                     failure:^(NSURLSessionDataTask *task, NSError *error){
+                                         
+                                         DDLogDebug(@"Request Error: %@ %@",[error localizedFailureReason], NSStringFromSelector(_cmd));
+                                         
+                                         if (block)
+                                         {
+                                             block(nil, error);
+                                         }
+                                     }];
+}
+
+
+#pragma mark GetCenterInfoList
++ (NSURLSessionDataTask *)getCenterInfoListWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block
+{
+    
+    DDLogInfo(@"Running %@ %@",[self class],NSStringFromSelector(_cmd));
+    DDLogInfo(@"Requesting for URL:%@",[NSURL URLWithString:GC_COMMON_GETCENTERLIST_URL
+                                              relativeToURL:[GCHttpClient sharedClient].baseURL]);
+    
+    parameters = [parameters mutableCopy];
+    
+    [self signValueFor:parameters];
+    
+    return [[GCHttpClient sharedClient] POST:GC_COMMON_GETCENTERLIST_URL
+                                  parameters:parameters
+                                     success:^(NSURLSessionDataTask *task, id responseObject) {
+                                         
+                                         DDLogDebug(@"GetCenterInfoList resoponseData:%@",responseObject);
+                                         
+                                         
+                                         LoadedLog *log = [LoadedLog shareLoadedLog];
+                                         log.serviceCenter = [NSString stringWithDateFormatting:GC_FORMATTER_SECOND date:[NSDate date]];
+                                         [[CoreDataStack sharedCoreDataStack] saveContext];
+                                         
+                                         
+                                         
+                                         if (block)
+                                         {
+                                             block(responseObject, nil);
+                                         }
+                                     }
+                                     failure:^(NSURLSessionDataTask *task, NSError *error){
+                                         
+                                         DDLogDebug(@"Request Error: %@ %@",[error localizedFailureReason], NSStringFromSelector(_cmd));
+                                         
+                                         if (block)
+                                         {
+                                             block(nil, error);
+                                         }
+                                     }];
+}
+
+
+
+#pragma mark GetTrusteeshipList
++ (NSURLSessionDataTask *)getTrusteeshipListWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+{
+    
+    DDLogInfo(@"Running %@ %@",[self class],NSStringFromSelector(_cmd));
+    DDLogInfo(@"Requesting for URL:%@",[NSURL URLWithString:GC_EXPERT_GETTRUSTEESHIP_URL
+                                              relativeToURL:[GCHttpClient sharedClient].baseURL]);
+    
+    parameters = [parameters mutableCopy];
+    
+    [self signValueFor:parameters];
+    
+    return [[GCHttpClient sharedClient] POST:GC_EXPERT_GETTRUSTEESHIP_URL
+                                  parameters:parameters
+                                     success:^(NSURLSessionDataTask *task, id responseObject) {
+                                         
+                                         DDLogDebug(@"GetTrusteeshipList resoponseData:%@",responseObject);
+                                         
+                                         if (block)
+                                         {
+                                             block(responseObject, nil);
+                                         }
+                                     }
+                                     failure:^(NSURLSessionDataTask *task, NSError *error){
+                                         
+                                         DDLogDebug(@"Request Error: %@ %@",[error localizedFailureReason], NSStringFromSelector(_cmd));
+                                         
+                                         if (block)
+                                         {
+                                             block(nil, error);
+                                         }
+                                     }];
+}
+
+#pragma mark GetTakeOverList
++ (NSURLSessionDataTask *)getTakeOverListWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block
+{
+    
+    
+    DDLogInfo(@"Running %@ %@",[self class],NSStringFromSelector(_cmd));
+    DDLogInfo(@"Requesting for URL:%@",[NSURL URLWithString:GC_EXPERT_GETTAKEOVER_URL
+                                              relativeToURL:[GCHttpClient sharedClient].baseURL]);
+    
+    parameters = [parameters mutableCopy];
+    
+    [self signValueFor:parameters];
+    
+    return [[GCHttpClient sharedClient] POST:GC_EXPERT_GETTAKEOVER_URL
+                                  parameters:parameters
+                                     success:^(NSURLSessionDataTask *task, id responseObject) {
+                                         
+                                         DDLogDebug(@"GetTakeOverList resoponseData:%@",responseObject);
+                                         
+                                         if (block)
+                                         {
+                                             block(responseObject, nil);
+                                         }
+                                     }
+                                     failure:^(NSURLSessionDataTask *task, NSError *error){
+                                         
+                                         DDLogDebug(@"Request Error: %@ %@",[error localizedFailureReason], NSStringFromSelector(_cmd));
+                                         
+                                         if (block)
+                                         {
+                                             block(nil, error);
+                                         }
+                                     }];
+}
+
+
+
+
+#pragma mark SendTrusteeship
++ (NSURLSessionDataTask *)sendTrusteeshipWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block
+{
+    
+    DDLogInfo(@"Running %@ %@",[self class],NSStringFromSelector(_cmd));
+    DDLogInfo(@"Requesting for URL:%@",[NSURL URLWithString:GC_EXPERT_SENDTRUSTEESHIP_URL
+                                              relativeToURL:[GCHttpClient sharedClient].baseURL]);
+    
+    parameters = [parameters mutableCopy];
+    
+    [self signValueFor:parameters];
+    
+    return [[GCHttpClient sharedClient] POST:GC_EXPERT_SENDTRUSTEESHIP_URL
+                                  parameters:parameters
+                                     success:^(NSURLSessionDataTask *task, id responseObject) {
+                                         
+                                         DDLogDebug(@"SendTrusteeship resoponseData:%@",responseObject);
+                                         
+                                         if (block)
+                                         {
+                                             block(responseObject, nil);
+                                         }
+                                     }
+                                     failure:^(NSURLSessionDataTask *task, NSError *error){
+                                         
+                                         DDLogDebug(@"Request Error: %@ %@",[error localizedFailureReason], NSStringFromSelector(_cmd));
+                                         
+                                         if (block)
+                                         {
+                                             block(nil, error);
+                                         }
+                                     }];
+
+}
+
+
+
+
+#pragma mark ApprTrusteeship
++ (NSURLSessionDataTask *)apprTrusteeshipWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block
+{
+    
+    DDLogInfo(@"Running %@ %@",[self class],NSStringFromSelector(_cmd));
+    DDLogInfo(@"Requesting for URL:%@",[NSURL URLWithString:GC_EXPERT_APPRTRUSTEESHIP_URL
+                                              relativeToURL:[GCHttpClient sharedClient].baseURL]);
+    
+    parameters = [parameters mutableCopy];
+    
+    [self signValueFor:parameters];
+    
+    return [[GCHttpClient sharedClient] POST:GC_EXPERT_APPRTRUSTEESHIP_URL
+                                  parameters:parameters
+                                     success:^(NSURLSessionDataTask *task, id responseObject) {
+                                         
+                                         DDLogDebug(@"ApprTrusteeship resoponseData:%@",responseObject);
+                                         
+                                         if (block)
+                                         {
+                                             block(responseObject, nil);
+                                         }
+                                     }
+                                     failure:^(NSURLSessionDataTask *task, NSError *error){
+                                         
+                                         DDLogDebug(@"Request Error: %@ %@",[error localizedFailureReason], NSStringFromSelector(_cmd));
+                                         
+                                         if (block)
+                                         {
+                                             block(nil, error);
+                                         }
+                                     }];
+}
+
+#pragma mark GetTrusExptList
++ (NSURLSessionDataTask *)getTrusExptListWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block
+{
+    
+    DDLogInfo(@"Running %@ %@",[self class],NSStringFromSelector(_cmd));
+    DDLogInfo(@"Requesting for URL:%@",[NSURL URLWithString:GC_EXPERT_GETTRUSEXPTLIST_URL
+                                              relativeToURL:[GCHttpClient sharedClient].baseURL]);
+    
+    parameters = [parameters mutableCopy];
+    
+    [self signValueFor:parameters];
+    
+    return [[GCHttpClient sharedClient] POST:GC_EXPERT_GETTRUSEXPTLIST_URL
+                                  parameters:parameters
+                                     success:^(NSURLSessionDataTask *task, id responseObject) {
+                                         
+                                         DDLogDebug(@"GetTrusExptList resoponseData:%@",responseObject);
+                                         
+                                         LoadedLog *log = [LoadedLog shareLoadedLog];
+                                         log.trusExpt = [NSString stringWithDateFormatting:GC_FORMATTER_SECOND date:[NSDate date]];
+                                         [[CoreDataStack sharedCoreDataStack] saveContext];
+                                         
+                                         
+                                         if (block)
+                                         {
+                                             block(responseObject, nil);
+                                         }
+                                     }
+                                     failure:^(NSURLSessionDataTask *task, NSError *error){
+                                         
+                                         DDLogDebug(@"Request Error: %@ %@",[error localizedFailureReason], NSStringFromSelector(_cmd));
+                                         
+                                         if (block)
+                                         {
+                                             block(nil, error);
+                                         }
+                                     }];
+
+}
+
+
+
+#pragma mark QueryDetectLine
++ (NSURLSessionDataTask *)QueryDetectLineWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block
+{
+    
+    
+    DDLogInfo(@"Running %@ %@",[self class],NSStringFromSelector(_cmd));
+    DDLogInfo(@"Requesting for URL:%@",[NSURL URLWithString:GC_USER_GETDETECTLINE_URL
+                                              relativeToURL:[GCHttpClient sharedClient].baseURL]);
+    
+    parameters = [parameters mutableCopy];
+    
+    [self signValueFor:parameters];
+    
+    return [[GCHttpClient sharedClient] POST:GC_USER_GETDETECTLINE_URL
+                                  parameters:parameters
+                                     success:^(NSURLSessionDataTask *task, id responseObject) {
+                                         
+                                         DDLogDebug(@"QueryDetectLine resoponseData:%@",responseObject);
+                                         
+                                         if (block)
+                                         {
+                                             block(responseObject, nil);
+                                         }
+                                     }
+                                     failure:^(NSURLSessionDataTask *task, NSError *error){
+                                         
+                                         DDLogDebug(@"Request Error: %@ %@",[error localizedFailureReason], NSStringFromSelector(_cmd));
+                                         
+                                         if (block)
+                                         {
+                                             block(nil, error);
+                                         }
+                                     }];
+}
+
+
+
+#pragma mark QueryCureLogTimeLine
++ (NSURLSessionDataTask *)queryCureLogTimeLineWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block
+{
+    
+    DDLogInfo(@"Running %@ %@",[self class],NSStringFromSelector(_cmd));
+    DDLogInfo(@"Requesting for URL:%@",[NSURL URLWithString:GC_USER_GETCURELOG_URL
+                                              relativeToURL:[GCHttpClient sharedClient].baseURL]);
+    
+    parameters = [parameters mutableCopy];
+    
+    [self signValueFor:parameters];
+    
+    return [[GCHttpClient sharedClient] POST:GC_USER_GETCURELOG_URL
+                                  parameters:parameters
+                                     success:^(NSURLSessionDataTask *task, id responseObject) {
+                                         
+                                         DDLogDebug(@"QueryCureLogTimeLine resoponseData:%@",responseObject);
+                                         
+                                         if (block)
+                                         {
+                                             block(responseObject, nil);
+                                         }
+                                     }
+                                     failure:^(NSURLSessionDataTask *task, NSError *error){
+                                         
+                                         DDLogDebug(@"Request Error: %@ %@",[error localizedFailureReason], NSStringFromSelector(_cmd));
+                                         
+                                         if (block)
+                                         {
+                                             block(nil, error);
+                                         }
+                                     }];
+}
+
+
+
+#pragma mark GetNoticeList
++ (NSURLSessionDataTask *)getNoticeListWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block
+{
+    
+    DDLogInfo(@"Running %@ %@",[self class],NSStringFromSelector(_cmd));
+    DDLogInfo(@"Requesting for URL:%@",[NSURL URLWithString:GC_COMMON_GETNOTICELIST_URL
+                                              relativeToURL:[GCHttpClient sharedClient].baseURL]);
+    
+    parameters = [parameters mutableCopy];
+    
+    [self signValueFor:parameters];
+    
+    return [[GCHttpClient sharedClient] POST:GC_COMMON_GETNOTICELIST_URL
+                                  parameters:parameters
+                                     success:^(NSURLSessionDataTask *task, id responseObject) {
+                                         
+                                         DDLogDebug(@"QueryCureLogTimeLine resoponseData:%@",responseObject);
+                                         
+                                         if (block)
+                                         {
+                                             block(responseObject, nil);
+                                         }
+                                     }
+                                     failure:^(NSURLSessionDataTask *task, NSError *error){
+                                         
+                                         DDLogDebug(@"Request Error: %@ %@",[error localizedFailureReason], NSStringFromSelector(_cmd));
+                                         
+                                         if (block)
+                                         {
+                                             block(nil, error);
+                                         }
+                                     }];
+}
+
+
+#pragma mark GetBulletinList
++ (NSURLSessionDataTask *)getBulletinListWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block
+{
+    
+    DDLogInfo(@"Running %@ %@",[self class],NSStringFromSelector(_cmd));
+    DDLogInfo(@"Requesting for URL:%@",[NSURL URLWithString:GC_COMMON_GETNOTICELIST_URL
+                                              relativeToURL:[GCHttpClient sharedClient].baseURL]);
+    
+    parameters = [parameters mutableCopy];
+    
+    [self signValueFor:parameters];
+    
+    
+    return [[GCHttpClient sharedClient] POST:GC_COMMON_GETNOTICELIST_URL
+                                  parameters:parameters
+                                     success:^(NSURLSessionDataTask *task, id responseObject) {
+                                         
+                                         DDLogDebug(@"QueryCureLogTimeLine resoponseData:%@",responseObject);
+                                         
+                                         if (block)
+                                         {
+                                             block(responseObject, nil);
+                                         }
+                                     }
+                                     failure:^(NSURLSessionDataTask *task, NSError *error){
+                                         
+                                         DDLogDebug(@"Request Error: %@ %@",[error localizedFailureReason], NSStringFromSelector(_cmd));
+                                         
+                                         if (block)
+                                         {
+                                             block(nil, error);
+                                         }
+                                     }];
+}
+
+
+#pragma mark QueryConclusion
++ (NSURLSessionDataTask *)queryConclusionWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block
+{
+    
+    DDLogInfo(@"Running %@ %@",[self class],NSStringFromSelector(_cmd));
+    DDLogInfo(@"Requesting for URL:%@",[NSURL URLWithString:GC_USER_QUERYCONCLUSION_URL
+                                              relativeToURL:[GCHttpClient sharedClient].baseURL]);
+    
+    parameters = [parameters mutableCopy];
+    
+    [self signValueFor:parameters];
+    
+    
+    return [[GCHttpClient sharedClient] POST:GC_USER_QUERYCONCLUSION_URL
+                                  parameters:parameters
+                                     success:^(NSURLSessionDataTask *task, id responseObject) {
+                                         
+                                         DDLogDebug(@"QueryConclusion resoponseData:%@",responseObject);
+                                         
+                                         if (block)
+                                         {
+                                             block(responseObject, nil);
+                                         }
+                                     }
+                                     failure:^(NSURLSessionDataTask *task, NSError *error){
+                                         
+                                         DDLogDebug(@"Request Error: %@ %@",[error localizedFailureReason], NSStringFromSelector(_cmd));
+                                         
+                                         if (block)
+                                         {
+                                             block(nil, error);
+                                         }
+                                     }];
+    
+}
+
+
+
+#pragma mark GetLinkManInfo
++ (NSURLSessionDataTask *)getLinkmanInfoWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block
+{
+    DDLogInfo(@"Running %@ %@",[self class],NSStringFromSelector(_cmd));
+    DDLogInfo(@"Requesting for URL:%@",[NSURL URLWithString:GC_USER_GETPERSONALINFO_URL
+                                              relativeToURL:[GCHttpClient sharedClient].baseURL]);
+    
+    parameters = [parameters mutableCopy];
+    
+    [self signValueFor:parameters];
+    
+    
+    return [[GCHttpClient sharedClient] POST:GC_USER_GETPERSONALINFO_URL
+                                  parameters:parameters
+                                     success:^(NSURLSessionDataTask *task, id responseObject) {
+                                         
+                                         DDLogDebug(@"GetLinkManInfo resoponseData:%@",responseObject);
+                                         
+                                         if (block)
+                                         {
+                                             block(responseObject, nil);
+                                         }
+                                     }
+                                     failure:^(NSURLSessionDataTask *task, NSError *error){
+                                         
+                                         DDLogDebug(@"Request Error: %@ %@",[error localizedFailureReason], NSStringFromSelector(_cmd));
+                                         
+                                         if (block)
+                                         {
+                                             block(nil, error);
+                                         }
+                                     }];
+    
+}
+
+
+
+#pragma mark GetMediRecordAttach
++ (NSURLSessionDataTask *)getMediRecordAttachWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block
+{
+    
+    DDLogInfo(@"Running %@ %@",[self class],NSStringFromSelector(_cmd));
+    DDLogInfo(@"Requesting for URL:%@",[NSURL URLWithString:GC_USER_GETMEDIRECORDATTACH_URL
+                                              relativeToURL:[GCHttpClient sharedClient].baseURL]);
+    
+    parameters = [parameters mutableCopy];
+    
+    [self signValueFor:parameters];
+    
+    
+    return [[GCHttpClient sharedClient] POST:GC_USER_GETMEDIRECORDATTACH_URL
+                                  parameters:parameters
+                                     success:^(NSURLSessionDataTask *task, id responseObject) {
+                                         
+                                         DDLogDebug(@"GetMediRecordAttach resoponseData:%@",responseObject);
+                                         
+                                         if (block)
+                                         {
+                                             block(responseObject, nil);
+                                         }
+                                     }
+                                     failure:^(NSURLSessionDataTask *task, NSError *error){
+                                         
+                                         DDLogDebug(@"Request Error: %@ %@",[error localizedFailureReason], NSStringFromSelector(_cmd));
+                                         
+                                         if (block)
+                                         {
+                                             block(nil, error);
+                                         }
+                                     }];
+}
+
+
+#pragma mark SendFeedBack
++ (NSURLSessionDataTask *)sendFeedBackWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block
+{
+    
+    DDLogInfo(@"Running %@ %@",[self class],NSStringFromSelector(_cmd));
+    DDLogInfo(@"Requesting for URL:%@",[NSURL URLWithString:GC_COMMON_SENDFEEDBACK_URL
+                                              relativeToURL:[GCHttpClient sharedClient].baseURL]);
+    
+    parameters = [parameters mutableCopy];
+    
+    [self signValueFor:parameters];
+    
+    
+    return [[GCHttpClient sharedClient] POST:GC_COMMON_SENDFEEDBACK_URL
+                                  parameters:parameters
+                                     success:^(NSURLSessionDataTask *task, id responseObject) {
+                                         
+                                         DDLogDebug(@"SendFeedBack resoponseData:%@",responseObject);
+                                         
+                                         if (block)
+                                         {
+                                             block(responseObject, nil);
+                                         }
+                                     }
+                                     failure:^(NSURLSessionDataTask *task, NSError *error){
+                                         
+                                         DDLogDebug(@"Request Error: %@ %@",[error localizedFailureReason], NSStringFromSelector(_cmd));
+                                         
+                                         if (block)
+                                         {
+                                             block(nil, error);
+                                         }
+                                     }];
+}
+
+
+
 + (id)signValueFor:(id)parameters
 {
     if ([parameters isKindOfClass:[NSDictionary class]]) {
@@ -497,6 +1150,7 @@
             [parameters setValue:[NSString generateSigWithParameters:parameters] forKey:@"sign"];
         }
     }
+    
     return parameters;
 }
 

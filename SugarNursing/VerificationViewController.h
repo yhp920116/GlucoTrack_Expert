@@ -10,9 +10,13 @@
 #import "CustomLabel.h"
 
 
+
+
 typedef NS_ENUM(NSInteger, VerifiedType) {
     VerifiedTypeRegister = 0,
-    VerifiedTypeReset = 1,
+    VerifiedTypeForget = 1,
+    VerifiedTypeReset = 2,
+    VerifiedTypeBindPhone = 3
 };
 
 @interface VerificationViewController : UITableViewController

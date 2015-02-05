@@ -18,6 +18,10 @@
 #define DEFAULT_FONT_NAME @"HelveticaNeue-Light"
 
 @interface BEMSimpleLineGraphView () {
+    
+    /// The Date in the Graph
+    NSDate *currentDate;
+    
     /// The number of Points in the Graph
     NSInteger numberOfPoints;
     NSInteger numberOfGaps;
@@ -33,11 +37,16 @@
     /// All of the X-Axis Values
     NSMutableArray *xAxisValues;
     
+    NSMutableArray *xAxisValuePoints;
+    
     /// All of the X-Axis Label Points
     NSMutableArray *xAxisLabelPoints;
     
     /// All of the Y-Axis Label Points
     NSMutableArray *yAxisLabelPoints;
+    
+    // Points for average value etc.
+    NSMutableArray *averagePoints;
     
     /// All of the Y-Axis Values
     NSMutableArray *yAxisValues;
@@ -53,6 +62,8 @@
 
 /// ScrollView for data scrolling when user scroll across the graph
 @property (strong, nonatomic) UIScrollView *scrollView;
+
+@property (assign) GraphSearchMode searchMode;
 
 /// The vertical line which appears when the user drags across the graph
 @property (strong, nonatomic) UIView *touchInputLine;
@@ -162,12 +173,13 @@
     _autoScaleYAxis = YES;
     _alwaysDisplayDots = NO;
     _alwaysDisplayPopUpLabels = NO;
-    _avoidLayoutSubviews = NO;
     
     // Initialize the various arrays
     xAxisValues = [NSMutableArray array];
+    xAxisValuePoints = [NSMutableArray array];
     xAxisLabelPoints = [NSMutableArray array];
     yAxisLabelPoints = [NSMutableArray array];
+    averagePoints = [NSMutableArray array];
     dataPoints = [NSMutableArray array];
     xAxisLabels = [NSMutableArray array];
     yAxisValues = [NSMutableArray array];
@@ -187,7 +199,7 @@
     // Get the number of points in the graph
     [self layoutNumberOfPoints];
     
-    if (numberOfPoints <= 1) {
+    if (numberOfPoints <= 0) {
         return;
     } else {
         // Draw the graph
@@ -200,6 +212,14 @@
 }
 
 - (void)layoutNumberOfPoints {
+    
+    // Remove the No Data Label that were previously on the graph
+    for (UIView *subview in [self subviews]) {
+        if ([subview isKindOfClass:[UILabel class]] && subview.tag == 4000)
+            [subview removeFromSuperview];
+    }
+    
+    
     // Get the total number of data points from the delegate
     if ([self.dataSource respondsToSelector:@selector(numberOfPointsInLineGraph:)]) {
         numberOfPoints = [self.dataSource numberOfPointsInLineGraph:self];
@@ -226,13 +246,18 @@
         
         NSLog(@"[BEMSimpleLineGraph] Data source contains no data. A no data label will be displayed and drawing will stop. Add data to the data source and then reload the graph.");
         
-        self.noDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.viewForBaselineLayout.frame.size.width, self.viewForBaselineLayout.frame.size.height)];
+        //        self.noDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.viewForBaselineLayout.frame.size.width, self.viewForBaselineLayout.frame.size.height)];
+        self.noDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.viewForBaselineLayout.frame.size.width, 100)];
+        self.noDataLabel.tag = 4000;
         self.noDataLabel.backgroundColor = [UIColor clearColor];
         self.noDataLabel.textAlignment = NSTextAlignmentCenter;
-        self.noDataLabel.text = @"No Data";
-        self.noDataLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
+        self.noDataLabel.text = NSLocalizedString(@"No Data", nil);
+        self.noDataLabel.textColor = [UIColor lightGrayColor];
+        self.noDataLabel.font = [UIFont systemFontOfSize:17.0];
         //        self.noDataLabel.textColor = self.colorLine;
-        self.noDataLabel.textColor = [UIColor colorWithRed:2./255. green:136./255 blue:1 alpha:1];
+        
+        NSLog(@"self.viewForBaseLineLayout = %@",self.viewForBaselineLayout);
+        NSLog(@"self.view = %@",self);
         [self.viewForBaselineLayout addSubview:self.noDataLabel];
         
         // Let the delegate know that the graph finished layout updates
@@ -240,15 +265,15 @@
             [self.delegate lineGraphDidFinishLoading:self];
         return;
         
-    } else if (numberOfPoints == 1) {
-        NSLog(@"[BEMSimpleLineGraph] Data source contains only one data point. Add more data to the data source and then reload the graph.");
-        BEMCircle *circleDot = [[BEMCircle alloc] initWithFrame:CGRectMake(0, 0, self.sizePoint, self.sizePoint)];
-        circleDot.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
-        circleDot.Pointcolor = self.colorPoint;
-        circleDot.alpha = 1;
-        [self addSubview:circleDot];
-        return;
-        
+        //    } else if (numberOfPoints == 1) {
+        //        NSLog(@"[BEMSimpleLineGraph] Data source contains only one data point. Add more data to the data source and then reload the graph.");
+        //        BEMCircle *circleDot = [[BEMCircle alloc] initWithFrame:CGRectMake(0, 0, self.sizePoint, self.sizePoint)];
+        //        circleDot.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+        //        circleDot.Pointcolor = self.colorPoint;
+        //        circleDot.alpha = 1;
+        //        [self addSubview:circleDot];
+        //        return;
+        //
     } else {
         // Remove all dots that were previously on the graph
         for (UILabel *subview in [self subviews]) {
@@ -327,7 +352,7 @@
         }
         else{
             
-            NSString *longestString = [NSString stringWithFormat:@"%.1f", (float)self.frame.size.height];
+            NSString *longestString = [NSString stringWithFormat:@"%i", (int)self.frame.size.height];
             self.YAxisLabelXOffset = [longestString sizeWithAttributes:attributes].width + 5;
         }
     } else self.YAxisLabelXOffset = 0;
@@ -364,12 +389,15 @@
     
     if ([self.dataSource respondsToSelector:@selector(hyperValueForLineGraph:)]) {
         hyperValue = [self.dataSource hyperValueForLineGraph:self];
-    } else hyperValue = [self maxValue];
+    } else {
+        hyperValue = [self maxValue];
+    }
     
     if ([self.dataSource respondsToSelector:@selector(hypoValueForLineGraph:)]) {
         hypoValue = [self.dataSource hypoValueForLineGraph:self];
-    } else hypoValue = [self minValue];
-    
+    } else {
+        hypoValue = [self minValue];
+    }
     
     // Remove all data points before adding them to the array
     [dataPoints removeAllObjects];
@@ -377,10 +405,14 @@
     // Remove all yAxis values before adding them to the array
     [yAxisValues removeAllObjects];
     
+    // Remove all xAxis values before addint them to the array
+    [xAxisValuePoints removeAllObjects];
+    
     // Loop through each point and add it to the graph
     @autoreleasepool {
         for (int i = 0; i < numberOfPoints; i++) {
             CGFloat dotValue = 0;
+            NSDate *dotDate;
             
             if ([self.dataSource respondsToSelector:@selector(lineGraph:valueForPointAtIndex:)]) {
                 dotValue = [self.dataSource lineGraph:self valueForPointAtIndex:i];
@@ -402,24 +434,30 @@
             } else [NSException raise:@"lineGraph:valueForPointAtIndex: protocol method is not implemented in the data source. Throwing exception here before the system throws a CALayerInvalidGeometry Exception." format:@"Value for point %f at index %lu is invalid. CALayer position may contain NaN: [0 nan]", dotValue, (unsigned long)i];
             
             
+            if ([self.dataSource respondsToSelector:@selector(lineGraph:dateOnXAxisForIndex:)]) {
+                dotDate = [self.dataSource lineGraph:self dateOnXAxisForIndex:i];
+            }else [NSException raise:@"lineGraph:dateOnXAxisForIndex: protocol method is not implemented in the data source. Throwing exception here before the system throws a CALayerInvalidGeometry Exception." format:@"Value for point %f at index %lu is invalid. CALayer position may contain NaN: [0 nan]", dotValue, (unsigned long)i];
             
-            [dataPoints addObject:[NSNumber numberWithFloat:dotValue]];
             
-            positionOnXAxis = (((self.scrollView.contentSize.width) / (numberOfPoints - 1)) * i);
+            positionOnXAxis = [self xPostionForDotDate:dotDate];
             positionOnYAxis = [self yPositionForDotValue:dotValue];
             
+            [dataPoints addObject:[NSNumber numberWithFloat:dotValue]];
+            [xAxisValuePoints addObject:[NSNumber numberWithFloat:positionOnXAxis]];
             [yAxisValues addObject:[NSNumber numberWithFloat:positionOnYAxis]];
             
+            
             if (self.animationGraphEntranceTime != 0 || self.alwaysDisplayDots == YES) {
+                
                 BEMCircle *circleDot = [[BEMCircle alloc] initWithFrame:CGRectMake(0, 0, self.sizePoint, self.sizePoint)];
                 circleDot.center = CGPointMake(positionOnXAxis, positionOnYAxis);
                 circleDot.tag = i+100;
                 circleDot.alpha = 0;
                 circleDot.absoluteValue = dotValue;
                 
-                if (dotValue >= hyperValue) {
+                if (dotValue > hyperValue) {
                     circleDot.Pointcolor = self.hyperColor;
-                } else if (dotValue <= hypoValue) {
+                } else if (dotValue < hypoValue) {
                     circleDot.Pointcolor = self.hypoColor;
                 } else circleDot.Pointcolor = self.colorPoint;
                 
@@ -474,7 +512,9 @@
     line.lineWidth = self.widthLine;
     line.lineAlpha = self.alphaLine;
     line.bezierCurveIsEnabled = self.enableBezierCurve;
-    line.arrayOfPoints = yAxisValues;
+    line.arrayOfYPoints = yAxisValues;
+    line.arrayOfXPoints = xAxisValuePoints;
+    line.frameOffset = self.XAxisLabelYOffset;
     line.xAxisBackgroundAlpha = self.alphaBackgroundXaxis;
     line.arrayOfValues = self.graphValuesForDataPoints;
     if (self.colorBackgroundXaxis == nil) {
@@ -486,11 +526,11 @@
         line.enableRefrenceFrame = self.enableReferenceAxisFrame;
         
         line.enableRefrenceLines = YES;
-        line.arrayOfVerticalRefrenceLinePoints = self.enableReferenceXAxisLines ? xAxisLabelPoints : nil;
-        line.arrayOfHorizontalRefrenceLinePoints = self.enableReferenceYAxisLines ? yAxisLabelPoints : nil;
+        line.arrayOfVerticalRefrenceLinePoints = self.enableReferenceXAxisLines ? xAxisLabelPoints: nil;
+        line.arrayOfHorizontalRefrenceLinePoints = self.enableReferenceYAxisLines ?  yAxisLabelPoints: nil;
     }
-    
-    line.frameOffset = self.XAxisLabelYOffset;
+    // average value line
+    line.arrayOfAverageRefrenceLinePoints = averagePoints;
     
     line.color = self.colorLine;
     line.animationTime = self.animationGraphEntranceTime;
@@ -524,7 +564,7 @@
 
 - (void)drawXAxis {
     if(!self.enableXAxisLabel) return;
-    if (![self.dataSource respondsToSelector:@selector(lineGraph:labelOnXAxisForIndex:)] && ![self.dataSource respondsToSelector:@selector(labelOnXAxisForIndex:)]) return;
+    //    if (![self.dataSource respondsToSelector:@selector(lineGraph:labelOnXAxisForIndex:)] && ![self.dataSource respondsToSelector:@selector(labelOnXAxisForIndex:)]) return
     
     // Remove the labels that were previously added on the scroll view
     for (UIView *subview in [self.scrollView subviews]) {
@@ -552,7 +592,7 @@
     [xAxisLabels removeAllObjects];
     [xAxisLabelPoints removeAllObjects];
     
-    if (numberOfGaps >= (numberOfPoints - 1)) {
+    if (NO) {
         
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.scrollView.frame.size.height);
         
@@ -613,17 +653,72 @@
         
     } else {
         
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.scrollView.frame.size.height);
+        if ([self.dataSource respondsToSelector:@selector(currentDateInLineGraph:)]) {
+            currentDate = [self.dataSource currentDateInLineGraph:self];
+        }else{
+            currentDate = [NSDate date];
+        }
+        
+        if ([self.dataSource respondsToSelector:@selector(searchModeInLineGraph:)]) {
+            self.searchMode = [self.dataSource searchModeInLineGraph:self];
+        }else{
+            self.searchMode = GraphSearchModeByDay;
+        }
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        CGFloat interval;
+        NSInteger intervalCount;
+        
+        switch (self.searchMode) {
+            case GraphSearchModeByDay:
+            {
+                [dateFormatter setDateFormat:@"yyyyMMdd000000"];
+                NSString *dateString = [dateFormatter stringFromDate:currentDate];
+                currentDate = [dateFormatter dateFromString:dateString];
+                
+                if ([self.dataSource respondsToSelector:@selector(intervalForSecondInLineGraph:)]) {
+                    interval = [self.dataSource intervalForSecondInLineGraph:self];
+                }else{
+                    interval = 0.5/60;
+                }
+                
+                intervalCount = 24;
+                
+                self.scrollView.contentSize = CGSizeMake(interval * 60 * 60 * intervalCount, self.scrollView.frame.size.height);
+                
+                break;
+            }
+            case GraphSearchModeByMonth:
+            {
+                [dateFormatter setDateFormat:@"yyyyMM00000000"];
+                NSString *dateString = [dateFormatter stringFromDate:currentDate];
+                currentDate = [dateFormatter dateFromString:dateString];
+                
+                if ([self.dataSource respondsToSelector:@selector(intervalForDayInLineGraph:)]) {
+                    interval = [self.dataSource intervalForSecondInLineGraph:self];
+                }else{
+                    interval = 0.0005;
+                }
+                
+                intervalCount = 30;
+                
+                self.scrollView.contentSize = CGSizeMake(interval * 60 * 60 * 24 * intervalCount, self.scrollView.frame.size.height);
+                
+                break;
+            }
+        }
+        
         
         NSInteger offset = [self offsetForXAxisWithNumberOfGaps]; // The offset (if possible and necessary) used to shift the Labels on the X-Axis for them to be centered.
         
         @autoreleasepool {
             
-            for (int i = 1; i <= (numberOfPoints/numberOfGaps); i++) {
+            for (int i = 1; i <= (intervalCount/numberOfGaps); i++) {
                 NSString *xAxisLabelText = @"";
+                NSInteger index;
                 
                 if ([self.dataSource respondsToSelector:@selector(lineGraph:labelOnXAxisForIndex:)]) {
-                    NSInteger index = i *numberOfGaps - 1 - offset;
+                    index = i *numberOfGaps - 1 - offset;
                     xAxisLabelText = [self.dataSource lineGraph:self labelOnXAxisForIndex:index];
                     
                 } else if ([self.delegate respondsToSelector:@selector(labelOnXAxisForIndex:)]) {
@@ -639,18 +734,46 @@
                     NSException *exception = [NSException exceptionWithName:@"Implementing Unavailable Delegate Method" reason:@"lineGraph:labelOnXAxisForIndex: is no longer available on the delegate. It must be implemented on the data source." userInfo:nil];
                     [exception raise];
                     
-                } else xAxisLabelText = @"";
+                } else {
+                    
+                    index = i * numberOfGaps - 1 - offset;
+                    NSTimeInterval timeInterval;
+                    
+                    
+                    switch (self.searchMode) {
+                        case GraphSearchModeByDay:
+                        {
+                            timeInterval = index * numberOfGaps * 60 * 60;
+                            
+                            NSDate *time = [currentDate dateByAddingTimeInterval:timeInterval];
+                            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                            [dateFormatter setDateFormat:@"MM/dd HH:mm"];
+                            NSString *timeString = [dateFormatter stringFromDate:time];
+                            
+                            xAxisLabelText = [timeString stringByReplacingOccurrencesOfString:@" " withString:@"\n"];
+                            break;
+                        }
+                        case GraphSearchModeByMonth:
+                        {
+                            timeInterval = index * numberOfGaps * 60 * 60 * 24;
+                            
+                            NSDate *time = [currentDate dateByAddingTimeInterval:timeInterval];
+                            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                            [dateFormatter setDateFormat:@"MM/dd"];
+                            
+                            xAxisLabelText = [dateFormatter stringFromDate:time];
+                            break;
+                        }
+                    }
+                    
+                    
+                    
+                }
                 
                 UILabel *labelXAxis = [[UILabel alloc] init];
                 labelXAxis.text = xAxisLabelText;
                 labelXAxis.font = self.labelFont;
-                if (i == 1) {
-                    labelXAxis.textAlignment = 2;
-                } else if (i == (numberOfPoints/numberOfGaps)){
-                    labelXAxis.textAlignment = 0;
-                } else {
-                    labelXAxis.textAlignment = 1;
-                }
+                labelXAxis.textAlignment = 1;
                 labelXAxis.textColor = self.colorXaxisLabel;
                 labelXAxis.backgroundColor = [UIColor clearColor];
                 [xAxisLabels addObject:labelXAxis];
@@ -664,15 +787,28 @@
                 rect.size = lRect.size;
                 labelXAxis.frame = rect;
                 
-                
-                [labelXAxis setCenter:CGPointMake(((self.scrollView.contentSize.width) / (numberOfPoints-1)) * (i*numberOfGaps - 1 - offset), self.scrollView.contentSize.height - lRect.size.height/2)];
-                
-                
-                NSNumber *xAxisLabelCoordinate = [NSNumber numberWithFloat:labelXAxis.center.x];
-                [xAxisLabelPoints addObject:xAxisLabelCoordinate];
+                switch (self.searchMode) {
+                    case GraphSearchModeByDay:
+                    {
+                        [labelXAxis setCenter:CGPointMake(index * numberOfGaps * interval * 60 * 60, self.scrollView.contentSize.height - lRect.size.height/2)];
+                        break;
+                    }
+                    case GraphSearchModeByMonth:
+                    {
+                        [labelXAxis setCenter:CGPointMake(index * numberOfGaps * interval * 60 * 60 * 24, self.scrollView.contentSize.height - lRect.size.height/2)];
+                        break;
+                    }
+                }
                 
                 [self.scrollView addSubview:labelXAxis];
+                
+                [xAxisLabelPoints addObject:[NSNumber numberWithFloat:labelXAxis.center.x]];
                 [xAxisValues addObject:xAxisLabelText];
+                
+                if (i == 1) {
+                    CGPoint point = labelXAxis.center;
+                    labelXAxis.center = CGPointMake(point.x+labelXAxis.bounds.size.width/2, point.y);
+                }
             }
             
             
@@ -719,17 +855,23 @@
     
     NSMutableArray *yAxisLabels = [NSMutableArray arrayWithCapacity:0];
     [yAxisLabelPoints removeAllObjects];
+    [averagePoints removeAllObjects];
     
     if (self.autoScaleYAxis) {
         // Plot according to min-max range
-        NSNumber *minimumValue = [NSNumber numberWithFloat:[self calculateMinimumPointValue].floatValue];
-        NSNumber *maximumValue = [NSNumber numberWithFloat:[self calculateMaximumPointValue].floatValue];
+        //        NSNumber *minimumValue = [NSNumber numberWithFloat:[self calculateMinimumPointValue].floatValue];
+        //        NSNumber *maximumValue = [NSNumber numberWithFloat:[self calculateMaximumPointValue].floatValue];
+        
+        NSNumber *minimumValue = [NSNumber numberWithFloat:[self minValue]];
+        NSNumber *maximumValue = [NSNumber numberWithFloat:[self maxValue]];
+        NSNumber *averageValue = [self calculatePointValueAverage];
+        
         
         CGFloat numberOfLabels;
         if ([self.delegate respondsToSelector:@selector(numberOfYAxisLabelsOnLineGraph:)]) numberOfLabels = [self.delegate numberOfYAxisLabelsOnLineGraph:self];
         else numberOfLabels = 3;
         
-        NSMutableArray *dotValues = [[NSMutableArray alloc] initWithObjects:minimumValue, maximumValue, nil];
+        NSMutableArray *dotValues = [[NSMutableArray alloc] initWithObjects:minimumValue,averageValue,maximumValue, nil];
         
         if (numberOfLabels <= 0) return;
         else if (numberOfLabels == 1) {
@@ -741,10 +883,11 @@
             }
         }
         
+        
         for (NSNumber *dotValue in dotValues) {
             CGFloat yAxisPosition = [self yPositionForDotValue:dotValue.floatValue];
             UILabel *labelYAxis = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.YAxisLabelXOffset - 5, 15)];
-            labelYAxis.text = [NSString stringWithFormat:@"%.1f",dotValue.floatValue];
+            labelYAxis.text = [[NSString alloc] initWithFormat:@"%.1f",dotValue.floatValue];
             labelYAxis.textAlignment = NSTextAlignmentRight;
             labelYAxis.font = self.labelFont;
             labelYAxis.textColor = self.colorYaxisLabel;
@@ -756,6 +899,13 @@
             
             NSNumber *yAxisLabelCoordinate = [NSNumber numberWithFloat:labelYAxis.center.y];
             [yAxisLabelPoints addObject:yAxisLabelCoordinate];
+            
+            if ([dotValue isEqual:averageValue]) {
+                labelYAxis.textColor = [UIColor orangeColor];
+                labelYAxis.hidden = YES;
+                [yAxisLabelPoints removeObject:yAxisLabelCoordinate];
+                [averagePoints addObject:yAxisLabelCoordinate];
+            }
         }
     } else {
         CGFloat numberOfLabels;
@@ -832,7 +982,7 @@
     UILabel *permanentPopUpLabel = [[UILabel alloc] init];
     permanentPopUpLabel.textAlignment = 1;
     permanentPopUpLabel.numberOfLines = 0;
-    permanentPopUpLabel.text = [NSString stringWithFormat:@"%.1f", circleDot.absoluteValue];
+    permanentPopUpLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInteger:circleDot.absoluteValue]];
     permanentPopUpLabel.font = self.labelFont;
     permanentPopUpLabel.backgroundColor = [UIColor clearColor];
     [permanentPopUpLabel sizeToFit];
@@ -1011,14 +1161,14 @@
 {
     for (int i = 0; i < yAxisValues.count - 1; i += 1) {
         
-        CGPoint p1 = CGPointMake((self.scrollView.contentSize.width / (numberOfPoints-1) * i), [[yAxisValues objectAtIndex:i] floatValue]);
-        CGPoint p2 = CGPointMake((self.scrollView.contentSize.width / (numberOfPoints-1) * (i+1)), [[yAxisValues objectAtIndex:i+1] floatValue]);
+        CGPoint p1 = CGPointMake([[xAxisLabelPoints objectAtIndex:i] floatValue], [[yAxisValues objectAtIndex:i] floatValue]);
+        CGPoint p2 = CGPointMake([[xAxisLabelPoints objectAtIndex:i+1] floatValue], [[yAxisValues objectAtIndex:i+1] floatValue]);
         
         float distanceToP1 = fabsf(hypotf(touchPoint.x - p1.x, touchPoint.y - p1.y));
         float distanceToP2 = hypotf(touchPoint.x - p2.x, touchPoint.y - p2.y);
         
         float distance = MIN(distanceToP1, distanceToP2);
-        if (distance <= 10.0) {
+        if (distance <= 20.0) {
             return distance == distanceToP2 ? i+1 : i;
         }
     }
@@ -1222,6 +1372,40 @@
     }
 }
 
+- (CGFloat)xPostionForDotDate:(NSDate *)dotDate
+{
+    NSTimeInterval secondInterval;
+    CGFloat xPosition;
+    switch (self.searchMode) {
+        case GraphSearchModeByDay:
+        {
+            if ([self.dataSource respondsToSelector:@selector(intervalForSecondInLineGraph:)])
+            {
+                secondInterval = [self.dataSource intervalForSecondInLineGraph:self];
+            }else{
+                secondInterval = 0.5/60;
+            }
+            break;
+        }
+        case GraphSearchModeByMonth:
+        {
+            if ([self.dataSource respondsToSelector:@selector(intervalForSecondInLineGraph:)]) {
+                secondInterval = [self.dataSource intervalForSecondInLineGraph:self];
+            }else{
+                secondInterval = 0.0005;
+            }
+            break;
+        }
+    }
+    
+    NSTimeInterval interval = [dotDate timeIntervalSinceDate:currentDate];
+    
+    xPosition = secondInterval * interval;
+    
+    return xPosition;
+    
+}
+
 - (CGFloat)yPositionForDotValue:(CGFloat)dotValue {
     CGFloat maxValue = [self maxValue]; // Biggest Y-axis value from all the points.
     CGFloat minValue = [self minValue]; // Smallest Y-axis value from all the points.
@@ -1236,12 +1420,12 @@
         padding = [self.delegate staticPaddingForLineGraph:self];
     
     if (self.enableXAxisLabel) {
-        if ([self.dataSource respondsToSelector:@selector(lineGraph:labelOnXAxisForIndex:)] || [self.dataSource respondsToSelector:@selector(labelOnXAxisForIndex:)]) {
-            if ([xAxisLabels count] > 0) {
-                UILabel *label = [xAxisLabels objectAtIndex:0];
-                self.XAxisLabelYOffset = label.frame.size.height + self.widthLine;
-            }
+        //        if ([self.dataSource respondsToSelector:@selector(lineGraph:labelOnXAxisForIndex:)] || [self.dataSource respondsToSelector:@selector(labelOnXAxisForIndex:)]) {
+        if ([xAxisLabels count] > 0) {
+            UILabel *label = [xAxisLabels objectAtIndex:0];
+            self.XAxisLabelYOffset = label.frame.size.height + self.widthLine;
         }
+        //        }
     }
     
     if (minValue == maxValue && self.autoScaleYAxis == YES) positionOnYAxis = self.frame.size.height/2;

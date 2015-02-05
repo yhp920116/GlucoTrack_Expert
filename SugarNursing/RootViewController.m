@@ -8,10 +8,10 @@
 
 #import "RootViewController.h"
 #import "UIStoryboard+Storyboards.h"
-#import "FXBlurView.h"
+
 
 @interface RootViewController ()
-@property (weak, nonatomic) IBOutlet FXBlurView *blurView;
+
 
 @end
 
@@ -28,7 +28,7 @@
     
     self.contentViewController = [[UIStoryboard myPatientStoryboard] instantiateViewControllerWithIdentifier:@"MyPatientNav"];
     self.leftMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LeftMenu"];
-    self.rightMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"RightMenu"];
+//    self.rightMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"RightMenu"];
     self.delegate = self;
     
     
@@ -37,14 +37,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.blurView.blurRadius = 30;
+    [self performSelector:@selector(showMenu:) withObject:nil afterDelay:1.25];
+
 }
 
-- (void)sideMenu:(RESideMenu *)sideMenu didRecognizePanGesture:(UIPanGestureRecognizer *)recognizer
+
+- (void)showMenu:(id)sender
 {
-    
-    
+    [self presentLeftMenuViewController];
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

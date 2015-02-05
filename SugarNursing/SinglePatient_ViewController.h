@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <BEMSimpleLineGraphView.h>
 #import <MBProgressHUD.h>
+@class Patient;
+@class PatientInfo;
 
 typedef enum
 {
@@ -28,6 +30,11 @@ BEMSimpleLineGraphDelegate
 >
 
 
+@property (assign, nonatomic) BOOL isMyPatient;
+
+@property (weak, nonatomic) PatientInfo *patientInfo;
+@property (strong, nonatomic) NSString *linkManId;
+@property (strong, nonatomic) Patient *patient;
 
 @property (weak, nonatomic) IBOutlet BEMSimpleLineGraphView *trackerChart;
 @property (weak, nonatomic) IBOutlet UIView *chartView;
@@ -35,5 +42,6 @@ BEMSimpleLineGraphDelegate
 
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property (weak, nonatomic) IBOutlet UITabBar *myTabBar;
+@property (weak, nonatomic) IBOutlet UITableView *detectTableView;
 
 @end

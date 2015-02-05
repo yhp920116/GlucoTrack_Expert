@@ -10,6 +10,12 @@
 
 @interface NSManagedObject (Savers)
 
++ (void)updateCoreDataWithListArray:(NSArray *)array identifierKey:(NSString *)identifierKey;
+
++ (void)coverCoreDataWithArray:(NSArray *)array;
+
 - (void)updateCoreDataForData:(NSDictionary *)data withKeyPath:(NSString *)keyPath;
+
+
 
 @end

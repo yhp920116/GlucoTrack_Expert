@@ -20,6 +20,7 @@
 
 - (BOOL)deleteEntityInContext:(NSManagedObjectContext *)context
 {
+    
     NSError *error = nil;
     NSManagedObject *inContext = [context existingObjectWithID:[self objectID] error:&error];
     if (error) {
@@ -27,7 +28,28 @@
     }
     [context deleteObject:inContext];
     return YES;
+}
+
++ (BOOL)deleteAllEntityInContext:(NSManagedObjectContext *)context
+{
+    NSArray *objects = [self findAllInContext:context];
+    [objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSManagedObject *object = (NSManagedObject *)obj;
+        [object deleteEntityInContext:context];
+    }];
+    return YES;
+}
+
++ (BOOL)deleteEntityInContext:(NSManagedObjectContext *)context predicate:(NSPredicate *)predica
+{
     
+    NSArray *objects = [self findAllWithPredicate:predica inContext:[CoreDataStack sharedCoreDataStack].context];
+    [objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSManagedObject *object = (NSManagedObject *)obj;
+        [object deleteEntityInContext:context];
+    }];
+    
+    return YES;
 }
 
 + (NSArray *)findAllInContext:(NSManagedObjectContext *)context
@@ -42,6 +64,7 @@
     [request setPredicate:searchPredicate];
     return [self executeFetchRequest:request inContext:context];
 }
+
 
 + (NSArray *)findAllSortedBy:(NSString *)sortTerm ascending:(BOOL)ascending withPredicate:(NSPredicate *)searchPredicate inContext:(NSManagedObjectContext *)context
 {
@@ -138,9 +161,9 @@
     
     if (sortTerm) {
         
-        if (!ascending) {
-            ascending = YES;
-        }
+//        if (!ascending) {
+//            ascending = YES;
+//        }
         
         NSMutableArray *sortDescriptors = [[NSMutableArray alloc] initWithCapacity:2];
         NSArray * sortKeys = [sortTerm componentsSeparatedByString:@","];
@@ -160,5 +183,45 @@
     
     return request;
 }
+
+
+
++ (BOOL)existWithContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [self createFetchRequestInContext:context];
+    
+    NSArray *array = [self executeFetchRequest:request inContext:context];
+    return (!array || array.count <= 0) ? NO : YES;
+}
+
+
+- (NSArray *)findAllByPredicate:(NSPredicate *)predicate context:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:NSStringFromClass(self.class)
+                                              inManagedObjectContext:context];
+    
+    [fetchRequest setEntity:entity];
+    
+    
+    
+    __block NSArray *results = nil;
+    [context performBlockAndWait:^{
+        
+        NSError *error = nil;
+        
+        results = [context executeFetchRequest:fetchRequest error:&error];
+        
+        if (results == nil) {
+            DDLogDebug(@"Execute FetchRequest Error: %@",[error localizedDescription]);
+        }
+        
+    }];
+    
+    
+    return results;
+}
+
+
 
 @end

@@ -31,9 +31,9 @@
     self.contentLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.contentLabel.bounds);
 }
 
-- (void)configureCellWithContent:(NSString *)contentString acceptBlock:(void(^)(TakeoverStandby_Cell *cell))block1 refuseBlock:(void(^)(TakeoverStandby_Cell *cell))block2
+- (void)configureCellWithContent:(NSAttributedString *)contentString acceptBlock:(void(^)(TakeoverStandby_Cell *cell))block1 refuseBlock:(void(^)(TakeoverStandby_Cell *cell))block2
 {
-    self.contentLabel.text = contentString;
+    self.contentLabel.attributedText = contentString;
     
     acceptBlock = block1;
     refuseBlock = block2;

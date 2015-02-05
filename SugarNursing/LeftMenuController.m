@@ -12,10 +12,15 @@
 #import "UIStoryboard+Storyboards.h"
 #import "MemberCenterViewController.h"
 #import "AppDelegate+UserLogInOut.h"
+#import "UtilsMacro.h"
+#import "UserInfoViewController.h"
 
+@interface LeftMenuController ()<NSFetchedResultsControllerDelegate>
+{
+    
+}
 
-@interface LeftMenuController ()
-
+@property (nonatomic, strong) NSFetchedResultsController *fetchController;
 @property (nonatomic, strong) NSArray *menuArray;
 @property (nonatomic) NSInteger selectedIndex;
 
@@ -38,14 +43,25 @@
                             @[NSLocalizedString(@"Log Out",),@"IconEmpty"],
                             ];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadLeftMenu) name:@"reloadLeftMenu" object:nil];
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
+    
+    
     [self configureMenu];
-    
-    
+    [self requestForAPP];
 }
+
+- (void)reloadLeftMenu
+{
+    [self.leftMenu reloadData];
+}
+
+
 
 - (void)configureMenu
 {
@@ -55,6 +71,170 @@
     self.leftMenu.rowHeight = UITableViewAutomaticDimension;
     self.leftMenu.estimatedRowHeight = 100;
 }
+
+- (void)requestForAPP
+{
+    [self requestNewMessageCount];
+    
+    if ([LoadedLog needReloadedByKey:@"userInfo"] || ![UserInfo existWithContext:[CoreDataStack sharedCoreDataStack].context])
+    {
+        [self requestUserInfo];
+    }
+    if (![ServCenter existWithContext:[CoreDataStack sharedCoreDataStack].context])
+    {
+        [self requestForServiceCenter];
+    }
+    if (![Department existWithContext:[CoreDataStack sharedCoreDataStack].context])
+    {
+        [self requestForDepartment];
+    }
+}
+
+
+
+
+- (void)requestUserInfo
+{
+    
+    NSDictionary *parameters = @{@"method":@"getPersonalInfo",
+                                 @"sign":@"sign",
+                                 @"sessionId":[NSString sessionID],
+                                 @"exptId":[NSString exptId]};
+    
+    [GCRequest getPersonalInfoWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+        NSArray *objects = [UserInfo findAllInContext:[CoreDataStack sharedCoreDataStack].context];
+        
+        UserInfo *info;
+        
+        if (objects.count <= 0)
+        {
+            info = [UserInfo createEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+            
+        }
+        else
+        {
+            info = objects[0];
+        }
+        
+        info.exptId = [NSString exptId];
+        
+        if (!error)
+        {
+            if ([responseData[@"ret_code"] isEqualToString:@"0"])
+            {
+                
+                responseData = [responseData[@"expert"] mutableCopy];
+                
+                [responseData sexFormattingToUserForKey:@"sex"];
+                
+                [responseData dateFormattingToUserForKey:@"birthday"];
+                
+                [responseData expertLevelFormattingToUserForKey:@"expertLevel"];
+                
+                [info updateCoreDataForData:responseData withKeyPath:nil];
+                
+                
+                
+                
+                [LoadedLog shareLoadedLog].userInfo = [NSString stringWithDateFormatting:@"yyyyMMddHHmmss" date:[NSDate date]];
+                
+                [[CoreDataStack sharedCoreDataStack] saveContext];
+                
+                [self.leftMenu reloadData];
+            }
+            else
+            {
+                
+            }
+        }
+        else
+        {
+            
+        }
+        
+        [[CoreDataStack sharedCoreDataStack] saveContext];
+    }];
+}
+
+
+- (void)requestForServiceCenter
+{
+    if (![ServCenter existWithContext:[CoreDataStack sharedCoreDataStack].context])
+    {
+        
+        
+        NSDictionary *parameters = @{@"method":@"getCenterInfoList",
+                                     @"centerId":@"1",
+                                     @"type":@"3"};
+        [GCRequest getCenterInfoListWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+            if (!error)
+            {
+                if ([responseData[@"ret_code"] isEqualToString:@"0"])
+                {
+                    NSArray *array = responseData[@"centerList"];
+                    
+                    [ServCenter deleteAllEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+                    
+                    [ServCenter updateCoreDataWithListArray:array identifierKey:@"centerId"];
+                    
+                    [[CoreDataStack sharedCoreDataStack] saveContext];
+                }
+            }
+        }];
+    }
+}
+
+- (void)requestForDepartment
+{
+    if (![Department existWithContext:[CoreDataStack sharedCoreDataStack].context])
+    {
+        
+        NSDictionary *parameters = @{@"method":@"getDepartmentInfoList",
+                                     @"departmentId":@"1",
+                                     @"type":@"3"};
+        
+        [GCRequest getDepartmentInfoListWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+            if (!error)
+            {
+                
+                if ([responseData[@"ret_code"] isEqualToString:@"0"])
+                {
+                    NSArray *array = responseData[@"departmentList"];
+                    
+                    [Department deleteAllEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+                    
+                    [Department updateCoreDataWithListArray:array identifierKey:@"departmentId"];
+                    
+                    [[CoreDataStack sharedCoreDataStack] saveContext];
+                }
+            }
+            
+        }];
+    }
+}
+
+
+- (void)requestNewMessageCount
+{
+    
+    NSDictionary *parameters = @{@"method":@"getNewMessageCount",
+                                 @"recvUser":[NSString exptId]};
+    [GCRequest getNewMessageCountWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+        
+        if (!error)
+        {
+            if ([responseData[@"ret_code"] isEqualToString:@"0"])
+            {
+                NSLog(@"%@",responseData);
+            }
+            else
+            {
+                
+            }
+        }
+    }];
+}
+
 
 #pragma mark - TableViewDelegate
 
@@ -79,10 +259,22 @@
 {
     if (indexPath.row == 0 ) {
         MemberInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MemberInfoCell" forIndexPath:indexPath];
+        
+        cell.backgroundColor = [UIColor clearColor];
+        cell.contentView.backgroundColor = [UIColor clearColor];
+        
+        UserInfo *info = [UserInfo shareInfo];
+        [cell.MemberInfoBG setImageWithURL:[NSURL URLWithString:info.headimageUrl]];
+        cell.userNameLabel.text = info.exptName;
+        cell.userSexLabel.text = info.sex;
+        NSString *age = [NSString ageWithDateOfBirth:[NSDate dateByString:info.birthday dateFormat:@"yyyy-MM-dd"]];
+        cell.userAgeLabel.text = [NSString stringWithFormat:@"%@%@",age,NSLocalizedString(@"old", nil)];
         return cell;
     }
     
     LeftMenuCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LeftMenuCell" forIndexPath:indexPath];
+    cell.backgroundColor = [UIColor clearColor];
+    cell.contentView.backgroundColor = [UIColor clearColor];
     [cell configureCellWithIconName:self.menuArray[indexPath.row-1][1] LabelText:self.menuArray[indexPath.row-1][0]];
     return cell;
 }
@@ -107,7 +299,20 @@
     switch (index)
     {
         case 0:
+        {
+            UserInfoViewController *userInfo = [[UIStoryboard memberCenterStoryboard] instantiateViewControllerWithIdentifier:@"UserInfo"];
+            [userInfo.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"菜单" style:UIBarButtonItemStyleDone target:self action:@selector(menu:)]];
+            UINavigationController *personalInfoNav = [[UINavigationController alloc] initWithRootViewController:userInfo];
+            
+            [personalInfoNav.navigationBar setBarTintColor:[UIColor colorWithRed:44/255.0 green:125/255.0 blue:198/255.0 alpha:1]];
+            NSDictionary *attributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+            [personalInfoNav.navigationBar setTitleTextAttributes:attributes];
+            [personalInfoNav.navigationBar setTintColor:[UIColor whiteColor]];
+            [personalInfoNav.navigationBar setBarStyle:UIBarStyleBlack];
+            [self.sideMenuViewController setContentViewController:personalInfoNav animated:YES];
+            [self.sideMenuViewController hideMenuViewController];
             break;
+        }
         case 1:
             [self.sideMenuViewController setContentViewController:[[UIStoryboard myPatientStoryboard] instantiateViewControllerWithIdentifier:@"MyPatientNav"] animated:YES];
             [self.sideMenuViewController hideMenuViewController];
@@ -140,6 +345,12 @@
             break;
     }
 }
+
+- (void)menu:(id)sender
+{
+    [self.sideMenuViewController presentLeftMenuViewController];
+}
+
 
 - (void)didReceiveMemoryWarning
 {

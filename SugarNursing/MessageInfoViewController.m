@@ -8,31 +8,230 @@
 
 #import "MessageInfoViewController.h"
 #import "MsgInfo_Cell.h"
+#import "UtilsMacro.h"
+#import <MBProgressHUD.h>
+#import <SSPullToRefresh.h>
+#import "NoDataLabel.h"
 
 static NSString *identifier = @"MsgInfo_Cell";
 
 static CGFloat kEstimatedCellHeight = 150;
+static NSString *loadSize = @"15";
 
-@interface MessageInfoViewController ()
+@interface MessageInfoViewController ()<NSFetchedResultsControllerDelegate,SSPullToRefreshViewDelegate>
 {
+    MBProgressHUD *hud;
     NSArray *_serverData;
 }
+
+@property (strong, nonatomic) NSFetchedResultsController *fetchController;
+@property (strong, nonatomic) SSPullToRefreshView *refreshView;
+
+@property (assign, nonatomic) BOOL isAll;
+@property (assign, nonatomic) BOOL loading;
+
+
+
 @end
 
 @implementation MessageInfoViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
+    self.isAll = YES;
+    self.refreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.myTableView delegate:self];
     
-    _serverData = @[@{@"date":@"今天   13:35",@"content":@"    我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我公告内容告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容"},
-                    @{@"date":@"今天   13:35",@"content":@"    我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我的公告内容我公告内容"},
-                    @{@"date":@"今天   13:35",@"content":@"    我的公告内容我容"}];
+    [self configureFetchController];
+    [self.myTableView reloadData];
+    [self configureTableViewFooterView];
     
+    
+    [self.refreshView startLoadingAndExpand:YES animated:YES];
+}
+
+
+
+- (void)configureFetchController
+{
+    if (self.msgType == MsgTypeNotice)
+    {
+        self.fetchController = [Notice fetchAllGroupedBy:nil sortedBy:@"sendTime" ascending:NO withPredicate:nil delegate:self incontext:[CoreDataStack sharedCoreDataStack].context];
+    }
+    else
+    {
+        self.fetchController = [Bulletin fetchAllGroupedBy:nil sortedBy:@"sendTime" ascending:NO withPredicate:nil delegate:self incontext:[CoreDataStack sharedCoreDataStack].context];
+    }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    [self.myTableView reloadData];
+}
+
+- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
+{
+    [self requestMsgListWithIsRefresh:YES];
+}
+
+- (void)requestMsgListWithIsRefresh:(BOOL)isRefresh
+{
+    
+    self.loading = YES;
+    
+    if (self.msgType == MsgTypeNotice)
+    {
+        
+        
+        NSDictionary *parameters = @{@"method":@"getNoticeList",
+                                     @"sessionToken":[NSString sessionToken],
+                                     @"sign":@"sign",
+                                     @"sessionId":[NSString sessionID],
+                                     @"recvUser":[NSString exptId],
+                                     @"messageType":@"personalAppr",
+                                     @"size":loadSize,
+                                     @"start":isRefresh ? @"1" : [NSString stringWithFormat:@"%ld",self.fetchController.fetchedObjects.count]};
+        NSLog(@"%@",parameters);
+        NSURLSessionDataTask *task = [GCRequest getNoticeListWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+            
+            self.loading = NO;
+            
+            if (!error)
+            {
+                
+                NSString *ret_code = responseData[@"ret_code"];
+                if ([ret_code isEqualToString:@"0"])
+                {
+                    
+                    NSInteger listSize = [responseData[@"noticeListSize"] integerValue];
+                    if (listSize < [loadSize integerValue])
+                    {
+                        self.isAll = YES;
+                    }
+                    else
+                    {
+                        self.isAll = NO;
+                    }
+                    
+                    
+                    if (listSize <=0)
+                    {
+                        
+                    }
+                    else
+                    {
+                        
+                        NSArray *notices = responseData[@"noticeList"];
+                        
+                        [Notice updateCoreDataWithListArray:notices identifierKey:@"noticeId"];
+                        
+                        [[CoreDataStack sharedCoreDataStack] saveContext];
+                    }
+                    
+//                    [self configureFetchController];
+//                    [self configureTableViewFooterView];
+//                    [self.myTableView reloadData];
+                    
+                    
+                }
+                else
+                {
+                    hud = [[MBProgressHUD alloc] initWithView:self.view];
+                    [self.view addSubview:hud];
+                    hud.mode = MBProgressHUDModeText;
+                    hud.labelText = [NSString localizedMsgFromRet_code:ret_code withHUD:YES];
+                    [hud show:YES];
+                    [hud hide:YES afterDelay:HUD_TIME_DELAY];
+                }
+            }
+            else
+            {
+                [hud hide:YES];
+            }
+            
+            [self.refreshView finishLoading];
+        }];
+        
+        [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:self];
+    }
+    else if (self.msgType == MsgTypeBulletin)
+    {
+        
+        
+        UserInfo *info = [UserInfo findAllInContext:[CoreDataStack sharedCoreDataStack].context][0];
+        
+        NSDictionary *parameters = @{@"method":@"getBulletinList",
+                                     @"sign":@"sign",
+                                     @"sessionId":[NSString sessionID],
+                                     @"centerId":info.centerId,
+                                     @"groupId":@"3",
+                                     @"size":loadSize,
+                                     @"start":isRefresh ? @"1" : [NSString stringWithFormat:@"%ld",self.fetchController.fetchedObjects.count]
+                                     };
+        
+        NSURLSessionDataTask *task = [GCRequest getBulletinListWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+            
+            self.loading = NO;
+            
+            if (!error)
+            {
+                NSString *ret_code = responseData[@"ret_code"];
+                if ([ret_code isEqualToString:@"0"])
+                {
+                    
+                    NSInteger listSize = [responseData[@"bulletinListSize"] integerValue];
+                    
+                    if (listSize < [loadSize integerValue])
+                    {
+                        self.isAll = YES;
+                    }
+                    else
+                    {
+                        self.isAll = NO;
+                    }
+                    
+                    if (listSize <=0)
+                    {
+                        
+                    }
+                    else
+                    {
+                        
+                        NSArray *bulletinArray = responseData[@"bulletinList"];
+                        [Bulletin updateCoreDataWithListArray:bulletinArray identifierKey:@"bulletinId"];
+                        
+                        [[CoreDataStack sharedCoreDataStack] saveContext];
+                    }
+                    
+                    [self configureFetchController];
+                    [self configureTableViewFooterView];
+                    [self.myTableView reloadData];
+                    
+                    [hud hide:YES];
+                }
+                else
+                {
+                    hud.mode = MBProgressHUDModeText;
+                    hud.labelText = [NSString localizedMsgFromRet_code:ret_code withHUD:YES];
+                    [hud hide:YES afterDelay:1.2];
+                }
+            }
+            else
+            {
+                [hud hide:YES];
+            }
+            
+            [self.refreshView finishLoading];
+        }];
+        
+        
+        [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:self];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _serverData.count;
+    return self.fetchController.fetchedObjects.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -59,7 +258,8 @@ static CGFloat kEstimatedCellHeight = 150;
         [cell.contentView layoutIfNeeded];
     });
     
-    [cell configureCellWithParameter:_serverData[indexPath.row]];
+    [self configureCell:cell indexPath:indexPath];
+    
     return [self calculateCellHeight:cell];
 }
 
@@ -75,12 +275,79 @@ static CGFloat kEstimatedCellHeight = 150;
     return size.height;
 }
 
+- (void)configureCell:(MsgInfo_Cell *)cell indexPath:(NSIndexPath *)indexPath
+{
+    if (self.msgType == MsgTypeNotice)
+    {
+        
+        Notice *notice = self.fetchController.fetchedObjects[indexPath.row];
+        
+        [cell.contentLabel setText:notice.content];
+        
+        
+        NSString *dayString = [NSString dateFormattingByBeforeFormat:GC_FORMATTER_SECOND toFormat:GC_FORMATTER_DAY string:notice.sendTime];
+        NSString *nearDayString = [NSString compareNearDate:[NSDate dateByString:dayString dateFormat:GC_FORMATTER_DAY]];
+        NSString *timeString = [NSString dateFormattingByBeforeFormat:GC_FORMATTER_SECOND toFormat:@"HH:mm" string:notice.sendTime];
+        
+        NSString *msgDateString = [NSString stringWithFormat:@"%@ %@",nearDayString,timeString];
+        [cell.dateLabel setText:msgDateString];
+    }
+    else
+    {
+        
+        Bulletin *bulletin = self.fetchController.fetchedObjects[indexPath.row];
+        
+        
+        [cell.contentLabel setText:bulletin.content];
+        
+        
+        NSString *dayString = [NSString dateFormattingByBeforeFormat:GC_FORMATTER_SECOND toFormat:GC_FORMATTER_DAY string:bulletin.sendTime];
+        NSString *nearDayString = [NSString compareNearDate:[NSDate dateByString:dayString dateFormat:GC_FORMATTER_DAY]];
+        
+        
+        NSString *timeString = [NSString dateFormattingByBeforeFormat:GC_FORMATTER_SECOND toFormat:@"HH:mm" string:bulletin.sendTime];
+        
+        NSString *msgDateString = [NSString stringWithFormat:@"%@ %@",nearDayString,timeString];
+        [cell.dateLabel setText:msgDateString];
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     MsgInfo_Cell *cell = (MsgInfo_Cell *)[self.myTableView dequeueReusableCellWithIdentifier:identifier];
-    [cell configureCellWithParameter:_serverData[indexPath.row]];
+    [self configureCell:cell indexPath:indexPath];
     return cell;
 }
+
+
+- (void)configureTableViewFooterView
+{
+    if (self.fetchController.fetchedObjects.count > 0)
+    {
+        self.myTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    }
+    else
+    {
+        NoDataLabel *label = [[NoDataLabel alloc] initWithFrame:self.myTableView.bounds];
+        label.text = (self.msgType == MsgTypeNotice ?
+                      NSLocalizedString(@"have not approve result", nil) : NSLocalizedString(@"have not system bulletin", nil));
+        self.myTableView.tableFooterView = label;
+    }
+}
+
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    
+    if (scrollView.contentOffset.y > scrollView.contentSize.height - CGRectGetHeight(scrollView.bounds))
+    {
+        if (!self.isAll && !self.loading)
+        {
+            [self requestMsgListWithIsRefresh:NO];
+        }
+    }
+}
+
 
 @end

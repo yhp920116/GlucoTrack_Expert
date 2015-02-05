@@ -15,7 +15,8 @@ UITableViewDelegate,
 UITextFieldDelegate,
 UITextViewDelegate,
 UIPickerViewDataSource,
-UIPickerViewDelegate
+UIPickerViewDelegate,
+UIAlertViewDelegate
 >
 
 @property (weak, nonatomic) IBOutlet UITableView *mainTableView;
@@ -24,8 +25,9 @@ UIPickerViewDelegate
 
 @property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
 
+@property (strong, nonatomic) IBOutlet UIView *datePickerView;
 
-@property (strong, nonatomic) IBOutlet UIView *departmentsContentView;
+@property (strong, nonatomic) IBOutlet UIView *departmentPickerView;
 @property (weak, nonatomic) IBOutlet UIPickerView *departmentsPicker;
 
 @end

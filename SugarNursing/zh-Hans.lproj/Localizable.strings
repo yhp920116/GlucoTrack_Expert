@@ -7,11 +7,36 @@
 */
 
 
+
+"glucose" = "血糖";
+"hemoglobin" = "糖化血红蛋白";
+
+/* Network */
+"Request Error" = "请求出错";
+
+/* Basic */
+"New Version" = "发现新版本";
+"Skip" = "忽略";
+"Go to Store" = "下载更新";
+"It's the newest version" = "已经是最新版本";
+"Find the new Version" = "发现新版本";
+
+"Cancel" = "取消";
+"Confirm" = "确定";
+
+"Warm prompt" = "温馨提示";
+"Can't be late for today" = "所选日期不能晚于今日";
+
+"Save" = "保存";
 /* hub */
 "loading.." = "载入中..";
 "Login.." = "登录中..";
 "Error" = "错误";
 "Dismiss" = "取消";
+
+
+"Release to refresh…" = "释放刷新";
+"Pull down to refresh…" = "下拉刷新";
 
 /* Left Menu */
 "Home" = "主页";
@@ -35,13 +60,27 @@
 "errorphonenumber"="手机号码非法，请重新填写";
 "sure"="确定";
 
+"Get" = "获取";
+"Get Again" = "重新获取";
+
 "willsendthecodeto"="我们将发送验证码短信到这个号码";
 "surephonenumber"="确认手机号码";
-"cancel"="取消";
 
+
+"verification code can't be empty" = "验证码不能为空";
+"password code can't be empty" = "密码不能为空";
 "codesenderrormsg"="验证码发送失败 请稍后重试";
 "codesenderrtitle"="发送失败";
+"Please input verification code" = "请输入验证码";
 
+"phone is not regist" = "该手机未注册";
+"Please Input Hospital" = "请输入您工作的医院";
+
+
+"password reset successful" = "密码修改成功";
+"Reset And Logining.." = "重置密码并登陆..";
+
+"Sending code" = "正在发送验证码";
 "maxcodemsg"="请求验证码超上限 请稍后重试";
 "maxcode"="超过上限";
 
@@ -52,7 +91,27 @@
 "female"="女";
 "male"="男";
 
+"Please Choose Service Center" = "请选择服务中心";
+"Please Choose Department" = "请选择科室";
+
+"number is Binding telephone" = "该手机号已被绑定，请输入其他手机号码";
+
+"Your account is login in another place" = "您的账号已在别处登录，请重新登录";
+"This Telephone is not belong you" = "这不是您的手机号码";
+"This number is not belong you" = "这不是您的账号";
+"This number is already regist" = "该手机已注册";
+
+
+"Password Format is not avaliable" = "密码不能低于6位";
+"UserName Format is not avaliable" = "真实姓名不符合规范";
+
 /* My Paitent Section */
+"now" = "今日";
+
+"manage" = "在管";
+"trusteeship" = "托管";
+"takeover" = "接管";
+
 "Single Patient" = "单个病人";
 "Control Effect" = "控糖成效";
 "Recovery Log" = "康复日志";
@@ -67,31 +126,164 @@
 "Only takeover" = "只看接管";
 "Only Hosting" = "只看托管";
 
+"Unit" = "单位";
+
+"none" = "无";
+"open" = "开通";
+"No Data" = "没有数据";
+
+
+"Select By Month" = "近一个月";
+"Select By Day" = "按日查询";
+
+
+"detect" = "检测";
+"exercise" = "运动";
+"drug" = "用药";
+"diet" = "饮食";
+
+
+"milligram" = "毫克";
+"gram" = "克";
+"grain" = "粒";
+"piece" = "片";
+"unit" = "单位";
+"milliliter" = "毫升";
+"branch" = "支";
+"bottle" = "瓶";
+
+
+"per os" = "口服/不服药";
+"insulin pump" = "胰岛素泵";
+"injection" = "注射";
+
+
+
+
+"before breakfast" = "早餐前";
+"after breakfast" = "早餐后";
+"before lunch" = "午餐前";
+"after lunch" = "午餐后";
+"before dinner" = "晚餐前";
+"after dinner" = "晚餐后";
+
+"breakfast" = "早餐";
+"lunch" = "午餐";
+"dinner" = "晚餐";
+"extra meal" = "加餐";
+
+"glucose" = "血糖";
+"hemoglobinef" = "糖化血红蛋白";
+
+"GlucoTrace" = "糖无忌";
+"Other's facility" = "其他设备";
+
+"in all intake" = "共摄入";
+
+"By Date" = "选择日期";
+
+
+"minute" = "分钟";
+"expend" = "消耗";
+"calorie" = "大卡";
+
+"Send Advice" = "发送建议";
+"Send Succeed" = "发送成功";
 
 "Read recovery log" = "查看康复日志";
-
 "Plese input your advice" = "请输入您的建议";
+
+"Can't Get Control Effect" = "暂时无法获取控糖成效";
+
+
+
+"空腹血糖G3" = "空腹血糖";
+"餐后血糖G2" = "餐后2小时血糖";
+"餐后血糖G1" = "餐后1小时血糖";
+"选择周期" = "选择周期";
+"综合疗效评估" = "综合疗效评估";
+"检测次数" = "检测次数";
+"超标次数" = "超标次数";
+"最高值" = "最高值";
+"最低值" = "最低值";
+"平均值" = "平均值";
+"暂时无法获取控糖成效" = "暂时无法获取控糖成效";
 
 
 /* My Hosting & Takeover  Section */
-"You receive entrust successfully" = "你已成功接收委托";
-"You have refused this entrust" = "你已拒绝委托";
 
 "Choose patients" = "选择病人";
 "Choose doctor" = "选择医生";
 
 "A Commissioned Successfully" = "发起托管成功";
 
+"Choose" = "选择";
+"Time Can't be empty" = "托管时间不能为空";
+"no patient to trusteeship" = "没有可托管的病人";
+"no doctor to trusteeship" = "没有可托管的医生";
+
+"already choose" = "已选";
+"number patient" = "名病人";
+
+
+"Select All" = "全选";
+"Cancel All" = "取消全选";
+
+//trusteeship
+"from" = "于";
+"put the patient" = "把病人";
+"trusteeship to doctor" = "托管给医生";
+"estimated trusteeship time" = "预计托管时间";
+"doctor" = "医生";
+"trusteeship patient" = "接管病人";
+"takeover time" = "接管时间";           
+"refuse takeover patient" = "拒绝接管病人";
+"old" = "岁";
+"to" = "至";
+
+
+"finish day can't earlier than begin day" = "结束日期不能早于或等于开始日期";
+"Can't be earlier than today" = "所选日期不能早于今日";
+"Can't be later than today" = "所选日期不能晚于今日";
+"begin day can't later than finish day" = "开始日期不能晚于或等于结束日期";
+"Can't be earlier and equal than today" = "所选日期不能早于或等于今日";
+
+
+"Please Choose Doctor" = "请选择要托管的医生";
+"Please Choose Patient" = "请选择需要托管的病人";
+
+
+//takeover
+"trusteeship to me" = "托管给我";
+"takeover doctor" = "接管医生";
+"her patient" = "的病人";
+"refuse doctor" = "拒绝医生";
+
+
+"sure to refuse takeover" = "您是否要拒绝接管";
+"sure to confirm takeover" = "您是否要接管";
+
+"you are confirm the trusteeship" = "您已成功接受该托管";
+"you are refuse the trusteeship" = "您已拒绝该托管";
+
 
 /* My Message Section */
+"Approve Result" = "审核结果";
+"System Bulletin" = "系统公告";
+
+"today" = "今天";
+"tomorrow" = "明天";
+"yesterday" = "昨天";
+"beforeYesterday" = "前天";
 
 /* Member Center Section */
-"About app" = "关于糖无忌";
+"About app" = "关于我们";
 "Terms of service" = "服务条款";
 "Advice feed back" = "意见反馈";
 
 "Log out" = "退出账号";
 
+"Hospital" = "医院";
 "Head portrait" = "头像";
 "Real name" = "真实姓名";
 "Sex" = "性别";
@@ -99,18 +291,48 @@
 "Level" = "级别";
 "Department" = "科室";
 "ID" = "ID";
+"Service Center" = "服务中心";
 "Skill territory" = "擅长领域";
 
 "Submit" = "提交审批";
+"Loading Department Parameters" = "正在加载科室";
 
-"Submitted Successfully" = "已提交成功,请耐心等待审核";
 
+
+"Thumbnail uploading" = "正在上传图片";
+
+
+"Upload Successful,save to change" = "头像已上传,提交审批后保存修改";
+"Data Updated" = "数据更新成功";
+"Upload succeed" = "上传成功";
+
+"Saving Data" = "保存数据中";
+
+"none department parameter" = "暂无科室资料";
+"none Service Center" = "暂无服务中心";
 
 "Your information is under review" = "   您的资料正在审核中,无法进行编辑修改";
 
-
+"input here" = "在此输入";
 "Please input your feed back" = "请输入您的反馈";
 
+
+"phone inconformity With Your account" = "该手机号与登陆手机号不一致";
+
+"Version" = "版本";
+
+
+"physician" = "医师";
+"director" = "主任";
+"professor" = "教授";
+
+
+
+"approve result" = "审核结果";
+"system bulletin" = "系统公告";
+
+"have not approve result" = "暂无审核结果";
+"have not system bulletin" = "暂无系统公告";
 
 /* System Set Section */
 
@@ -122,5 +344,7 @@
 
 "Authentication is successful" = "验证成功";
 
+"phoneNumber or password error" = "登陆密码错误";
 
-
+"Reset successed, Please login again" = "重设密码成功，请重新登录";
+"PhoneNumber binding successed, Please login again" = "手机号绑定成功，请重新登录";

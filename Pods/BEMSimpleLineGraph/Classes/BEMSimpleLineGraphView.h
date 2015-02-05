@@ -22,6 +22,11 @@
 #import "BEMLine.h"
 
 
+typedef NS_ENUM(NSInteger, GraphSearchMode){
+    GraphSearchModeByDay = 0,
+    GraphSearchModeByMonth,
+};
+
 @protocol BEMSimpleLineGraphDelegate;
 @protocol BEMSimpleLineGraphDataSource;
 
@@ -131,9 +136,10 @@
 //------------------------------------------------------------------------------------//
 
 
-/// To avoid Expensive LayoutSubViews. Defualt value is NO;
+/// To avoid Expensive LayoutSubViews. Default value is NO;
 
 @property (nonatomic) BOOL avoidLayoutSubviews;
+
 
 /// The graph's label font used on various axis. This property may be privately overwritten, do not expect full functionality from this property.
 @property (strong, nonatomic) UIFont *labelFont;
@@ -304,6 +310,14 @@
 
 @optional
 
+- (GraphSearchMode)searchModeInLineGraph:(BEMSimpleLineGraphView *)graph;
+
+- (CGFloat)intervalForSecondInLineGraph:(BEMSimpleLineGraphView *)graph;
+
+- (NSDate *)currentDateInLineGraph:(BEMSimpleLineGraphView *)graph;
+
+- (NSInteger)numberOfPagesInLineGraph:(BEMSimpleLineGraphView *)graph;
+
 - (CGFloat)hyperValueForLineGraph:(BEMSimpleLineGraphView *)graph;
 
 - (CGFloat)hypoValueForLineGraph:(BEMSimpleLineGraphView *)graph;
@@ -317,6 +331,8 @@
  @param index The index from left to right of a given label on the X-axis. Is the same index as the one for the points. The first value for the index is 0. */
 - (NSString *)lineGraph:(BEMSimpleLineGraphView *)graph labelOnXAxisForIndex:(NSInteger)index;
 
+/** The Date to calculate the space in X-aixs at a given index. */
+- (NSDate *)lineGraph:(BEMSimpleLineGraphView *)graph dateOnXAxisForIndex:(NSInteger)index;
 
 @end
 

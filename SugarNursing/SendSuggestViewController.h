@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UtilsMacro.h"
+#import "MyTextView.h"
 
 @interface SendSuggestViewController : UIViewController
 <
@@ -15,7 +17,11 @@ UITableViewDelegate,
 UITextViewDelegate
 >
 
+@property (strong, nonatomic) NSString *linkManId;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UITextField *serverTextView;
+
+
+@property (weak, nonatomic) IBOutlet MyTextView *myTextView;
 
 @end

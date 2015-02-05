@@ -18,7 +18,7 @@
 "FMj-ft-8TQ.title" = "发起托管";
 
 /* Class = "IBUILabel"; text = "Initiate Time"; ObjectID = "Ie6-21-Ksq"; */
-"Ie6-21-Ksq.text" = "开始托管时间";
+"Ie6-21-Ksq.text" = "托管开始时间";
 
 /* Class = "IBUIButton"; normalTitle = "Choose"; ObjectID = "K5T-v4-SAB"; */
 "K5T-v4-SAB.normalTitle" = "选择";
@@ -33,7 +33,7 @@
 "RtK-YO-Gh3.title" = "我的接管";
 
 /* Class = "IBUINavigationItem"; title = "Hosting/Takeover"; ObjectID = "T21-4H-P2d"; */
-"T21-4H-P2d.title" = "托管/接管";
+"T21-4H-P2d.title" = "我的托管";
 
 /* Class = "IBUILabel"; text = "选择病人"; ObjectID = "U60-Qg-bUR"; */
 "U60-Qg-bUR.text" = "选择病人";
@@ -51,10 +51,10 @@
 "dBb-yV-YxZ.segmentTitles[0]" = "待验证";
 
 /* Class = "IBUISegmentedControl"; dBb-yV-YxZ.segmentTitles[1] = "Confirm"; ObjectID = "dBb-yV-YxZ"; */
-"dBb-yV-YxZ.segmentTitles[1]" = "已接管";
+"dBb-yV-YxZ.segmentTitles[1]" = "已被接管";
 
 /* Class = "IBUISegmentedControl"; dBb-yV-YxZ.segmentTitles[2] = "Refuse"; ObjectID = "dBb-yV-YxZ"; */
-"dBb-yV-YxZ.segmentTitles[2]" = "已拒绝";
+"dBb-yV-YxZ.segmentTitles[2]" = "已被拒绝";
 
 /* Class = "IBUISegmentedControl"; dBb-yV-YxZ.segmentTitles[3] = "Out of date"; ObjectID = "dBb-yV-YxZ"; */
 "dBb-yV-YxZ.segmentTitles[3]" = "已过期";

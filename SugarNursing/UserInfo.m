@@ -2,36 +2,49 @@
 //  UserInfo.m
 //  SugarNursing
 //
-//  Created by Dan on 14-12-11.
-//  Copyright (c) 2014年 Tisson. All rights reserved.
+//  Created by Ian on 15-1-29.
+//  Copyright (c) 2015年 Tisson. All rights reserved.
 //
 
 #import "UserInfo.h"
-
-#define USER_FAVORITE_FONTSIZE @"USER_FAVORITE_FONTSIZE"
-
-static UserInfo *userInfo = nil;
-
+#import "CoreDataStack.h"
+#import "NSManagedObject+Finders.h"
 
 @implementation UserInfo
 
-+ (instancetype)shareInstance
-{
-    if (userInfo == nil) {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            userInfo = [[UserInfo alloc] init];
-            [userInfo commontInit];
-        });
-    }
-    return userInfo;
-}
+@dynamic areaId;
+@dynamic birthday;
+@dynamic centerId;
+@dynamic departmentId;
+@dynamic email;
+@dynamic engName;
+@dynamic expertLevel;
+@dynamic exptId;
+@dynamic exptName;
+@dynamic headimageUrl;
+@dynamic hospital;
+@dynamic identifyCard;
+@dynamic intro;
+@dynamic mobilePhone;
+@dynamic registerTime;
+@dynamic sex;
+@dynamic skilled;
+@dynamic stat;
+@dynamic updateTime;
+@dynamic mobileZone;
 
-- (void)commontInit
+
++ (UserInfo *)shareInfo
 {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setInteger:16 forKey:USER_FAVORITE_FONTSIZE];
-    [userDefaults synchronize];
+    
+    NSArray *array = [UserInfo findAllInContext:[CoreDataStack sharedCoreDataStack].context];
+    
+    if (array.count >0)
+    {
+        return array[0];
+    }
+    
+    return nil;
 }
 
 

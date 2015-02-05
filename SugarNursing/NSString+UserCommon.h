@@ -13,5 +13,6 @@
 + (NSString *)exptId;
 + (NSString *)sessionID;
 + (NSString *)sessionToken;
++ (NSString *)username;
 
 @end

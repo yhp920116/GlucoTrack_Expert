@@ -14,7 +14,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.0" green="0.25098039220000001" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.17254901959999999" green="0.49019607840000001" blue="0.77647058820000003" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -53,70 +53,38 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gEO-qH-lm0" id="99u-gH-DH7">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="100" translatesAutoresizingMaskIntoConstraints="NO" id="mbF-5q-LWO">
-                                                    <rect key="frame" x="15" y="7" width="40" height="40"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="0Ou-6S-vFj">
-                                                            <variation key="widthClass=compact" constant="40"/>
-                                                        </constraint>
-                                                        <constraint firstAttribute="height" constant="40" id="aN8-oX-gmf">
-                                                            <variation key="widthClass=compact" constant="40"/>
-                                                        </constraint>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="系统公告" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a61-b1-7RO">
-                                                    <rect key="frame" x="63" y="10" width="60" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="系统公告" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a61-b1-7RO" customClass="CustomLabel">
+                                                    <rect key="frame" x="28" y="5" width="68" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16:12" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TBc-Zm-62o">
-                                                    <rect key="frame" x="432" y="11" width="150" height="17"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="150" id="FSN-nw-2j8"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GMl-ti-nVg">
+                                                    <rect key="frame" x="28" y="31" width="544" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我是消息详情我是消息详情我是消息详情我是消息详情我是消息详情我是消息详情" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cFA-yR-65l">
-                                                    <rect key="frame" x="63" y="33" width="529" height="16"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天 13:23" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmP-dx-N7f">
+                                                    <rect key="frame" x="519" y="7" width="73" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="cFA-yR-65l" firstAttribute="top" secondItem="a61-b1-7RO" secondAttribute="bottom" constant="5" id="1SS-xb-1kw">
-                                                    <variation key="widthClass=compact" constant="2"/>
-                                                </constraint>
-                                                <constraint firstItem="mbF-5q-LWO" firstAttribute="leading" secondItem="99u-gH-DH7" secondAttribute="leadingMargin" constant="7" id="3l0-EF-LkK">
-                                                    <variation key="widthClass=compact" constant="5"/>
-                                                </constraint>
-                                                <constraint firstItem="a61-b1-7RO" firstAttribute="centerY" secondItem="TBc-Zm-62o" secondAttribute="centerY" id="8Rw-Fh-aCy"/>
-                                                <constraint firstItem="a61-b1-7RO" firstAttribute="top" secondItem="99u-gH-DH7" secondAttribute="topMargin" constant="2" id="BGW-Jy-FYS">
-                                                    <variation key="widthClass=compact" constant="0.0"/>
-                                                </constraint>
-                                                <constraint firstItem="TBc-Zm-62o" firstAttribute="trailing" secondItem="99u-gH-DH7" secondAttribute="trailingMargin" constant="-10" id="JES-PA-agU"/>
-                                                <constraint firstItem="cFA-yR-65l" firstAttribute="leading" secondItem="mbF-5q-LWO" secondAttribute="trailing" constant="8" id="WPi-aU-6f5"/>
-                                                <constraint firstItem="cFA-yR-65l" firstAttribute="trailing" secondItem="99u-gH-DH7" secondAttribute="trailingMargin" id="aAj-pi-V5a"/>
-                                                <constraint firstItem="a61-b1-7RO" firstAttribute="leading" secondItem="mbF-5q-LWO" secondAttribute="trailing" constant="8" id="qeh-GS-A0Z"/>
-                                                <constraint firstAttribute="centerY" secondItem="mbF-5q-LWO" secondAttribute="centerY" id="s2i-lN-K7G">
-                                                    <variation key="widthClass=compact" constant="0.0"/>
-                                                </constraint>
+                                                <constraint firstItem="GMl-ti-nVg" firstAttribute="leading" secondItem="a61-b1-7RO" secondAttribute="leading" id="Cue-y6-Mqg"/>
+                                                <constraint firstItem="a61-b1-7RO" firstAttribute="leading" secondItem="99u-gH-DH7" secondAttribute="leadingMargin" constant="20" id="NIc-5U-r4W"/>
+                                                <constraint firstItem="GMl-ti-nVg" firstAttribute="top" secondItem="a61-b1-7RO" secondAttribute="bottom" constant="5" id="Ow9-hV-SvM"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="GMl-ti-nVg" secondAttribute="trailing" constant="20" id="QVH-Ex-32B"/>
+                                                <constraint firstItem="nmP-dx-N7f" firstAttribute="trailing" secondItem="99u-gH-DH7" secondAttribute="trailingMargin" id="amQ-mf-hG9"/>
+                                                <constraint firstItem="a61-b1-7RO" firstAttribute="top" secondItem="99u-gH-DH7" secondAttribute="top" constant="5" id="dwr-OZ-wQv"/>
+                                                <constraint firstItem="nmP-dx-N7f" firstAttribute="centerY" secondItem="a61-b1-7RO" secondAttribute="centerY" id="uQn-3Y-ace"/>
                                             </constraints>
-                                            <variation key="widthClass=compact">
-                                                <mask key="constraints">
-                                                    <include reference="s2i-lN-K7G"/>
-                                                    <include reference="1SS-xb-1kw"/>
-                                                </mask>
-                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="msgContentLabel" destination="cFA-yR-65l" id="Dly-fS-13u"/>
-                                            <outlet property="msgDateLabel" destination="TBc-Zm-62o" id="H3O-Jm-sDu"/>
-                                            <outlet property="msgImageView" destination="mbF-5q-LWO" id="0hC-Ch-zyD"/>
+                                            <outlet property="msgDateLabel" destination="nmP-dx-N7f" id="BVl-VG-dm9"/>
+                                            <outlet property="msgDetailLabel" destination="GMl-ti-nVg" id="rbT-vm-OTK"/>
                                             <outlet property="msgTitleLabel" destination="a61-b1-7RO" id="yTI-PR-UDN"/>
                                         </connections>
                                     </tableViewCell>
@@ -149,7 +117,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fZG-zG-EDP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="333" y="383"/>
+            <point key="canvasLocation" x="333" y="380"/>
         </scene>
         <!--系统公告-->
         <scene sceneID="a8j-gL-Fs6">
@@ -173,7 +141,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="env-J8-BKN" id="kk0-l3-zpB">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2014-12-25 13:24" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XaK-V2-Cnp">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2014-12-25 13:24" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XaK-V2-Cnp" customClass="CustomLabel">
                                                     <rect key="frame" x="242" y="8" width="116" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="17" id="4eh-fT-ZVz"/>
@@ -182,7 +150,7 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  我的公告内容我是公告内容我的公告内容我是公告内容我的公告内容我是公告内容我的公告内容我是公告内容我的公告内容我是公告内容我的公" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="580" translatesAutoresizingMaskIntoConstraints="NO" id="XoR-Pd-J0g">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  我的公告内容我是公告内容我的公告内容我是公告内容我的公告内容我是公告内容我的公告内容我是公告内容我的公告内容我是公告内容我的公" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="580" translatesAutoresizingMaskIntoConstraints="NO" id="XoR-Pd-J0g" customClass="LinesLabel">
                                                     <rect key="frame" x="10" y="37" width="580" height="43"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -218,25 +186,14 @@
                             <constraint firstAttribute="trailing" secondItem="tAC-9h-0Sf" secondAttribute="trailing" id="vQg-5g-g1X"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="系统公告" id="eNh-tx-q4h">
-                        <barButtonItem key="leftBarButtonItem" image="005" id="WsC-cz-xWG">
-                            <connections>
-                                <segue destination="pAj-kg-Ow5" kind="unwind" unwindAction="back:" id="bSU-J9-qWJ"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="系统公告" id="eNh-tx-q4h"/>
                     <connections>
                         <outlet property="myTableView" destination="tAC-9h-0Sf" id="SU3-tq-79T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M3V-hV-aYf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="pAj-kg-Ow5" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1045" y="380"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="005" width="12" height="11"/>
-        <image name="100" width="60" height="60"/>
-    </resources>
 </document>

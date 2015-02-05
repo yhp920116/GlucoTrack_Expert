@@ -14,6 +14,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 
 
-- (void)configureCellWithParameter:(NSDictionary *)dic;
 
 @end

@@ -31,6 +31,10 @@
         if ([key isEqualToString:@"sessionId"]) {
             [keysToRemove addObject:key];
         }
+        if ([key isEqualToString:@"sessionToken"])
+        {
+            [keysToRemove addObject:key];
+        }
         if ([[parameters objectForKey:key] isEqualToString:@""]) {
             [keysToRemove addObject:key];
         }
@@ -59,7 +63,7 @@
     User *user = fetchArray[0];
     
     
-    joinString = [joinString stringByAppendingString:user.sessiontoken];
+    joinString = [joinString stringByAppendingString:user.sessionToken];
     
     return [joinString md5];
 }

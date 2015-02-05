@@ -12,4 +12,8 @@
 <
 UITextFieldDelegate
 >
+
+@property (strong, nonatomic) NSString *phoneNumber;
+@property (strong, nonatomic) NSString *areaCode;
+
 @end

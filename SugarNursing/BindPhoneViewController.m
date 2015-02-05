@@ -8,12 +8,22 @@
 
 #import "BindPhoneViewController.h"
 #import "UIViewController+Notifications.h"
+#import "UtilsMacro.h"
+#import <MBProgressHUD.h>
+#import "VerificationViewController.h"
+#import "UIStoryboard+Storyboards.h"
+
 
 @interface BindPhoneViewController ()
+{
+    MBProgressHUD *hud;
+}
 @property (weak, nonatomic) IBOutlet UIImageView *phoneButtonView;
 @property (weak, nonatomic) IBOutlet UIImageView *passwordButtonView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleYCons;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topYCons;
+@property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 
 @end
 
@@ -120,8 +130,49 @@
 
 - (IBAction)verificationButtonEvent:(id)sender
 {
-    [self performSegueWithIdentifier:@"goInputPhone" sender:nil];
+    UserInfo *info = [UserInfo shareInfo];
+    User *user = [User findAllInContext:[CoreDataStack sharedCoreDataStack].context][0];
+    NSLog(@"%@",user.password);
     
+    if (![self.phoneTextField.text isEqualToString:info.mobilePhone])
+    {
+        hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        [self.navigationController.view addSubview:hud];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = NSLocalizedString(@"This Telephone is not belong you", nil);
+        [hud show:YES];
+        [hud hide:YES afterDelay:HUD_TIME_DELAY];
+    }
+    else if (![[self.passwordTextField.text md5] isEqualToString:user.password])
+    {
+        
+        hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        [self.navigationController.view addSubview:hud];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = NSLocalizedString(@"phoneNumber or password error", nil);
+        [hud show:YES];
+        [hud hide:YES afterDelay:HUD_TIME_DELAY];
+    }
+    else
+    {
+        
+        VerificationViewController *verfication = [[UIStoryboard loginStoryboard] instantiateViewControllerWithIdentifier:@"Verification"];
+        
+        verfication.title = NSLocalizedString(@"Reset telephone", nil);
+        verfication.verifiedType = VerifiedTypeBindPhone;
+        
+        if ([NSProcessInfo instancesRespondToSelector:@selector(isOperatingSystemAtLeastVersion:)]) {
+            // conditionly check for any version >= iOS 8
+            [self showViewController:verfication sender:nil];
+            
+        }
+        else
+        {
+            // iOS 7 or below
+            [self.navigationController pushViewController:verfication animated:YES];
+        }
+
+    }
 }
 
 - (IBAction)back:(UIStoryboardSegue *)sender

@@ -10,12 +10,33 @@
 #import "EvaluateCell.h"
 #import "EffectCell.h"
 #import <MBProgressHUD.h>
+#import "UtilsMacro.h"
+#import <SSPullToRefresh.h>
+#import "NSString+Ret_msg.h"
+#import "EffectValueCell.h"
+#import "SendSuggestViewController.h"
+#import "UIStoryboard+Storyboards.h"
 
-@interface ControlEffectViewController (){
+@interface ControlEffectViewController ()<UITableViewDataSource, UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate, SSPullToRefreshViewDelegate, NSFetchedResultsControllerDelegate>
+{
     MBProgressHUD *hud;
 }
 
-@property (strong, nonatomic) NSArray *pickerArray;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
+
+@property (strong, nonatomic) IBOutlet UIView *wrapperView;
+@property (strong, nonatomic) SSPullToRefreshView *refreshView;
+
+@property (strong, nonatomic) NSMutableArray *dataArray;
+@property (strong, nonatomic) NSDictionary *countDayDic;;
+@property (strong, nonatomic) NSArray *countDayArr;
+
+@property (strong, nonatomic) NSString *countDay;
+
+@property (strong, nonatomic) NSFetchedResultsController *fetchController;
+
 
 @end
 
@@ -23,110 +44,319 @@
 
 - (void)awakeFromNib
 {
+    self.countDay = @"7";
     self.dataArray = [NSMutableArray array];
-    self.pickerArray = @[@"近三天", @"近七天", @"近两星期", @"近一个月"];
-    NSArray *data = @[
-                      @[@75,@"良好的血糖控制有利于身体各项机能的健康运行"],
-                      @[@"空腹血糖",@14,@2,@5.8,@4.4,@4.8],
-                      @[@"餐后血糖",@20,@4,@7.2,@6.3,@6.7],
-                      @[@"糖化血红蛋白",@15,@2,@"6.5%",@"5.5%",@"6.2%"],
-                      ];
+    self.countDayDic = @{@"7":@"近7天",
+                         @"14":@"近14天",
+                         @"30":@"近30天",
+                         @"60":@"近60天",
+                         };
+    self.countDayArr = @[@"7",@"14",@"30",@"60"];
+
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
     
-    [self.dataArray addObjectsFromArray:data];
+    [self setupNavigationRightItem];
+    [self configureFetchController];
     
+    self.tableView.estimatedRowHeight = UITableViewAutomaticDimension;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+}
+
+
+- (void)viewDidLayoutSubviews
+{
+    if (self.refreshView == nil) {
+        self.refreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.tableView delegate:self];
+        [self.refreshView startLoadingAndExpand:YES animated:YES];
+    }
+}
+
+
+- (void)setupNavigationRightItem
+{
+    if (self.isMyPatient)
+    {
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Send Advice", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(goSendAdvice)];
+        self.navigationItem.rightBarButtonItem = item;
+    }
+}
+
+- (void)goSendAdvice
+{
+    
+    SendSuggestViewController *vc = [[UIStoryboard myPatientStoryboard] instantiateViewControllerWithIdentifier:@"SendAdvice"];
+    vc.linkManId = self.linkManId;
+    if ([NSProcessInfo instancesRespondToSelector:@selector(isOperatingSystemAtLeastVersion:)]) {
+        [self showViewController:vc sender:nil];
+        
+    }
+    else
+    {
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.tableView.estimatedRowHeight = UITableViewAutomaticDimension;
+
+- (void)createNewEffect
+{
     
+    ControlEffect *controlEffect = [ControlEffect createEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+    controlEffect.linkManId = self.linkManId;
+    controlEffect.conclusionScore = @"0";
+    
+    NSMutableOrderedSet *lists = [[NSMutableOrderedSet alloc] initWithCapacity:10];
+    
+    EffectList *g3 = [EffectList createEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+    g3.name = NSLocalizedString(@"空腹血糖G3", nil);
+    EffectList *g2 = [EffectList createEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+    g2.name = NSLocalizedString(@"餐后血糖G2", nil);
+    EffectList *g1 = [EffectList createEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+    g1.name = NSLocalizedString(@"餐后血糖G1", nil);
+    EffectList *hemoglobin = [EffectList createEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+    hemoglobin.name = NSLocalizedString(@"糖化血糖蛋白", nil);
+    
+    [lists addObject:g3];
+    [lists addObject:g2];
+    [lists addObject:g1];
+    [lists addObject:hemoglobin];
+    
+    controlEffect.effectList = lists;
+    
+    [[CoreDataStack sharedCoreDataStack] saveContext];
 }
+
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    [self.tableView reloadData];
+}
+
+
+- (void)configureFetchController
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"linkManId = %@",self.linkManId];
+    self.fetchController = [ControlEffect fetchAllGroupedBy:nil sortedBy:@"linkManId" ascending:YES withPredicate:predicate delegate:self incontext:[CoreDataStack sharedCoreDataStack].context];
+}
+
+#pragma mark - SSPUllToRefreshViewDelegate
+- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
+{
+    [self getControlEffectData];
+}
+
+- (void)getControlEffectData
+{
+    
+    NSDictionary *parameters = @{@"method":@"queryConclusion",
+                                 @"sign":@"sign",
+                                 @"sessionId":[NSString sessionID],
+                                 @"sessionToken":[NSString sessionToken],
+                                 @"linkManId":self.linkManId,
+                                 @"countDay":self.countDay};
+    [GCRequest queryConclusionWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+        
+        if (!error) {
+            NSString *ret_code = [responseData valueForKey:@"ret_code"];
+            if ([ret_code isEqualToString:@"0"])
+            {
+                
+                
+                for (ControlEffect *controlEffect in self.fetchController.fetchedObjects) {
+                    [controlEffect deleteEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+                }
+                
+                ControlEffect *controlEffect = [ControlEffect createEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+                [controlEffect updateCoreDataForData:responseData withKeyPath:nil];
+                controlEffect.linkManId = self.linkManId;
+                
+                NSMutableOrderedSet *lists = [[NSMutableOrderedSet alloc] initWithCapacity:10];
+                
+                EffectList *g3 = [EffectList createEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+                [g3 updateCoreDataForData:[responseData objectForKey:@"g3"] withKeyPath:nil];
+                g3.name = NSLocalizedString(@"空腹血糖G3", nil);
+                EffectList *g2 = [EffectList createEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+                [g2 updateCoreDataForData:[responseData objectForKey:@"g2"] withKeyPath:nil];
+                g2.name = NSLocalizedString(@"餐后血糖G2", nil);
+                EffectList *g1 = [EffectList createEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+                [g1 updateCoreDataForData:[responseData objectForKey:@"g1"] withKeyPath:nil];
+                g1.name = NSLocalizedString(@"餐后血糖G1", nil);
+                EffectList *hemoglobin = [EffectList createEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+                [hemoglobin updateCoreDataForData:[responseData objectForKey:@"hemoglobin"] withKeyPath:nil];
+                hemoglobin.name = NSLocalizedString(@"糖化血糖蛋白", nil);
+                
+                
+                [lists addObject:g3];
+                [lists addObject:g2];
+                [lists addObject:g1];
+                [lists addObject:hemoglobin];
+                
+                controlEffect.effectList = lists;
+                
+                [[CoreDataStack sharedCoreDataStack] saveContext];
+                
+                
+            }
+            else
+            {
+                [NSString localizedMsgFromRet_code:ret_code withHUD:NO];
+            }
+        }
+        
+        [self.refreshView finishLoading];
+    }];
+}
+
 
 #pragma mark - tableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    NSInteger sections = 1;
+    if (self.fetchController.sections.count > 0) {
+        sections = self.fetchController.sections.count;
+    }
+    return sections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.dataArray count]+1;
+    
+    if (self.fetchController.fetchedObjects.count > 0)
+    {
+        ControlEffect *controlEffect = self.fetchController.fetchedObjects[0];
+        return controlEffect.effectList.count+2;
+    }
+    else
+    {
+        return 6;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
+    if (indexPath.row == 0)
+    {
         EvaluateCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"EvaluateCell" forIndexPath:indexPath];
         [self configureEvaluateCell:cell forIndexPath:indexPath];
         return cell;
-    } else if (indexPath.row == 1) {
+    }
+    else if (indexPath.row == 1)
+    {
         UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Basic" forIndexPath:indexPath];
         cell.textLabel.text = @"选择周期";
-        cell.detailTextLabel.text = @"近7天";
+        cell.detailTextLabel.text = [self.countDayDic valueForKey:self.countDay];
         return cell;
-    } else {
+    }
+    else if (indexPath.row == 6)
+    {
+        EffectValueCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"EffectValueCell" forIndexPath:indexPath];
+        [self configureEffectValueCell:cell forIndexPath:indexPath];
+        return cell;
+    }
+    else
+    {
         EffectCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"EffectCell" forIndexPath:indexPath];
         [self configureEffectCell:cell forIndexPath:indexPath];
         return cell;
     }
+    
     return nil;
 }
 
 - (void)setupConstraintsWithCell:(UITableViewCell *)cell
 {
-    
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
 }
 
 - (void)configureEvaluateCell:(EvaluateCell *)cell forIndexPath:(NSIndexPath *)indexPath
 {
-    cell.bounds = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 200);
-    cell.scoreLabel.text = @"综合疗效评估";
-    cell.scoreLabel.attributedText = [self configureLastLetter:[cell.scoreLabel.text stringByAppendingFormat:@" %@",self.dataArray[indexPath.row][0]]];
-    cell.evaluateTextLabel.text = self.dataArray[indexPath.row][1];
+    ControlEffect *controlEffect;
+    if (self.fetchController.fetchedObjects.count > 0) {
+        controlEffect = [self.fetchController objectAtIndexPath:indexPath];
+    }
     
-    [cell layoutSubviews];
+    
+    cell.scoreLabel.text = NSLocalizedString(@"综合疗效评估",nil);
+    if (controlEffect.conclusionScore)
+    {
+        cell.scoreLabel.attributedText = [self configureLastLetter:[cell.scoreLabel.text stringByAppendingFormat:@" %@分",controlEffect.conclusionScore]];
+    }
+    else
+    {
+        cell.scoreLabel.attributedText = [self configureLastLetter:[cell.scoreLabel.text stringByAppendingFormat:@" %@",@"--"]];
+    }
+    
+    if (controlEffect.conclusionDesc || controlEffect.conclusion)
+    {
+        cell.evaluateTextLabel.text = [NSString stringWithFormat:@"%@  %@",controlEffect.conclusion?controlEffect.conclusion:@"",controlEffect.conclusionDesc];
+    }
+    else
+    {
+        cell.evaluateTextLabel.text = NSLocalizedString(@"暂时无法获取控糖成效", nil);
+    }
+    
     
     [self setupConstraintsWithCell:cell];
-
+    
 }
 
 - (void)configureEffectCell:(EffectCell *)cell forIndexPath:(NSIndexPath *)indexPath
 {
     
-    cell.testCount.text = @"检测次数";
-    cell.overproofCount.text = @"超标次数";
-    cell.maximumValue.text = @"最高值";
-    cell.minimumValue.text = @"最低值";
-    cell.averageValue.text = @"平均值";
-    
-    
-    cell.evaluateType.text = self.dataArray[indexPath.row-1][0];
-    
-    
-    
-    cell.maximumValue.attributedText = [self configureLastLetter:[cell.maximumValue.text stringByAppendingFormat:@" %@",self.dataArray[indexPath.row-1][3]]];
-    cell.minimumValue.attributedText = [self configureLastLetter:[cell.minimumValue.text stringByAppendingFormat:@" %@",self.dataArray[indexPath.row-1][4]]];
-    cell.averageValue.attributedText = [self configureLastLetter:[cell.averageValue.text stringByAppendingFormat:@" %@",self.dataArray[indexPath.row-1][5]]];
-    
-    if (indexPath.row == self.dataArray.count) {
-        cell.testCount.text = @"";
-        cell.overproofCount.text = @"";
-        
-    }else
-    {
-        cell.testCount.attributedText = [self configureLastLetter:[cell.testCount.text stringByAppendingFormat:@" %@",self.dataArray[indexPath.row-1][1]]];
-        cell.overproofCount.attributedText = [self configureLastLetter:[cell.overproofCount.text stringByAppendingFormat:@" %@",self.dataArray[indexPath.row-1][2]]];
+    ControlEffect *controlEffect;
+    EffectList *effectList;
+    if (self.fetchController.fetchedObjects.count > 0) {
+        controlEffect = self.fetchController.fetchedObjects[0];
+        effectList = [controlEffect.effectList objectAtIndex:indexPath.row-2];
     }
     
+    
+    cell.testCount.text = NSLocalizedString(@"检测次数",nil);
+    cell.overproofCount.text = NSLocalizedString(@"超标次数",nil);
+    cell.maximumValue.text = NSLocalizedString(@"最高值",nil);
+    cell.minimumValue.text = NSLocalizedString(@"最低值",nil);
+    cell.averageValue.text = NSLocalizedString(@"平均值",nil);
+    
+    
+    cell.evaluateType.text = effectList.name;
+    
+    
+    
+    cell.maximumValue.attributedText = [self configureLastLetter:[cell.maximumValue.text stringByAppendingFormat:@" %@",effectList.max?effectList.max:@"--"]];
+    cell.minimumValue.attributedText = [self configureLastLetter:[cell.minimumValue.text stringByAppendingFormat:@" %@",effectList.min?effectList.min:@"--"]];
+    cell.averageValue.attributedText = [self configureLastLetter:[cell.averageValue.text stringByAppendingFormat:@" %@",effectList.avg?effectList.avg:@"--"]];
+    cell.testCount.attributedText = [self configureLastLetter:[cell.testCount.text stringByAppendingFormat:@" %@",effectList.detectCount?effectList.detectCount:@"--"]];
+    cell.overproofCount.attributedText = [self configureLastLetter:[cell.overproofCount.text stringByAppendingFormat:@" %@",effectList.overtopCount?effectList.overtopCount:@"--"]];
+    
     [self setupConstraintsWithCell:cell];
+    
+}
 
+- (void)configureEffectValueCell:(EffectValueCell *)cell forIndexPath:(NSIndexPath *)indexPath
+{
+    ControlEffect *controlEffect;
+    EffectList *effectList;
+    if (self.fetchController.fetchedObjects.count > 0) {
+        controlEffect = self.fetchController.fetchedObjects[0];
+        effectList = [controlEffect.effectList objectAtIndex:indexPath.row-2];
+    }
     
     
+    cell.evaluateType.text = @"空腹血糖波动";
+    
+    cell.maximumValue.text = @"最高值";
+    cell.minimumValue.text = @"最低值";
+    
+    cell.maximumValue.attributedText = [self configureLastLetter:[cell.maximumValue.text stringByAppendingFormat:@" %@",effectList.max ? effectList.max : @"--"]];
+    cell.minimumValue.attributedText = [self configureLastLetter:[cell.minimumValue.text stringByAppendingFormat:@" %@",effectList.min ? effectList.min : @"--"]];
+    
+    [self setupConstraintsWithCell:cell];
 }
 
 - (NSMutableAttributedString *)configureLastLetter:(NSString *)string
@@ -157,7 +387,13 @@
     }
     else if (indexPath.row == 1) {
         return 30;
-    } else {
+    }
+    else if (indexPath.row == 6)
+    {
+        return 60;
+    }
+    else
+    {
         static EffectCell *effectCell = nil;
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
@@ -176,7 +412,7 @@
     [sizingCell setNeedsLayout];
     [sizingCell layoutIfNeeded];
     
-//    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    //    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     CGFloat height = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
     height += 1;
     return height;
@@ -189,8 +425,8 @@
     if (indexPath.row == 1) {
         hud = [[MBProgressHUD alloc] initWithView:self.view];
         [self.view addSubview:hud];
-        
-        hud.customView = self.pickerView;
+        hud.margin = 0;
+        hud.customView = self.wrapperView;
         hud.mode = MBProgressHUDModeCustomView;
         [hud show:YES];
     }
@@ -213,17 +449,31 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return [self.pickerArray objectAtIndex:row];
+    return [self.countDayDic valueForKey:[self.countDayArr objectAtIndex:row]] ;
 }
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+- (IBAction)cancelAndConfirm:(id)sender
 {
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    cell.detailTextLabel.text  = [self.pickerArray objectAtIndex:row];
-    
+    UIButton *btn = (UIButton *)sender;
+    switch (btn.tag) {
+        case 1001:
+        {
+            break;
+        }
+        case 1002:
+        {
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+            self.countDay = [self.countDayArr objectAtIndex:[self.pickerView selectedRowInComponent:0]];
+            
+            cell.detailTextLabel.text  = [self.countDayDic valueForKey:self.countDay];
+            
+            [self.refreshView startLoadingAndExpand:YES animated:YES];
+            break;
+        }
+    }
     [hud hide:YES afterDelay:0.25];
-    
 }
+
 
 
 @end

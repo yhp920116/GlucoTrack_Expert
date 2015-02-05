@@ -12,7 +12,14 @@
 
 - (void)customSetup
 {
-    self.font = [UIFont systemFontOfSize:14.0f];
+    NSInteger fontSize = [[[NSUserDefaults standardUserDefaults] objectForKey:@"USER_FONTSIZE"] integerValue];
+    if (fontSize<=0)
+    {
+        [[NSUserDefaults standardUserDefaults] setInteger:14 forKey:@"USER_FONTSIZE"];
+        fontSize = 14;
+    }
+    self.font = [UIFont systemFontOfSize:fontSize];
+    
 }
 
 - (id)initWithFrame:(CGRect)frame

@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, MsgType)
+{
+    MsgTypeNotice = 0,
+    MsgTypeBulletin = 1
+};
+
 @interface MessageInfoViewController : UIViewController
 <
 UITableViewDataSource,
@@ -15,5 +21,7 @@ UITableViewDelegate
 >
 
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
+@property (assign, nonatomic) MsgType msgType;
+
 
 @end

@@ -102,3 +102,15 @@
 #define COCOAPODS_VERSION_MINOR_RMDateSelectionViewController 4
 #define COCOAPODS_VERSION_PATCH_RMDateSelectionViewController 1
 
+// SSPullToRefresh
+#define COCOAPODS_POD_AVAILABLE_SSPullToRefresh
+#define COCOAPODS_VERSION_MAJOR_SSPullToRefresh 1
+#define COCOAPODS_VERSION_MINOR_SSPullToRefresh 2
+#define COCOAPODS_VERSION_PATCH_SSPullToRefresh 2
+
+// UMengAnalytics-NO-IDFA
+#define COCOAPODS_POD_AVAILABLE_UMengAnalytics_NO_IDFA
+#define COCOAPODS_VERSION_MAJOR_UMengAnalytics_NO_IDFA 3
+#define COCOAPODS_VERSION_MINOR_UMengAnalytics_NO_IDFA 1
+#define COCOAPODS_VERSION_PATCH_UMengAnalytics_NO_IDFA 11
+

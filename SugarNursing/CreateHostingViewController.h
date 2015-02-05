@@ -17,6 +17,8 @@ UITableViewDelegate
 
 
 @property (strong, nonatomic) IBOutlet UIView *personPicker;
-@property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (strong, nonatomic) IBOutlet UIView *datePickerView;
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+
 
 @end

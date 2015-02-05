@@ -18,6 +18,6 @@
 @property (weak, nonatomic) id theDelegate;
 
 
-- (void)configureCellWithContent:(NSString *)contentString acceptBlock:(void(^)(TakeoverStandby_Cell *cell))block1 refuseBlock:(void(^)(TakeoverStandby_Cell *cell))block2;
+- (void)configureCellWithContent:(NSAttributedString *)contentString acceptBlock:(void(^)(TakeoverStandby_Cell *cell))block1 refuseBlock:(void(^)(TakeoverStandby_Cell *cell))block2;
 
 @end

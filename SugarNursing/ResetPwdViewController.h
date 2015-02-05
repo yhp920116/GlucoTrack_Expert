@@ -11,7 +11,10 @@
 @interface ResetPwdViewController : UIViewController
 
 
+@property (weak, nonatomic) IBOutlet UIButton *getCodeAginBtn;
 @property (strong, nonatomic) NSString *areaCode;
 @property (strong, nonatomic) NSString *phoneNumber;
+@property (weak, nonatomic) IBOutlet UITextField *codeTextField;
 
+@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @end

@@ -18,14 +18,17 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *codeTextField;
+@property (weak, nonatomic) IBOutlet UITextField *hospitalTextField;
 
 @property (weak, nonatomic) IBOutlet UIButton *getCodeAginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *genderBtn;
 @property (weak, nonatomic) IBOutlet UIButton *dateBtn;
 @property (weak, nonatomic) IBOutlet UIButton *departmentBtn;
+@property (weak, nonatomic) IBOutlet UIButton *servicecenterBtn;
 
 
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (strong, nonatomic) IBOutlet UIView *datePickerView;
 
 @property (strong, nonatomic) IBOutlet UIView *departmentCustomView;
 @property (weak, nonatomic) IBOutlet UIPickerView *departmentPicker;

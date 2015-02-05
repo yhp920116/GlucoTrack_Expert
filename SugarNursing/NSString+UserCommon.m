@@ -27,27 +27,37 @@
 {
     User *user = [self fetchUser];
     if (!user) {
-        return nil;
+        return @"";
     }
-    return user.exptid;
+    return user.exptId;
 }
 
 + (NSString *)sessionID
 {
     User *user = [self fetchUser];
     if (!user) {
-        return nil;
+        return @"";
     }
-    return user.sessionid;
+    return user.sessionId;
 }
 
 + (NSString *)sessionToken
 {
     User *user = [self fetchUser];
     if (!user) {
-        return nil;
+        return @"";
     }
-    return user.sessiontoken;
+    return user.sessionToken;
 }
+
++ (NSString *)username
+{
+    User *user = [self fetchUser];
+    if (!user) {
+        return @"";
+    }
+    return user.username;
+}
+
 
 @end

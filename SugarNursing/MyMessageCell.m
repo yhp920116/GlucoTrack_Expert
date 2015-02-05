@@ -10,10 +10,7 @@
 
 @implementation MyMessageCell
 
-- (void)awakeFromNib
-{
-    
-}
+
 
 
 @end

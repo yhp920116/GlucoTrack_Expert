@@ -12,7 +12,7 @@
 
 @interface SystemSetTableViewController ()<UIActionSheetDelegate>
 
-@property (retain, nonatomic) UIActionSheet *sheet;
+
 
 @end
 
@@ -23,43 +23,26 @@
     switch (indexPath.row)
     {
         case 0:
-            [self showActionShip];
-            break;
-        case 1:
             [self goVerificationViewWithTitle:NSLocalizedString(@"Reset password", nil)];
             break;
-        default:
+        case 1:
             [self performSegueWithIdentifier:@"goBindPhone" sender:nil];
+            break;
+        default:
             break;
     }
 }
 
-- (void)showActionShip
-{
-    self.sheet = [[UIActionSheet alloc] initWithTitle:@"请选择单位"
-                                             delegate:self
-                                    cancelButtonTitle:nil
-                               destructiveButtonTitle:@"取消"
-                                    otherButtonTitles:@"mmol/L",@"mg/dL",nil];
-    [self.sheet showInView:self.view];
-}
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    
-    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-    if (indexPath)
-    {
-        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    }
-}
+
+
 
 - (void)goVerificationViewWithTitle:(NSString *)vcTitle
 {
     VerificationViewController *verfication = [[UIStoryboard loginStoryboard] instantiateViewControllerWithIdentifier:@"Verification"];
     
     verfication.title = NSLocalizedString(@"Reset password", nil);
-    verfication.verifiedType = 1;
+    verfication.verifiedType = VerifiedTypeReset;
     
     if ([NSProcessInfo instancesRespondToSelector:@selector(isOperatingSystemAtLeastVersion:)]) {
         // conditionly check for any version >= iOS 8
@@ -73,8 +56,9 @@
     
 }
 
-- (IBAction)back:(UIStoryboardSegue *)unwindSender
+- (IBAction)back:(UIStoryboardSegue *)sender
 {
     
 }
+
 @end

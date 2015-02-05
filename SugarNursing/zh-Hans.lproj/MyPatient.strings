@@ -6,7 +6,7 @@
 "0Uv-4n-lcx.text" = "评估周期";
 
 /* Class = "IBUILabel"; text = "Other Facility's Glu"; ObjectID = "1Fs-tr-IzX"; */
-"1Fs-tr-IzX.text" = "其他设备Glu";
+"1Fs-tr-IzX.text" = "检测";
 
 /* Class = "IBUILabel"; text = "无"; ObjectID = "1O4-fM-ogM"; */
 "1O4-fM-ogM.text" = "无";
@@ -66,10 +66,10 @@
 "DGF-av-Nb3.text" = "饮食";
 
 /* Class = "IBUITabBarItem"; title = "Medical History"; ObjectID = "EbV-De-BnO"; */
-"EbV-De-BnO.title" = "病历资料";
+"EbV-De-BnO.title" = "既往病史";
 
 /* Class = "IBUIButton"; normalTitle = "By Date"; ObjectID = "F6b-AQ-uUw"; */
-"F6b-AQ-uUw.normalTitle" = "按日期";
+"F6b-AQ-uUw.normalTitle" = "选择日期";
 
 /* Class = "IBUILabel"; text = "6.7mmol/L 其他设备"; ObjectID = "G5O-Mt-wzn"; */
 "G5O-Mt-wzn.text" = "6.7mmol/L 其他设备";
@@ -132,19 +132,19 @@
 "ObL-hb-yyO.text" = "35岁";
 
 /* Class = "IBUILabel"; text = "GlucoCare Glu"; ObjectID = "Oii-50-Gsv"; */
-"Oii-50-Gsv.text" = "糖无忌Glu";
+"Oii-50-Gsv.text" = "饮食";
 
 /* Class = "IBUILabel"; text = "Hospital"; ObjectID = "Om3-i2-9YC"; */
 "Om3-i2-9YC.text" = "确诊医院";
 
-/* Class = "IBUILabel"; text = "Control Effect"; ObjectID = "PGu-nO-sos"; */
-"PGu-nO-sos.text" = "控糖成效";
+/* Class = "IBUINavigationItem"; title = "Control Effect"; ObjectID = "sFu-fz-Nu8"; */
+"sFu-fz-Nu8.title" = "控糖成效";
 
 /* Class = "IBUILabel"; text = "最高值 7.5"; ObjectID = "PqJ-QJ-jHa"; */
 "PqJ-QJ-jHa.text" = "最高值 7.5";
 
 /* Class = "IBUILabel"; text = "History"; ObjectID = "PyE-eh-R6c"; */
-"PyE-eh-R6c.text" = "既往病史";
+"PyE-eh-R6c.text" = "病历资料";
 
 /* Class = "IBUILabel"; text = "餐后血糖波动"; ObjectID = "QhW-Lv-gN7"; */
 "QhW-Lv-gN7.text" = "餐后血糖波动";
@@ -168,7 +168,7 @@
 "S78-tc-yWQ.text" = "最低值";
 
 /* Class = "IBUILabel"; text = "Medications"; ObjectID = "SVE-CZ-7EO"; */
-"SVE-CZ-7EO.text" = "用药";
+"SVE-CZ-7EO.text" = "运动";
 
 /* Class = "IBUILabel"; text = "最高值 7.5"; ObjectID = "TUb-XW-nrj"; */
 "TUb-XW-nrj.text" = "最高值 7.5";
@@ -177,7 +177,7 @@
 "V2B-5C-LFb.text" = "最低值 3.9";
 
 /* Class = "IBUILabel"; text = "GlucoCare HbA1c"; ObjectID = "W03-io-hIY"; */
-"W03-io-hIY.text" = "糖无忌HbA1c";
+"W03-io-hIY.text" = "运动";
 
 /* Class = "IBUILabel"; text = "平均值 4.8"; ObjectID = "WGa-Tx-fHa"; */
 "WGa-Tx-fHa.text" = "平均值 4.8";
@@ -282,8 +282,8 @@
 /* Class = "IBUILabel"; text = "Exceeding times"; ObjectID = "kz7-Md-0bW"; */
 "kz7-Md-0bW.text" = "Exceeding times";
 
-/* Class = "IBUIButton"; normalTitle = "改善"; ObjectID = "lrW-jM-vlz"; */
-"lrW-jM-vlz.normalTitle" = "改善";
+/* Class = "IBUIButton"; normalTitle = "控糖成效"; ObjectID = "lrW-jM-vlz"; */
+"lrW-jM-vlz.normalTitle" = "控糖成效";
 
 /* Class = "IBUILabel"; text = "最低值 3.9"; ObjectID = "m2g-Dm-yZ2"; */
 "m2g-Dm-yZ2.text" = "最低值 3.9";
@@ -310,7 +310,7 @@
 "nDg-Bt-P9q.text" = "最低值 3.9";
 
 /* Class = "IBUILabel"; text = "Other Facility's HbA1c"; ObjectID = "oGw-qF-KYm"; */
-"oGw-qF-KYm.text" = "其他设备HbA1c";
+"oGw-qF-KYm.text" = "用药";
 
 /* Class = "IBUILabel"; text = "检测次数 7"; ObjectID = "ocs-eY-PgW"; */
 "ocs-eY-PgW.text" = "检测次数 7";
@@ -345,8 +345,6 @@
 /* Class = "IBUILabel"; text = "治疗中"; ObjectID = "s9y-XZ-XgZ"; */
 "s9y-XZ-XgZ.text" = "治疗中";
 
-/* Class = "IBUINavigationItem"; title = "Control Effect"; ObjectID = "sFu-fz-Nu8"; */
-"sFu-fz-Nu8.title" = "控糖成效";
 
 /* Class = "IBUIButton"; normalTitle = "Choose Date"; ObjectID = "tpu-cm-Y53"; */
 "tpu-cm-Y53.normalTitle" = "选择日期";
@@ -355,7 +353,7 @@
 "uiL-vc-FID.text" = "最低值 3.9";
 
 /* Class = "IBUINavigationItem"; title = "Single Patient"; ObjectID = "uuO-VU-xZS"; */
-"uuO-VU-xZS.title" = "单个病人";
+"uuO-VU-xZS.title" = "病人详情";
 
 /* Class = "IBUILabel"; text = "Choose Period"; ObjectID = "vMo-yE-3EF"; */
 "vMo-yE-3EF.text" = "选择周期";
@@ -371,3 +369,13 @@
 
 /* Class = "IBUIButton"; normalTitle = "Send"; ObjectID = "yud-SK-C6S"; */
 "yud-SK-C6S.normalTitle" = "发送";
+
+
+/* Class = "IBUILabel"; text = "Maximum Value"; ObjectID = "dbQ-d9-eIZ"; */
+"dbQ-d9-eIZ.text" = "最高值";
+
+/* Class = "IBUILabel"; text = "Minimum Value"; ObjectID = "fPE-Lw-vcH"; */
+"fPE-Lw-vcH.text" = "最低值";
+
+/* Class = "IBUILabel"; text = "Limosis Glucose Fluctuation\n"; ObjectID = "lgw-lV-OZX"; */
+"lgw-lV-OZX.text" = "空腹血糖波动";

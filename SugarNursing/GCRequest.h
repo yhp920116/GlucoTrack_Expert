@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UtilsMacro.h"
+#import "GCHttpClient.h"
+#import <objc/runtime.h>
 
 
 #pragma mark - Model
@@ -18,8 +21,15 @@
 #pragma mark Verify
 + (NSURLSessionDataTask *)verifyWithParameters:(id)parameters block:(void (^) (NSDictionary *responseData, NSError *error))block;
 
+
 #pragma mark AccountRegist
 + (NSURLSessionDataTask *)accountRegistWithParameters:(id)parameters block:(void (^) (NSDictionary *responseData, NSError *error))block;
+
+
+#pragma mark GetCaptcha
++ (NSURLSessionDataTask *)getCaptchaWithParameters:(id)parameters block:(void (^) (NSDictionary *responseData, NSError *error))block;
+
+
 
 #pragma mark GetPersonalInfo
 + (NSURLSessionDataTask *)getPersonalInfoWithParameters:(id)parameters block:(void (^) (NSDictionary *responseData, NSError *error))block;
@@ -35,8 +45,7 @@
 
 
 #pragma mark UploadFile
-+ (NSURLSessionDataTask *)uploadFileWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
-
++ (NSURLSessionDataTask *)userUploadFileWithParameters:(id)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))bodyBlock withBlock:(void (^)(NSDictionary *, NSError *))block;
 
 #pragma mark GetDepartment
 + (NSURLSessionDataTask *)getDepartmentInfoListWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
@@ -54,8 +63,80 @@
 #pragma mark SendDoctorSuggest
 + (NSURLSessionDataTask *)sendDoctorSuggestsWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
 
+#pragma mark GetDoctorSuggests
++ (NSURLSessionDataTask *)getDoctorSuggestsWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+
+
+#pragma mark QueryPatientList
++ (NSURLSessionDataTask *)queryPatientListWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+
+
 #pragma mark GetPatientList
 + (NSURLSessionDataTask *)getPatientListWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+
+
+#pragma mark GetCenterInfoList
++ (NSURLSessionDataTask *)getCenterInfoListWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+
+
+#pragma mark GetMediRecordList
++ (NSURLSessionDataTask *)getMediRecordListWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+
+
+#pragma mark GetTrusteeshipList
++ (NSURLSessionDataTask *)getTrusteeshipListWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+
+#pragma mark GetTakeOverList
++ (NSURLSessionDataTask *)getTakeOverListWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+
+#pragma mark SendTrusteeship
++ (NSURLSessionDataTask *)sendTrusteeshipWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+
+
+#pragma mark ApprTrusteeship
++ (NSURLSessionDataTask *)apprTrusteeshipWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+
+
+#pragma mark GetTrusExptList
++ (NSURLSessionDataTask *)getTrusExptListWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+
+
+
+#pragma mark QueryDetectLine
++ (NSURLSessionDataTask *)QueryDetectLineWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+
+
+#pragma mark QueryCureLogTimeLine
++ (NSURLSessionDataTask *)queryCureLogTimeLineWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+
+
+#pragma mark GetNoticeList
++ (NSURLSessionDataTask *)getNoticeListWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+
+
+#pragma mark GetBulletinList
++ (NSURLSessionDataTask *)getBulletinListWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+
+
+
+
+#pragma mark QueryConclusion
++ (NSURLSessionDataTask *)queryConclusionWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+
+
+#pragma mark GetLinkManInfo
++ (NSURLSessionDataTask *)getLinkmanInfoWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+
+
+
+#pragma mark GetMediRecordAttach
++ (NSURLSessionDataTask *)getMediRecordAttachWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+
+
+#pragma mark SendFeedBack
++ (NSURLSessionDataTask *)sendFeedBackWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+
+
 
 
 

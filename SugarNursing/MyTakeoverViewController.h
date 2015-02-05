@@ -16,10 +16,11 @@ UITabBarDelegate
 >
 
 
+@property (weak, nonatomic) IBOutlet UIView *takeoverView;
 
-@property (weak, nonatomic) IBOutlet UISegmentedControl *stateSegment;
 
-@property (weak, nonatomic) IBOutlet UITableView *myTableView;
-@property (weak, nonatomic) IBOutlet UITabBar *myTabBar;
+@property (weak, nonatomic) IBOutlet UITableView *takeoverTableView;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *takeoverSegment;
+
 
 @end

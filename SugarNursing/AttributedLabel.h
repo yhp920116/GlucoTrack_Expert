@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <CoreText/CoreText.h>
 #import <QuartzCore/QuartzCore.h>
+#import "LinesLabel.h"
 
-@interface AttributedLabel : UILabel
+@interface AttributedLabel : LinesLabel
 {
     NSMutableAttributedString *_attString;
 }

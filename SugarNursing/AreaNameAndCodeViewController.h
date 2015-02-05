@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <SMS_SDK/CountryAndAreaCode.h>
+
+typedef void(^Block)(NSString *countryName, NSString *areCode);
+
 
 @interface AreaNameAndCodeViewController : UIViewController
 
-@property (strong, nonatomic) CountryAndAreaCode *countryAndAreaCode;
+
+@property (strong, nonatomic) Block block;
 
 @end

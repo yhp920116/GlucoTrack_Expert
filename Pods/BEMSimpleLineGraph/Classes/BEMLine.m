@@ -46,6 +46,7 @@
                 
                 [referenceLinesPath moveToPoint:initialPoint];
                 [referenceLinesPath addLineToPoint:finalPoint];
+                
             }
         }
         
@@ -60,6 +61,20 @@
         [referenceLinesPath closePath];
     } else referenceLinesPath = nil;
     
+    UIBezierPath *averageLinesPath = [UIBezierPath bezierPath];
+    averageLinesPath.lineCapStyle = kCGLineCapButt;
+    averageLinesPath.lineWidth = 0.7;
+    
+    if (self.arrayOfAverageRefrenceLinePoints.count > 0) {
+        for (NSNumber *yNumber in self.arrayOfAverageRefrenceLinePoints) {
+            CGPoint initialPoint = CGPointMake(0, [yNumber floatValue]);
+            CGPoint finalPoint = CGPointMake(self.frame.size.width, [yNumber floatValue]);
+            [averageLinesPath moveToPoint:initialPoint];
+            [averageLinesPath addLineToPoint:finalPoint];
+            [averageLinesPath closePath];
+        }
+    }
+    
     
     // ---------------------------//
     // ----- Draw Graph Line -----//
@@ -67,7 +82,7 @@
     CGPoint CP1;
     CGPoint CP2;
     
-     // BEZIER CURVE
+    // BEZIER CURVE
     if (self.bezierCurveIsEnabled == YES) {
         
         // First control point
@@ -97,7 +112,7 @@
         UIBezierPath *fillxAxis = [UIBezierPath bezierPath];
         [fillBottom moveToPoint:CGPointMake(self.frame.size.width, self.frame.size.height - self.frameOffset)];
         [fillBottom addLineToPoint:CGPointMake(0, self.frame.size.height - self.frameOffset)];
-
+        
         [fillxAxis moveToPoint:CGPointMake(self.frame.size.width, self.frame.size.height - self.frameOffset)];
         [fillxAxis addLineToPoint:CGPointMake(0, self.frame.size.height - self.frameOffset)];
         [fillxAxis addLineToPoint:CGPointMake(0, self.frame.size.height)];
@@ -110,9 +125,9 @@
     [fillTop moveToPoint:CGPointMake(self.frame.size.width, 0)];
     [fillTop addLineToPoint:CGPointMake(0, 0)];
     
-    for (int i = 0; i<[self.arrayOfPoints count]-1; i++) {
-        p1 = CGPointMake((self.frame.size.width/([self.arrayOfPoints count] - 1))*i, [[self.arrayOfPoints objectAtIndex:i] floatValue]);
-        p2 = CGPointMake((self.frame.size.width/([self.arrayOfPoints count] - 1))*(i+1), [[self.arrayOfPoints objectAtIndex:i+1] floatValue]);
+    for (int i = 0; i<[self.arrayOfYPoints count]-1; i++) {
+        p1 = CGPointMake([[self.arrayOfXPoints objectAtIndex:i] floatValue], [[self.arrayOfYPoints objectAtIndex:i] floatValue]);
+        p2 = CGPointMake([[self.arrayOfXPoints objectAtIndex:(i+1)] floatValue], [[self.arrayOfYPoints objectAtIndex:i+1] floatValue]);
         
         [line moveToPoint:p1];
         [fillBottom addLineToPoint:p1];
@@ -123,7 +138,7 @@
             tensionBezier2 = 0.3;
             
             if (i > 0) { // Exception for first line because there is no previous point
-                p0 = CGPointMake((self.frame.size.width/([self.arrayOfPoints count] - 1))*(i-1), [[self.arrayOfPoints objectAtIndex:i-1] floatValue]);
+                p0 = CGPointMake([[self.arrayOfXPoints objectAtIndex:i-1] floatValue], [[self.arrayOfYPoints objectAtIndex:i-1] floatValue]);
                 
                 if ([[self.arrayOfValues objectAtIndexedSubscript:i+1] floatValue] - [[self.arrayOfValues objectAtIndexedSubscript:i] floatValue] == [[self.arrayOfValues objectAtIndexedSubscript:i] floatValue] - [[self.arrayOfValues objectAtIndexedSubscript:i-1] floatValue]) {
                     tensionBezier1 = 0;
@@ -134,8 +149,8 @@
                 p0 = p1;
             }
             
-            if (i<[self.arrayOfPoints count] - 2) { // Exception for last line because there is no next point
-                p3 = CGPointMake((self.frame.size.width/([self.arrayOfPoints count] - 1))*(i+2), [[self.arrayOfPoints objectAtIndex:i+2] floatValue]);
+            if (i<[self.arrayOfYPoints count] - 2) { // Exception for last line because there is no next point
+                p3 = CGPointMake([[self.arrayOfXPoints objectAtIndex:i+2] floatValue], [[self.arrayOfYPoints objectAtIndex:i+2] floatValue]);
                 
                 if ([[self.arrayOfValues objectAtIndexedSubscript:i+2] floatValue] - [[self.arrayOfValues objectAtIndexedSubscript:i+1] floatValue] == [[self.arrayOfValues objectAtIndexedSubscript:i+1] floatValue] - [[self.arrayOfValues objectAtIndexedSubscript:i] floatValue]) {
                     tensionBezier2 = 0;
@@ -145,14 +160,14 @@
                 tensionBezier2 = 0;
             }
             
-                // The tension should never exceed 0.3
+            // The tension should never exceed 0.3
             if (tensionBezier1 > 0.3) {
                 tensionBezier1 = 0.3;
             }
             if (tensionBezier2 > 0.3) {
                 tensionBezier2 = 0.3;
             }
-
+            
             // First control point
             CP1 = CGPointMake(p1.x + (p2.x - p1.x)/3,
                               p1.y - (p1.y - p2.y)/3 - (p0.y - p1.y)*tensionBezier1);
@@ -221,6 +236,16 @@
             [self animateForLayer:referenceLinesPathLayer withAnimationType:self.animationType isAnimatingReferenceLine:YES];
             [self.layer addSublayer:referenceLinesPathLayer];
         }
+        
+        CAShapeLayer *averageLinesPathLayer = [CAShapeLayer layer];
+        averageLinesPathLayer.frame = self.bounds;
+        averageLinesPathLayer.path = averageLinesPath.CGPath;
+        averageLinesPathLayer.opacity = self.lineAlpha/2;
+        averageLinesPathLayer.strokeColor = [UIColor orangeColor].CGColor;
+        averageLinesPathLayer.fillColor = nil;
+        averageLinesPathLayer.lineWidth = self.lineWidth/2;
+        [self animateForLayer:averageLinesPathLayer withAnimationType:self.animationType isAnimatingReferenceLine:YES];
+        [self.layer addSublayer:averageLinesPathLayer];
     }
 }
 

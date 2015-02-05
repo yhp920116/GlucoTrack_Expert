@@ -18,10 +18,4 @@
 }
 
 
-- (void)configureCellWithParameter:(NSDictionary *)dic
-{
-    self.dateLabel.text = dic[@"date"];
-    self.contentLabel.text = dic[@"content"];
-}
-
 @end

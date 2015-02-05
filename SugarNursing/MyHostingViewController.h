@@ -14,12 +14,10 @@ UITableViewDataSource,
 UITableViewDelegate,
 UITabBarDelegate
 >
+@property (weak, nonatomic) IBOutlet UIView *hostingView;
 
+@property (weak, nonatomic) IBOutlet UITableView *hostingTableView;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *hostingSegment;
 
-
-@property (weak, nonatomic) IBOutlet UISegmentedControl *stateSegment;
-
-@property (weak, nonatomic) IBOutlet UITableView *myTableView;
-@property (weak, nonatomic) IBOutlet UITabBar *myTabBar;
 
 @end

@@ -8,18 +8,29 @@
 
 #import <UIKit/UIKit.h>
 #import "LinesLabel.h"
+#import "MediRecord.h"
 
 @interface DiseaseInfo_Cell : UITableViewCell
+<
+UICollectionViewDataSource,
+UICollectionViewDelegateFlowLayout
+>
+
 @property (weak, nonatomic) IBOutlet LinesLabel *hospitalLabel;
 @property (weak, nonatomic) IBOutlet LinesLabel *cureConditionLabel;
 @property (weak, nonatomic) IBOutlet LinesLabel *medicalHistoryLabel;
 @property (weak, nonatomic) IBOutlet LinesLabel *cureScheme;
 
-//@property (weak, nonatomic) IBOutlet UILabel *hospitalLabel;
-//@property (weak, nonatomic) IBOutlet UILabel *cureConditionLabel;
-//@property (weak, nonatomic) IBOutlet UILabel *medicalHistoryLabel;
-//@property (weak, nonatomic) IBOutlet UILabel *cureScheme;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
-- (void)configureCellWithDictionary:(NSDictionary *)dic;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewConstraintHeight;
 
+
+@property (assign, nonatomic) NSInteger section;
+
+@property (strong, nonatomic) MediRecord *record;
+@property (weak, nonatomic) id delegate;
+
+
+- (void)configureCellWithMediRecord:(MediRecord *)mediRecord;
 @end

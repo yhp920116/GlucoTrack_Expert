@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ThumbnailImageView.h"
 
 @interface MyPatientsCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *patientImageView;
-
+@property (weak, nonatomic) IBOutlet ThumbnailImageView *patientImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *genderLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ageLabel;

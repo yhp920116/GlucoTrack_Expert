@@ -6,13 +6,13 @@
 "6nu-rq-C8W.title" = "个人中心";
 
 /* Class = "IBUIButton"; normalTitle = "Female"; ObjectID = "8S6-Kp-Yd0"; */
-"8S6-Kp-Yd0.normalTitle" = "女性";
+"8S6-Kp-Yd0.normalTitle" = "女";
 
 /* Class = "IBUIBarButtonItem"; title = "Menu"; ObjectID = "Dg3-dD-0Li"; */
 "Dg3-dD-0Li.title" = "菜单";
 
 /* Class = "IBUIButton"; normalTitle = "Male"; ObjectID = "PDD-qV-zx3"; */
-"PDD-qV-zx3.normalTitle" = "男性";
+"PDD-qV-zx3.normalTitle" = "男";
 
 /* Class = "IBUINavigationItem"; title = "Advice Feed Back"; ObjectID = "SNl-tu-aw7"; */
 "SNl-tu-aw7.title" = "意见反馈";
@@ -21,7 +21,7 @@
 "TVf-eh-jBi.normalTitle" = "确定";
 
 /* Class = "IBUINavigationItem"; title = "About App"; ObjectID = "U3E-6d-PyX"; */
-"U3E-6d-PyX.title" = "关于糖无忌";
+"U3E-6d-PyX.title" = "关于我们";
 
 /* Class = "IBUIButton"; normalTitle = "取消"; ObjectID = "aPh-Ii-Lri"; */
 "aPh-Ii-Lri.normalTitle" = "取消";

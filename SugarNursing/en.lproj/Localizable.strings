@@ -7,13 +7,35 @@
 */
 
 
+"glucose" = "Glucose";
+"hemoglobin" = "Hemoglobin";
 
+/* Network */
+"Request Error" = "Request Error";
+
+/* Basic */
+"New Version" = "New Version";
+"Skip" = "Skip";
+"Go to Store" = "Go to Store";
+"It's the newest version" = "It's the newest version";
+"Find the new Version" = "Find the new Version";
+
+"Cancel" = "Cancel";
+"Confirm" = "Confirm";
+
+"warm prompt" = "warm prompt";
+"Can't be late for today" = "Can't be late for today";
+"Save" = "Save";
 
 /* hub */
 "loading.." = "loading..";
 "Login.." = "Login..";
 "Error" = "Error";
 "Dismiss" = "Dismiss";
+
+
+"Release to refresh…" = "Release to refresh…";
+"Pull down to refresh…" = "Pull down to refresh…";
 
 /* Left Menu */
 "Home" = "Home";
@@ -36,15 +58,29 @@
 "errorphonenumber"="Phone number is invalid";
 "sure"="Sure";
 
+"Get" = "Get";
+"Get Again" = "Get Again";
+
+
 "willsendthecodeto"="We will send the code to the phone";
 "surephonenumber"="Make sure the number";
-"cancel"="Cancel";
 
 "codesenderrormsg"="The code send fail try again later";
 "codesenderrtitle"="Send Fail";
 
+"Please input verification code" = "Please input verification code";
+
+"verification code can't be empty" = "verification code can't be empty";
+"password code can't be empty" = "password code can't be empty";
 "maxcodemsg"="The code is up the max limit";
 "maxcode"="Up max limit";
+"password reset successful" = "password reset successful";
+"Reset And Logining.." = "Reset And Logining..";
+
+"phone is not regist" = "phone is not regist";
+"Please Input Hospital" = "Please Input Hospital";
+
+"Sending code" = "Sending code";
 
 "codetoooftenmsg"="The request is too often";
 
@@ -53,7 +89,28 @@
 "female"="Female";
 "male"="Male";
 
+"Please Choose Service Center" = "Please Choose Service Center";
+"Please Choose Department" = "Please Choose Department";
+
+"number is Binding telephone" = "number is Binding telephone";
+
+
+"Your account is login in another place" = "Your account is login in another place";
+"This Telephone is not belong you" = "This Telephone is not belong you";
+"This number is not belong you" = "This number is not belong you";
+"This number is already regist" = "This number is already regist";
+
+
+"Password Format is not avaliable" = "Password Format is not avaliable";
+"UserName Format is not avaliable" = "UserName Format is not avaliable";
+
 /* My Patient Section */
+"now" = "now";
+
+"manage" = "manage";
+"trusteeship" = "trusteeship";
+"takeover" = "takeover";
+
 "Single Patient" = "Single Patient";
 "Control Effect" = "Control Effect";
 "Recovery Log" = "Recovery Log";
@@ -68,11 +125,72 @@
 "Only takeover" = "Only takeover";
 "Only Hosting" = "Only Hosting";
 
+"Unit" = "Unit";
+
+"none" = "none";
+"open" = "open";
+"No Data" = "No Data";
+
+"Cancel" = "Cancel";
+"Select By Month" = "Select By Month";
+"Select By Day" = "Select By Day";
+
+"detect" = "detect";
+"exercise" = "exercise";
+"drug" = "drug";
+"diet" = "diet";
+
+
+
+"milligram" = "milligram";
+"gram" = "gram";
+"grain" = "grain";
+"piece" = "piece";
+"unit" = "unit";
+"milliliter" = "milliliter";
+"branch" = "branch";
+"bottle" = "bottle";
+
+
+"per os" = "per os";
+"injection" = "injection";
+"insulin pump" = "insulin pump";
+
+
+"before breakfast" = "before breakfast";
+"after breakfast" = "after breakfast";
+"before lunch" = "before lunch";
+"after lunch" = "after lunch";
+"before dinner" = "before dinner";
+"after dinner" = "after dinner";
+
+"breakfast" = "breakfast";
+"lunch" = "lunch";
+"dinner" = "dinner";
+"extra meal" = "extra meal";
+
+"glucose" = "glucose";
+"hemoglobinef" = "hemoglobinef";
+
+"GlucoTrace" = "GlucoTrace";
+"Other's facility" = "Other's facility";
+
+
+"in all intake" = "in all intake";
+"By Date" = "By Date";
+
+
+"minute" = "minute";
+"expend" = "expend";
+"calorie" = "calorie";
+
+"Send Advice" = "Send Advice";
+"Send Succeed" = "Send Succeed";
 
 "Read recovery log" = "Read recovery log";
-
-
 "Plese input your advice" = "Plese input your advice";
+
+"Can't Get Control Effect" = "Can't Get Control Effect";
 
 /* My Hosting & Takeover  Section */
 "You receive entrust successfully" = "You receive entrust successfully";
@@ -84,9 +202,81 @@
 
 "A Commissioned Successfully" = "A Commissioned Successfully";
 
+"Choose" = "Choose";
+"Time Can't be empty" = "Time Can't be empty";
+
+"no patient to trusteeship" = "no patient to trusteeship";
+"no doctor to trusteeship" = "no doctor to trusteeship";
+
+
+
+
+"from" = "from";
+"put the patient" = "put the patient";
+"trusteeship to doctor" = "trusteeship to doctor";
+"estimated trusteeship time" = "estimated trusteeship time";
+"doctor" = "doctor";
+"trusteeship patient" = "trusteeship patient";
+"takeover time" = "takeover time";
+"refuse takeover patient" = "refuse takeover patient";
+"old" = "old";
+"to" = "to";
+
+
+"already choose" = "already choose";
+"number patient" = "number paient";
+
+
+"Select All" = "Select All";
+"Cancel All" = "Cancel All";
+
+//trusteeship
+"from" = "from";
+"put the patient" = "put the patient";
+"trusteeship to doctor" = "trusteeship to doctor";
+"estimated trusteeship time" = "estimated trusteeship time";
+"doctor" = "doctor";
+"trusteeship patient" = "trusteeship patient";
+"takeover time" = "takeover time";
+"refuse takeover patient" = "refuse takeover patient";
+"old" = "old";
+"to" = "to";
+
+
+"finish day can't earlier than begin day" = "finish day can't earlier than begin day";
+"Can't be earlier than today" = "Can't be earlier than today";
+"Can't be later than today" = "Can't be later than today";
+"begin day can't later than finish day" = "begin day can't later than finish day";
+"Can't be earlier and equal than today" = "Can't be earlier and equal than today";
+
+"Please Choose Doctor" = "Please Choose Doctor";
+"Please Choose Patient" = "Please Choose Patient";
+
+
+//takeover
+"trusteeship to me" = "trusteeship to me";
+"takeover doctor" = "takeover doctor";
+"her patient" = "her patient";
+"refuse doctor" = "refuse doctor";
+
+
+"sure to refuse takeover" = "sure to refuse takeover";
+"sure to confirm takeover" = "sure to confirm takeover";
+
+"you are confirm the trusteeship" = "you are confirm the trusteeship";
+"you are refuse the trusteeship" = "you are refuse the trusteeship";
+
+
+
 /* My Message Section */
+"Approve Result" = "Approve Result";
+"System Bulletin" = "System Bulletin";
 
 
+"today" = "today";
+"tomorrow" = "tomorrow";
+"yesterday" = "yesterday";
+"beforeYesterday" = "beforeYesterday";
 
 /* Member Center Section */
 "About app" = "About app";
@@ -95,7 +285,7 @@
 
 "Log out" = "Log out";
 
-
+"Hospital" = "Hospital";
 "Head portrait" = "Head portrait";
 "Real name" = "Real name";
 "Sex" = "Sex";
@@ -103,19 +293,40 @@
 "Level" = "Level";
 "Department" = "Department";
 "ID" = "ID";
+"Service Center" = "Service Center";
 "Skill territory" = "Skill territory";
-
-
+"input here" = "input here";
 "Submit" = "Submit";
+"Saving Data" = "Saving Data";
 
-"Submitted Successfully" = "Submitted Successfully";
-
+"Upload Successful,save to change" = "Upload Successful,save to change";
+"Data Updated" = "Data Updated";
+"Upload succeed"  = "Upload succeed";
+"none department parameter" = "none department parameter";
+"none Service Center" = "none Service Center";
 
 "Your information is under review" = "   Your information is under review";
 
 "Please input your feed back" = "Please input your feed back";
+"Loading Department Parameters" = "Loading Department Parameters";
+"Loading Service Center" = "Loading Service Center";
+"Thumbnail uploading" = "Thumbnail uploading";
+"Upload Successful" = "Upload Successful";
+
+"phone inconformity With Your account" = "phone inconformity With Your account";
+
+"Version" = "Version";
+
+"physician" = "physician";
+"director" = "director";
+"professor" = "professor";
 
 
+"approve result" = "approve result";
+"system bulletin" = "system bulletin";
+
+"have not approve result" = "have not approve result";
+"have not system bulletin" = "have not system bulletin";
 
 /* System Set Section */
 
@@ -126,3 +337,8 @@
 "Verification code has been sent" = "Verification code has been sent";
 
 "Authentication is successful" = "Authentication is successful";
+
+"phoneNumber or password error" = "phoneNumber or password error";
+"Reset successed, Please login again" = "Reset successed, Please login again";
+"PhoneNumber binding successed, Please login again" = "PhoneNumber binding successed, Please login again";
+

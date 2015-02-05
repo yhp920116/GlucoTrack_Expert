@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UtilsMacro.h"
 
 @interface RecoveryLogViewController : UIViewController
 <
@@ -14,9 +15,10 @@ UITableViewDataSource,
 UITableViewDelegate
 >
 
+@property (assign, nonatomic) BOOL isMyPatient;
+@property (strong, nonatomic) NSString *linkManId;
 
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 
-@property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
 
 @end
