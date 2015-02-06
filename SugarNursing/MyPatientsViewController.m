@@ -126,7 +126,7 @@ static NSString *loadSize = @"20";
                                  @"relationFlag":self.relationFlag,
                                  @"orderArg":self.orderArg,
                                  @"order":self.orderAsc ? @"asc" : @"desc",
-                                 @"start":isAppending ? [NSString stringWithFormat:@"%ld",_dataArray.count+1] : @"1",
+                                 @"start":isAppending ? [NSString stringWithFormat:@"%u",_dataArray.count+1] : @"1",
                                  @"size":loadSize,
                                  @"sign":@"sign"};
 

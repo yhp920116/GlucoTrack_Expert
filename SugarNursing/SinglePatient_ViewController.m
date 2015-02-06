@@ -357,13 +357,10 @@ SSPullToRefreshViewDelegate
     
     
     self.HfetchController = [RecordLog fetchAllGroupedBy:nil sortedBy:@"time" ascending:timeAscending withPredicate:Hpredicate delegate:self incontext:[CoreDataStack sharedCoreDataStack].context];
-    NSLog(@"%ld",self.GfetchController.fetchedObjects.count);
-    NSLog(@"%ld",self.HfetchController.fetchedObjects.count);
+
+
     
-    
-    
-    
-    [self.myTableView reloadData];
+    [self.detectTableView reloadData];
     [self configureTableViewFooterView];
     [self.trackerChart reloadGraph];
 }
@@ -1231,7 +1228,6 @@ SSPullToRefreshViewDelegate
     }
     else
     {
-        
         self.myTableView.hidden = YES;
         self.chartView.hidden = NO;
 
@@ -1317,14 +1313,14 @@ SSPullToRefreshViewDelegate
     {
         self.lineType = GCLineTypeGlucose;
         self.unitLabel.text = [NSString stringWithFormat:@"%@: mmol/L",NSLocalizedString(@"Unit", nil)];
-        [self requestDetectLine];
     }
     else
     {
         self.lineType = GCLineTypeHemo;
         self.unitLabel.text = [NSString stringWithFormat:@"%@: %@",NSLocalizedString(@"Unit", nil),@"%"];
-        [self requestDetectLine];
     }
+    
+    [self configureDetectFetchedController];
 }
 
 
