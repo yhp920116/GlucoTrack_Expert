@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="boY-oe-fsc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="boY-oe-fsc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -301,8 +301,12 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hKb-49-3ak">
-                                                    <rect key="frame" x="85" y="100" width="465" height="80"/>
+                                                    <rect key="frame" x="85" y="100" width="190" height="80"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="190" id="0VJ-iJ-nHE"/>
+                                                        <constraint firstAttribute="height" constant="80" id="z5T-Hr-ZtU"/>
+                                                    </constraints>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="ADW-vl-9A0">
                                                         <size key="itemSize" width="40" height="40"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -355,7 +359,6 @@
                                                 <constraint firstAttribute="bottom" secondItem="1O4-fM-ogM" secondAttribute="bottom" constant="10" id="605-7r-OXe"/>
                                                 <constraint firstItem="s9y-XZ-XgZ" firstAttribute="top" secondItem="gON-6g-Kpi" secondAttribute="bottom" constant="13" id="Cpl-r8-PTe"/>
                                                 <constraint firstItem="rAC-DT-IZw" firstAttribute="leading" secondItem="5KU-qC-iwq" secondAttribute="leading" id="DJh-2t-MG5"/>
-                                                <constraint firstItem="hKb-49-3ak" firstAttribute="width" secondItem="Nqc-w5-heL" secondAttribute="width" id="Daz-gT-wEI"/>
                                                 <constraint firstItem="gON-6g-Kpi" firstAttribute="leading" secondItem="Om3-i2-9YC" secondAttribute="trailing" constant="15" id="MCl-Yn-zIT"/>
                                                 <constraint firstAttribute="trailing" secondItem="1O4-fM-ogM" secondAttribute="trailing" constant="20" id="PFd-tl-VcO"/>
                                                 <constraint firstItem="hKb-49-3ak" firstAttribute="top" secondItem="Nqc-w5-heL" secondAttribute="bottom" constant="5" id="Zes-Uc-BOO"/>
@@ -375,6 +378,8 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="collectionView" destination="hKb-49-3ak" id="X3o-1Z-qvK"/>
+                                            <outlet property="collectionViewConstraintHeight" destination="z5T-Hr-ZtU" id="f0c-eI-u2G"/>
+                                            <outlet property="collectionViewConstraintWidth" destination="0VJ-iJ-nHE" id="dCp-z9-6Gh"/>
                                             <outlet property="cureConditionLabel" destination="s9y-XZ-XgZ" id="z1j-5U-6X8"/>
                                             <outlet property="cureScheme" destination="1O4-fM-ogM" id="94U-Qm-4kH"/>
                                             <outlet property="hospitalLabel" destination="gON-6g-Kpi" id="hoI-uF-oPa"/>

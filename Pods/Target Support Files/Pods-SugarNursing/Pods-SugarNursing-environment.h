@@ -100,7 +100,7 @@
 #define COCOAPODS_POD_AVAILABLE_RMDateSelectionViewController
 #define COCOAPODS_VERSION_MAJOR_RMDateSelectionViewController 1
 #define COCOAPODS_VERSION_MINOR_RMDateSelectionViewController 4
-#define COCOAPODS_VERSION_PATCH_RMDateSelectionViewController 1
+#define COCOAPODS_VERSION_PATCH_RMDateSelectionViewController 2
 
 // SSPullToRefresh
 #define COCOAPODS_POD_AVAILABLE_SSPullToRefresh

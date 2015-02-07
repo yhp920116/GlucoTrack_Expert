@@ -45,7 +45,7 @@
     NSDateComponents *comps = [gregorian components:unitFlags fromDate:birthDay  toDate:now  options:0];
     NSInteger year = [comps year];
     
-    return [NSString stringWithFormat:@"%ld",year];
+    return [NSString stringWithFormat:@"%ld",(long)year];
 }
 
 

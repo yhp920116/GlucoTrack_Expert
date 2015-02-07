@@ -25,6 +25,7 @@
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchControllerNotice;
 @property (strong, nonatomic) NSFetchedResultsController *fetchControllerBulletin;
+@property (strong, nonatomic) NSFetchedResultsController *fetchControllerAgentMsg;
 
 @property (strong, nonatomic) SSPullToRefreshView *refreshView;
 
@@ -40,6 +41,8 @@
     
     [self configureFetchControllerNotice];
     [self configureFetchControllerBulletin];
+    [self configureFetchControllerAgentMsg];
+    
     [self configureTableViewFooterView];
     
     [self.refreshView startLoadingAndExpand:YES animated:YES];
@@ -56,11 +59,16 @@
     self.fetchControllerBulletin = [Bulletin fetchAllGroupedBy:nil sortedBy:@"sendTime" ascending:NO withPredicate:nil delegate:nil incontext:[CoreDataStack sharedCoreDataStack].context];
 }
 
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+- (void)configureFetchControllerAgentMsg
 {
-    [self.myTableView reloadData];
-    [self configureTableViewFooterView];
+    self.fetchControllerAgentMsg = [AgentMsg fetchAllGroupedBy:nil sortedBy:@"sendTime" ascending:NO withPredicate:nil delegate:nil incontext:[CoreDataStack sharedCoreDataStack].context];
 }
+
+//- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+//{
+//    [self.myTableView reloadData];
+//    [self configureTableViewFooterView];
+//}
 
 
 - (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
@@ -72,6 +80,7 @@
 {
     [self requestNotice];
     [self requestBulletin];
+    [self requestAgentMsg];
 }
 
 - (void)requestNotice
@@ -100,9 +109,9 @@
                 [Notice updateCoreDataWithListArray:notices identifierKey:@"noticeId"];
                 
                 [[CoreDataStack sharedCoreDataStack] saveContext];
-//                [self configureFetchControllerNotice];
-//                [self.myTableView reloadData];
-//                [self configureTableViewFooterView];
+                [self configureFetchControllerNotice];
+                [self.myTableView reloadData];
+                [self configureTableViewFooterView];
                 
             }
             else
@@ -116,10 +125,71 @@
         }
         
         _finishLog++;
-        if (_finishLog >=2)
+        if (_finishLog >=3)
         {
             _finishLog = 0;
-            [self.refreshView finishLoading];
+            if (self.refreshView)
+            {
+                [self.refreshView finishLoading];
+            }
+        }
+        
+    }];
+    
+    
+}
+
+
+
+- (void)requestAgentMsg
+{
+    
+    
+    NSDictionary *parameters = @{@"method":@"getNoticeList",
+                                 @"sign":@"sign",
+                                 @"sessionId":[NSString sessionID],
+                                 @"recvUser":[NSString exptId],
+                                 @"messageType":@"agentMsg",
+                                 @"size":@"15",
+                                 @"start":@"1"};
+    
+    [GCRequest getNoticeListWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+        
+        
+        if (!error)
+        {
+            
+            NSString *ret_code = responseData[@"ret_code"];
+            if ([ret_code isEqualToString:@"0"])
+            {
+                NSArray *notices = responseData[@"noticeList"];
+                
+                [AgentMsg updateCoreDataWithListArray:notices identifierKey:@"noticeId"];
+                
+                [[CoreDataStack sharedCoreDataStack] saveContext];
+                
+                [self configureFetchControllerAgentMsg];
+                [self.myTableView reloadData];
+                [self configureTableViewFooterView];
+            }
+            else
+            {
+                
+            }
+        }
+        else
+        {
+            
+        }
+        
+        _finishLog++;
+        if (_finishLog >=3)
+        {
+            _finishLog = 0;
+            if (self.refreshView)
+            {
+                [self.refreshView finishLoading];
+            }
         }
         
     }];
@@ -154,9 +224,9 @@
                  [Bulletin updateCoreDataWithListArray:bulletinArray identifierKey:@"bulletinId"];
                  
                  [[CoreDataStack sharedCoreDataStack] saveContext];
-//                 [self configureFetchControllerBulletin];
-//                 [self.myTableView reloadData];
-//                 [self configureTableViewFooterView];
+                 [self configureFetchControllerBulletin];
+                 [self.myTableView reloadData];
+                 [self configureTableViewFooterView];
                  
                  
                  [hud hide:YES];
@@ -170,15 +240,20 @@
          }
          else
          {
-             [hud hide:YES];
+             hud.mode = MBProgressHUDModeText;
+             hud.labelText = [NSString localizedMsgFromRet_code:responseData[@"ret_code"] withHUD:YES];
+             [hud hide:YES afterDelay:HUD_TIME_DELAY];
          }
          
          
          _finishLog++;
-         if (_finishLog >=2)
+         if (_finishLog >=3)
          {
              _finishLog = 0;
-             [self.refreshView finishLoading];
+             if (self.refreshView)
+             {
+                 [self.refreshView finishLoading];
+             }
          }
      }];
     
@@ -212,6 +287,11 @@
     {
         rowCount ++;
     }
+    if (self.fetchControllerAgentMsg.fetchedObjects.count >0)
+    {
+        rowCount ++;
+    }
+    
     
     return rowCount;
 }
@@ -258,7 +338,7 @@
             [cell.msgDateLabel setText:@""];
         }
     }
-    else if (self.fetchControllerBulletin.fetchedObjects.count >0)
+    else if (indexPath.row <=1 && self.fetchControllerBulletin.fetchedObjects.count >0)
     {
         NSString *title = NSLocalizedString(@"System Bulletin", nil);
         cell.msgTitleLabel.text = title;
@@ -286,6 +366,35 @@
             [cell.msgDateLabel setText:@""];
         }
     }
+    else if (self.fetchControllerAgentMsg.fetchedObjects.count >0)
+    {
+        NSString *title = NSLocalizedString(@"Agent Message", nil);
+        cell.msgTitleLabel.text = title;
+        
+        
+        NSArray *objects = self.fetchControllerAgentMsg.fetchedObjects;
+        if (objects.count>0)
+        {
+            
+            AgentMsg *agentMsg = objects[0];
+            [cell.msgDetailLabel setText:agentMsg.content];
+            
+            
+            NSString *dayString = [NSString dateFormattingByBeforeFormat:GC_FORMATTER_SECOND toFormat:GC_FORMATTER_DAY string:agentMsg.sendTime];
+            NSString *nearDayString = [NSString compareNearDate:[NSDate dateByString:dayString dateFormat:GC_FORMATTER_DAY]];
+            
+            
+            NSString *timeString = [NSString dateFormattingByBeforeFormat:GC_FORMATTER_SECOND toFormat:@"HH:mm" string:agentMsg.sendTime];
+            
+            NSString *msgDateString = [NSString stringWithFormat:@"%@ %@",nearDayString,timeString];
+            [cell.msgDateLabel setText:msgDateString];
+        }
+        else
+        {
+            [cell.msgDetailLabel setText:NSLocalizedString(@"No Data", nil)];
+            [cell.msgDateLabel setText:@""];
+        }
+    }
 }
 
 
@@ -301,16 +410,28 @@
 {
     
     MessageInfoViewController *vc = (MessageInfoViewController *)[segue destinationViewController];
-    if (_selectIndexRow == 0)
+    
+    
+    MyMessageCell *cell = (MyMessageCell *)[self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:_selectIndexRow inSection:0]];
+    NSString *cellTitle = cell.msgTitleLabel.text;
+    if ([cellTitle isEqualToString:NSLocalizedString(@"approve result", nil)])
     {
         vc.title = NSLocalizedString(@"approve result", nil);
         vc.msgType = MsgTypeNotice;
     }
-    else
+    else if ([cellTitle isEqualToString:NSLocalizedString(@"system bulletin", nil)])
     {
+        
         vc.title = NSLocalizedString(@"system bulletin", nil);
         vc.msgType = MsgTypeBulletin;
     }
+    else if ([cellTitle isEqualToString:NSLocalizedString(@"Agent Message", nil)])
+    {
+        
+        vc.title = NSLocalizedString(@"Agent Message", nil);
+        vc.msgType = MsgTypeAgent;
+    }
+    
     
 }
 
@@ -318,7 +439,8 @@
 
 - (void)configureTableViewFooterView
 {
-    if (self.fetchControllerNotice.fetchedObjects.count <= 0 && self.fetchControllerBulletin.fetchedObjects.count <= 0)
+    
+    if (self.fetchControllerNotice.fetchedObjects.count <= 0 && self.fetchControllerBulletin.fetchedObjects.count <= 0 && self.fetchControllerAgentMsg.fetchedObjects.count <= 0)
     {
         NoDataLabel *label = [[NoDataLabel alloc] initWithFrame:self.myTableView.bounds];
         self.myTableView.tableFooterView = label;

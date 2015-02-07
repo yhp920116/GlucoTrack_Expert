@@ -32,7 +32,7 @@ PODS:
   - MBProgressHUD (0.9)
   - REMenu (1.10)
   - RESideMenu (4.0.7)
-  - RMDateSelectionViewController (1.4.1)
+  - RMDateSelectionViewController (1.4.2)
   - SSPullToRefresh (1.2.2)
   - UMengAnalytics-NO-IDFA (3.1.11)
 
@@ -54,7 +54,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
   REMenu: e3988747d83f9e8f49f244bd3f1fb8b0900e8741
   RESideMenu: a9c1cd2e64e60e1d3166ddac01a83e215a0e4d30
-  RMDateSelectionViewController: 225cd405425eea886cfc05b43237dbf557dbe626
+  RMDateSelectionViewController: 381a72a39834643c3a7c0fd9857272070c402f58
   SSPullToRefresh: da7acfb8e269acbd040be7f0b091824cda365a17
   UMengAnalytics-NO-IDFA: 9072529f7ac9d9b063eede39ad58661cbcd7c643
 

@@ -410,7 +410,7 @@
             {
                 hud.mode = MBProgressHUDModeText;
                 hud.labelText = [NSString localizedMsgFromRet_code:responseData[@"ret_code"] withHUD:YES];
-                [hud hide:YES afterDelay:1.2];
+                [hud hide:YES afterDelay:HUD_TIME_DELAY];
             }
         }];
     }
@@ -644,6 +644,8 @@
 - (IBAction)regist:(id)sender
 {
     
+    
+    
     if (![ParseData parsePasswordIsAvaliable:self.passwordField.text])
     {
         return;
@@ -655,6 +657,12 @@
     }
     
     
+    hud = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:hud];
+    [hud show:YES];
+    
+    
+
     if (self.codeTextField.text.length <=0)
     {
         hud.mode = MBProgressHUDModeText;
@@ -681,10 +689,6 @@
     }
     
     
-    hud = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:hud];
-    hud.labelText = NSLocalizedString(@"Registering...", nil);
-    [hud show:YES];
     
     NSArray *servArray = [ServCenter findAllWithPredicate:[NSPredicate predicateWithFormat:@"centerName = %@",self.servicecenterBtn.currentTitle]
                                               inContext:[CoreDataStack sharedCoreDataStack].context];

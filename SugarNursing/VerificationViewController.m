@@ -102,6 +102,9 @@
     
     
     
+    
+    
+    
     if (([self.areaCode isEqualToString:@"86"] && self.phoneField.text.length != 11) ||
         ([self.areaCode isEqualToString:@"852"] && self.phoneField.text.length != 8))
     {
@@ -109,6 +112,27 @@
         [alert show];
         return;
     }
+    
+    
+    if (self.verifiedType == VerifiedTypeReset)
+    {
+        
+        UserInfo *info = [UserInfo shareInfo];
+        NSString *phoneNumber = info.mobilePhone;
+        NSString *zone = info.mobileZone;
+        
+        if (![self.phoneField.text isEqualToString:phoneNumber] || ![self.areaCode isEqualToString:zone])
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Warm prompt", nil)
+                                                            message:NSLocalizedString(@"This number is not belong you", nil)
+                                                           delegate:self
+                                                  cancelButtonTitle:NSLocalizedString(@"Confirm", nil)
+                                                  otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+    }
+
     
     
     NSArray *objects = [UserInfo findAllInContext:[CoreDataStack sharedCoreDataStack].context];
@@ -148,30 +172,12 @@
         else if (self.verifiedType == VerifiedTypeReset)
         {
             
-            UserInfo *info = [UserInfo shareInfo];
-            NSString *phoneNumber = info.mobilePhone;
-            NSString *zone = info.mobileZone;
+            hud = [[MBProgressHUD alloc] initWithView:self.view];
+            [self.view addSubview:hud];
+            hud.labelText = NSLocalizedString(@"Sending code", nil);
+            [hud show:YES];
             
-            if ([self.phoneField.text isEqualToString:phoneNumber] && [self.areaCode isEqualToString:zone])
-            {
-                
-                hud = [[MBProgressHUD alloc] initWithView:self.view];
-                [self.view addSubview:hud];
-                hud.labelText = NSLocalizedString(@"Sending code", nil);
-                [hud show:YES];
-                
-                [self sendCaptcha];
-            }
-            else
-            {
-                
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Warm prompt", nil)
-                                                                message:NSLocalizedString(@"This number is not belong you", nil)
-                                                               delegate:self
-                                                      cancelButtonTitle:NSLocalizedString(@"Confirm", nil)
-                                                      otherButtonTitles:nil];
-                [alert show];
-            }
+            [self sendCaptcha];
         }
         else if (self.verifiedType == VerifiedTypeRegister)
         {
@@ -203,7 +209,9 @@
                                  @"mobile":self.phoneField.text,
                                  @"memberType":@"1"};
     
-    NSURLSessionDataTask * task = [GCRequest isMemberWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+
+    [GCRequest isMemberWithParameters:parameters block:^(NSDictionary *responseData, NSError *error)
+    {
         
         
         if (!error)
@@ -282,11 +290,13 @@
         }
         else
         {
-            [hud hide:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = [NSString localizedErrorMesssagesFromError:error];
+            [hud hide:YES afterDelay:HUD_TIME_DELAY];
         }
     }];
     
-    [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:self];
+    
 }
 
 - (void)sendCaptcha
@@ -332,9 +342,8 @@
         else
         {
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = [error localizedDescription];
-            [hud hide:YES afterDelay:YES];
-
+            hud.labelText = [NSString localizedErrorMesssagesFromError:error];
+            [hud hide:YES afterDelay:HUD_TIME_DELAY];
         }
         
         

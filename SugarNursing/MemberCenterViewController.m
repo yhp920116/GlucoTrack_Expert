@@ -55,12 +55,9 @@ typedef enum
 }
 
 
-- (void)viewWillAppear:(BOOL)animated
-{
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
     
     _info = [UserInfo shareInfo];
     [self.mainTableView reloadData];

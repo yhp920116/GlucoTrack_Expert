@@ -12,6 +12,9 @@
 
 /* Network */
 "Request Error" = "請求出錯";
+"Cannot connect to the internet." = "當前網絡不可用,請檢查網絡設置";
+"Cannot connect to specified host." = "無法訪問服務器";
+"Cannot find specified host." = "無法找到服務器";
 
 /* Basic */
 "New Version" = "發現新版本";
@@ -337,6 +340,7 @@
 
 "approve result" = "審核結果";
 "system bulletin" = "系統公告";
+"Agent Message" = "客服消息";
 
 
 "have not approve result" = "暫無審核結果";
@@ -352,7 +356,7 @@
 
 "Authentication is successful" = "驗證成功";
 
-"phoneNumber or password error" = "登陸密碼錯誤";
+"phoneNumber or password error" = "手機號和密碼不匹配";
 
 "Reset successed, Please login again" = "重設密碼成功,請重新登錄";
 "PhoneNumber binding successed, Please login again" = "手機號綁定成功,請重新登錄";

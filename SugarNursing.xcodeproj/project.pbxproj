@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1847DA780B1F9C304A08AC6C /* libPods-SugarNursing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD6636C7BFC777050BC1B07 /* libPods-SugarNursing.a */; };
 		371628BC1A15DD4C0043EED2 /* UIViewController+Notifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 371628BB1A15DD4C0043EED2 /* UIViewController+Notifications.m */; };
 		3716F02A1A13448800BE3841 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3716F0291A13448800BE3841 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		3720AFA61A199ADF0011D930 /* ResetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3720AFA51A199ADF0011D930 /* ResetPwdViewController.m */; };
@@ -104,6 +103,8 @@
 		3CA3F5091A43562000BA85D0 /* MemberCenter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CA3F50B1A43562000BA85D0 /* MemberCenter.storyboard */; };
 		3CA3F50E1A43562700BA85D0 /* SystemSet.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CA3F5101A43562700BA85D0 /* SystemSet.storyboard */; };
 		3CA537371A4C7CB700332AB2 /* CoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA537361A4C7CB700332AB2 /* CoreDataStack.m */; };
+		3CA5A2A71A84C99D00238AF5 /* MediRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA5A2A61A84C99D00238AF5 /* MediRecord.m */; };
+		3CA5A2AA1A84CA7000238AF5 /* AgentMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA5A2A91A84CA7000238AF5 /* AgentMsg.m */; };
 		3CA9FFD11A300E6A00C67778 /* MyMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA9FFD01A300E6A00C67778 /* MyMessageCell.m */; };
 		3CAA30181A836075003630C3 /* RecordLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAA30171A836075003630C3 /* RecordLog.m */; };
 		3CB20F941A25B5E500669DF4 /* RecoveryLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CB20F931A25B5E500669DF4 /* RecoveryLogViewController.m */; };
@@ -120,7 +121,6 @@
 		3CF482CB1A7A0FC8001E2823 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF482CA1A7A0FC8001E2823 /* UserInfo.m */; };
 		3CF482CE1A7B3D96001E2823 /* NoDataTips.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CF482CD1A7B3D96001E2823 /* NoDataTips.xib */; };
 		3CF482D11A7B5FF0001E2823 /* TermsOfServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF482D01A7B5FF0001E2823 /* TermsOfServiceViewController.m */; };
-		3CF482D71A7B8855001E2823 /* MediRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF482D61A7B8855001E2823 /* MediRecord.m */; };
 		3CF482DA1A7B8857001E2823 /* MediAttach.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF482D91A7B8857001E2823 /* MediAttach.m */; };
 		3CF482E01A7BB11D001E2823 /* DetectDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF482DF1A7BB11D001E2823 /* DetectDataCell.m */; };
 		3CF7CE771A5BEBD70075E688 /* ServCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF7CE761A5BEBD70075E688 /* ServCenter.m */; };
@@ -140,6 +140,7 @@
 		3CFDE6571A75F94D008D74FA /* NoDataLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFDE6561A75F94D008D74FA /* NoDataLabel.m */; };
 		3CFDE65D1A7639B3008D74FA /* PatientInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFDE65C1A7639B3008D74FA /* PatientInfo.m */; };
 		3CFDE6601A7639B3008D74FA /* Patient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFDE65F1A7639B3008D74FA /* Patient.m */; };
+		4C8EF5B8F8914FBD1D881815 /* libPods-SugarNursing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83CCB69E3A1E88866FB1F278 /* libPods-SugarNursing.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,14 +160,14 @@
 		3716F0291A13448800BE3841 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3720AFA41A199ADF0011D930 /* ResetPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPwdViewController.h; sourceTree = "<group>"; };
 		3720AFA51A199ADF0011D930 /* ResetPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPwdViewController.m; sourceTree = "<group>"; };
-		3749B5121A09C50D0031D00C /* GlucoTrack_Expert.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlucoTrack_Expert.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3749B5121A09C50D0031D00C /* SugarNursing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SugarNursing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3749B5161A09C50D0031D00C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3749B5171A09C50D0031D00C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3749B5191A09C50D0031D00C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3749B51A1A09C50D0031D00C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3749B5231A09C50D0031D00C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3749B5251A09C50D0031D00C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		3749B52E1A09C50D0031D00C /* GlucoTrack_ExpertTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlucoTrack_ExpertTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3749B52E1A09C50D0031D00C /* SugarNursingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SugarNursingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3749B5331A09C50D0031D00C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3749B5341A09C50D0031D00C /* SugarNursingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SugarNursingTests.m; sourceTree = "<group>"; };
 		3749B5521A09CFD30031D00C /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
@@ -342,6 +343,10 @@
 		3CA3F50F1A43562700BA85D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SystemSet.storyboard; sourceTree = "<group>"; };
 		3CA537351A4C7CB700332AB2 /* CoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataStack.h; sourceTree = "<group>"; };
 		3CA537361A4C7CB700332AB2 /* CoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataStack.m; sourceTree = "<group>"; };
+		3CA5A2A51A84C99D00238AF5 /* MediRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediRecord.h; sourceTree = "<group>"; };
+		3CA5A2A61A84C99D00238AF5 /* MediRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediRecord.m; sourceTree = "<group>"; };
+		3CA5A2A81A84CA7000238AF5 /* AgentMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgentMsg.h; sourceTree = "<group>"; };
+		3CA5A2A91A84CA7000238AF5 /* AgentMsg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgentMsg.m; sourceTree = "<group>"; };
 		3CA9FFCF1A300E6A00C67778 /* MyMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMessageCell.h; sourceTree = "<group>"; };
 		3CA9FFD01A300E6A00C67778 /* MyMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMessageCell.m; sourceTree = "<group>"; };
 		3CAA30161A836075003630C3 /* RecordLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordLog.h; sourceTree = "<group>"; };
@@ -386,8 +391,6 @@
 		3CF482CD1A7B3D96001E2823 /* NoDataTips.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoDataTips.xib; sourceTree = "<group>"; };
 		3CF482CF1A7B5FF0001E2823 /* TermsOfServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsOfServiceViewController.h; sourceTree = "<group>"; };
 		3CF482D01A7B5FF0001E2823 /* TermsOfServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsOfServiceViewController.m; sourceTree = "<group>"; };
-		3CF482D51A7B8855001E2823 /* MediRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediRecord.h; sourceTree = "<group>"; };
-		3CF482D61A7B8855001E2823 /* MediRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediRecord.m; sourceTree = "<group>"; };
 		3CF482D81A7B8857001E2823 /* MediAttach.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediAttach.h; sourceTree = "<group>"; };
 		3CF482D91A7B8857001E2823 /* MediAttach.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediAttach.m; sourceTree = "<group>"; };
 		3CF482DE1A7BB11D001E2823 /* DetectDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetectDataCell.h; sourceTree = "<group>"; };
@@ -426,8 +429,9 @@
 		3CFDE65C1A7639B3008D74FA /* PatientInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatientInfo.m; sourceTree = "<group>"; };
 		3CFDE65E1A7639B3008D74FA /* Patient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Patient.h; sourceTree = "<group>"; };
 		3CFDE65F1A7639B3008D74FA /* Patient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Patient.m; sourceTree = "<group>"; };
+		74D207D3908F128DC7AC32B5 /* libPods-GlucoTrack_Expert.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GlucoTrack_Expert.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		83CCB69E3A1E88866FB1F278 /* libPods-SugarNursing.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SugarNursing.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3A04497B0D1DB48A9F2F0EF /* Pods-SugarNursing.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SugarNursing.release.xcconfig"; path = "Pods/Target Support Files/Pods-SugarNursing/Pods-SugarNursing.release.xcconfig"; sourceTree = "<group>"; };
-		DAD6636C7BFC777050BC1B07 /* libPods-SugarNursing.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SugarNursing.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -439,9 +443,9 @@
 				3C9750621A4BA170006BD35B /* AddressBook.framework in Frameworks */,
 				3C9750601A4BA160006BD35B /* MessageUI.framework in Frameworks */,
 				3716F02A1A13448800BE3841 /* UIKit.framework in Frameworks */,
-				1847DA780B1F9C304A08AC6C /* libPods-SugarNursing.a in Frameworks */,
 				3C1C61671A4ABEEB00440731 /* libicucore.dylib in Frameworks */,
 				3C1C61681A4ABEEB00440731 /* libz.dylib in Frameworks */,
+				4C8EF5B8F8914FBD1D881815 /* libPods-SugarNursing.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,8 +473,8 @@
 		3749B5131A09C50D0031D00C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3749B5121A09C50D0031D00C /* GlucoTrack_Expert.app */,
-				3749B52E1A09C50D0031D00C /* GlucoTrack_ExpertTests.xctest */,
+				3749B5121A09C50D0031D00C /* SugarNursing.app */,
+				3749B52E1A09C50D0031D00C /* SugarNursingTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -536,12 +540,14 @@
 			isa = PBXGroup;
 			children = (
 				3CA2E8C41A52984D00B2F5EF /* GlucoCare.xcdatamodeld */,
+				3CA5A2A81A84CA7000238AF5 /* AgentMsg.h */,
+				3CA5A2A91A84CA7000238AF5 /* AgentMsg.m */,
+				3CA5A2A51A84C99D00238AF5 /* MediRecord.h */,
+				3CA5A2A61A84C99D00238AF5 /* MediRecord.m */,
 				3CAA30161A836075003630C3 /* RecordLog.h */,
 				3CAA30171A836075003630C3 /* RecordLog.m */,
 				3CF482D81A7B8857001E2823 /* MediAttach.h */,
 				3CF482D91A7B8857001E2823 /* MediAttach.m */,
-				3CF482D51A7B8855001E2823 /* MediRecord.h */,
-				3CF482D61A7B8855001E2823 /* MediRecord.m */,
 				3CF482C91A7A0FC8001E2823 /* UserInfo.h */,
 				3CF482CA1A7A0FC8001E2823 /* UserInfo.m */,
 				3CFDE65E1A7639B3008D74FA /* Patient.h */,
@@ -952,7 +958,8 @@
 				3C1C61621A4ABEEB00440731 /* libicucore.dylib */,
 				3C1C61631A4ABEEB00440731 /* libz.dylib */,
 				3716F0291A13448800BE3841 /* UIKit.framework */,
-				DAD6636C7BFC777050BC1B07 /* libPods-SugarNursing.a */,
+				74D207D3908F128DC7AC32B5 /* libPods-GlucoTrack_Expert.a */,
+				83CCB69E3A1E88866FB1F278 /* libPods-SugarNursing.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -969,9 +976,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3749B5111A09C50D0031D00C /* GlucoTrack_Expert */ = {
+		3749B5111A09C50D0031D00C /* SugarNursing */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3749B5381A09C50D0031D00C /* Build configuration list for PBXNativeTarget "GlucoTrack_Expert" */;
+			buildConfigurationList = 3749B5381A09C50D0031D00C /* Build configuration list for PBXNativeTarget "SugarNursing" */;
 			buildPhases = (
 				D556FD5FAAC82CBA8CBC4AFB /* Check Pods Manifest.lock */,
 				3749B50E1A09C50D0031D00C /* Sources */,
@@ -983,14 +990,14 @@
 			);
 			dependencies = (
 			);
-			name = GlucoTrack_Expert;
+			name = SugarNursing;
 			productName = SugarNursing;
-			productReference = 3749B5121A09C50D0031D00C /* GlucoTrack_Expert.app */;
+			productReference = 3749B5121A09C50D0031D00C /* SugarNursing.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3749B52D1A09C50D0031D00C /* GlucoTrack_ExpertTests */ = {
+		3749B52D1A09C50D0031D00C /* SugarNursingTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3749B53B1A09C50D0031D00C /* Build configuration list for PBXNativeTarget "GlucoTrack_ExpertTests" */;
+			buildConfigurationList = 3749B53B1A09C50D0031D00C /* Build configuration list for PBXNativeTarget "SugarNursingTests" */;
 			buildPhases = (
 				3749B52A1A09C50D0031D00C /* Sources */,
 				3749B52B1A09C50D0031D00C /* Frameworks */,
@@ -1001,9 +1008,9 @@
 			dependencies = (
 				3749B5301A09C50D0031D00C /* PBXTargetDependency */,
 			);
-			name = GlucoTrack_ExpertTests;
+			name = SugarNursingTests;
 			productName = SugarNursingTests;
-			productReference = 3749B52E1A09C50D0031D00C /* GlucoTrack_ExpertTests.xctest */;
+			productReference = 3749B52E1A09C50D0031D00C /* SugarNursingTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -1025,7 +1032,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3749B50D1A09C50D0031D00C /* Build configuration list for PBXProject "GlucoTrack_Expert" */;
+			buildConfigurationList = 3749B50D1A09C50D0031D00C /* Build configuration list for PBXProject "SugarNursing" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1040,8 +1047,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3749B5111A09C50D0031D00C /* GlucoTrack_Expert */,
-				3749B52D1A09C50D0031D00C /* GlucoTrack_ExpertTests */,
+				3749B5111A09C50D0031D00C /* SugarNursing */,
+				3749B52D1A09C50D0031D00C /* SugarNursingTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1122,6 +1129,7 @@
 				3C6C479E1A666FBB00466E61 /* LoadedLog.m in Sources */,
 				3CA2E8BE1A5292D600B2F5EF /* NSManagedObject+Finders.m in Sources */,
 				37AC34C31A0B52420037029A /* AppDelegate+UserLogInOut.m in Sources */,
+				3CA5A2AA1A84CA7000238AF5 /* AgentMsg.m in Sources */,
 				3C1C612A1A4A653700440731 /* MessageInfoViewController.m in Sources */,
 				3749B51B1A09C50D0031D00C /* AppDelegate.m in Sources */,
 				3749B5611A09D9920031D00C /* LeftMenuCell.m in Sources */,
@@ -1132,6 +1140,7 @@
 				3CF482E01A7BB11D001E2823 /* DetectDataCell.m in Sources */,
 				3CF482CB1A7A0FC8001E2823 /* UserInfo.m in Sources */,
 				3C1C61371A4A976F00440731 /* TPKeyboardAvoidingCollectionView.m in Sources */,
+				3CA5A2A71A84C99D00238AF5 /* MediRecord.m in Sources */,
 				37EDEA141A0A79C7009EB54D /* UIStoryboard+Storyboards.m in Sources */,
 				3CA9FFD11A300E6A00C67778 /* MyMessageCell.m in Sources */,
 				3C3BF8DA1A3ECBD2006B6746 /* AttributedLabel.m in Sources */,
@@ -1142,7 +1151,6 @@
 				3CF7CE771A5BEBD70075E688 /* ServCenter.m in Sources */,
 				3C1C612D1A4A6D7400440731 /* MsgInfo_Cell.m in Sources */,
 				3C3BF8DD1A3FD33A006B6746 /* MyTextView.m in Sources */,
-				3CF482D71A7B8855001E2823 /* MediRecord.m in Sources */,
 				3C1977791A490CA40084C151 /* RecoveryLog_Cell.m in Sources */,
 				3C337A6E1A42C77B00CB96DA /* BindPhoneViewController.m in Sources */,
 				371628BC1A15DD4C0043EED2 /* UIViewController+Notifications.m in Sources */,
@@ -1242,7 +1250,7 @@
 /* Begin PBXTargetDependency section */
 		3749B5301A09C50D0031D00C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3749B5111A09C50D0031D00C /* GlucoTrack_Expert */;
+			target = 3749B5111A09C50D0031D00C /* SugarNursing */;
 			targetProxy = 3749B52F1A09C50D0031D00C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1399,7 +1407,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: hanming zhang (232Z2BKCNF)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: hanming zhang (232Z2BKCNF)";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: hanming zhang (232Z2BKCNF)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1419,7 +1427,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "7522c34e-77c2-4940-a840-1833f2cacc98";
+				PROVISIONING_PROFILE = "1eaae827-054d-43c2-9a0a-ce7d4b985c9a";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1456,7 +1464,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "7522c34e-77c2-4940-a840-1833f2cacc98";
+				PROVISIONING_PROFILE = "1eaae827-054d-43c2-9a0a-ce7d4b985c9a";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1483,8 +1491,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				PRODUCT_NAME = GlucoTrack_Expert;
-				PROVISIONING_PROFILE = "7522c34e-77c2-4940-a840-1833f2cacc98";
+				PRODUCT_NAME = SugarNursing;
+				PROVISIONING_PROFILE = "8a8b1e7e-5414-4332-a913-020602435456";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1496,8 +1504,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: hanming zhang";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: hanming zhang";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SugarNursing",
@@ -1510,8 +1518,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				PRODUCT_NAME = GlucoTrack_Expert;
-				PROVISIONING_PROFILE = "7522c34e-77c2-4940-a840-1833f2cacc98";
+				PRODUCT_NAME = SugarNursing;
+				PROVISIONING_PROFILE = "8a8b1e7e-5414-4332-a913-020602435456";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1531,7 +1539,7 @@
 				);
 				INFOPLIST_FILE = SugarNursingTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = GlucoTrack_ExpertTests;
+				PRODUCT_NAME = SugarNursingTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SugarNursing.app/SugarNursing";
 			};
 			name = Debug;
@@ -1546,7 +1554,7 @@
 				);
 				INFOPLIST_FILE = SugarNursingTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = GlucoTrack_ExpertTests;
+				PRODUCT_NAME = SugarNursingTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SugarNursing.app/SugarNursing";
 			};
 			name = Release;
@@ -1554,7 +1562,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3749B50D1A09C50D0031D00C /* Build configuration list for PBXProject "GlucoTrack_Expert" */ = {
+		3749B50D1A09C50D0031D00C /* Build configuration list for PBXProject "SugarNursing" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3749B5361A09C50D0031D00C /* Debug */,
@@ -1563,7 +1571,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3749B5381A09C50D0031D00C /* Build configuration list for PBXNativeTarget "GlucoTrack_Expert" */ = {
+		3749B5381A09C50D0031D00C /* Build configuration list for PBXNativeTarget "SugarNursing" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3749B5391A09C50D0031D00C /* Debug */,
@@ -1572,7 +1580,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3749B53B1A09C50D0031D00C /* Build configuration list for PBXNativeTarget "GlucoTrack_ExpertTests" */ = {
+		3749B53B1A09C50D0031D00C /* Build configuration list for PBXNativeTarget "SugarNursingTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3749B53C1A09C50D0031D00C /* Debug */,

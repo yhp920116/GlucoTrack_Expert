@@ -24,6 +24,7 @@ UICollectionViewDelegateFlowLayout
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewConstraintHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewConstraintWidth;
 
 
 @property (assign, nonatomic) NSInteger section;

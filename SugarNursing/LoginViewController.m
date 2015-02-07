@@ -71,10 +71,6 @@
     [self registerForKeyboardNotification:@selector(keyboardWillShow:) :@selector(keyboardWillHide:)];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    
-}
 
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -195,7 +191,6 @@
         {
             hud.mode = MBProgressHUDModeText;
             hud.labelText = [NSString localizedErrorMesssagesFromError:error];
-            NSLog(@"%@",[NSString localizedErrorMesssagesFromError:error]);
             [hud hide:YES afterDelay:HUD_TIME_DELAY];
         }
 

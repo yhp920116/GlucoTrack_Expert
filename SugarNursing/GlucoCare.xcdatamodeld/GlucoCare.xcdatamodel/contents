@@ -7,6 +7,18 @@
         <attribute name="exptId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="linkManId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="AgentMsg" representedClassName="AgentMsg" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="messageType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="noticeId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="readFlag" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="readTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sendTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sendUser" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Bulletin" representedClassName="Bulletin" syncable="YES">
         <attribute name="bulletinId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="centerId" optional="YES" attributeType="String" syncable="YES"/>
@@ -127,8 +139,8 @@
         <attribute name="linkManId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mediHistId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mediName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="mediRecode" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="treatment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mediRecord" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="treatMent" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="treatPlan" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="mediAttach" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="MediAttach" inverseName="mediRecord" inverseEntity="MediAttach" syncable="YES"/>
     </entity>
@@ -320,7 +332,7 @@
         <element name="ExerciseLog" positionX="-189" positionY="189" width="128" height="165"/>
         <element name="LoadedLog" positionX="-216" positionY="162" width="128" height="133"/>
         <element name="MediAttach" positionX="-216" positionY="162" width="128" height="88"/>
-        <element name="MediRecord" positionX="-198" positionY="63" width="128" height="178"/>
+        <element name="MediRecord" positionX="-198" positionY="63" width="128" height="180"/>
         <element name="Notice" positionX="-207" positionY="171" width="128" height="195"/>
         <element name="Patient" positionX="-423" positionY="14" width="128" height="253"/>
         <element name="PatientInfo" positionX="-216" positionY="162" width="128" height="388"/>
@@ -333,5 +345,6 @@
         <element name="Trusteeship" positionX="-207" positionY="171" width="128" height="225"/>
         <element name="User" positionX="243" positionY="44" width="128" height="118"/>
         <element name="UserInfo" positionX="-155" positionY="332" width="128" height="345"/>
+        <element name="AgentMsg" positionX="-207" positionY="171" width="128" height="193"/>
     </elements>
 </model>

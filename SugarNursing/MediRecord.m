@@ -2,7 +2,7 @@
 //  MediRecord.m
 //  SugarNursing
 //
-//  Created by Ian on 15-1-30.
+//  Created by Ian on 15-2-6.
 //  Copyright (c) 2015年 Tisson. All rights reserved.
 //
 
@@ -17,8 +17,8 @@
 @dynamic linkManId;
 @dynamic mediHistId;
 @dynamic mediName;
-@dynamic mediRecode;
-@dynamic treatment;
+@dynamic mediRecord;
+@dynamic treatMent;
 @dynamic treatPlan;
 @dynamic mediAttach;
 

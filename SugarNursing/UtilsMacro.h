@@ -60,6 +60,7 @@
 #import "Bulletin.h"
 #import "TemporaryInfo.h"
 #import "PatientInfo.h"
+#import "AgentMsg.h"
 
 #import "VendorMacro.h"
 

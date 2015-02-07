@@ -225,27 +225,28 @@ static NSString *identifier = @"RecoveryLog_Cell";
                 [self.myTableView reloadData];
                 [self configureTableViewFooterView];
                 
-                [self.refreshView finishLoading];
-                
-                
             }
             else
             {
-                [self.refreshView finishLoading];
                 hud = [[MBProgressHUD alloc] initWithView:self.view];
                 [self.view addSubview:hud];
                 [hud show:YES];
                 hud.mode = MBProgressHUDModeText;
                 hud.labelText = [NSString localizedMsgFromRet_code:responseData[@"ret_code"] withHUD:YES];
-                [hud hide:YES afterDelay:1.2];
+                [hud hide:YES afterDelay:HUD_TIME_DELAY];
             }
         }
         else
         {
-            [self.refreshView finishLoading];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = [error localizedDescription];
+            hud.labelText = [NSString localizedErrorMesssagesFromError:error];
             [hud hide:YES afterDelay:HUD_TIME_DELAY];
+        }
+        
+        
+        if (self.refreshView)
+        {
+            [self.refreshView finishLoading];
         }
     }];
 }

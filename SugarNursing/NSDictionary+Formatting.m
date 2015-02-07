@@ -620,7 +620,7 @@
     NSString *value;
     if ([unit isEqualToString:@"01"])
     {
-        value = @"GlucoTrace";
+        value = @"GlucoTrack";
     }
     else if ([unit isEqualToString:@"02"])
     {

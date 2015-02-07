@@ -26,7 +26,6 @@
 #import "RESideMenu.h"
 #import "UIViewController+RESideMenu.h"
 #import "RECommonFunctions.h"
-#import "RESideMenu+Helper.h"
 
 @interface RESideMenu ()
 
@@ -64,7 +63,6 @@
     }
     return self;
 }
-
 
 #if __IPHONE_8_0
 - (void)awakeFromNib
@@ -356,8 +354,6 @@
 
 - (void)hideViewController:(UIViewController *)viewController
 {
-    // To stop drawRect before removingFromSuperView
-    [viewController.view setHidden:YES];
     [viewController willMoveToParentViewController:nil];
     [viewController.view removeFromSuperview];
     [viewController removeFromParentViewController];
@@ -551,13 +547,9 @@
         return;
     }
     
-    
     CGPoint point = [recognizer translationInView:self.view];
     
     if (recognizer.state == UIGestureRecognizerStateBegan) {
-        
-        [self disableExpensiveLayout];
-        
         [self updateContentViewShadow];
         
         self.originalPoint = CGPointMake(self.contentViewContainer.center.x - CGRectGetWidth(self.contentViewContainer.bounds) / 2.0,
@@ -668,9 +660,6 @@
     }
     
    if (recognizer.state == UIGestureRecognizerStateEnded) {
-       
-       [self enableExpensiveLayout];
-       
         self.didNotifyDelegate = NO;
         if (self.panMinimumOpenThreshold > 0 && (
             (self.contentViewContainer.frame.origin.x < 0 && self.contentViewContainer.frame.origin.x > -((NSInteger)self.panMinimumOpenThreshold)) ||
@@ -700,10 +689,6 @@
                 }
             }
         }
-    }
-    
-    if (recognizer.state == UIGestureRecognizerStateCancelled || recognizer.state == UIGestureRecognizerStateFailed) {
-        [self enableExpensiveLayout];
     }
 }
 

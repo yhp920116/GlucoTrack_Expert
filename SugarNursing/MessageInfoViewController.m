@@ -47,7 +47,7 @@ static NSString *loadSize = @"15";
     [self configureTableViewFooterView];
     
     
-    [self.refreshView startLoadingAndExpand:YES animated:YES];
+//    [self.refreshView startLoadingAndExpand:YES animated:YES];
 }
 
 
@@ -58,9 +58,13 @@ static NSString *loadSize = @"15";
     {
         self.fetchController = [Notice fetchAllGroupedBy:nil sortedBy:@"sendTime" ascending:NO withPredicate:nil delegate:self incontext:[CoreDataStack sharedCoreDataStack].context];
     }
-    else
+    else if (self.msgType == MsgTypeBulletin)
     {
         self.fetchController = [Bulletin fetchAllGroupedBy:nil sortedBy:@"sendTime" ascending:NO withPredicate:nil delegate:self incontext:[CoreDataStack sharedCoreDataStack].context];
+    }
+    else
+    {
+        self.fetchController = [AgentMsg fetchAllGroupedBy:nil sortedBy:@"sendTime" ascending:NO withPredicate:nil delegate:self incontext:[CoreDataStack sharedCoreDataStack].context];
     }
 }
 
@@ -90,8 +94,8 @@ static NSString *loadSize = @"15";
                                      @"recvUser":[NSString exptId],
                                      @"messageType":@"personalAppr",
                                      @"size":loadSize,
-                                     @"start":isRefresh ? @"1" : [NSString stringWithFormat:@"%ld",self.fetchController.fetchedObjects.count]};
-        NSLog(@"%@",parameters);
+                                     @"start":isRefresh ? @"1" : [NSString stringWithFormat:@"%ld",(unsigned long)self.fetchController.fetchedObjects.count]};
+        
         NSURLSessionDataTask *task = [GCRequest getNoticeListWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
             
             self.loading = NO;
@@ -128,9 +132,9 @@ static NSString *loadSize = @"15";
                         [[CoreDataStack sharedCoreDataStack] saveContext];
                     }
                     
-//                    [self configureFetchController];
-//                    [self configureTableViewFooterView];
-//                    [self.myTableView reloadData];
+                    [self configureFetchController];
+                    [self configureTableViewFooterView];
+                    [self.myTableView reloadData];
                     
                     
                 }
@@ -148,8 +152,10 @@ static NSString *loadSize = @"15";
             {
                 [hud hide:YES];
             }
-            
-            [self.refreshView finishLoading];
+            if (self.refreshView)
+            {
+                [self.refreshView finishLoading];
+            }
         }];
         
         [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:self];
@@ -166,7 +172,7 @@ static NSString *loadSize = @"15";
                                      @"centerId":info.centerId,
                                      @"groupId":@"3",
                                      @"size":loadSize,
-                                     @"start":isRefresh ? @"1" : [NSString stringWithFormat:@"%ld",self.fetchController.fetchedObjects.count]
+                                     @"start":isRefresh ? @"1" : [NSString stringWithFormat:@"%ld",(unsigned long)self.fetchController.fetchedObjects.count]
                                      };
         
         NSURLSessionDataTask *task = [GCRequest getBulletinListWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
@@ -221,9 +227,91 @@ static NSString *loadSize = @"15";
                 [hud hide:YES];
             }
             
-            [self.refreshView finishLoading];
+            
+            if (self.refreshView)
+            {
+                [self.refreshView finishLoading];
+            }
         }];
         
+        
+        [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:self];
+    }
+    else if (self.msgType == MsgTypeAgent)
+    {
+        
+        NSDictionary *parameters = @{@"method":@"getNoticeList",
+                                     @"sessionToken":[NSString sessionToken],
+                                     @"sign":@"sign",
+                                     @"sessionId":[NSString sessionID],
+                                     @"recvUser":[NSString exptId],
+                                     @"messageType":@"agentMsg",
+                                     @"size":loadSize,
+                                     @"start":isRefresh ? @"1" : [NSString stringWithFormat:@"%ld",(unsigned long)self.fetchController.fetchedObjects.count]};
+        
+        NSURLSessionDataTask *task = [GCRequest getNoticeListWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+            
+            self.loading = NO;
+            
+            if (!error)
+            {
+                
+                NSString *ret_code = responseData[@"ret_code"];
+                if ([ret_code isEqualToString:@"0"])
+                {
+                    
+                    NSInteger listSize = [responseData[@"noticeListSize"] integerValue];
+                    if (listSize < [loadSize integerValue])
+                    {
+                        self.isAll = YES;
+                    }
+                    else
+                    {
+                        self.isAll = NO;
+                    }
+                    
+                    
+                    if (listSize <=0)
+                    {
+                        
+                    }
+                    else
+                    {
+                        
+                        NSArray *notices = responseData[@"noticeList"];
+                        
+                        [AgentMsg updateCoreDataWithListArray:notices identifierKey:@"noticeId"];
+                        
+                        [[CoreDataStack sharedCoreDataStack] saveContext];
+                        
+                        [self configureFetchController];
+                        [self configureTableViewFooterView];
+                        [self.myTableView reloadData];
+                    }
+                    
+                }
+                else
+                {
+                    hud = [[MBProgressHUD alloc] initWithView:self.view];
+                    [self.view addSubview:hud];
+                    hud.mode = MBProgressHUDModeText;
+                    hud.labelText = [NSString localizedMsgFromRet_code:ret_code withHUD:YES];
+                    [hud show:YES];
+                    [hud hide:YES afterDelay:HUD_TIME_DELAY];
+                }
+            }
+            else
+            {
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = [NSString localizedMsgFromRet_code:responseData[@"ret_code"] withHUD:YES];
+                [hud hide:YES afterDelay:HUD_TIME_DELAY];
+            }
+            
+            if (self.refreshView)
+            {
+                [self.refreshView finishLoading];
+            }
+        }];
         
         [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:self];
     }
@@ -292,7 +380,7 @@ static NSString *loadSize = @"15";
         NSString *msgDateString = [NSString stringWithFormat:@"%@ %@",nearDayString,timeString];
         [cell.dateLabel setText:msgDateString];
     }
-    else
+    else if (self.msgType == MsgTypeBulletin)
     {
         
         Bulletin *bulletin = self.fetchController.fetchedObjects[indexPath.row];
@@ -306,6 +394,21 @@ static NSString *loadSize = @"15";
         
         
         NSString *timeString = [NSString dateFormattingByBeforeFormat:GC_FORMATTER_SECOND toFormat:@"HH:mm" string:bulletin.sendTime];
+        
+        NSString *msgDateString = [NSString stringWithFormat:@"%@ %@",nearDayString,timeString];
+        [cell.dateLabel setText:msgDateString];
+    }
+    else
+    {
+        
+        AgentMsg *notice = self.fetchController.fetchedObjects[indexPath.row];
+        
+        [cell.contentLabel setText:notice.content];
+        
+        
+        NSString *dayString = [NSString dateFormattingByBeforeFormat:GC_FORMATTER_SECOND toFormat:GC_FORMATTER_DAY string:notice.sendTime];
+        NSString *nearDayString = [NSString compareNearDate:[NSDate dateByString:dayString dateFormat:GC_FORMATTER_DAY]];
+        NSString *timeString = [NSString dateFormattingByBeforeFormat:GC_FORMATTER_SECOND toFormat:@"HH:mm" string:notice.sendTime];
         
         NSString *msgDateString = [NSString stringWithFormat:@"%@ %@",nearDayString,timeString];
         [cell.dateLabel setText:msgDateString];

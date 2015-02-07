@@ -69,9 +69,8 @@
         }
         else
         {
-            
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = error.localizedDescription;
+            hud.labelText = [NSString localizedMsgFromRet_code:responseData[@"ret_code"] withHUD:YES];
             [hud hide:YES afterDelay:HUD_TIME_DELAY];
         }
     }];

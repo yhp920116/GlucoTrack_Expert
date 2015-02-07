@@ -121,7 +121,6 @@ UINavigationControllerDelegate
     [super viewDidLoad];
     
     [self initSubview];
-    [self setupNavigationBarRightItemWithType:0];
     
     if ([LoadedLog needReloadedByKey:@"userInfo"])
     {
@@ -133,6 +132,8 @@ UINavigationControllerDelegate
     if ([[UserInfo shareInfo].stat isEqualToString:@"S0W"])
     {
         isChecking = YES;
+        [self setupNavigationBarRightItemWithType:0];
+        
         NSArray *objects = [TemporaryInfo findAllInContext:[CoreDataStack sharedCoreDataStack].context];
         if (objects && objects.count >0)
         {
@@ -147,6 +148,7 @@ UINavigationControllerDelegate
     }
     else
     {
+        isChecking = NO;
         [TemporaryInfo deleteAllEntityInContext:[CoreDataStack sharedCoreDataStack].context];
         
         NSDictionary *infoDic = [NSDictionary configureByModel:[UserInfo shareInfo]];
@@ -164,11 +166,7 @@ UINavigationControllerDelegate
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    
-    
-}
+
 
 - (void)initSubview
 {
@@ -266,7 +264,12 @@ UINavigationControllerDelegate
         }
         else
         {
-            
+            hud = [[MBProgressHUD alloc] initWithView:self.view];
+            [self.view addSubview:hud];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = [NSString localizedMsgFromRet_code:responseData[@"ret_code"] withHUD:YES];
+            [hud show:YES];
+            [hud hide:YES afterDelay:HUD_TIME_DELAY];
         }
         
         [[CoreDataStack sharedCoreDataStack] saveContext];
@@ -585,10 +588,16 @@ UINavigationControllerDelegate
     if (!cell)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier_userImage];
+       
+        if (self.info.headimageUrl && self.info.headimageUrl.length>0)
+        {
+            [self.userHeadImageView setImageWithURL:[NSURL URLWithString:self.info.headimageUrl] placeholderImage:nil];
+        }
+        else
+        {
+            [self.userHeadImageView setImage:[UIImage imageNamed:@"thumbDefault"]];
+        }
         
-        
-        [self.userHeadImageView setImageWithURL:[NSURL URLWithString:self.info.headimageUrl]
-                               placeholderImage:nil];
         [self.userHeadImageView setTag:TableViewCellBaseItemTagUserView];
         
         
@@ -607,6 +616,8 @@ UINavigationControllerDelegate
         
         [self setTitleItemWithCell:cell indexPath:[NSIndexPath indexPathForRow:TableViewCellRowUserImage inSection:0]];
     }
+    
+    
     
     
     return cell;

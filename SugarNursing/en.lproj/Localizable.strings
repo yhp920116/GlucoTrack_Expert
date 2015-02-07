@@ -12,6 +12,10 @@
 
 /* Network */
 "Request Error" = "Request Error";
+"Cannot connect to the internet." = "Cannot connect to the internet.";
+"Cannot connect to specified host." = "Cannot connect to specified host.";
+"Cannot find specified host." = "Cannot find specified host.";
+
 
 /* Basic */
 "New Version" = "New Version";
@@ -324,9 +328,12 @@
 
 "approve result" = "approve result";
 "system bulletin" = "system bulletin";
+"Agent Message" = "Agent Message";
 
 "have not approve result" = "have not approve result";
 "have not system bulletin" = "have not system bulletin";
+
+
 
 /* System Set Section */
 

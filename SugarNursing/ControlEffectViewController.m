@@ -206,8 +206,21 @@
                 [NSString localizedMsgFromRet_code:ret_code withHUD:NO];
             }
         }
+        else
+        {
+            hud = [[MBProgressHUD alloc] initWithView:self.view];
+            [self.view addSubview:hud];
+            [hud show:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = [NSString localizedMsgFromRet_code:responseData[@"ret_code"] withHUD:YES];
+            [hud hide:YES afterDelay:HUD_TIME_DELAY];
+        }
         
-        [self.refreshView finishLoading];
+        
+        if (self.refreshView)
+        {
+            [self.refreshView finishLoading];
+        }
     }];
 }
 

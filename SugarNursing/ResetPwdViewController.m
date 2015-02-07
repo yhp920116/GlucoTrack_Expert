@@ -260,7 +260,7 @@ UIAlertViewDelegate
         else
         {
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = [error localizedDescription];
+            hud.labelText = [NSString localizedErrorMesssagesFromError:error];
             [hud hide:YES afterDelay:HUD_TIME_DELAY];
         }
     }];

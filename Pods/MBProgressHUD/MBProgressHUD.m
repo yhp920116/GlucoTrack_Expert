@@ -200,10 +200,12 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 		
 		taskInProgress = NO;
 		rotationTransform = CGAffineTransformIdentity;
+		
         
         // Set Customizing
         [self customizeHUD];
-		
+        
+        
 		[self setupLabels];
 		[self updateIndicators];
 		[self registerForKVO];
@@ -442,7 +444,8 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	}
 }
 
-- (void)cleanUp {
+- (void)cleanUp
+{
 	taskInProgress = NO;
 #if !__has_feature(objc_arc)
 	[targetForExecution release];

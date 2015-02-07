@@ -126,7 +126,7 @@ static NSString *loadSize = @"20";
                                  @"relationFlag":self.relationFlag,
                                  @"orderArg":self.orderArg,
                                  @"order":self.orderAsc ? @"asc" : @"desc",
-                                 @"start":isAppending ? [NSString stringWithFormat:@"%u",_dataArray.count+1] : @"1",
+                                 @"start":isAppending ? [NSString stringWithFormat:@"%ld",_dataArray.count+1] : @"1",
                                  @"size":loadSize,
                                  @"sign":@"sign"};
 
@@ -199,8 +199,11 @@ static NSString *loadSize = @"20";
             }
             else
             {
+                if (self.refreshView)
+                {
+                    [self.refreshView finishLoading];
+                }
                 
-                [self.refreshView finishLoading];
                 hud = [[MBProgressHUD alloc] initWithView:self.view];
                 [self.view addSubview:hud];
                 [hud show:YES];
@@ -212,11 +215,14 @@ static NSString *loadSize = @"20";
         else
         {
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = [error localizedDescription];
+            hud.labelText = [NSString localizedErrorMesssagesFromError:error];
             [hud hide:YES afterDelay:HUD_TIME_DELAY];
         }
         
-        [self.refreshView finishLoading];
+        if (self.refreshView)
+        {
+            [self.refreshView finishLoading];
+        }
     }];
 }
 

@@ -61,8 +61,10 @@
         }
     } else if (error.localizedDescription) {
         
-        if ([[error domain] isEqualToString:NSURLErrorDomain]) {
-            switch ([error code]) {
+        if ([[error domain] isEqualToString:NSURLErrorDomain])
+        {
+            switch ([error code])
+            {
                 case NSURLErrorCannotFindHost:
                     message = NSLocalizedString(@"Cannot find specified host.", nil);
                     break;
@@ -76,7 +78,9 @@
                     message = [error localizedDescription];
                     break;
             }
-        }else{
+        }
+        else
+        {
             message = [error localizedDescription];
         }
         

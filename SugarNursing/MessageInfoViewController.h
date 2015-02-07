@@ -11,7 +11,8 @@
 typedef NS_ENUM(NSInteger, MsgType)
 {
     MsgTypeNotice = 0,
-    MsgTypeBulletin = 1
+    MsgTypeBulletin = 1,
+    MsgTypeAgent = 2
 };
 
 @interface MessageInfoViewController : UIViewController

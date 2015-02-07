@@ -10,7 +10,7 @@
 #import <UIImageView+AFNetworking.h>
 #import "MediAttach.h"
 
-//static CGFloat kMaterialImagelength = 40;
+static CGFloat kCollectionCellWidthHeight = 40.0;
 
 @implementation DiseaseInfo_Cell
 - (void)awakeFromNib
@@ -21,19 +21,11 @@
 
 - (void)configureCellWithMediRecord:(MediRecord *)mediRecord;
 {
-//    for (UIView *view in self.materialContentView.subviews)
-//    {
-//        if ([view isKindOfClass:[UIImageView class]])
-//        {
-//            [view removeFromSuperview];
-//        }
-//    }
     
     self.hospitalLabel.text = [self isEmptyString:mediRecord.diagHosp];
-    self.cureConditionLabel.text = [self isEmptyString:mediRecord.treatment];
-    self.medicalHistoryLabel.text = [self isEmptyString:mediRecord.mediRecode];
+    self.cureConditionLabel.text = [self isEmptyString:mediRecord.treatMent];
+    self.medicalHistoryLabel.text = [self isEmptyString:mediRecord.mediRecord];
     self.cureScheme.text = [self isEmptyString:mediRecord.treatPlan];
-    
     
     
     self.record = mediRecord;
@@ -41,29 +33,23 @@
     NSInteger attCount = mediRecord.mediAttach.count;
     
     
-    
+    NSInteger lineNumber;
     if (attCount<=0)
     {
-        self.collectionViewConstraintHeight.constant = 0.0f;
+        lineNumber = 0;
     }
-    else if (attCount <=4)
+    else if (attCount<=4)
     {
-        self.collectionViewConstraintHeight.constant = 50;
-    }
-    else if (attCount <=8)
-    {
-        self.collectionViewConstraintHeight.constant = 100;
+        lineNumber = 1;
     }
     else
     {
-        self.collectionViewConstraintHeight.constant = 150;
+        lineNumber = 2;
     }
     
-    
-    NSLog(@"%@",self.collectionView);   
+    self.collectionViewConstraintHeight.constant = lineNumber * kCollectionCellWidthHeight + 10;
+
     [self.collectionView reloadData];
-    
-    
 }
 
 

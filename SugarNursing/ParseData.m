@@ -33,8 +33,10 @@
     for (__block NSString *key in keys) {
         
         
-        if ([parseData isKindOfClass:[NSDictionary class]] || [parseData isKindOfClass:[NSMutableDictionary class]]) {
-            if (![[parseData allKeys] containsObject:key]) {
+        if ([parseData isKindOfClass:[NSDictionary class]] || [parseData isKindOfClass:[NSMutableDictionary class]])
+        {
+            if (![[parseData allKeys] containsObject:key])
+            {
                 //                DDLogDebug(@"%@ does not contains key:%@",data, key);
                 return nil;
             }

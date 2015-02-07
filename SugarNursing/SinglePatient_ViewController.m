@@ -217,7 +217,7 @@ SSPullToRefreshViewDelegate
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"linkManId = %@",self.linkManId];
     self.fetchControllerMedical = [MediRecord fetchAllGroupedBy:nil
-                                                  sortedBy:@"mediHistId"
+                                                  sortedBy:@"diagTime"
                                                  ascending:NO
                                              withPredicate:predicate
                                                   delegate:self
@@ -448,19 +448,6 @@ SSPullToRefreshViewDelegate
     [self configureDetectFetchedController];
     
     
-    
-    NSString *lineType;
-    switch (self.lineType)
-    {
-        case GCLineTypeGlucose:
-            lineType = @"1";
-            break;
-        case GCLineTypeHemo:
-            lineType= @"2";
-            break;
-    }
-    
-
     NSMutableDictionary *parameters = [@{@"method":@"queryDetectDetailLine2",
                                          @"sign":@"sign",
                                          @"sessionId":[NSString sessionID],
@@ -530,7 +517,12 @@ SSPullToRefreshViewDelegate
             }
             else
             {
-                [NSString localizedMsgFromRet_code:ret_code withHUD:NO];
+                hud = [[MBProgressHUD alloc] initWithView:self.view];
+                [self.view addSubview:hud];
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = [NSString localizedErrorMesssagesFromError:error];
+                [hud show:YES];
+                [hud hide:YES afterDelay:HUD_TIME_DELAY];
             }
         }
     }];
@@ -652,6 +644,14 @@ SSPullToRefreshViewDelegate
                     
                 }
             }
+            else
+            {
+                
+            }
+        }
+        else
+        {
+            
         }
     }];
 }
@@ -1301,7 +1301,7 @@ SSPullToRefreshViewDelegate
     
     self.selectedDate = [NSDate date];
     [self.chooseDateButton setTitle:NSLocalizedString(@"Select By Month",nil) forState:UIControlStateNormal];
-    self.trackerChart.sizePoint = 4;
+    self.trackerChart.sizePoint = 1;
     
     [self requestDetectLine];
 }

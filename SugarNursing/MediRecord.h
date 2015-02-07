@@ -2,7 +2,7 @@
 //  MediRecord.h
 //  SugarNursing
 //
-//  Created by Ian on 15-1-30.
+//  Created by Ian on 15-2-6.
 //  Copyright (c) 2015年 Tisson. All rights reserved.
 //
 
@@ -18,8 +18,8 @@
 @property (nonatomic, retain) NSString * linkManId;
 @property (nonatomic, retain) NSString * mediHistId;
 @property (nonatomic, retain) NSString * mediName;
-@property (nonatomic, retain) NSString * mediRecode;
-@property (nonatomic, retain) NSString * treatment;
+@property (nonatomic, retain) NSString * mediRecord;
+@property (nonatomic, retain) NSString * treatMent;
 @property (nonatomic, retain) NSString * treatPlan;
 @property (nonatomic, retain) NSOrderedSet *mediAttach;
 @end

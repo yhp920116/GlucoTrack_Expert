@@ -13,6 +13,10 @@
 
 /* Network */
 "Request Error" = "请求出错";
+"Cannot connect to the internet." = "当前网络不可用,请检查网络设置";
+"Cannot connect to specified host." = "无法访问服务器";
+"Cannot find specified host." = "无法找到服务器";
+
 
 /* Basic */
 "New Version" = "发现新版本";
@@ -330,6 +334,7 @@
 
 "approve result" = "审核结果";
 "system bulletin" = "系统公告";
+"Agent Message" = "客服消息";
 
 "have not approve result" = "暂无审核结果";
 "have not system bulletin" = "暂无系统公告";
@@ -344,7 +349,7 @@
 
 "Authentication is successful" = "验证成功";
 
-"phoneNumber or password error" = "登陆密码错误";
+"phoneNumber or password error" = "手机号和密码不匹配";
 
 "Reset successed, Please login again" = "重设密码成功，请重新登录";
 "PhoneNumber binding successed, Please login again" = "手机号绑定成功，请重新登录";

@@ -132,7 +132,7 @@
 {
     UserInfo *info = [UserInfo shareInfo];
     User *user = [User findAllInContext:[CoreDataStack sharedCoreDataStack].context][0];
-    NSLog(@"%@",user.password);
+    
     
     if (![self.phoneTextField.text isEqualToString:info.mobilePhone])
     {
