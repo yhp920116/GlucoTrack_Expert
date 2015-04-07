@@ -63,8 +63,9 @@ static CGFloat kHeadCellHeight = 35;
 <
 NSFetchedResultsControllerDelegate,
 RMDateSelectionViewControllerDelegate,
-SSPullToRefreshViewDelegate
-,SectionHeaderViewDelegate
+SSPullToRefreshViewDelegate,
+SectionHeaderViewDelegate,
+MBProgressHUDDelegate
 >
 
 {
@@ -174,7 +175,7 @@ SSPullToRefreshViewDelegate
     
     SendSuggestViewController *vc = [[UIStoryboard myPatientStoryboard] instantiateViewControllerWithIdentifier:@"SendAdvice"];
     vc.linkManId = self.linkManId;
-    if ([NSProcessInfo instancesRespondToSelector:@selector(isOperatingSystemAtLeastVersion:)]) {
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
         [self showViewController:vc sender:nil];
     }
     else
@@ -182,6 +183,15 @@ SSPullToRefreshViewDelegate
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
+
+
+#pragma mark - MBProgressHUD Delegate
+- (void)hudWasHidden:(MBProgressHUD *)hud2
+{
+    hud2 = nil;
+}
+
+
 
 
 - (void)configureSubviewWithDataSourceType:(NSInteger)type
@@ -388,7 +398,8 @@ SSPullToRefreshViewDelegate
                                  @"sessionId":[NSString sessionID],
                                  @"linkManId":self.linkManId};
     
-    NSURLSessionDataTask *task = [GCRequest getLinkmanInfoWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+
+    [GCRequest getLinkmanInfoWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
         if (!error)
         {
             NSString *ret_code = responseData[@"ret_code"];
@@ -434,11 +445,14 @@ SSPullToRefreshViewDelegate
         }
         else
         {
-            
+            hud = [[MBProgressHUD alloc] initWithView:self.view];
+            [self.view addSubview:hud];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = [NSString localizedErrorMesssagesFromError:error];
+            [hud show:YES];
+            [hud hide:YES afterDelay:HUD_TIME_DELAY];
         }
     }];
-    
-    [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:self];
 }
 
 
@@ -1006,7 +1020,7 @@ SSPullToRefreshViewDelegate
         
     });
     
-    
+    cell.collectionView.delegate = nil;
     [cell configureCellWithMediRecord:[self.fetchControllerMedical.fetchedObjects objectAtIndex:indexPath.section]];
     
     return [self calculateInfoCellHeightWithCell:cell];
@@ -1160,14 +1174,14 @@ SSPullToRefreshViewDelegate
 - (IBAction)changeViewButtonEvent:(UIButton *)sender
 {
     
-    if ([sender.currentImage isEqual:[UIImage imageNamed:@"line.png"]])
+    if ([sender.currentImage isEqual:[UIImage imageNamed:@"table.png"]])
     {
-        [sender setImage:[UIImage imageNamed:@"table.png"] forState:UIControlStateNormal];
+        [sender setImage:[UIImage imageNamed:@"line.png"] forState:UIControlStateNormal];
         self.viewType = GCTypeLine;
     }
     else
     {
-        [sender setImage:[UIImage imageNamed:@"line.png"] forState:UIControlStateNormal];
+        [sender setImage:[UIImage imageNamed:@"table.png"] forState:UIControlStateNormal];
         self.viewType = GCTypeTable;
     }
     

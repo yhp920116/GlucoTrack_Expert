@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MessageInfoViewController.h"
 
 @interface MyMessageViewController : UIViewController
 <
@@ -17,5 +18,10 @@ UITableViewDelegate
 
 
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
+
+@property (assign, nonatomic) BOOL isAPNS;
+
+@property (assign, nonatomic) MsgType goMsgType;
+@property (strong, nonatomic) NSString *goMsgTitle;
 
 @end

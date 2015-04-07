@@ -21,7 +21,8 @@
     NSMutableArray *keys = [[parameters allKeys] mutableCopy];
     NSMutableArray *keysToRemove = [@[] mutableCopy];
     
-    for (NSString *key in keys) {
+    for (NSString *key in keys)
+    {
         if ([key isEqualToString:@"method"]) {
             [keysToRemove addObject:key];
         }
@@ -65,7 +66,11 @@
     
     joinString = [joinString stringByAppendingString:user.sessionToken];
     
+    
+    
     return [joinString md5];
 }
+
+
 
 @end

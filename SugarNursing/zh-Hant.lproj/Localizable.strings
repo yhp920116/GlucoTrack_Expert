@@ -26,7 +26,7 @@
 "Cancel" = "取消";
 "Confirm" = "確定";
 
-"warm prompt" = "溫馨提示";
+"Warm prompt" = "溫馨提示";
 "Can't be late for today" = "所選日期不能晚於今日";
 
 "Save" = "保存";
@@ -242,7 +242,7 @@
 "Cancel All" = "取消全選";
 
 //trusteeship
-"from" = "與";
+"from" = "於";
 "put the patient" = "把病人";
 "trusteeship to doctor" = "託管給醫生";
 "estimated trusteeship time" = "預計託管時間";

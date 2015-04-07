@@ -14,6 +14,9 @@
 #import <SSPullToRefreshView.h>
 #import "NoDataLabel.h"
 #import "SinglePatient_ViewController.h"
+#import "MsgRemind.h"
+#import "NotificationName.h"
+
 
 static const NSString *loadSize = @"15";
 
@@ -25,7 +28,7 @@ typedef enum
 }TableViewTag;
 
 
-@interface MyTakeoverViewController ()<NSFetchedResultsControllerDelegate,SSPullToRefreshViewDelegate,UIAlertViewDelegate>
+@interface MyTakeoverViewController ()<NSFetchedResultsControllerDelegate,SSPullToRefreshViewDelegate,UIAlertViewDelegate,MBProgressHUDDelegate>
 {
     MBProgressHUD *hud;
     
@@ -36,7 +39,7 @@ typedef enum
 @property (strong, nonatomic) NSFetchedResultsController *fetchController;
 @property (strong, nonatomic) SSPullToRefreshView *refreshView;
 @property (strong, nonatomic) NSString *queryFlag;
-@property (strong, nonatomic) NSMutableDictionary *loadedArray;
+@property (strong, nonatomic) NSMutableDictionary *loadedDic;
 @property (strong, nonatomic) NSMutableDictionary *isAllArray;
 @property (assign, nonatomic) BOOL loading;
 
@@ -54,6 +57,8 @@ typedef enum
     
     [self configureFetchController];
     [self configureTableViewFooterView];
+    
+    [self showUnreadRemind];
     
     [self.refreshView startLoadingAndExpand:YES animated:YES];
 }
@@ -79,15 +84,15 @@ typedef enum
     self.refreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.takeoverTableView delegate:self];
     self.queryFlag = @"01";
     
-    self.loadedArray = [@{@"01":[NSNumber numberWithBool:NO],
+    self.loadedDic = [@{@"01":[NSNumber numberWithBool:NO],
                           @"02":[NSNumber numberWithBool:NO],
-                          @"03":[NSNumber numberWithBool:NO],
-                          @"04":[NSNumber numberWithBool:NO]} mutableCopy];
+                          @"04":[NSNumber numberWithBool:NO],
+                          @"03":[NSNumber numberWithBool:NO]} mutableCopy];
     
     self.isAllArray = [@{@"01":[NSNumber numberWithBool:NO],
                          @"02":[NSNumber numberWithBool:NO],
-                         @"03":[NSNumber numberWithBool:NO],
-                         @"04":[NSNumber numberWithBool:NO]} mutableCopy];
+                         @"04":[NSNumber numberWithBool:NO],
+                         @"03":[NSNumber numberWithBool:NO]} mutableCopy];
 }
 
 
@@ -98,7 +103,7 @@ typedef enum
     [self.takeoverTableView reloadData];
     
     
-    BOOL isLoaded = [[self.loadedArray objectForKey:self.queryFlag] boolValue];
+    BOOL isLoaded = [[self.loadedDic objectForKey:self.queryFlag] boolValue];
     if (!isLoaded)
     {
         [self requestTakeoverWithQueryFlag:self.queryFlag isRefresh:YES block:^{
@@ -109,6 +114,63 @@ typedef enum
             [self.takeoverTableView reloadData];
         }];
         
+    }
+}
+
+
+#pragma mark - MBProgressHUD Delegate
+- (void)hudWasHidden:(MBProgressHUD *)hud2
+{
+    hud2 = nil;
+}
+
+
+#pragma mark - Message Remind
+- (void)showUnreadRemind
+{
+    
+    MsgRemind *remind = [MsgRemind shareMsgRemind];
+    
+    if ([remind.takeoverWaittingRemindCount integerValue]>0)
+    {
+        [self addMessagePointWithSegmentIndex:0];
+    }
+}
+
+- (void)addMessagePointWithSegmentIndex:(NSInteger )index
+{
+    
+    NSInteger remindImgWidthHeight = 13;
+    
+    [self.takeoverSegment setNeedsLayout];
+    [self.takeoverSegment layoutIfNeeded];
+    CGSize size = self.takeoverSegment.bounds.size;
+    CGFloat originX  = (size.width/4) * (index +1) - remindImgWidthHeight;
+    
+    UIImageView *messagePoint = [[UIImageView alloc] initWithFrame:CGRectMake(originX, 0, remindImgWidthHeight, remindImgWidthHeight)];
+    messagePoint.tag = 1001;
+    [messagePoint setImage:[UIImage imageNamed:@"messagePoint"]];
+    [self.takeoverSegment addSubview:messagePoint];
+}
+
+- (void)cancelMsgPointWithFlag:(NSString *)flag
+{
+    
+    MsgRemind *remind = [MsgRemind shareMsgRemind];
+    if ([flag isEqualToString:@"01"])
+    {
+        remind.takeoverWaittingRemindCount = [NSNumber numberWithInteger:0];
+        [[CoreDataStack sharedCoreDataStack] saveContext];
+        UIView *view = [self.takeoverSegment viewWithTag:1001];
+        if (view)
+        {
+            [view removeFromSuperview];
+            view = nil;
+            [self.takeoverSegment setNeedsLayout];
+            [self.takeoverSegment layoutIfNeeded];
+        }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOT_RELOADLEFTMENU object:nil];
     }
 }
 
@@ -212,7 +274,16 @@ typedef enum
             {
                 [hud hide:YES];
                 
-                [self.loadedArray setObject:[NSNumber numberWithBool:YES] forKey:queryFlag];
+                //隐藏未读消息红点
+                [self cancelMsgPointWithFlag:queryFlag];
+                
+                [self.loadedDic setObject:[NSNumber numberWithBool:YES] forKey:queryFlag];
+                
+                //刷新时先删除再添加
+                if (isRefresh)
+                {
+                    [self deleteTakeoverListWithQueryFlag:queryFlag];
+                }
                 
                 NSInteger size = [responseData[@"takeOverListSize"] integerValue];
                 if (size <= 0)
@@ -220,6 +291,7 @@ typedef enum
                     
                     [self configureFetchController];
                     [self.takeoverTableView reloadData];
+                    [self configureTableViewFooterView];
                 }
                 else
                 {
@@ -228,17 +300,6 @@ typedef enum
                         [self.isAllArray setObject:[NSNumber numberWithBool:YES] forKey:queryFlag];
                     }
                     
-                    
-                    if (isRefresh)
-                    {
-                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"queryFlag = %@",queryFlag];
-                        NSArray *deleteArray = [Takeover findAllWithPredicate:predicate
-                                                                    inContext:[CoreDataStack sharedCoreDataStack].context];
-                        for (Takeover *takeover in deleteArray)
-                        {
-                            [takeover deleteEntityInContext:[CoreDataStack sharedCoreDataStack].context];
-                        }
-                    }
                     
                     NSArray *array = responseData[@"takeOverList"];
                     
@@ -274,6 +335,7 @@ typedef enum
         {
             [self configureFetchController];
             [self.takeoverTableView reloadData];
+            [self configureTableViewFooterView];
             
             hud.mode = MBProgressHUDModeText;
             hud.labelText = [NSString localizedMsgFromRet_code:responseData[@"ret_code"] withHUD:YES];
@@ -288,6 +350,21 @@ typedef enum
     }];
     
 }
+
+
+
+- (void)deleteTakeoverListWithQueryFlag:(NSString *)queryFlag
+{
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"queryFlag = %@",queryFlag];
+    NSArray *deleteArray = [Takeover findAllWithPredicate:predicate
+                                                inContext:[CoreDataStack sharedCoreDataStack].context];
+    for (Takeover *takeover in deleteArray)
+    {
+        [takeover deleteEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+    }
+}
+
 
 
 
@@ -360,7 +437,7 @@ typedef enum
     }
 }
 
-
+#pragma mark -
 - (void)acceptTakeoverWithRow:(NSInteger)row
 {
     hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
@@ -386,6 +463,9 @@ typedef enum
                 [[CoreDataStack sharedCoreDataStack] saveContext];
                 [self configureFetchController];
                 [self.takeoverTableView reloadData];
+                [self configureTableViewFooterView];
+                
+                [self.loadedDic setObject:[NSNumber numberWithBool:NO] forKey:@"02"];
                 
                 
                 hud.mode = MBProgressHUDModeText;
@@ -425,7 +505,8 @@ typedef enum
                                  @"exptId":[NSString exptId],
                                  @"reqtId":takeover.reqtId};
     
-    [GCRequest apprTrusteeshipWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+    [GCRequest apprTrusteeshipWithParameters:parameters block:^(NSDictionary *responseData, NSError *error)
+    {
         if (!error)
         {
             if ([responseData[@"ret_code"] isEqualToString:@"0"])
@@ -434,6 +515,11 @@ typedef enum
                 [[CoreDataStack sharedCoreDataStack] saveContext];
                 [self configureFetchController];
                 [self.takeoverTableView reloadData];
+                [self configureTableViewFooterView];
+                
+                
+                [self.loadedDic setObject:[NSNumber numberWithBool:NO] forKey:@"04"];
+                
                 
                 hud.mode = MBProgressHUDModeText;
                 hud.labelText = NSLocalizedString(@"you are refuse the trusteeship", nil);
@@ -543,7 +629,7 @@ typedef enum
         SinglePatient_ViewController *singleVC = [[UIStoryboard myPatientStoryboard] instantiateViewControllerWithIdentifier:@"SinglePatientVC"];
         singleVC.linkManId = takeover.linkManId;
         singleVC.isMyPatient = [self.queryFlag isEqualToString:@"01"] ? NO : YES;
-        if ([NSProcessInfo instancesRespondToSelector:@selector(isOperatingSystemAtLeastVersion:)])
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0"))
         {
             [self showViewController:singleVC sender:nil];
         }
@@ -679,6 +765,7 @@ typedef enum
         self.takeoverTableView.tableFooterView = label;
     }
 }
+
 
 
 @end

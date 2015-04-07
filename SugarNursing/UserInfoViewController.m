@@ -17,12 +17,13 @@
 #import "NSDictionary+Configure.h"
 #import "ThumbnailImageView.h"
 #import "NSString+ParseData.h"
+#import "NotificationName.h"
+
 
 static CGFloat kDefaultCellParameterLeftMagin = 100;
 static CGFloat kDefaultCellParameterRightMagin = 40;
 static CGFloat kTitleLabelRightMagin = 10;
 static CGFloat kTerritoryCellTextViewMagin = 10;
-
 
 
 static CGFloat kDefaultCellUserImageLengthOfSize = 40;    //用户图片宽高
@@ -46,7 +47,11 @@ static NSString *identifier_center = @"ServiceCenterCell";
 static NSString *identifier_territory = @"TerritoryCell";
 
 
-
+typedef NS_ENUM(NSInteger, GCUserInfoState)
+{
+    GCUserInfoStateNormal = 0,
+    GCUserInfoStateApproving = 1
+};
 
 typedef enum {
     TableViewCellBaseItemTagTitleLabel = 20001,
@@ -73,7 +78,8 @@ typedef NS_ENUM(NSInteger, TableViewCellRow){
 <
 UIActionSheetDelegate,
 UIImagePickerControllerDelegate,
-UINavigationControllerDelegate
+UINavigationControllerDelegate,
+MBProgressHUDDelegate
 >
 {
     MBProgressHUD *hud;
@@ -85,11 +91,11 @@ UINavigationControllerDelegate
     
     
     CGSize territoryTextViewSize;
-    BOOL isChecking;
-    
     
     NSMutableDictionary *_parameters;
 }
+
+@property (assign, nonatomic) GCUserInfoState userInfoState;
 
 @property (nonatomic, strong) ThumbnailImageView *userHeadImageView;
 @property (nonatomic, strong) UITextField *userNameTextField;
@@ -122,47 +128,13 @@ UINavigationControllerDelegate
     
     [self initSubview];
     
-    if ([LoadedLog needReloadedByKey:@"userInfo"])
-    {
-        [self requestUserInfo];
-    }
+    [self updatePresentUserInfoData];
     
-    
-    
-    if ([[UserInfo shareInfo].stat isEqualToString:@"S0W"])
-    {
-        isChecking = YES;
-        [self setupNavigationBarRightItemWithType:0];
-        
-        NSArray *objects = [TemporaryInfo findAllInContext:[CoreDataStack sharedCoreDataStack].context];
-        if (objects && objects.count >0)
-        {
-            self.info = objects[0];
-        }
-        else
-        {
-            NSDictionary *infoDic = [NSDictionary configureByModel:[UserInfo shareInfo]];
-            self.info = [TemporaryInfo createEntityInContext:[CoreDataStack sharedCoreDataStack].context];
-            [self.info updateCoreDataForData:infoDic withKeyPath:nil];
-        }
-    }
-    else
-    {
-        isChecking = NO;
-        [TemporaryInfo deleteAllEntityInContext:[CoreDataStack sharedCoreDataStack].context];
-        
-        NSDictionary *infoDic = [NSDictionary configureByModel:[UserInfo shareInfo]];
-        self.info = [TemporaryInfo createEntityInContext:[CoreDataStack sharedCoreDataStack].context];
-        [self.info updateCoreDataForData:infoDic withKeyPath:nil];
-        
-        [self.mainTableView reloadData];
-        [self setupNavigationBarRightItemWithType:1];
-    }
+    [self.mainTableView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
@@ -206,80 +178,6 @@ UINavigationControllerDelegate
     }
 }
 
-
-- (void)requestUserInfo
-{
-    
-    
-    NSDictionary *parameters = @{@"method":@"getPersonalInfo",
-                                 @"sign":@"sign",
-                                 @"sessionId":[NSString sessionID],
-                                 @"exptId":[NSString exptId]};
-    
-    NSURLSessionDataTask *task = [GCRequest getPersonalInfoWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
-        
-        
-        if (!error)
-        {
-            if ([responseData[@"ret_code"] isEqualToString:@"0"])
-            {
-                
-                UserInfo *info = [UserInfo shareInfo];
-                
-                responseData = [responseData[@"expert"] mutableCopy];
-                
-                [responseData sexFormattingToUserForKey:@"sex"];
-                [responseData expertLevelFormattingToUserForKey:@"expertLevel"];
-                
-                [responseData dateFormattingToUserForKey:@"birthday"];
-                
-                [info updateCoreDataForData:responseData withKeyPath:nil];
-                
-                
-                if (![info.stat isEqualToString:@"S0W"])
-                {
-                    isChecking = NO;
-                    NSDictionary *infoDic = [NSDictionary configureByModel:info];
-                    [self.info updateCoreDataForData:infoDic withKeyPath:nil];
-                }
-                else
-                {
-                    isChecking = YES;
-                }
-                [[CoreDataStack sharedCoreDataStack] saveContext];
-                
-                
-                [LoadedLog shareLoadedLog].userInfo = [NSString stringWithDateFormatting:GC_FORMATTER_SECOND date:[NSDate date]];
-                
-                [self.mainTableView reloadData];
-                
-                
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadLeftMenu" object:nil];
-                
-            }
-            else
-            {
-                
-            }
-        }
-        else
-        {
-            hud = [[MBProgressHUD alloc] initWithView:self.view];
-            [self.view addSubview:hud];
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = [NSString localizedMsgFromRet_code:responseData[@"ret_code"] withHUD:YES];
-            [hud show:YES];
-            [hud hide:YES afterDelay:HUD_TIME_DELAY];
-        }
-        
-        [[CoreDataStack sharedCoreDataStack] saveContext];
-    }];
-    
-    [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:self];
-    
-}
-
-
 - (void)keyBoardWillShow:(NSNotification *)notification
 {
     
@@ -311,15 +209,17 @@ UINavigationControllerDelegate
 }
 
 
+#pragma mark - MBProgressHUD Delegate
+- (void)hudWasHidden:(MBProgressHUD *)hud2
+{
+    hud2 = nil;
+}
+
+
 #pragma mark - UITextField & UITextView    Delegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     self.activeView = textField;
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    
 }
 
 
@@ -327,11 +227,6 @@ UINavigationControllerDelegate
 {
     self.activeView = textView;
     return YES;
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-    
 }
 
 
@@ -373,7 +268,6 @@ UINavigationControllerDelegate
         {
             department = _departCom1Array[row];
         }
-        
         
         return department.departmentName;
     }
@@ -469,7 +363,7 @@ UINavigationControllerDelegate
 {
     if (section == 0)
     {
-        if (isChecking)
+        if (self.userInfoState == GCUserInfoStateApproving)
         {
             return 35;
         }
@@ -484,7 +378,7 @@ UINavigationControllerDelegate
     if (section == 0)
     {
         
-        if (isChecking)
+        if (self.userInfoState == GCUserInfoStateApproving)
         {
             
             CustomLabel *label = [[CustomLabel alloc] init];
@@ -500,6 +394,12 @@ UINavigationControllerDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (self.activeView && [self.activeView isFirstResponder])
+    {
+        [self.activeView resignFirstResponder];
+        return;
+    }
     
     if (indexPath.section == 0)
     {
@@ -1142,7 +1042,7 @@ UINavigationControllerDelegate
 - (IBAction)editButtonEvent:(id)sender
 {
     
-    if (!isChecking)
+    if (self.userInfoState == GCUserInfoStateNormal)
     {
         
         self.editing = YES;
@@ -1360,8 +1260,135 @@ UINavigationControllerDelegate
 }
 
 
+#pragma mark - Other
+- (void)setUserInfoState:(GCUserInfoState)userInfoState
+{
+    
+    _userInfoState = userInfoState;
+    
+    if (userInfoState == GCUserInfoStateApproving)
+    {
+        [self setupNavigationBarRightItemWithType:0];
+    }
+    else if (userInfoState == GCUserInfoStateNormal)
+    {
+        [self setupNavigationBarRightItemWithType:1];
+    }
+}
+
+- (void)updatePresentUserInfoData
+{
+    
+    NSArray *objects = [TemporaryInfo findAllInContext:[CoreDataStack sharedCoreDataStack].context];
+    if (objects && objects.count >0)  //有用户审核详情则放出并更新
+    {
+        
+        self.info = objects[0];
+        [self updateUserInfoState];
+        
+        if ([LoadedLog needReloadedByKey:@"temporaryInfo"])
+        {
+            [self updateUserInfoApproveDataToCoreData];
+        }
+    }
+    else   //无本地审核详情则暂时使用本地用户详情数据数据并请求审核数据.
+    {
+        
+        NSDictionary *infoDic = [NSDictionary configureByModel:[UserInfo shareInfo]];
+        self.info = [TemporaryInfo createEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+        [self.info updateCoreDataForData:infoDic withKeyPath:nil];
+        
+        [self updateUserInfoState];
+        [self updateUserInfoApproveDataToCoreData];
+    }
+}
+
+- (void)updateUserInfoState
+{
+    if ([self.info.stat isEqualToString:@"S0W"])
+    {
+        self.userInfoState = GCUserInfoStateApproving;
+    }
+    else
+    {
+        self.userInfoState = GCUserInfoStateNormal;
+    }
+}
 
 #pragma mark - update & upload
+- (void)updateUserInfoApproveDataToCoreData
+{
+    
+    NSDictionary *parameters = @{@"method":@"getLastPersonalInfo",
+                                 @"sessionId":[NSString sessionID],
+                                 @"sessionToken":[NSString sessionToken],
+                                 @"sign":@"sign",
+                                 @"exptId":[NSString exptId]};
+    
+    [GCRequest getLastPersonalInfoWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+        
+        if (!error)
+        {
+            if ([responseData[@"ret_code"] isEqualToString:@"0"])
+            {
+                
+                responseData = [responseData[@"expert"] mutableCopy];
+                [responseData sexFormattingToUserForKey:@"sex"];
+                [responseData expertLevelFormattingToUserForKey:@"expertLevel"];
+                [responseData dateFormattingToUserForKey:@"birthday"];
+                
+                [self.info updateCoreDataForData:responseData withKeyPath:nil];
+                [self updateUserInfoState];
+                
+                //审核中的详情则覆盖本地审核详情, 未审核中的详情则覆盖审核详情和用户详情
+                if (self.userInfoState == GCUserInfoStateApproving)
+                {
+                    self.userInfoState = GCUserInfoStateApproving;
+                }
+                else
+                {
+                    self.userInfoState = GCUserInfoStateNormal;
+                    
+                    NSDictionary *infoDic = [NSDictionary configureByModel:self.info];
+                    UserInfo *userInfo = [UserInfo findAllInContext:[CoreDataStack sharedCoreDataStack].context][0];
+                    [userInfo updateCoreDataForData:infoDic withKeyPath:nil];
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NOT_RELOADLEFTMENU object:nil];
+                }
+                
+                
+                [[CoreDataStack sharedCoreDataStack] saveContext];
+                
+                //记录成功刷新时间
+                [LoadedLog shareLoadedLog].temporaryInfo = [NSString stringWithDateFormatting:GC_FORMATTER_SECOND date:[NSDate date]];
+                
+                [self.mainTableView reloadData];
+            }
+            else
+            {
+                hud = [[MBProgressHUD alloc] initWithView:self.view];
+                [self.view addSubview:hud];
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = [NSString localizedMsgFromRet_code:responseData[@"ret_code"] withHUD:YES];
+                [hud show:YES];
+                [hud hide:YES afterDelay:HUD_TIME_DELAY];
+            }
+        }
+        else
+        {
+            hud = [[MBProgressHUD alloc] initWithView:self.view];
+            [self.view addSubview:hud];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = [NSString localizedErrorMesssagesFromError:error];
+            [hud show:YES];
+            [hud hide:YES afterDelay:HUD_TIME_DELAY];
+        }
+        
+        [[CoreDataStack sharedCoreDataStack] saveContext];
+
+    }];
+}
+
 - (void)updateDataToCoreData
 {
     
@@ -1376,9 +1403,6 @@ UINavigationControllerDelegate
     self.info.expertLevel = self.userLevelLabel.text;
     self.info.centerId = [ServCenter getCenterIdByName:self.userCenterLabel.text];
     self.info.stat = @"S0W";
-    
-    UserInfo *info = [UserInfo shareInfo];
-    info.stat = @"S0W";
     
     [[CoreDataStack sharedCoreDataStack] saveContext];
 }
@@ -1465,15 +1489,13 @@ UINavigationControllerDelegate
                 
                 [self updateDataToCoreData];
                 
-                
-                isChecking = YES;
+                self.userInfoState = GCUserInfoStateApproving;
                 self.editing = NO;
                 
                 [self.mainTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
                                           atScrollPosition:UITableViewScrollPositionTop
                                                   animated:NO];
                 [self.mainTableView reloadData];
-                [self setupNavigationBarRightItemWithType:0];
                 
                 
                 hud.mode = MBProgressHUDModeText;
@@ -1484,7 +1506,7 @@ UINavigationControllerDelegate
             {
                 hud.mode = MBProgressHUDModeText;
                 hud.labelText = [NSString localizedMsgFromRet_code:responseData[@"ret_code"] withHUD:YES];
-                [hud hide:YES afterDelay:1.2];
+                [hud hide:YES afterDelay:HUD_TIME_DELAY];
             }
         }
         else

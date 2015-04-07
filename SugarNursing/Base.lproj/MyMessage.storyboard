@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="s1D-Iv-dEc">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
@@ -47,44 +47,54 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyMessageCell" rowHeight="55" id="gEO-qH-lm0" customClass="MyMessageCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyMessageCell" rowHeight="65" id="gEO-qH-lm0" customClass="MyMessageCell">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gEO-qH-lm0" id="99u-gH-DH7">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="系统公告" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a61-b1-7RO" customClass="CustomLabel">
-                                                    <rect key="frame" x="28" y="5" width="68" height="21"/>
+                                                    <rect key="frame" x="70" y="10" width="68" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GMl-ti-nVg">
-                                                    <rect key="frame" x="28" y="31" width="544" height="18"/>
+                                                    <rect key="frame" x="70" y="36" width="502" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天 13:23" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmP-dx-N7f">
-                                                    <rect key="frame" x="519" y="7" width="73" height="18"/>
+                                                    <rect key="frame" x="519" y="12" width="73" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="egT-Ui-0zg">
+                                                    <rect key="frame" x="10" y="10" width="45" height="45"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="45" id="YRa-PK-1da"/>
+                                                        <constraint firstAttribute="width" constant="45" id="mky-fc-guU"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="a61-b1-7RO" firstAttribute="leading" secondItem="egT-Ui-0zg" secondAttribute="trailing" constant="15" id="3si-Y6-RCA"/>
                                                 <constraint firstItem="GMl-ti-nVg" firstAttribute="leading" secondItem="a61-b1-7RO" secondAttribute="leading" id="Cue-y6-Mqg"/>
-                                                <constraint firstItem="a61-b1-7RO" firstAttribute="leading" secondItem="99u-gH-DH7" secondAttribute="leadingMargin" constant="20" id="NIc-5U-r4W"/>
+                                                <constraint firstItem="egT-Ui-0zg" firstAttribute="leading" secondItem="99u-gH-DH7" secondAttribute="leading" constant="10" id="MVq-NO-odj"/>
                                                 <constraint firstItem="GMl-ti-nVg" firstAttribute="top" secondItem="a61-b1-7RO" secondAttribute="bottom" constant="5" id="Ow9-hV-SvM"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="GMl-ti-nVg" secondAttribute="trailing" constant="20" id="QVH-Ex-32B"/>
+                                                <constraint firstAttribute="centerY" secondItem="egT-Ui-0zg" secondAttribute="centerY" id="a6P-lD-Egb"/>
                                                 <constraint firstItem="nmP-dx-N7f" firstAttribute="trailing" secondItem="99u-gH-DH7" secondAttribute="trailingMargin" id="amQ-mf-hG9"/>
-                                                <constraint firstItem="a61-b1-7RO" firstAttribute="top" secondItem="99u-gH-DH7" secondAttribute="top" constant="5" id="dwr-OZ-wQv"/>
+                                                <constraint firstItem="a61-b1-7RO" firstAttribute="top" secondItem="99u-gH-DH7" secondAttribute="top" constant="10" id="dwr-OZ-wQv"/>
                                                 <constraint firstItem="nmP-dx-N7f" firstAttribute="centerY" secondItem="a61-b1-7RO" secondAttribute="centerY" id="uQn-3Y-ace"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="msgDateLabel" destination="nmP-dx-N7f" id="BVl-VG-dm9"/>
                                             <outlet property="msgDetailLabel" destination="GMl-ti-nVg" id="rbT-vm-OTK"/>
+                                            <outlet property="msgImageView" destination="egT-Ui-0zg" id="L06-4a-Je5"/>
                                             <outlet property="msgTitleLabel" destination="a61-b1-7RO" id="yTI-PR-UDN"/>
                                         </connections>
                                     </tableViewCell>

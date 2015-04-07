@@ -10,6 +10,7 @@
 #import <UIImageView+AFNetworking.h>
 #import "MediAttach.h"
 
+
 static CGFloat kCollectionCellWidthHeight = 40.0;
 
 @implementation DiseaseInfo_Cell
@@ -87,6 +88,7 @@ static CGFloat kCollectionCellWidthHeight = 40.0;
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     UIImageView *attImageView = (UIImageView *)[cell viewWithTag:101];
+    [attImageView setImage:nil];
     [attImageView setImageWithURL:[NSURL URLWithString:attach.attachPath] placeholderImage:nil];
     return cell;
 }

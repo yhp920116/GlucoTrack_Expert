@@ -1,4 +1,3 @@
-
 //
 //  CoreDataStack.m
 //  SugarNursing
@@ -51,22 +50,27 @@ NSString *storeFilename = @"GlucoCare.sqlite";
     return storesDirectory;
 }
 
-- (NSURL *)storeURL{
+- (NSURL *)storeURL
+{
     return [[self applicationStoresDirectory] URLByAppendingPathComponent:storeFilename];
 }
 
 #pragma mark - SETUP
 
-- (NSManagedObjectModel *)model {
+- (NSManagedObjectModel *)model
+{
     // The managed object model for the application. It is a fatal error for the application not to be able to find and load its model.
-    if (_model != nil) {
+    if (_model != nil)
+    {
         return _model;
     }
     _model = [NSManagedObjectModel mergedModelFromBundles:nil];
     return _model;
 }
 
-- (NSPersistentStoreCoordinator *)coordinator {
+- (NSPersistentStoreCoordinator *)coordinator
+{
+    
     // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it.
     if (_coordinator != nil) {
         return _coordinator;
@@ -87,7 +91,8 @@ NSString *storeFilename = @"GlucoCare.sqlite";
     NSString *failureReason = @"There was an error creating or loading the application's saved data.";
     _store = [[self coordinator] addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:[self storeURL] options:nil error:&error];
     
-    if (!_store) {
+    if (!_store)
+    {
         // Report any error we got.
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
         dict[NSLocalizedDescriptionKey] = @"Failed to initialize the application's saved data";
@@ -103,14 +108,17 @@ NSString *storeFilename = @"GlucoCare.sqlite";
     return _store;
 }
 
-- (NSManagedObjectContext *)context {
+- (NSManagedObjectContext *)context
+{
     // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.)
-    if (_context != nil) {
+    if (_context != nil)
+    {
         return _context;
     }
     
     NSPersistentStoreCoordinator *coordinator = [self coordinator];
-    if (!coordinator) {
+    if (!coordinator)
+    {
         return nil;
     }
     _context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
@@ -126,11 +134,14 @@ NSString *storeFilename = @"GlucoCare.sqlite";
 
 #pragma mark - Core Data Saving support
 
-- (void)saveContext {
+- (void)saveContext
+{
     NSManagedObjectContext *managedObjectContext = self.context;
-    if (managedObjectContext != nil) {
+    if (managedObjectContext != nil)
+    {
         NSError *error = nil;
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error])
+        {
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             DDLogDebug(@"Unresolved error %@, %@", error, [error userInfo]);

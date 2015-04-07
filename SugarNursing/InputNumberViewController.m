@@ -11,7 +11,7 @@
 #import "UtilsMacro.h"
 #import "AppDelegate+UserLogInOut.h"
 
-@interface InputNumberViewController ()
+@interface InputNumberViewController ()<MBProgressHUDDelegate>
 {
     MBProgressHUD *hud;
     NSInteger _countDown;
@@ -192,6 +192,14 @@
         }
     }];
     
+}
+
+
+
+#pragma mark - MBProgressHUD Delegate
+- (void)hudWasHidden:(MBProgressHUD *)hud2
+{
+    hud2 = nil;
 }
 
 

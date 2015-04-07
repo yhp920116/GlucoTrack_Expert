@@ -11,7 +11,7 @@
 #import <MBProgressHUD.h>
 #import "InputNumberViewController.h"
 
-@interface InputPhoneViewController ()
+@interface InputPhoneViewController ()<MBProgressHUDDelegate>
 {
     MBProgressHUD *hud;
 }
@@ -84,10 +84,18 @@
     vc.phoneNumber = self.phoneField.text;
 }
 
+
 - (IBAction)back:(UIStoryboardSegue *)sender
 {
     
 }
+
+#pragma mark - MBProgressHUD Delegate
+- (void)hudWasHidden:(MBProgressHUD *)hud2
+{
+    hud2 = nil;
+}
+
 
 
 @end

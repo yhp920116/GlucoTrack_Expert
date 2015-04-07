@@ -8,6 +8,7 @@
 
 #import "AppDelegate+Clean.h"
 #import "UtilsMacro.h"
+#import "MsgRemind.h"
 
 @implementation AppDelegate (Clean)
 
@@ -25,6 +26,7 @@
     [TemporaryInfo deleteAllEntityInContext:[CoreDataStack sharedCoreDataStack].context];
     [RecordLog deleteAllEntityInContext:[CoreDataStack sharedCoreDataStack].context];
     [Notice deleteAllEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+    [MsgRemind deleteAllEntityInContext:[CoreDataStack sharedCoreDataStack].context];
 }
 
 @end

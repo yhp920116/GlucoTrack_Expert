@@ -16,10 +16,13 @@
 #import "AttributedLabel.h"
 #import "NoDataLabel.h"
 #import "SinglePatient_ViewController.h"
+#import "MsgRemind.h"
+#import "NotificationName.h"
+
 
 static const NSString *loadSize = @"15";
 
-@interface MyHostingViewController ()<NSFetchedResultsControllerDelegate,SSPullToRefreshViewDelegate>
+@interface MyHostingViewController ()<NSFetchedResultsControllerDelegate,SSPullToRefreshViewDelegate,MBProgressHUDDelegate>
 {
     MBProgressHUD *hud;
 }
@@ -35,39 +38,33 @@ static const NSString *loadSize = @"15";
 
 @implementation MyHostingViewController
 
+- (void)awakeFromNib
+{
+    [self setup];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setup];
     
     
-    [self configureFetchControllerWithFlag:@"01"];
-    [self configureTableViewFooterView];
+    [self reloadMyTableViewData];
     
+    [self showUnreadRemind];
+    
+    self.refreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.hostingTableView delegate:self];
     [self.refreshView startLoadingAndExpand:YES animated:YES];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     
-    [super viewWillAppear:animated];
-    
-    NSIndexPath *indexPath = [self.hostingTableView indexPathForSelectedRow];
-    if (indexPath)
-    {
-        [self.hostingTableView deselectRowAtIndexPath:indexPath animated:YES];
-    }
-    
-    
-    
 }
-
 
 
 - (void)setup
 {
     
-    self.refreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.hostingTableView delegate:self];
     self.queryFlag = @"01";
     
     self.loadedArray = [@{@"01":[NSNumber numberWithBool:NO],
@@ -83,22 +80,99 @@ static const NSString *loadSize = @"15";
 
 - (void)reloadMyTableViewData
 {
+    
     [self configureFetchControllerWithFlag:self.queryFlag];
     [self configureTableViewFooterView];
     [self.hostingTableView reloadData];
-    
-    
-    BOOL isLoaded = [[self.loadedArray objectForKey:self.queryFlag] boolValue];
-    if (!isLoaded)
-    {
+}
+
+
+- (void)updateTableViewData
+{
+    [self requestTrusteeshipWithQueryFlag:self.queryFlag isRefresh:YES block:^{
         
-        [self requestTrusteeshipWithQueryFlag:self.queryFlag isRefresh:YES block:^{
-            
-            [self configureFetchControllerWithFlag:self.queryFlag];
-            [self configureTableViewFooterView];
-            
-            [self.hostingTableView reloadData];
-        }];
+        
+        [self configureFetchControllerWithFlag:self.queryFlag];
+        [self configureTableViewFooterView];
+        [self.hostingTableView reloadData];
+    }];
+}
+
+
+#pragma mark - MBProgressHUD Delegate
+- (void)hudWasHidden:(MBProgressHUD *)hud2
+{
+    hud2 = nil;
+}
+
+
+#pragma mark - Message Remind
+- (void)showUnreadRemind
+{
+    
+    MsgRemind *remind = [MsgRemind shareMsgRemind];
+    
+    if ([remind.hostingConfirmRemindCount integerValue]>0)
+    {
+        [self addMessagePointWithSegmentIndex:1];
+    }
+    
+    if ([remind.hostingRefuseRemindCount integerValue]>0)
+    {
+        [self addMessagePointWithSegmentIndex:2];
+    }
+    
+}
+
+- (void)addMessagePointWithSegmentIndex:(NSInteger )index
+{
+    
+    NSInteger remindImgWidthHeight = 13;
+    
+    [self.hostingSegment setNeedsLayout];
+    [self.hostingSegment layoutIfNeeded];
+    CGSize size = self.hostingSegment.bounds.size;
+    CGFloat originX  = (size.width/4) * (index +1) - remindImgWidthHeight;
+    
+    UIImageView *messagePoint = [[UIImageView alloc] initWithFrame:CGRectMake(originX, 0, remindImgWidthHeight, remindImgWidthHeight)];
+    messagePoint.tag = index== 1? 1002 : 1004;
+    [messagePoint setImage:[UIImage imageNamed:@"messagePoint"]];
+    [self.hostingSegment addSubview:messagePoint];
+}
+
+- (void)cancelMsgPointWithFlag:(NSString *)flag
+{
+    
+    MsgRemind *remind = [MsgRemind shareMsgRemind];
+    if ([flag isEqualToString:@"02"])
+    {
+        remind.hostingConfirmRemindCount = [NSNumber numberWithInteger:0];
+        [[CoreDataStack sharedCoreDataStack] saveContext];
+        UIView *view = [self.hostingSegment viewWithTag:1002];
+        if (view)
+        {
+            [view removeFromSuperview];
+            view = nil;
+            [self.hostingSegment setNeedsLayout];
+            [self.hostingSegment layoutIfNeeded];
+        }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOT_RELOADLEFTMENU object:nil];
+    }
+    else if ([flag isEqualToString:@"04"])
+    {
+        remind.hostingRefuseRemindCount = [NSNumber numberWithInteger:0];
+        [[CoreDataStack sharedCoreDataStack] saveContext];
+        UIView *view = [self.hostingSegment viewWithTag:1004];
+        if (view)
+        {
+            [view removeFromSuperview];
+            view = nil;
+            [self.hostingSegment setNeedsLayout];
+            [self.hostingSegment layoutIfNeeded];
+        }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOT_RELOADLEFTMENU object:nil];
     }
 }
 
@@ -106,18 +180,7 @@ static const NSString *loadSize = @"15";
 #pragma mark - dataOperation
 - (void)refreshData
 {
-    
-//    hud = [[MBProgressHUD alloc] initWithView:self.view];
-//    [self.view addSubview:hud];
-//    [hud show:YES];
-    
-    [self requestTrusteeshipWithQueryFlag:self.queryFlag isRefresh:YES block:^{
-        
-        [self configureFetchControllerWithFlag:self.queryFlag];
-        [self configureTableViewFooterView];
-        [self.hostingTableView reloadData];
-    }];
-    
+    [self updateTableViewData];
 }
 
 #pragma mark - RefreshView Delegate
@@ -167,7 +230,14 @@ static const NSString *loadSize = @"15";
             break;
     }
     
+    
     [self reloadMyTableViewData];
+    
+    BOOL isLoaded = [[self.loadedArray objectForKey:self.queryFlag] boolValue];
+    if (!isLoaded)
+    {
+        [self updateTableViewData];
+    }
 }
 
 
@@ -199,6 +269,8 @@ static const NSString *loadSize = @"15";
             if ([responseData[@"ret_code"] isEqualToString:@"0"])
             {
                 [hud hide:YES];
+                
+                [self cancelMsgPointWithFlag:queryFlag];
                 
                 
                 NSInteger size = [responseData[@"trusteeshipListSize"] integerValue];
@@ -239,6 +311,9 @@ static const NSString *loadSize = @"15";
                     [Trusteeship updateCoreDataWithListArray:objects identifierKey:@"reqtId"];
                     
                     [[CoreDataStack sharedCoreDataStack] saveContext];
+                    
+                    
+                    
                     
                     block();
                 }
@@ -282,12 +357,7 @@ static const NSString *loadSize = @"15";
         BOOL isAll = [[self.isAllArray objectForKey:self.queryFlag] boolValue];
         if (!isAll && !self.loading)
         {
-            [self requestTrusteeshipWithQueryFlag:self.queryFlag isRefresh:NO block:^{
-                
-                [self configureFetchControllerWithFlag:self.queryFlag];
-                
-                [self.hostingTableView reloadData];
-            }];
+            [self updateTableViewData];
         }
     }
 }
@@ -447,11 +517,13 @@ static const NSString *loadSize = @"15";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     Trusteeship *trus = [self.fetchController.fetchedObjects objectAtIndex:indexPath.row];
     SinglePatient_ViewController *singleVC = [[UIStoryboard myPatientStoryboard] instantiateViewControllerWithIdentifier:@"SinglePatientVC"];
     singleVC.linkManId = trus.linkManId;
     singleVC.isMyPatient = YES;
-    if ([NSProcessInfo instancesRespondToSelector:@selector(isOperatingSystemAtLeastVersion:)])
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0"))
     {
         [self showViewController:singleVC sender:nil];
     }
@@ -475,6 +547,8 @@ static const NSString *loadSize = @"15";
     }
 }
 
+
+#pragma mark - Other
 
 
 

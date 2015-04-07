@@ -14,7 +14,7 @@
 
 
 
-@interface CreateHostingViewController ()<NSFetchedResultsControllerDelegate>
+@interface CreateHostingViewController ()<NSFetchedResultsControllerDelegate,MBProgressHUDDelegate>
 {
     MBProgressHUD *hud;
     
@@ -569,6 +569,14 @@
     hud.margin = 0;
     
     [hud show:YES];
+}
+
+
+
+#pragma mark - MBProgressHUD Delegate
+- (void)hudWasHidden:(MBProgressHUD *)hud2
+{
+    hud2 = nil;
 }
 
 

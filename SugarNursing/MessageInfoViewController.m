@@ -12,13 +12,17 @@
 #import <MBProgressHUD.h>
 #import <SSPullToRefresh.h>
 #import "NoDataLabel.h"
+#import "MsgRemind.h"
+#import "NotificationName.h"
+
+
 
 static NSString *identifier = @"MsgInfo_Cell";
 
 static CGFloat kEstimatedCellHeight = 150;
 static NSString *loadSize = @"15";
 
-@interface MessageInfoViewController ()<NSFetchedResultsControllerDelegate,SSPullToRefreshViewDelegate>
+@interface MessageInfoViewController ()<NSFetchedResultsControllerDelegate,SSPullToRefreshViewDelegate,MBProgressHUDDelegate>
 {
     MBProgressHUD *hud;
     NSArray *_serverData;
@@ -47,14 +51,14 @@ static NSString *loadSize = @"15";
     [self configureTableViewFooterView];
     
     
-//    [self.refreshView startLoadingAndExpand:YES animated:YES];
+    [self.refreshView startLoadingAndExpand:YES animated:YES];
 }
 
 
 
 - (void)configureFetchController
 {
-    if (self.msgType == MsgTypeNotice)
+    if (self.msgType == MsgTypeApprove)
     {
         self.fetchController = [Notice fetchAllGroupedBy:nil sortedBy:@"sendTime" ascending:NO withPredicate:nil delegate:self incontext:[CoreDataStack sharedCoreDataStack].context];
     }
@@ -83,9 +87,8 @@ static NSString *loadSize = @"15";
     
     self.loading = YES;
     
-    if (self.msgType == MsgTypeNotice)
+    if (self.msgType == MsgTypeApprove)
     {
-        
         
         NSDictionary *parameters = @{@"method":@"getNoticeList",
                                      @"sessionToken":[NSString sessionToken],
@@ -96,7 +99,8 @@ static NSString *loadSize = @"15";
                                      @"size":loadSize,
                                      @"start":isRefresh ? @"1" : [NSString stringWithFormat:@"%ld",(unsigned long)self.fetchController.fetchedObjects.count]};
         
-        NSURLSessionDataTask *task = [GCRequest getNoticeListWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+
+        [GCRequest getNoticeListWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
             
             self.loading = NO;
             
@@ -137,6 +141,7 @@ static NSString *loadSize = @"15";
                     [self.myTableView reloadData];
                     
                     
+                    [self cancelMsgPoint];
                 }
                 else
                 {
@@ -150,7 +155,12 @@ static NSString *loadSize = @"15";
             }
             else
             {
-                [hud hide:YES];
+                hud = [[MBProgressHUD alloc] initWithView:self.view];
+                [self.view addSubview:hud];
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = [NSString localizedErrorMesssagesFromError:error];
+                [hud show:YES];
+                [hud hide:YES afterDelay:HUD_TIME_DELAY];
             }
             if (self.refreshView)
             {
@@ -158,7 +168,7 @@ static NSString *loadSize = @"15";
             }
         }];
         
-        [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:self];
+        
     }
     else if (self.msgType == MsgTypeBulletin)
     {
@@ -171,11 +181,12 @@ static NSString *loadSize = @"15";
                                      @"sessionId":[NSString sessionID],
                                      @"centerId":info.centerId,
                                      @"groupId":@"3",
+                                     @"recvUser":[NSString exptId],
                                      @"size":loadSize,
                                      @"start":isRefresh ? @"1" : [NSString stringWithFormat:@"%ld",(unsigned long)self.fetchController.fetchedObjects.count]
                                      };
         
-        NSURLSessionDataTask *task = [GCRequest getBulletinListWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+        [GCRequest getBulletinListWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
             
             self.loading = NO;
             
@@ -214,6 +225,9 @@ static NSString *loadSize = @"15";
                     [self.myTableView reloadData];
                     
                     [hud hide:YES];
+                    
+                    
+                    [self cancelMsgPoint];
                 }
                 else
                 {
@@ -224,7 +238,9 @@ static NSString *loadSize = @"15";
             }
             else
             {
-                [hud hide:YES];
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = [NSString localizedErrorMesssagesFromError:error];
+                [hud hide:YES afterDelay:HUD_TIME_DELAY];
             }
             
             
@@ -233,9 +249,6 @@ static NSString *loadSize = @"15";
                 [self.refreshView finishLoading];
             }
         }];
-        
-        
-        [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:self];
     }
     else if (self.msgType == MsgTypeAgent)
     {
@@ -249,7 +262,8 @@ static NSString *loadSize = @"15";
                                      @"size":loadSize,
                                      @"start":isRefresh ? @"1" : [NSString stringWithFormat:@"%ld",(unsigned long)self.fetchController.fetchedObjects.count]};
         
-        NSURLSessionDataTask *task = [GCRequest getNoticeListWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+
+        [GCRequest getNoticeListWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
             
             self.loading = NO;
             
@@ -289,6 +303,8 @@ static NSString *loadSize = @"15";
                         [self.myTableView reloadData];
                     }
                     
+                    
+                    [self cancelMsgPoint];
                 }
                 else
                 {
@@ -302,8 +318,11 @@ static NSString *loadSize = @"15";
             }
             else
             {
+                hud = [[MBProgressHUD alloc] initWithView:self.view];
+                [self.view addSubview:hud];
                 hud.mode = MBProgressHUDModeText;
-                hud.labelText = [NSString localizedMsgFromRet_code:responseData[@"ret_code"] withHUD:YES];
+                hud.labelText = [NSString localizedErrorMesssagesFromError:error];
+                [hud show:YES];
                 [hud hide:YES afterDelay:HUD_TIME_DELAY];
             }
             
@@ -312,8 +331,6 @@ static NSString *loadSize = @"15";
                 [self.refreshView finishLoading];
             }
         }];
-        
-        [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:self];
     }
 }
 
@@ -365,7 +382,7 @@ static NSString *loadSize = @"15";
 
 - (void)configureCell:(MsgInfo_Cell *)cell indexPath:(NSIndexPath *)indexPath
 {
-    if (self.msgType == MsgTypeNotice)
+    if (self.msgType == MsgTypeApprove)
     {
         
         Notice *notice = self.fetchController.fetchedObjects[indexPath.row];
@@ -433,7 +450,7 @@ static NSString *loadSize = @"15";
     else
     {
         NoDataLabel *label = [[NoDataLabel alloc] initWithFrame:self.myTableView.bounds];
-        label.text = (self.msgType == MsgTypeNotice ?
+        label.text = (self.msgType == MsgTypeApprove ?
                       NSLocalizedString(@"have not approve result", nil) : NSLocalizedString(@"have not system bulletin", nil));
         self.myTableView.tableFooterView = label;
     }
@@ -450,6 +467,39 @@ static NSString *loadSize = @"15";
             [self requestMsgListWithIsRefresh:NO];
         }
     }
+}
+
+
+
+#pragma mark - MBProgressHUD Delegate
+- (void)hudWasHidden:(MBProgressHUD *)hud2
+{
+    hud2 = nil;
+}
+
+
+#pragma mark - Other
+
+- (void)cancelMsgPoint
+{
+ 
+    MsgRemind *remind = [MsgRemind shareMsgRemind];
+    
+    switch (self.msgType)
+    {
+        case MsgTypeAgent:
+            remind.messageAgentRemindCount = [NSNumber numberWithInteger:0];
+            break;
+        case MsgTypeBulletin:
+            remind.messageBulletinRemindCount = [NSNumber numberWithInteger:0];
+            break;
+        case MsgTypeApprove:
+            remind.messageApproveRemindCount = [NSNumber numberWithInteger:0];
+        default:
+            break;
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOT_RELOADLEFTMENU object:nil];
 }
 
 

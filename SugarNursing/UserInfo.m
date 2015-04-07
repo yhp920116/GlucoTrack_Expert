@@ -9,6 +9,7 @@
 #import "UserInfo.h"
 #import "CoreDataStack.h"
 #import "NSManagedObject+Finders.h"
+#import "NSManagedObject+Savers.h"
 
 @implementation UserInfo
 
@@ -39,7 +40,13 @@
     
     NSArray *array = [UserInfo findAllInContext:[CoreDataStack sharedCoreDataStack].context];
     
-    if (array.count >0)
+    if (array.count <= 0)
+    {
+        
+        UserInfo *info = [UserInfo createEntityInContext:[CoreDataStack sharedCoreDataStack].context];
+        return info;
+    }
+    else
     {
         return array[0];
     }

@@ -9,6 +9,7 @@
 #import "SystemSetTableViewController.h"
 #import "VerificationViewController.h"
 #import "UIStoryboard+Storyboards.h"
+#import "SystemVersion.h"
 
 @interface SystemSetTableViewController ()<UIActionSheetDelegate>
 
@@ -44,7 +45,7 @@
     verfication.title = NSLocalizedString(@"Reset password", nil);
     verfication.verifiedType = VerifiedTypeReset;
     
-    if ([NSProcessInfo instancesRespondToSelector:@selector(isOperatingSystemAtLeastVersion:)]) {
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
         // conditionly check for any version >= iOS 8
         [self showViewController:verfication sender:nil];
         

@@ -19,7 +19,7 @@
 
 static NSString *loadSize = @"20";
 
-@interface MyPatientsViewController ()<NSFetchedResultsControllerDelegate,SSPullToRefreshViewDelegate>
+@interface MyPatientsViewController ()<NSFetchedResultsControllerDelegate,SSPullToRefreshViewDelegate,MBProgressHUDDelegate>
 {
     MBProgressHUD *hud;
     NSMutableArray *_dataArray;       //从数据库获取的数据
@@ -62,6 +62,7 @@ static NSString *loadSize = @"20";
     
     
     [self.refreshView startLoadingAndExpand:YES animated:YES];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -248,6 +249,12 @@ static NSString *loadSize = @"20";
     
     self.refreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.mainTableView
                                                               delegate:self];
+}
+
+#pragma mark - MBProgressHUD Delegate
+- (void)hudWasHidden:(MBProgressHUD *)hud2
+{
+    hud2 = nil;
 }
 
 

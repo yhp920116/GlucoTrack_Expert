@@ -14,6 +14,15 @@
 #import "AppDelegate+UserLogInOut.h"
 #import "UtilsMacro.h"
 #import "UserInfoViewController.h"
+#import "NotificationName.h"
+
+typedef NS_ENUM(NSInteger, GCLanguageType)
+{
+    GCLanguageTypeSimplified = 1,
+    GCLanguageTypeTraditional = 2,
+    GCLanguageTypeEnglish = 3
+};
+
 
 @interface LeftMenuController ()<NSFetchedResultsControllerDelegate>
 {
@@ -44,7 +53,7 @@
                             ];
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadLeftMenu) name:@"reloadLeftMenu" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadLeftMenu) name:NOT_RELOADLEFTMENU object:nil];
 }
 
 - (void)viewDidLoad
@@ -55,6 +64,7 @@
     [self configureMenu];
     [self requestForAPP];
 }
+
 
 - (void)reloadLeftMenu
 {
@@ -74,7 +84,7 @@
 
 - (void)requestForAPP
 {
-    [self requestNewMessageCount];
+    [self detectApplicationLanguage];
     
     if ([LoadedLog needReloadedByKey:@"userInfo"] || ![UserInfo existWithContext:[CoreDataStack sharedCoreDataStack].context])
     {
@@ -88,9 +98,70 @@
     {
         [self requestForDepartment];
     }
+    
 }
 
+- (void)detectApplicationLanguage
+{
+    
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    NSArray *allLanguages = [user objectForKey:@"AppleLanguages"];
+    NSString *currentLanguage = allLanguages[0];
+    
+    NSString *lastLanguages = [user objectForKey:@"LastLanguages"];
+    if (!lastLanguages || ![currentLanguage isEqualToString:lastLanguages])
+    {
+        GCLanguageType langugeType;
+        if ([currentLanguage isEqualToString:@"zh-Hans"])
+        {
+            langugeType = GCLanguageTypeSimplified;
+        }
+        else if ([currentLanguage isEqualToString:@"zh-Hant"])
+        {
+            langugeType = GCLanguageTypeTraditional;
+        }
+        else if ([currentLanguage isEqualToString:@"en"])
+        {
+            langugeType = GCLanguageTypeEnglish;
+        }
+        else
+        {
+            langugeType = GCLanguageTypeTraditional;
+        }
+        
+        [self updateServerSystemLanguage:langugeType];
+    }
+}
 
+#pragma mark - Net Working
+
+- (void)updateServerSystemLanguage:(GCLanguageType)langugeType
+{
+    
+    NSDictionary *parameters = @{@"method":@"setUserLanguage",
+                                 @"sign":@"sign",
+                                 @"sessionId":[NSString sessionID],
+                                 @"sessionToken":[NSString sessionToken],
+                                 @"accountId":[NSString exptId],
+                                 @"language":[NSString stringWithFormat:@"%ld",langugeType]};
+    
+    [GCRequest setUserLanguageWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+        
+        if (!error)
+        {
+            if ([responseData[@"ret_code"] isEqualToString:@"0"])
+            {
+                
+                NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+                NSArray *allLanguages = [user objectForKey:@"AppleLanguages"];
+                NSString *currentLanguage = allLanguages[0];
+                
+                [user setObject:currentLanguage forKey:@"LastLanguages"];
+                [user synchronize];
+            }
+        }
+    }];
+}
 
 
 - (void)requestUserInfo
@@ -214,26 +285,6 @@
 }
 
 
-- (void)requestNewMessageCount
-{
-    
-    NSDictionary *parameters = @{@"method":@"getNewMessageCount",
-                                 @"recvUser":[NSString exptId]};
-    [GCRequest getNewMessageCountWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
-        
-        if (!error)
-        {
-            if ([responseData[@"ret_code"] isEqualToString:@"0"])
-            {
-                NSLog(@"%@",responseData);
-            }
-            else
-            {
-                
-            }
-        }
-    }];
-}
 
 
 #pragma mark - TableViewDelegate
@@ -257,7 +308,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0 ) {
+    if (indexPath.row == 0 )
+    {
+        
         MemberInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MemberInfoCell" forIndexPath:indexPath];
         
         cell.backgroundColor = [UIColor clearColor];
@@ -276,12 +329,15 @@
     cell.backgroundColor = [UIColor clearColor];
     cell.contentView.backgroundColor = [UIColor clearColor];
     [cell configureCellWithIconName:self.menuArray[indexPath.row-1][1] LabelText:self.menuArray[indexPath.row-1][0]];
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    
     
     if (self.selectedIndex == indexPath.row) {
         [self.sideMenuViewController hideMenuViewController];

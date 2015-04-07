@@ -34,19 +34,12 @@
     
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self performSelector:@selector(showMenu:) withObject:nil afterDelay:1.25];
-
+    
 }
-
-
-- (void)showMenu:(id)sender
-{
-    [self presentLeftMenuViewController];
-}
-
 
 
 - (void)didReceiveMemoryWarning {

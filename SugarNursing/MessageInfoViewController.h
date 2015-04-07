@@ -10,7 +10,7 @@
 
 typedef NS_ENUM(NSInteger, MsgType)
 {
-    MsgTypeNotice = 0,
+    MsgTypeApprove = 0,
     MsgTypeBulletin = 1,
     MsgTypeAgent = 2
 };

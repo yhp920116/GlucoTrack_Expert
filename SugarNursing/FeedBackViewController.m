@@ -10,7 +10,7 @@
 #import "UtilsMacro.h"
 #import <MBProgressHUD.h>
 
-@interface FeedBackViewController ()
+@interface FeedBackViewController ()<MBProgressHUDDelegate>
 {
     MBProgressHUD *hud;
 }
@@ -74,6 +74,13 @@
             [hud hide:YES afterDelay:HUD_TIME_DELAY];
         }
     }];
+}
+
+
+#pragma mark - MBProgressHUD Delegate
+- (void)hudWasHidden:(MBProgressHUD *)hud2
+{
+    hud2 = nil;
 }
 
 

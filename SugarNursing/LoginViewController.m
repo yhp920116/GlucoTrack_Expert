@@ -19,12 +19,14 @@
 #import "NSManagedObject+Finders.h"
 #import "NSManagedObject+Savers.h"
 #import "AppDelegate+Clean.h"
+#import "AppDelegate.h"
 
 
-@interface LoginViewController ()
+@interface LoginViewController ()<MBProgressHUDDelegate>
 {
     MBProgressHUD *hud;
 }
+
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
@@ -112,6 +114,12 @@
     }];
 }
 
+#pragma mark - MBProgressHUD Delegate
+- (void)hudWasHidden:(MBProgressHUD *)hud2
+{
+    hud2 = nil;
+}
+
 #pragma mark - userAction
 
 - (IBAction)userRegist:(id)sender
@@ -121,23 +129,24 @@
 
 - (IBAction)userLogin:(id)sender
 {
-    if ([self.usernameField.text isEqualToString:@"000"])
-    {
-        [AppDelegate userLogIn];
-        return;
-    }
+    
     
     hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:hud];
     hud.labelText = NSLocalizedString(@"Login..", nil);
     [hud show:YES];
+
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     
     
     NSDictionary *parameters = @{@"method":@"verify",
                                  @"accountName":self.usernameField.text,
-                                 @"password":self.passwordField.text};
+                                 @"password":self.passwordField.text,
+                                 @"language":[self detectApplicationLanguage],
+                                 @"clientSource":@"ios",
+                                 @"deviceToken":appDelegate.deviceToken ? appDelegate.deviceToken : @""};
     
-
+    
     [GCRequest verifyWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
         if (!error)
         {
@@ -145,7 +154,6 @@
             if ([ret_code isEqualToString:@"0"])
             {
                 // 这里对获取到的会话标识、会话标识Token和用户标识等进行数据持久化
-                
                 NSMutableDictionary *responseDic = [responseData mutableCopy];
                 [responseDic setValue:[self.passwordField.text md5] forKey:@"password"];
                 [responseDic setValue:self.usernameField.text forKey:@"username"];
@@ -154,18 +162,19 @@
                 
                 // 这里的user是一个单例，有且只有一个用户数据，标识当前的用户
                 User *user;
-                
-                if ([userObjects count]== 0) {
+                if ([userObjects count]== 0)
+                {
                     user = [User createEntityInContext:[CoreDataStack sharedCoreDataStack].context];
-                    
-                }else{
+                }
+                else
+                {
                     user = userObjects[0];
                 }
                 
                 [user updateCoreDataForData:responseDic withKeyPath:nil];
                 [[CoreDataStack sharedCoreDataStack] saveContext];
                 
-                
+                //判断当前登陆的账号跟上一次登陆的账号是否相同
                 [self isOtherPhoneLogin];
                 
                 if (![UserInfo existWithContext:[CoreDataStack sharedCoreDataStack].context])
@@ -244,6 +253,8 @@
                 
                 [AppDelegate userLogIn];
                 [hud hide:YES afterDelay:0.25];
+                
+                
             }
             else
             {
@@ -264,8 +275,33 @@
     
 }
 
+//检测设备语言
+- (NSString *)detectApplicationLanguage
+{
+    
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    NSArray *allLanguages = [user objectForKey:@"AppleLanguages"];
+    NSString *currentLanguage = allLanguages[0];
+    
+    if ([currentLanguage isEqualToString:@"zh-Hans"])
+    {
+        return @"1";
+    }
+    else if ([currentLanguage isEqualToString:@"zh-Hant"])
+    {
+        return @"2";
+    }
+    else if ([currentLanguage isEqualToString:@"en"])
+    {
+        return @"3";
+    }
+    else
+    {
+        return @"2";
+    }
+}
 
-#pragma mark 是否是另外的账号登陆,是则清楚所有缓存
+#pragma mark 判断当前登陆的账号跟上一次登陆的账号是否相同,不同则清楚所有缓存
 - (void)isOtherPhoneLogin
 {
     NSArray *userObjects = [User findAllInContext:[CoreDataStack sharedCoreDataStack].context];

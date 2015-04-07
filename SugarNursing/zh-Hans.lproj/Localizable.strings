@@ -274,6 +274,7 @@
 /* My Message Section */
 "Approve Result" = "审核结果";
 "System Bulletin" = "系统公告";
+"Agent Message" = "客服消息";
 
 "today" = "今天";
 "tomorrow" = "明天";
@@ -332,9 +333,6 @@
 
 
 
-"approve result" = "审核结果";
-"system bulletin" = "系统公告";
-"Agent Message" = "客服消息";
 
 "have not approve result" = "暂无审核结果";
 "have not system bulletin" = "暂无系统公告";

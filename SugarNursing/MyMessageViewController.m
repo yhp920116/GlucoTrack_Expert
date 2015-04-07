@@ -13,10 +13,12 @@
 #import "NoDataLabel.h"
 #import <MBProgressHUD.h>
 #import <SSPullToRefresh.h>
+#import "MsgRemind.h"
+#import "M13BadgeView.h"
+#import "NotificationName.h"
 
 
-
-@interface MyMessageViewController ()<NSFetchedResultsControllerDelegate,SSPullToRefreshViewDelegate>
+@interface MyMessageViewController ()<NSFetchedResultsControllerDelegate,SSPullToRefreshViewDelegate,MBProgressHUDDelegate>
 {
     NSInteger _selectIndexRow;
     MBProgressHUD *hud;
@@ -36,6 +38,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadMsgTableView) name:NOT_RELOADMSGMENU object:nil];
+    
     self.refreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.myTableView delegate:self];
     
     
@@ -48,7 +53,30 @@
     [self.refreshView startLoadingAndExpand:YES animated:YES];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    
+    if (self.isAPNS)
+    {
+        self.isAPNS = NO;
+        [self performSegueWithIdentifier:@"goMessageInfo" sender:nil];
+    }
+}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.myTableView reloadData];
+}
+
+- (void)reloadMsgTableView
+{
+    [self.myTableView reloadData];
+}
+
+
+#pragma mark - FetchedController
 - (void)configureFetchControllerNotice
 {
     self.fetchControllerNotice = [Notice fetchAllGroupedBy:nil sortedBy:@"sendTime" ascending:NO withPredicate:nil delegate:self incontext:[CoreDataStack sharedCoreDataStack].context];
@@ -71,6 +99,14 @@
 //}
 
 
+#pragma mark - MBProgressHUD Delegate
+- (void)hudWasHidden:(MBProgressHUD *)hud2
+{
+    hud2 = nil;
+}
+
+
+#pragma mark - Refresh View
 - (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
 {
     [self refreshData];
@@ -83,6 +119,9 @@
     [self requestAgentMsg];
 }
 
+
+
+#pragma mark - Net Working
 - (void)requestNotice
 {
     
@@ -208,6 +247,7 @@
                                  @"sessionId":[NSString sessionID],
                                  @"centerId":info.centerId,
                                  @"groupId":@"3",
+                                 @"recvUser":[NSString exptId],
                                  @"size":@"15",
                                  @"start":@"1"};
     
@@ -227,7 +267,6 @@
                  [self configureFetchControllerBulletin];
                  [self.myTableView reloadData];
                  [self configureTableViewFooterView];
-                 
                  
                  [hud hide:YES];
              }
@@ -260,21 +299,14 @@
 }
 
 
-- (void)viewWillAppear:(BOOL)animated
+
+
+
+#pragma mark - UITableView Delegate & DataSource
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [super viewWillAppear:animated];
-    
-    
-    NSIndexPath *indexPath = [self.myTableView indexPathForSelectedRow];
-    if (indexPath)
-    {
-        [self.myTableView deselectRowAtIndexPath:indexPath animated:YES];
-    }
+    return 65;
 }
-
-
-
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -309,6 +341,8 @@
 - (void)configureCellWithCell:(MyMessageCell *)cell indexPath:(NSIndexPath *)indexPath
 {
     
+    MsgRemind *msgRemind = [MsgRemind shareMsgRemind];
+
     if (indexPath.row == 0 && self.fetchControllerNotice.fetchedObjects.count >0)
     {
         NSString *title = NSLocalizedString(@"Approve Result", nil);
@@ -331,6 +365,12 @@
             
             NSString *msgDateString = [NSString stringWithFormat:@"%@ %@",nearDayString,timeString];
             [cell.msgDateLabel setText:msgDateString];
+            
+            
+            [cell.msgImageView setImage:[UIImage imageNamed:@"Approve"]];
+            NSInteger messageCount =  [msgRemind.messageApproveRemindCount integerValue];
+            
+            [self addBadgeViewWithView:cell.msgImageView messageCount:messageCount];
         }
         else
         {
@@ -359,6 +399,13 @@
             
             NSString *msgDateString = [NSString stringWithFormat:@"%@ %@",nearDayString,timeString];
             [cell.msgDateLabel setText:msgDateString];
+            
+            
+            [cell.msgImageView setImage:[UIImage imageNamed:@"Bulletin"]];
+            
+            NSInteger messageCount =  [msgRemind.messageBulletinRemindCount integerValue];
+
+            [self addBadgeViewWithView:cell.msgImageView messageCount:messageCount];
         }
         else
         {
@@ -388,6 +435,12 @@
             
             NSString *msgDateString = [NSString stringWithFormat:@"%@ %@",nearDayString,timeString];
             [cell.msgDateLabel setText:msgDateString];
+            
+            [cell.msgImageView setImage:[UIImage imageNamed:@"Agent"]];
+            
+            
+            NSInteger messageCount =  [msgRemind.messageAgentRemindCount integerValue];
+            [self addBadgeViewWithView:cell.msgImageView messageCount:messageCount];
         }
         else
         {
@@ -401,39 +454,71 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    _selectIndexRow = indexPath.row;
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    MyMessageCell *cell = (MyMessageCell *)[self.myTableView cellForRowAtIndexPath:indexPath];
+    NSString *cellTitle = cell.msgTitleLabel.text;
+    self.goMsgTitle = cellTitle;
+    
+    if ([cellTitle isEqualToString:NSLocalizedString(@"Approve Result", nil)])
+    {
+        self.goMsgType  = MsgTypeApprove;
+    }
+    else if ([cellTitle isEqualToString:NSLocalizedString(@"System Bulletin", nil)])
+    {
+        self.goMsgType = MsgTypeBulletin;
+    }
+    else if ([cellTitle isEqualToString:NSLocalizedString(@"Agent Message", nil)])
+    {
+        self.goMsgType = MsgTypeAgent;
+    }
+
+    
     [self performSegueWithIdentifier:@"goMessageInfo" sender:nil];
 }
 
+#pragma mark - Other
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     
     MessageInfoViewController *vc = (MessageInfoViewController *)[segue destinationViewController];
     
-    
-    MyMessageCell *cell = (MyMessageCell *)[self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:_selectIndexRow inSection:0]];
-    NSString *cellTitle = cell.msgTitleLabel.text;
-    if ([cellTitle isEqualToString:NSLocalizedString(@"approve result", nil)])
-    {
-        vc.title = NSLocalizedString(@"approve result", nil);
-        vc.msgType = MsgTypeNotice;
-    }
-    else if ([cellTitle isEqualToString:NSLocalizedString(@"system bulletin", nil)])
-    {
-        
-        vc.title = NSLocalizedString(@"system bulletin", nil);
-        vc.msgType = MsgTypeBulletin;
-    }
-    else if ([cellTitle isEqualToString:NSLocalizedString(@"Agent Message", nil)])
-    {
-        
-        vc.title = NSLocalizedString(@"Agent Message", nil);
-        vc.msgType = MsgTypeAgent;
-    }
-    
-    
+    vc.title = self.goMsgTitle;
+    vc.msgType = self.goMsgType;
 }
+
+
+
+- (void)addBadgeViewWithView:(UIView *)view messageCount:(NSInteger)count
+{
+    if (count>0)
+    {
+        
+        NSInteger badgeWidthHeitght = 20.0;
+        
+        M13BadgeView *_badgeView = [[M13BadgeView alloc] initWithFrame:CGRectMake(0,
+                                                                                  0,
+                                                                                  badgeWidthHeitght,
+                                                                                  badgeWidthHeitght)];
+        _badgeView.tag = 1001;
+        _badgeView.hidesWhenZero = YES;
+        _badgeView.text = [NSString stringWithFormat:@"%ld",count];
+        [view addSubview:_badgeView];
+        
+        _badgeView.horizontalAlignment = M13BadgeViewHorizontalAlignmentRight;
+    }
+    else
+    {
+        M13BadgeView *_badgeView = (M13BadgeView *)[view viewWithTag:1001];
+        if (_badgeView)
+        {
+            [_badgeView removeFromSuperview];
+            [self.myTableView reloadData];
+        }
+    }
+}
+
 
 
 

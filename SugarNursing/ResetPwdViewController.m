@@ -14,7 +14,8 @@
 
 @interface ResetPwdViewController ()
 <
-UIAlertViewDelegate
+UIAlertViewDelegate,
+MBProgressHUDDelegate
 >
 {
     MBProgressHUD *hud;
@@ -265,6 +266,13 @@ UIAlertViewDelegate
         }
     }];
     
+}
+
+
+#pragma mark - MBProgressHUD Delegate
+- (void)hudWasHidden:(MBProgressHUD *)hud2
+{
+    hud2 = nil;
 }
 
 

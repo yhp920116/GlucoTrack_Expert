@@ -66,13 +66,14 @@
 
 #import <DDLog.h>
 #import <DDLegacy.h>
+#import "SystemVersion.h"
 
 #ifndef SugarNursing_UtilsMacro_h
 #define SugarNursing_UtilsMacro_h
 
 /*  For Debug  */
 
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+static const int ddLogLevel = LOG_LEVEL_DEBUG;
 
 
 

@@ -2,7 +2,7 @@
 //  LoadedLog.m
 //  SugarNursing
 //
-//  Created by Ian on 15-1-14.
+//  Created by Ian on 15-3-12.
 //  Copyright (c) 2015年 Tisson. All rights reserved.
 //
 
@@ -16,11 +16,13 @@
 @implementation LoadedLog
 
 @dynamic department;
-@dynamic serviceCenter;
-@dynamic trusPatient;
-@dynamic trusExpt;
 @dynamic patient;
+@dynamic serviceCenter;
+@dynamic trusExpt;
+@dynamic trusPatient;
 @dynamic userInfo;
+@dynamic temporaryInfo;
+
 
 
 
@@ -52,7 +54,8 @@
                                   @"trusPatient":GC_FORMATTER_MINUTE,
                                   @"trusExpt":GC_FORMATTER_MINUTE,
                                   @"patient":GC_FORMATTER_HOUR,
-                                  @"userInfo":GC_FORMATTER_MINUTE
+                                  @"userInfo":GC_FORMATTER_MINUTE,
+                                  @"temporaryInfo":GC_FORMATTER_MINUTE
                                   };
     
     NSString *interval = [intervalDic objectForKey:key];
@@ -80,7 +83,6 @@
 }
 
 
+
+
 @end
-
-
-

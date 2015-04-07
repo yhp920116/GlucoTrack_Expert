@@ -137,6 +137,18 @@
 + (NSURLSessionDataTask *)sendFeedBackWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
 
 
+#pragma mark SetUserLanguage
++ (NSURLSessionDataTask *)setUserLanguageWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+
+
+#pragma mark GetLastPersonalInfo
++ (NSURLSessionDataTask *)getLastPersonalInfoWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+
+#pragma mark ResetNewMessageCount
++ (NSURLSessionDataTask *)resetNewMessageCountWithParameters:(id)parameters block:(void(^)(NSDictionary *responseData, NSError *error))block;
+
+
+
 
 
 

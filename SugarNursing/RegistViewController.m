@@ -13,7 +13,7 @@
 #import <UIAlertView+AFNetworking.h>
 #import "UtilsMacro.h"
 
-@interface RegistViewController ()<UIAlertViewDelegate,UIActionSheetDelegate,UITextFieldDelegate,UIScrollViewDelegate>
+@interface RegistViewController ()<UIAlertViewDelegate,UIActionSheetDelegate,UITextFieldDelegate,UIScrollViewDelegate,MBProgressHUDDelegate>
 {
     MBProgressHUD *hud;
     
@@ -134,6 +134,14 @@
     }];
 }
 
+
+#pragma mark - MBProgressHUD Delegate
+- (void)hudWasHidden:(MBProgressHUD *)hud2
+{
+    hud2 = nil;
+}
+
+
 #pragma mark - IBAction
 
 - (IBAction)getCodeAgain:(id)sender
@@ -156,7 +164,8 @@
                                          @"mobile":self.phoneNumber,
                                          @"zone":self.areaCode};
             
-            NSURLSessionDataTask *task = [GCRequest getCaptchaWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+
+            [GCRequest getCaptchaWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
                 
                 if (!error)
                 {
@@ -195,8 +204,6 @@
                     [alert show];
                 }
             }];
-            
-            [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:self];
         }
     }
 }
@@ -724,7 +731,8 @@
                                  @"zone":self.areaCode};
     
     
-    NSURLSessionDataTask *registerTask = [GCRequest accountRegistWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
+
+    [GCRequest accountRegistWithParameters:parameters block:^(NSDictionary *responseData, NSError *error) {
         
         
         if (!error)
@@ -746,8 +754,6 @@
         else [hud hide:YES afterDelay:0.25];
         
     }];
-    
-    [UIAlertView showAlertViewForTaskWithErrorOnCompletion:registerTask delegate:nil];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView

@@ -16,7 +16,7 @@
 #import "UIStoryboard+Storyboards.h"
 
 
-@interface VerificationViewController ()<UIAlertViewDelegate>{
+@interface VerificationViewController ()<UIAlertViewDelegate,MBProgressHUDDelegate>{
     MBProgressHUD *hud;
 }
 
@@ -74,34 +74,30 @@
 
 - (IBAction)GetVerificationCode:(id)sender
 {
-    if ([self.phoneField.text isEqualToString:@"000"])
-    {
-        switch (self.verifiedType)
-        {
-            case VerifiedTypeRegister:
-                [self performSegueWithIdentifier:@"Register" sender:nil];
-                return;
-            case VerifiedTypeForget:
-                [self performSegueWithIdentifier:@"Reset" sender:nil];
-                return;
-            case VerifiedTypeReset:
-                [self performSegueWithIdentifier:@"Reset" sender:nil];
-                return;
-            case VerifiedTypeBindPhone:
-                [self performSegueWithIdentifier:@"goInputCode" sender:nil];
-                return;
-                
-        }
-    }
+//    if ([self.phoneField.text isEqualToString:@"000"])
+//    {
+//        switch (self.verifiedType)
+//        {
+//            case VerifiedTypeRegister:
+//                [self performSegueWithIdentifier:@"Register" sender:nil];
+//                return;
+//            case VerifiedTypeForget:
+//                [self performSegueWithIdentifier:@"Reset" sender:nil];
+//                return;
+//            case VerifiedTypeReset:
+//                [self performSegueWithIdentifier:@"Reset" sender:nil];
+//                return;
+//            case VerifiedTypeBindPhone:
+//                [self performSegueWithIdentifier:@"goInputCode" sender:nil];
+//                return;
+//                
+//        }
+//    }
     
     if ([self.phoneField isFirstResponder])
     {
         [self.phoneField resignFirstResponder];
     }
-    
-    
-    
-    
     
     
     
@@ -209,7 +205,7 @@
                                  @"mobile":self.phoneField.text,
                                  @"memberType":@"1"};
     
-
+    
     [GCRequest isMemberWithParameters:parameters block:^(NSDictionary *responseData, NSError *error)
     {
         
@@ -275,10 +271,6 @@
                         [alert show];
                     }
                 }
-                
-                
-                
-                
                 
             }
             else
@@ -350,6 +342,14 @@
     }];
     
 }
+
+
+#pragma mark - MBProgressHUD Delegate
+- (void)hudWasHidden:(MBProgressHUD *)hud2
+{
+    hud2 = nil;
+}
+
 
 #pragma mark - Navigation
 

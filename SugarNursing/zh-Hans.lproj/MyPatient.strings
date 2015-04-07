@@ -298,10 +298,10 @@
 "mY4-Vd-gDC.text" = "女";
 
 /* Class = "IBUISegmentedControl"; n7P-XW-ulg.segmentTitles[0] = "BloodSugar"; ObjectID = "n7P-XW-ulg"; */
-"n7P-XW-ulg.segmentTitles[0]" = "血糖";
+"n7P-XW-ulg.segmentTitles[0]" = "Glu";
 
 /* Class = "IBUISegmentedControl"; n7P-XW-ulg.segmentTitles[1] = "GHBALC"; ObjectID = "n7P-XW-ulg"; */
-"n7P-XW-ulg.segmentTitles[1]" = "糖化血红蛋白";
+"n7P-XW-ulg.segmentTitles[1]" = "HbA1c";
 
 /* Class = "IBUILabel"; text = "空腹血糖波动"; ObjectID = "n9i-Xa-n1A"; */
 "n9i-Xa-n1A.text" = "空腹血糖波动";

@@ -37,6 +37,7 @@ static NSString * const GCHttpProductionURLString = @"http://user.lifecaring.cn/
 #define GC_EXPERT_SENDTRUSTEESHIP_URL @"rest/laop/expert/trusteeship"
 #define GC_EXPERT_APPRTRUSTEESHIP_URL @"rest/laop/expert/trusteeship"
 #define GC_EXPERT_GETTRUSEXPTLIST_URL @"rest/laop/expert/trusteeship"
+#define GC_EXPERT_GETLASTINFO_URL @"rest/laop/expert/account"
 
 
 #define GC_USER_GETMEDIRECORD_URL @"rest/laop/linkMan/mediRecord"
@@ -52,11 +53,15 @@ static NSString * const GCHttpProductionURLString = @"http://user.lifecaring.cn/
 #define GC_COMMON_RESETPASSWORD_URL @"rest/laop/common/account"
 #define GC_COMMON_UPLOADFILE_URL @"rest/laop/common/upload"
 #define GC_COMMON_GETDEPARTMENT_URL @"rest/laop/common/hospital"
-#define GC_COMMON_GETMSGCOUNT_URL @"rest/laop/common/massage"
+#define GC_COMMON_GETMSGCOUNT_URL @"rest/laop/common/message"
 #define GC_COMMON_GETVERSION_URL @"rest/laop/common/version"
 #define GC_COMMON_ISMEMBER_URL @"rest/laop/common/account"
 #define GC_COMMON_GETNOTICELIST_URL @"rest/laop/common/message"
 #define GC_COMMON_GETBULLETINLIST_URL @"rest/laop/common/message"
 #define GC_COMMON_SENDFEEDBACK_URL @"rest/laop/common/feedBack"
+#define GC_COMMON_SETLANGUAGE_URL @"rest/laop/common/language"
+#define GC_COMMON_RESETMSGCOUNT_URL @"rest/laop/common/message"
+
+
 
 #endif

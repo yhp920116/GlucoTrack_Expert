@@ -174,10 +174,10 @@
 "mY4-Vd-gDC.text" = "";
 
 /* Class = "IBUISegmentedControl"; n7P-XW-ulg.segmentTitles[0] = "BloodSugar"; ObjectID = "n7P-XW-ulg"; */
-"n7P-XW-ulg.segmentTitles[0]" = "BloodSugar";
+"n7P-XW-ulg.segmentTitles[0]" = "Glu";
 
 /* Class = "IBUISegmentedControl"; n7P-XW-ulg.segmentTitles[1] = "GHBALC"; ObjectID = "n7P-XW-ulg"; */
-"n7P-XW-ulg.segmentTitles[1]" = "GHBALC";
+"n7P-XW-ulg.segmentTitles[1]" = "HbA1c";
 
 /* Class = "IBUILabel"; text = "Other Facility's HbA1c"; ObjectID = "oGw-qF-KYm"; */
 "oGw-qF-KYm.text" = "用藥";

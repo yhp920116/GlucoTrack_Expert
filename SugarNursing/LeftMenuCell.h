@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *LeftMenuIcon;
 @property (weak, nonatomic) IBOutlet UILabel *LeftMenuLabel;
 
+@property (weak, nonatomic) IBOutlet UIImageView *leftMenuMsgPoint;
+
 - (void)configureCellWithIconName:(NSString *)iconName LabelText:(NSString *)labelText;
 
 @end

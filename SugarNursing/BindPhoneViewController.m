@@ -14,7 +14,7 @@
 #import "UIStoryboard+Storyboards.h"
 
 
-@interface BindPhoneViewController ()
+@interface BindPhoneViewController ()<MBProgressHUDDelegate>
 {
     MBProgressHUD *hud;
 }
@@ -161,19 +161,26 @@
         verfication.title = NSLocalizedString(@"Reset telephone", nil);
         verfication.verifiedType = VerifiedTypeBindPhone;
         
-        if ([NSProcessInfo instancesRespondToSelector:@selector(isOperatingSystemAtLeastVersion:)]) {
-            // conditionly check for any version >= iOS 8
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0"))
+        {
             [self showViewController:verfication sender:nil];
             
         }
         else
         {
-            // iOS 7 or below
             [self.navigationController pushViewController:verfication animated:YES];
         }
 
     }
 }
+
+
+#pragma mark - MBProgressHUD Delegate
+- (void)hudWasHidden:(MBProgressHUD *)hud2
+{
+    hud2 = nil;
+}
+
 
 - (IBAction)back:(UIStoryboardSegue *)sender
 {

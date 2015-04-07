@@ -17,7 +17,7 @@
 #import "SendSuggestViewController.h"
 #import "UIStoryboard+Storyboards.h"
 
-@interface ControlEffectViewController ()<UITableViewDataSource, UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate, SSPullToRefreshViewDelegate, NSFetchedResultsControllerDelegate>
+@interface ControlEffectViewController ()<UITableViewDataSource, UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate, SSPullToRefreshViewDelegate, NSFetchedResultsControllerDelegate,MBProgressHUDDelegate>
 {
     MBProgressHUD *hud;
 }
@@ -90,7 +90,7 @@
     
     SendSuggestViewController *vc = [[UIStoryboard myPatientStoryboard] instantiateViewControllerWithIdentifier:@"SendAdvice"];
     vc.linkManId = self.linkManId;
-    if ([NSProcessInfo instancesRespondToSelector:@selector(isOperatingSystemAtLeastVersion:)]) {
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
         [self showViewController:vc sender:nil];
         
     }
@@ -142,6 +142,14 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"linkManId = %@",self.linkManId];
     self.fetchController = [ControlEffect fetchAllGroupedBy:nil sortedBy:@"linkManId" ascending:YES withPredicate:predicate delegate:self incontext:[CoreDataStack sharedCoreDataStack].context];
 }
+
+
+#pragma mark - MBProgressHUD Delegate
+- (void)hudWasHidden:(MBProgressHUD *)hud2
+{
+    hud2 = nil;
+}
+
 
 #pragma mark - SSPUllToRefreshViewDelegate
 - (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view
@@ -307,7 +315,7 @@
     
     if (controlEffect.conclusionDesc || controlEffect.conclusion)
     {
-        cell.evaluateTextLabel.text = [NSString stringWithFormat:@"%@  %@",controlEffect.conclusion?controlEffect.conclusion:@"",controlEffect.conclusionDesc];
+        cell.evaluateTextLabel.text = [NSString stringWithFormat:@"%@  %@",controlEffect.conclusion?controlEffect.conclusion:@"",controlEffect.conclusionDesc?controlEffect.conclusionDesc:@""];
     }
     else
     {

@@ -18,10 +18,9 @@ static CGFloat cellEstimatedHeight = 200;
 
 static NSString *loadSize = @"15";
 
-@interface SendSuggestViewController ()<SSPullToRefreshViewDelegate,NSFetchedResultsControllerDelegate>
+@interface SendSuggestViewController ()<SSPullToRefreshViewDelegate,NSFetchedResultsControllerDelegate,MBProgressHUDDelegate>
 {
     MBProgressHUD *hud;
-    
 }
 
 @property (strong, nonatomic) SSPullToRefreshView *refreshView;
@@ -188,6 +187,14 @@ static NSString *loadSize = @"15";
     [[self.myTextView layer] setBorderColor:[[[UIColor lightGrayColor] colorWithAlphaComponent:0.5] CGColor]];
     [[self.myTextView layer] setBorderWidth:1.0];
 }
+
+
+#pragma mark - MBProgressHUD Delegate
+- (void)hudWasHidden:(MBProgressHUD *)hud2
+{
+    hud2 = nil;
+}
+
 
 #pragma mark - dataOperation
 - (void)refreshData

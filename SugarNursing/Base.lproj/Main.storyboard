@@ -96,27 +96,31 @@
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="messagePoint" translatesAutoresizingMaskIntoConstraints="NO" id="bMG-jk-KQT">
+                                                    <rect key="frame" x="143" y="26" width="20" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="20" id="acR-cP-6yq"/>
+                                                        <constraint firstAttribute="height" constant="20" id="c4w-fa-Zuy"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="9WT-In-FLC" firstAttribute="leading" secondItem="P26-oj-oEd" secondAttribute="leading" constant="30" id="1zt-BP-SbY"/>
                                                 <constraint firstItem="9WT-In-FLC" firstAttribute="top" secondItem="P26-oj-oEd" secondAttribute="top" constant="10" id="64g-q3-3AX"/>
                                                 <constraint firstItem="mA9-sO-DUJ" firstAttribute="leading" secondItem="9WT-In-FLC" secondAttribute="trailing" constant="15" id="7tA-Eh-MgC"/>
-                                                <constraint firstAttribute="centerY" secondItem="9WT-In-FLC" secondAttribute="centerY" id="Ybj-ee-euQ"/>
+                                                <constraint firstItem="mA9-sO-DUJ" firstAttribute="centerY" secondItem="bMG-jk-KQT" secondAttribute="centerY" id="9dW-4s-TRg"/>
+                                                <constraint firstItem="bMG-jk-KQT" firstAttribute="leading" secondItem="mA9-sO-DUJ" secondAttribute="trailing" constant="20" id="U8g-5K-Ogz"/>
                                                 <constraint firstAttribute="bottom" secondItem="9WT-In-FLC" secondAttribute="bottom" constant="10" id="hKG-Dz-S5i"/>
                                                 <constraint firstAttribute="centerY" secondItem="mA9-sO-DUJ" secondAttribute="centerY" id="iPg-jl-UvA"/>
                                             </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="Ybj-ee-euQ"/>
-                                                </mask>
-                                            </variation>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <inset key="separatorInset" minX="15" minY="0.0" maxX="100" maxY="0.0"/>
                                         <connections>
                                             <outlet property="LeftMenuIcon" destination="9WT-In-FLC" id="mZm-kE-7fK"/>
                                             <outlet property="LeftMenuLabel" destination="mA9-sO-DUJ" id="EQy-Dj-nBA"/>
+                                            <outlet property="leftMenuMsgPoint" destination="bMG-jk-KQT" id="tzd-jS-0aA"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -189,6 +193,7 @@
     <resources>
         <image name="IconHome" width="32" height="32"/>
         <image name="Stars" width="320" height="568"/>
+        <image name="messagePoint" width="141" height="141"/>
         <image name="thumbDefault" width="80" height="80"/>
     </resources>
 </document>

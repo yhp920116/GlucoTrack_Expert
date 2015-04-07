@@ -21,7 +21,7 @@ static CGFloat kEstimateCellHeight = 100.0;
 static NSString *identifier = @"RecoveryLog_Cell";
 
 
-@interface RecoveryLogViewController ()<SSPullToRefreshViewDelegate,NSFetchedResultsControllerDelegate,RMDateSelectionViewControllerDelegate>
+@interface RecoveryLogViewController ()<SSPullToRefreshViewDelegate,NSFetchedResultsControllerDelegate,RMDateSelectionViewControllerDelegate,MBProgressHUDDelegate>
 {
     MBProgressHUD *hud;
 }
@@ -73,7 +73,7 @@ static NSString *identifier = @"RecoveryLog_Cell";
     
     SendSuggestViewController *vc = [[UIStoryboard myPatientStoryboard] instantiateViewControllerWithIdentifier:@"SendAdvice"];
     vc.linkManId = self.linkManId;
-    if ([NSProcessInfo instancesRespondToSelector:@selector(isOperatingSystemAtLeastVersion:)]) {
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
         [self showViewController:vc sender:nil];
     }
     else
@@ -101,6 +101,12 @@ static NSString *identifier = @"RecoveryLog_Cell";
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"linkManId = %@ && time > %@ && time < %@ && logType in %@",self.linkManId,formerDate,laterDate,self.logTypeArray];
     self.fetchController = [RecordLog fetchAllGroupedBy:nil sortedBy:@"time" ascending:NO withPredicate:predicate delegate:self incontext:[CoreDataStack sharedCoreDataStack].context];
+}
+
+#pragma mark - MBProgressHUD Delegate
+- (void)hudWasHidden:(MBProgressHUD *)hud2
+{
+    hud2 = nil;
 }
 
 
@@ -514,10 +520,12 @@ static NSString *identifier = @"RecoveryLog_Cell";
     
     [self configureFetchedResultsController];
     [self.myTableView reloadData];
-//    if (self.fetchController.fetchedObjects.count <= 0)
-//    {
+    [self configureTableViewFooterView];
+    
+    if (self.refreshView)
+    {
         [self.refreshView startLoadingAndExpand:YES animated:YES];
-//    }
+    }
 }
 
 
